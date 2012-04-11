@@ -1,0 +1,12 @@
+Puzzling: A Social Network for Puzzle Solvers
+Jonathan Tilley, Peter Livesey, Jim Zheng
+
+Dependencies:
+
+node.js (>= 0.6.7)
+mongoDB (>= 2.0.0)
+
+Node.js setup:
+This is an express app to test setup
+
+
