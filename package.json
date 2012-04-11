@@ -1,0 +1,38 @@
+{
+  "name": "Puzzling" , 
+  "description": "CS 194 Spring 2012",
+  "version": "0.0.1",
+  "private": true, 
+  
+  "dependencies": {
+    "express": "2.5.8" , 
+    "jade": ">= 0.0.1", 
+    "mongoose": ">=2.0", 
+    "socket.io":">=0.8.7"
+  },
+  
+  "contributors": [
+    {
+      "name": "Jim Zheng",
+      "email": "jim32990@gmail.com",
+      "web": ""
+    },
+    {
+      "name": "Jonathan Tilley",
+      "email": "javiertilley@gmail.com",
+      "web": ""
+    },
+    {
+      "name": "Peter Livesey",
+      "email": "plivesey@stanford.edu",
+      "web": ""
+    }
+  ],
+
+  "repositories": [
+    {
+      "type": "git",
+      "url": "git@github.com:jimZhenG/Puzzling.com.git "
+    }
+  ]
+}
