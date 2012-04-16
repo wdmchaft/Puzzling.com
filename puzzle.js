@@ -11,6 +11,7 @@
 // Fake user database
 
 var authentication = require('./authentication');
+var url = require('url');
 
 exports.create = function(req, res) {
 	if (authentication.verifyRequestAuthtoken(req, res) && authentication.verifyRequestAPIKey(req, res)) {
@@ -29,5 +30,32 @@ exports.create = function(req, res) {
 			res.send(returnValue);
 		}
 	}
-}
+};
+
+exports.puzzleSuggestion = function(req, res) {
+	if (authentication.verifyRequestAPIKey(req, res) && authentication.verifyRequestAuthtoken(req, res)) {
+		
+	}
+};
+
+exports.getPuzzle = function(req, res) {
+	if (authentication.verifyRequestAPIKey(req, res)) { //this does not require an authtoken. should it?
+		var puzzleID = req.params.id;
+		{//this is the asynchronous method that edits the database
+			var returnValue = { "puzzle_id" : puzzleID, "created_by" : "usrnm", "insert more info here such as rating, timestamp, solutiondata etc" : "moreInfo" }
+			res.send(returnValue);
+		}
+	}
+};
+
+exports.getUserPuzzles = function(req, res) {
+	if (authentication.verifyRequestAPIKey(req, res)) { //this doesn't need an api key
+		var username = req.params.id;
+		{//this is the asynchronous method that edits the database
+			//get all puzzle ids where username = username
+			var returnValue = [ 123213, 321314, 23121, 3231]; //list of puzzleids
+			res.send(returnValue);
+		}
+	}
+};
 

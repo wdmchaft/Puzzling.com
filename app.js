@@ -72,6 +72,8 @@ app.put('/user/:id/edit', user.update);
 //Puzzle
 
 app.post('/puzzle', puzzle.create);
+app.get('/puzzle/:id', puzzle.getPuzzle);
+app.get('/puzzle/user/:id', puzzle.getUserPuzzles);
 
 
 // Puzzling apps - Examples of POST / GET parameters
