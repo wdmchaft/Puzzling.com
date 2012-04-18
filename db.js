@@ -30,4 +30,6 @@ MyModel.find({}, function (err, docs) {
 
 exports.userModel = function() { //I think if you export each different model constructor, you can access anything you need to in the database
 	return MyModel;
-}
+};
+
+exports.puzzleModel = MyModel; //actually, does this work? If so it'll be clearer. Above you'd need to do new db.userModel()()
