@@ -7,7 +7,8 @@ var express = require('express')
   , routes = require('./routes')
   , papp = require('./routes/papp')
   , user = require('./user')
-  , puzzle = require('./puzzle');
+  , puzzle = require('./puzzle')
+  , db = require('./db');
 
 /* Creates an HTTP Server as our app variable.
  * To create HTTP, do the same but pass in a key.cert.
