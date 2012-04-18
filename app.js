@@ -72,6 +72,7 @@ app.put('/user/:id/edit', user.update);
 //Puzzle
 
 app.post('/puzzle', puzzle.create);
+app.post('/puzzle/:id', puzzle.takePuzzle);
 app.get('/puzzle/:id', puzzle.getPuzzle);
 app.get('/puzzle/user/:id', puzzle.getUserPuzzles);
 

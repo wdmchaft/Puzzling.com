@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-// This function checks a request for the correct user authentication. It returns true if they are verified.
+// This function checks a request for the correct user authentication. It returns true if they are verified. Note: it does not check to make sure they are correct values. It only checks to make sure they are not nil.
 
 var noAuthenticationString = "no_auth_token_found";
 var noAPIKeyString = "api_key_required";
