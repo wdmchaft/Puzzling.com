@@ -11,6 +11,7 @@
 var authentication = require('./authentication');
 var url = require('url');
 var glicko = require('./glicko');
+var db = require('./db');
 
 exports.create = function(req, res) {
 	if (authentication.verifyRequestAuthtoken(req, res) && authentication.verifyRequestAPIKey(req, res)) {
@@ -20,15 +21,22 @@ exports.create = function(req, res) {
 		var solutionData = req.body.solutionData;
 		var additionalData = req.body.additionalData;
 		var puzzleType = req.body.puzzleType;
+		var puzzleName = req.body.name;
+		var puzzleType = req.body.type;
 		
-		{ //this is the asynchronous method that edits the database
-			//make sure to verify authToken/api key
-			var puzzleID = 142421321; //this should be fetched from the database (max(id)+1)
-			var username = "ExampleUsername"; //this also needs to be fetched by the database using the authToken. Return error if doesn't exist.
-			//Upload puzzle to database
-			var returnValue = { "puzzle_id" : puzzleID, "created_by" : username, "insert more info here such as rating, timestamp, etc" : "moreInfo", "solutionData" : solutionData, "setupData" : setupData, "additionalData" : additionalData };
-			res.send(returnValue);
-		}
+		var puzzleInstance = new db.puzzleModel();
+		puzzleInstance.name = puzzleName;
+		puzzleInstance.creator = "peter";
+		puzzleInstance.data = setupData;
+		puzzleInstance.solution = solutionData;
+		puzzleInstance.type = puzzleType;
+		puzzleInstance.likes = 0;
+		puzzleInstance.dislikes = 0;
+		puzzleInstance.taken = 0;
+		puzzleInstance.timestamp = new Date();
+		puzzleInstance.rating = 1500;
+		
+		
 	}
 };
 

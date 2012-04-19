@@ -13,23 +13,95 @@ var DATABASE_NAME = 'test'; //I think if you have a new database name, you creat
 var mongoose = require('mongoose');
 var db = mongoose.connect('mongodb://localhost/' + DATABASE_NAME);
 var Schema = mongoose.Schema
-, ObjectId = Schema.ObjectId;
+, ObjectID = Schema.ObjectId;
 
-var simple = new Schema({
-						  a    : String });
-var MyModel = mongoose.model('simple', simple); //I cannot work out what the name of the model does.
-var instance = new MyModel();
-instance.a = 'hello';
-instance.save(function (err) {
-			  //
-			  });
+App = new Schema({
+				 puzzles : [ObjectID]
+				 ,	user : [ObjectID]
+				 ,	name : String
+				 ,	apiKey : String
+				 });
 
-MyModel.find({}, function (err, docs) {
-			 console.log(docs);
-});
+FriendRequest = new Schema({
+						   to : ObjectID
+						   ,	from : ObjectID
+//						   ,	value : { type:String, enum: [“1to2”, “2to1”, “confirmed”] } //don't know why but this doesnt compile
+						   });
 
-exports.userModel = function() { //I think if you export each different model constructor, you can access anything you need to in the database
-	return MyModel;
-};
+User = new Schema({
+				  name : String
+				  ,	userID : ObjectID			/* For unique id name could change*/
+				  ,	password : String
+				  ,	authToken : String
+				  ,	friendRequests : [FriendRequest]	/* requests */
+				  ,	friends : [ObjectID]
+				  ,	rating : Number				/* Ability at puzzles */
+				  });
 
-exports.puzzleModel = MyModel; //actually, does this work? If so it'll be clearer. Above you'd need to do new db.userModel()()
+Puzzle = new Schema({
+					name : String
+					,	creator: ObjectID		
+					,	meta : String			/* JSON; additional metadata */
+					,	data : String			/* JSON of puzzle’s main data */
+					,	solution: String			/* JSON of solution */
+					,	type : String		/* user-defined enum */
+					,	likes : Number			/* number of upvotes */
+					, 	dislikes : Number			/* number of downvotes */
+					,	taken : Number			/* rating == (likes / taken) */
+					, 	timestamp : Date			/* date created */
+					,	rating : Number			/* difficulty rating */
+					});
+
+PuzzleAdditionalData = new Schema({
+								  puzzle : ObjectID
+								  ,	creator : ObjectID		
+								  ,	value : String			/* JSON Data */
+								  ,	timestamp : Date
+								  });
+
+Score = new Schema({
+				   user : ObjectID
+				   ,	puzzle : ObjectID
+				   ,	value: Number
+				   ,	timestamp : Date
+				   ,	timeTaken : Date			/* time difference */
+				   });
+
+Comment = new Schema({
+					 user : ObjectID
+					 ,	puzzle : ObjectID
+					 ,	value : String
+					 ,	timestamp : Date
+					 });
+
+Message = new Schema({
+					 to : ObjectID
+					 ,	from : ObjectID
+					 ,	value : String
+					 ,	timestamp : Date
+					 });
+
+//All the names of collections must end in s. Otherwise, they add one for you.
+exports.AppModel = mongoose.model('apps', App);
+exports.FriendRequestModel = mongoose.model('friend_requests', FriendRequest);
+exports.PuzzleModel = mongoose.model('puzzles', Puzzle);
+
+//var simple = new Schema({
+//						  a    : String });
+//var MyModel = mongoose.model('simples', simple); //I cannot work out what the name of the model does.
+//var instance = new MyModel();
+//instance.a = 'hello';
+//instance.save(function (err) {
+//			  //
+//			  });
+//
+//MyModel.find({}, function (err, docs) {
+//			 console.log(docs);
+//});
+//
+//exports.userModel = function() { //I think if you export each different model constructor, you can access anything you need to in the database
+//	return MyModel;
+//};
+//
+//exports.puzzleModel = MyModel; //actually, does this work? If so it'll be clearer. Above you'd need to do new db.userModel()()
+//
