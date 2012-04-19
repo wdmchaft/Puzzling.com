@@ -42,8 +42,8 @@ Puzzle = new Schema({
 					name : String
 					,	creator: ObjectID		
 					,	meta : String			/* JSON; additional metadata */
-					,	data : String			/* JSON of puzzle’s main data */
-					,	solution: String			/* JSON of solution */
+					,	setupData : String			/* JSON of puzzle’s main data */
+					,	solutionData: String			/* JSON of solution */
 					,	type : String		/* user-defined enum */
 					,	likes : Number			/* number of upvotes */
 					, 	dislikes : Number			/* number of downvotes */

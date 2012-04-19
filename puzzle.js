@@ -24,11 +24,10 @@ exports.create = function(req, res) {
 		var puzzleName = req.body.name;
 		var puzzleType = req.body.type;
 		
-		var puzzleInstance = new db.puzzleModel();
+		var puzzleInstance = new db.PuzzleModel();
 		puzzleInstance.name = puzzleName;
-		puzzleInstance.creator = "peter";
-		puzzleInstance.data = setupData;
-		puzzleInstance.solution = solutionData;
+		puzzleInstance.setupData = JSON.stringify(setupData);
+		puzzleInstance.solutionData = JSON.stringify(solutionData);
 		puzzleInstance.type = puzzleType;
 		puzzleInstance.likes = 0;
 		puzzleInstance.dislikes = 0;
@@ -36,7 +35,16 @@ exports.create = function(req, res) {
 		puzzleInstance.timestamp = new Date();
 		puzzleInstance.rating = 1500;
 		
-		
+		puzzleInstance.save(function(err) {
+			if (err) {
+				res.statusCode = 500;
+				res.send( { statusCode: 500, error : err} );
+			} else {
+				puzzleInstance.setupData = setupData; //was a string before
+				puzzleInstance.solutionData = solutionData;
+				res.send(puzzleInstance);
+			}
+		});
 	}
 };
 
