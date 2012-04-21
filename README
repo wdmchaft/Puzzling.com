@@ -10,3 +10,11 @@ Node.js setup:
 This is an express app to test setup
 
 
+To run MongoDB
+
+One time only:
+$ sudo mkdir -p /data/db/
+$ sudo chown `id -u` /data/db
+
+Then each time:
+sudo ./mongodb-osx-x86_64-2.0.4/bin/mongod

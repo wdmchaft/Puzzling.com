@@ -6,7 +6,9 @@
 var express = require('express')
   , routes = require('./routes')
   , papp = require('./routes/papp')
-  , user = require('./user');
+  , user = require('./user')
+  , puzzle = require('./puzzle')
+  , db = require('./db');
 
 /* Creates an HTTP Server as our app variable.
  * To create HTTP, do the same but pass in a key.cert.
@@ -17,8 +19,8 @@ var app = module.exports = express.createServer();
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
-  // app.set('view engine', 'ejs');
+  //app.set('view engine', 'jade');
+  app.set('view engine', 'ejs');
 
   /* Middlewares */
   app.use(express.bodyParser());
@@ -67,6 +69,14 @@ app.get('/user/:id', user.view);
 app.get('/user/:id/view', user.view);
 app.get('/user/:id/edit', user.edit);
 app.put('/user/:id/edit', user.update);
+
+//Puzzle
+
+app.post('/puzzle', puzzle.create);
+app.post('/puzzle/:id', puzzle.takePuzzle);
+app.get('/puzzle/:id', puzzle.getPuzzle);
+app.get('/puzzle/user/:id', puzzle.getUserPuzzles);
+
 
 // Puzzling apps - Examples of POST / GET parameters
 
