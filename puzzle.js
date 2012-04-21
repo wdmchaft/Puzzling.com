@@ -14,93 +14,150 @@ var glicko = require('./glicko');
 var db = require('./db');
 
 exports.create = function(req, res) {
-	if (authentication.verifyRequestAuthtoken(req, res) && authentication.verifyRequestAPIKey(req, res)) {
-		var authToken = req.headers.puzzle_auth_token;
-		var apiKey = req.headers.puzzle_api_key;
-		var setupData = req.body.setupData;
-		var solutionData = req.body.solutionData;
-		var additionalData = req.body.additionalData;
-		var puzzleType = req.body.puzzleType;
-		var puzzleName = req.body.name;
-		var puzzleType = req.body.type;
-		
-		var puzzleInstance = new db.PuzzleModel();
-		puzzleInstance.name = puzzleName;
-		puzzleInstance.setupData = JSON.stringify(setupData);
-		puzzleInstance.solutionData = JSON.stringify(solutionData);
-		puzzleInstance.type = puzzleType;
-		puzzleInstance.likes = 0;
-		puzzleInstance.dislikes = 0;
-		puzzleInstance.taken = 0;
-		puzzleInstance.timestamp = new Date();
-		puzzleInstance.rating = 1500;
-		
-		puzzleInstance.save(function(err) {
-			if (err) {
-				res.statusCode = 500;
-				res.send( { statusCode: 500, error : err} );
-			} else {
-				puzzleInstance.setupData = setupData; //was a string before
-				puzzleInstance.solutionData = solutionData;
-				res.send(puzzleInstance);
-			}
-		});
-	}
+	authentication.verifyRequestAuthtokenAndAPI(req, res, function(success, user) {
+		if (success) {
+			var setupData = req.body.setupData;
+			var solutionData = req.body.solutionData;
+			var additionalData = req.body.additionalData;
+			var puzzleType = req.body.puzzleType;
+			var puzzleName = req.body.name;
+			var puzzleType = req.body.type;
+			
+			var puzzleInstance = new db.PuzzleModel();
+			puzzleInstance.name = puzzleName;
+			puzzleInstance.setupData = JSON.stringify(setupData);
+			puzzleInstance.solutionData = JSON.stringify(solutionData);
+			puzzleInstance.type = puzzleType;
+			puzzleInstance.likes = 0;
+			puzzleInstance.dislikes = 0;
+			puzzleInstance.taken = 0;
+			puzzleInstance.timestamp = new Date();
+			puzzleInstance.rating = 1500;
+			puzzleInstance.rd = 350;
+			puzzleInstance.creator = user._id;
+			puzzleInstance.save(function(err) {
+				if (err) {
+					res.statusCode = 500;
+					res.send( { statusCode: 500, error : err} );
+				} else {
+					var returnData = req.body;
+					returnData.puzzle_id = puzzleInstance._id;
+					returnData.creator = puzzleInstance.creator;
+					returnData.timestamp = puzzleInstance.timestamp;
+					returnData.likes = puzzleInstance.likes;
+					returnData.dislikes = puzzleInstance.dislikes;
+					returnData.rating = puzzleInstance.rating;
+					res.send(returnData);
+				}
+			});
+		}
+	});
 };
 
 exports.puzzleSuggestion = function(req, res) {
-	if (authentication.verifyRequestAPIKey(req, res) && authentication.verifyRequestAuthtoken(req, res)) {
-		var authToken = req.headers.puzzle_auth_token;
-		var apiKey = req.headers.puzzle_api_key;
-		
-	}
+	authentication.verifyRequestAuthtokenAndAPI(req, res, function(success, user) {
+		if (success) {
+			
+		}
+	});
 };
 
 exports.getPuzzle = function(req, res) {
-	if (authentication.verifyRequestAPIKey(req, res)) { //this does not require an authtoken. should it?
-		var puzzleID = req.params.id;
-		var apiKey = req.headers.puzzle_api_key;
-		{//this is the asynchronous method that edits the database
-			//make sure to verify api key
-			var returnValue = { "puzzle_id" : puzzleID, "created_by" : "usrnm", "insert more info here such as rating, timestamp, solutiondata etc" : "moreInfo" }
-			res.send(returnValue);
+	authentication.verifyRequestAuthtokenAndAPI(req, res, function(success, user) {
+		if (success) {
+			var puzzleID = req.params.id;
+			db.PuzzleModel.findOne( { "_id": puzzleID }, function(err, doc) {
+				if (err) {
+					res.statusCode = 500;
+					res.send( { statusCode: 500, error : err} );
+				} else if (doc == null) {
+					res.statusCode = 400;
+					res.send( {statusCode: 400, error: "no_such_puzzle_exists" } );
+				} else {
+					res.send(doc);
+				}
+			});
 		}
-	}
+	});
 };
 
 exports.getUserPuzzles = function(req, res) {
-	if (authentication.verifyRequestAPIKey(req, res)) { //this doesn't need an api key
-		var username = req.params.id;
-		var apiKey = req.headers.puzzle_api_key;
-		{//this is the asynchronous method that edits the database
-			//make sure to verify api key
-			//get all puzzle ids where username = username
-			var returnValue = [123213, 321314, 23121, 3231]; //list of puzzleids
-			res.send(returnValue);
+	authentication.verifyRequestAuthtokenAndAPI(req, res, function(success, user) {
+		if (success) {
+			var user_id = req.params.id;
+			db.UserModel.findOne( { "_id": user_id }, function(err, doc) {
+				if (err) {
+					res.statusCode = 500;
+					res.send( { statusCode: 500, error : err} );
+				} else if (doc == null) {
+					res.statusCode = 400;
+					res.send( {statusCode: 400, error: "no_such_puzzle_exists" } );
+				} else {
+					db.PuzzleModel.find( { "creator" : doc._id }, function(err, docs) {
+						if (err) {
+							res.statusCode = 500;
+							res.send( { statusCode: 500, error : err} );
+						} else {
+							res.send(docs);
+						}
+					});
+				}
+			});
 		}
-	}
+	});
 };
 
 exports.takePuzzle = function(req, res) {
-	if (authentication.verifyRequestAPIKey(req, res) && authentication.verifyRequestAuthtoken(req, res)) {
-		var puzzleID = req.params.id;
-		var apiKey = req.headers.puzzle_api_key;
-		{//this is the asynchronous method that edits the database
-			//make sure to verify api key
-			//enter the data
-			//update rating.
-			var playerRating = 1500;
-			var puzzleRating = 1500;
-			var playerRD = 350;
-			var puzzleRD = 30;
-			var score = 1;
-			var newPlayerRating = glicko.newRating(playerRating, puzzleRating, playerRD, puzzleRD, score);
-			var newPuzzleRating = glicko.newRating(puzzleRating, playerRating, puzzleRD, playerRD, 1-score);
-			var newPlayerRD = glicko.newRD(playerRating, puzzleRating, playerRD, puzzleRD, score, false);
-			var newPuzzleRD = glicko.newRD(puzzleRating, playerRating, puzzleRD, playerRD, 1-score, true);
-			var returnValue = { "newPlayerRating" : newPlayerRating, "newPuzzleRating" : newPuzzleRating, "newPlayerRD": newPlayerRD, "newPuzzleRD" : newPuzzleRD };
-			res.send(returnValue);
+	authentication.verifyRequestAuthtokenAndAPI(req, res, function(success, user) {
+		if (success) {
+			var playerRating = user.rating;
+			var puzzleID = req.body.puzzle_id;
+			if (!puzzleID) {
+				res.statusCode = 400;
+				res.send( {statusCode: 400, error: "no_puzzle_id_included" } );
+			} else {
+				db.PuzzleModel.findOne( { "_id": puzzleID }, function(err, doc) {
+					if (err) {
+						res.statusCode = 500;
+						res.send( { statusCode: 500, error : err} );
+					} else if (doc == null) {
+						res.statusCode = 400;
+						res.send( {statusCode: 400, error: "no_such_puzzle_exists" } );
+					} else {
+						var puzzleRating = doc.rating;
+						var puzzleRD = doc.rd;
+						var playerRD = user.rd;
+						var score = req.body.score;
+						var newPlayerRating = glicko.newRating(playerRating, puzzleRating, playerRD, puzzleRD, score);
+						var newPuzzleRating = glicko.newRating(puzzleRating, playerRating, puzzleRD, playerRD, 1-score);
+						var newPlayerRD = glicko.newRD(playerRating, puzzleRating, playerRD, puzzleRD, score, false);
+						var newPuzzleRD = glicko.newRD(puzzleRating, playerRating, puzzleRD, playerRD, 1-score, true);
+						
+						doc.rd = newPuzzleRD;
+						doc.rating = newPuzzleRating;
+						user.rd = newPlayerRD;
+						user.rating = newPlayerRating;
+						
+						user.save(function(err) {
+							if (err) {
+								res.statusCode = 500;
+								res.send( { statusCode: 500, error : err} );
+							} else {
+								doc.save(function(err) {
+									if (err) {
+										res.statusCode = 500;
+										res.send( { statusCode: 500, error : err} );
+									} else {
+										var returnValue = { "newPlayerRating" : newPlayerRating, "newPuzzleRating" : newPuzzleRating, "newPlayerRD": newPlayerRD, "newPuzzleRD" : newPuzzleRD };
+										res.send(returnValue);
+									}
+								});
+							}
+						});
+					}
+				});
+			}
 		}
-	}
+	});
 }
 

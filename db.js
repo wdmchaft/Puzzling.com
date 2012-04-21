@@ -30,16 +30,17 @@ FriendRequest = new Schema({
 
 User = new Schema({
 				  name : String
-				  ,	userID : ObjectID			/* For unique id name could change*/
+				  ,	userID : ObjectID			/* For unique id name could change*/ /* QUESTION: HOW DO YOU SET THIS. SHOULD THIS JUST BE THE _id WHICH COMES WITH THE OBJECT? */
 				  ,	password : String
 				  ,	authToken : String
 				  ,	friendRequests : [FriendRequest]	/* requests */
 				  ,	friends : [ObjectID]
 				  ,	rating : Number				/* Ability at puzzles */
+					, rd : Number						/* Rating deviation */
 				  });
 
 Puzzle = new Schema({
-					name : String
+					puzzleID : ObjectID /* QUESTION: HOW DO YOU SET THIS. SHOULD THIS JUST BE THE _id WHICH COMES WITH THE OBJECT? */
 					,	creator: ObjectID		
 					,	meta : String			/* JSON; additional metadata */
 					,	setupData : String			/* JSON of puzzle’s main data */
@@ -50,6 +51,7 @@ Puzzle = new Schema({
 					,	taken : Number			/* rating == (likes / taken) */
 					, 	timestamp : Date			/* date created */
 					,	rating : Number			/* difficulty rating */
+					, rd : Number						/* Rating deviation */
 					});
 
 PuzzleAdditionalData = new Schema({
@@ -85,6 +87,8 @@ Message = new Schema({
 exports.AppModel = mongoose.model('apps', App);
 exports.FriendRequestModel = mongoose.model('friend_requests', FriendRequest);
 exports.PuzzleModel = mongoose.model('puzzles', Puzzle);
+exports.UserModel = mongoose.model('users', User);
+exports.ObjectID = ObjectID;
 
 //var simple = new Schema({
 //						  a    : String });
