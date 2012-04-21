@@ -1,4 +1,13 @@
-//TILLEY:much better, will work with any number of calls made in sequence
+//////////////////////////////////////////////////
+//                                              //
+//               PUZZLING API                   //
+//                                              //
+//////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////
+//             API HANDLER CLASS                //
+//////////////////////////////////////////////////
 
 function APIHandler(url,params, method, callback){
     this.callback = callback;
@@ -48,7 +57,10 @@ APIHandler.prototype.wrap = function(obj, method) {
     }
 }
 
-//HELPER METHODS//
+//////////////////////////////////////////////////
+//              HELPER METHODS                  //
+//////////////////////////////////////////////////
+
 
 //http://www.dotnetfunda.com/articles/article763-serialize-object-in-javascript.aspx
 function serialize(obj){
@@ -101,17 +113,23 @@ function urlify(obj){
     return result.substring(0,result.length-1);
 }
 
-//
+//////////////////////////////////////////////////
+//                 CONSTANTS                    //
+//////////////////////////////////////////////////
 
 
-//CONSTANTS//
-
-var BASE_URL = "http://www.stanford.edu/~jtilley/cgi-bin";
-
-//END CONSTS//
+var BASE_URL = "ec2-184-169-151-249.us-west-1.compute.amazonaws.com";
 
 
-//API METHODS//
+//////////////////////////////////////////////////
+//                API METHODS                   //
+//////////////////////////////////////////////////
+
+
+    //////////////////////////////////////////////////
+    //                LOGIN METHODS                 //
+    //////////////////////////////////////////////////
+
 function getAuthTokenForUser(username, password, callback){
     var handler = new APIHandler("/login",
                                  {username: username, password:password},
@@ -119,6 +137,7 @@ function getAuthTokenForUser(username, password, callback){
                                  callback);
     handler.start();
 }
+
 
 function createUser(username, password, userdata, callback){
     var handler = new APIHandler("/login",
@@ -128,15 +147,34 @@ function createUser(username, password, userdata, callback){
     handler.start();
 }
 
-
-function getUser(uid, callback){
-    var handler = new APIHandler("http://www.stanford.edu/~jtilley/cgi-bin/phpinfo.php", "{uid:"+uid+"}", "POST", callback);
+function deleteUser(username, callback){
+    var handler = new APIHandler("/login",
+                                 {username: username},
+                                 "DELETE",
+                                 callback);
     handler.start();
 }
 
-function getPuzzle(puzzleid, callback){
-    var handler = new APIHandler("our/site/url/getPuzzle", "puzzzleid="+puzzleid, "POST", callback);
+    //////////////////////////////////////////////////
+    //          PUZZLE CREATION METHODS             //
+    //////////////////////////////////////////////////
+
+function createPuzzle(authToken, setupData, solutionData, additionalData, callback){
+    var handler = new APIHandler("/puzzle",
+                                 {authToken:authToken, setupData:setupData, solutionData:solutionData, additionalData:additionalData},
+                                 "POST",
+                                 callback);
     handler.start();
 }
 
-//END API METHODS//
+    //////////////////////////////////////////////////
+    //          USER INTERACTION METHODS            //
+    //////////////////////////////////////////////////
+    
+function takePuzzle(userID,authToken, puzzleID, score, callback){
+    var handler = new APIHandler("/puzzle/"+userID  ,
+                                 {authToken:authToken, puzzleID:puzzleID, score:score},
+                                 "POST",
+                                 callback);
+    handler.start();
+}
