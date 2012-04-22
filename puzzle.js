@@ -54,10 +54,51 @@ exports.create = function(req, res) {
 	});
 };
 
+var pickRandomPuzzle = function(weightedDocs, weightedTotal) {
+	var random = Math.random()*weightedTotal;
+	console.log('random: ' + random);
+	for (var i = 0; i<weightedDocs.length; i++) {
+		random = random - weightedDocs[i].weight;
+		console.log('new random: ' + random);
+		if (random <= 0) {
+			console.log('returning');
+			return weightedDocs[i].puzzle;
+		}
+	}
+	return null;
+};
+
+var minRatingDifference = 300;
+var userLikesWeight = 10;
+
+//TODO: Error messages, no docs returned, check user has not taken or created the puzzle
 exports.puzzleSuggestion = function(req, res) {
 	authentication.verifyRequestAuthtokenAndAPI(req, res, function(success, user) {
 		if (success) {
-			
+			var userRating = user.rating;
+			db.PuzzleModel.where('rating').gte(userRating-minRatingDifference).lte(userRating+minRatingDifference).run(function(err, docs) {
+				if (docs.length == 0 || docs == null) {
+					
+				} else {
+					var weightedDocs = [];
+					var weightedTotal = 0;
+					for (var i = 0; i<docs.length; i++) {
+						var puzzle = docs[i];
+						var container = {};
+						container.puzzle = puzzle;
+						if (puzzle.taken == 0) {
+							container.weight = Math.abs(puzzle.rating-user.rating)/minRatingDifference;
+						} else {
+							container.weight = Math.abs(puzzle.rating-user.rating)/minRatingDifference + Math.min(1, userLikesWeight*(puzzle.likes-puzzle.dislikes)/puzzle.taken);
+						}
+						weightedTotal += container.weight;
+						console.log("weight: ", container.weight);
+						weightedDocs.push(container);
+					}
+					var puzzle = pickRandomPuzzle(weightedDocs, weightedTotal);
+					res.send(puzzle);
+				}
+			});
 		}
 	});
 };
