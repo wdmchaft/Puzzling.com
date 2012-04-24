@@ -1,3 +1,5 @@
+
+*.xcuserstate
 .idea
 node_modules
 SDK/ios/PuzzlingSDK/PuzzlingSDK.xcodeproj/xcuserdata/*
