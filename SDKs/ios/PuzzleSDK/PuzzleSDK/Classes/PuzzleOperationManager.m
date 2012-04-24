@@ -10,7 +10,7 @@
 #import "GetPuzzleOperation.h"
 
 
-@interface PuzzleOperationManager() {
+@interface PuzzleOperationManager() <PuzzleOperationDelegate> {
     NSOperationQueue *puzzle_queue;
 }
 
@@ -31,7 +31,7 @@
 }
 
 - (void)getPuzzleForID:(PuzzleID *)puzzleID {
-	GetPuzzleOperation * operation = [[GetPuzzleOperation alloc] init];
+	GetPuzzleOperation * operation = [[GetPuzzleOperation alloc] initWithPuzzleID:@"4f9204c648a71e7312000003" delegate:self];
 	[self.queue addOperation:operation];
 }
 
