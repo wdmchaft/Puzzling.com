@@ -20,6 +20,7 @@
 		70AA229B1546457300011F3B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AA229A1546457300011F3B /* main.m */; };
 		70AA229F1546457300011F3B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AA229E1546457300011F3B /* AppDelegate.m */; };
 		70AA22AE1546463F00011F3B /* server.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AA22AD1546463F00011F3B /* server.m */; };
+		70CE9FCE154650F800B65FE2 /* CreateUserOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 70CE9FCD154650F800B65FE2 /* CreateUserOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,8 @@
 		70AA229E1546457300011F3B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		70AA22AC1546463F00011F3B /* server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = server.h; sourceTree = "<group>"; };
 		70AA22AD1546463F00011F3B /* server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = server.m; sourceTree = "<group>"; };
+		70CE9FCC154650F800B65FE2 /* CreateUserOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateUserOperation.h; path = Classes/PuzzleOperations/CreateUserOperation.h; sourceTree = "<group>"; };
+		70CE9FCD154650F800B65FE2 /* CreateUserOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateUserOperation.m; path = Classes/PuzzleOperations/CreateUserOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +100,8 @@
 			children = (
 				7014DC8E1546492D00344799 /* GetPuzzleOperation.h */,
 				7014DC8F1546492D00344799 /* GetPuzzleOperation.m */,
+				70CE9FCC154650F800B65FE2 /* CreateUserOperation.h */,
+				70CE9FCD154650F800B65FE2 /* CreateUserOperation.m */,
 			);
 			name = PuzzleOperations;
 			sourceTree = "<group>";
@@ -222,6 +227,7 @@
 				7014DC901546492D00344799 /* GetPuzzleOperation.m in Sources */,
 				3692A0D015464A2800D59C99 /* PuzzleSDK.m in Sources */,
 				3692A0DF15464AE400D59C99 /* PuzzleUser.m in Sources */,
+				70CE9FCE154650F800B65FE2 /* CreateUserOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PuzzleAPIKey.h"
+#import "PuzzleAPIURLFactory.h"
+
 
 @interface PuzzleOperation : NSOperation
 

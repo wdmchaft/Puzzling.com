@@ -11,5 +11,6 @@
 @interface PuzzleAPIURLFactory : NSObject
 
 + (NSURL*)urlForGetPuzzle:(NSString*)puzzleID;
++ (NSURL*)urlForCreateUser;
 
 @end

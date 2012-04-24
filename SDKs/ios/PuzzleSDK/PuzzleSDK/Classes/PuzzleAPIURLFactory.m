@@ -14,6 +14,8 @@
 + (NSURL*)urlForGetPuzzle:(NSString*)puzzleID{
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle/%@",ROOT,puzzleID]];
 }
-
++ (NSURL*)urlForCreateUser{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/login",ROOT]];
+}
 
 @end

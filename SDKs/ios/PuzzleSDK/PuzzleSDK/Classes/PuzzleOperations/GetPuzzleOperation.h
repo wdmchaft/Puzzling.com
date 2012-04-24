@@ -11,4 +11,5 @@
 @interface GetPuzzleOperation : PuzzleOperation
 
 -(id)initWithPuzzleID:(NSString*)puzzleID delegate:(id<PuzzleOperationDelegate>) delegate;
+
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "GetPuzzleOperation.h"
-#import "PuzzleAPIURLFactory.h"
 
 @interface GetPuzzleOperation() {
     NSString* puzzle_ID;

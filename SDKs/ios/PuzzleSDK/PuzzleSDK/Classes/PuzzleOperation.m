@@ -7,6 +7,7 @@
 //
 
 #import "PuzzleOperation.h"
+#import "PuzzleUser.h"
 
 
 @interface PuzzleOperation() <NSURLConnectionDelegate> {
@@ -27,6 +28,8 @@
 
 - (NSMutableURLRequest *)httpRequest {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self url]];
+    [request addValue:API_KEY forHTTPHeaderField:@"puzzle_api_key"];
+    [request addValue:@"token" forHTTPHeaderField:@"puzzle_auth_token"];
     return request;
 }
 
