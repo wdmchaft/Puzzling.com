@@ -10,6 +10,6 @@
 
 @interface PuzzleAPIURLFactory : NSObject
 
-//- (NSURL*)urlForGetPuzzle:(PuzzleID*)puzzleID;
++ (NSURL*)urlForGetPuzzle:(NSString*)puzzleID;
 
 @end

@@ -29,6 +29,7 @@
 		7014DC841546491000344799 /* PuzzleOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleOperationManager.m; path = Classes/PuzzleOperationManager.m; sourceTree = "<group>"; };
 		7014DC8E1546492D00344799 /* GetPuzzleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetPuzzleOperation.h; path = Classes/PuzzleOperations/GetPuzzleOperation.h; sourceTree = "<group>"; };
 		7014DC8F1546492D00344799 /* GetPuzzleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetPuzzleOperation.m; path = Classes/PuzzleOperations/GetPuzzleOperation.m; sourceTree = "<group>"; };
+		703F1A2415464D9E003BAD29 /* PuzzleAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleAPIKey.h; path = Classes/PuzzleAPIKey.h; sourceTree = "<group>"; };
 		70AA228A1546457200011F3B /* PuzzleSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PuzzleSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70AA228E1546457200011F3B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		70AA22901546457200011F3B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -67,6 +68,7 @@
 				7014DC821546491000344799 /* PuzzleOperation.m */,
 				7014DC831546491000344799 /* PuzzleOperationManager.h */,
 				7014DC841546491000344799 /* PuzzleOperationManager.m */,
+				703F1A2415464D9E003BAD29 /* PuzzleAPIKey.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
