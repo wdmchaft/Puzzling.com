@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "PuzzleAPIKey.h"
 #import "PuzzleAPIURLFactory.h"
+#import "PuzzleSDK.h"
 
 
 @interface PuzzleOperation : NSOperation
 
+- (id)initWithOnCompletionBlock:(PuzzleOnCompletionBlock)onCompletionBlock;
 - (NSMutableURLRequest *)httpRequest;
 - (NSURL *)url;
 

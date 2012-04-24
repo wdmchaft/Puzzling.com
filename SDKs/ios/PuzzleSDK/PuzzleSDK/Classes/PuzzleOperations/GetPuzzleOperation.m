@@ -8,6 +8,7 @@
 
 #import "GetPuzzleOperation.h"
 
+
 @interface GetPuzzleOperation() {
     NSString* puzzle_ID;
 }
@@ -15,8 +16,8 @@
 
 @implementation GetPuzzleOperation
 
--(id)initWithPuzzleID:(NSString*)puzzleID delegate:(id<PuzzleOperationDelegate>)delegate{
-    self = [super init];
+-(id)initWithPuzzleID:(NSString*)puzzleID onCompletionBlock:(PuzzleOnCompletionBlock)block delegate:(id<PuzzleOperationDelegate>)delegate{
+    self = [super initWithOnCompletionBlock:block];
     if(self){
         puzzle_ID = puzzleID;
     }
