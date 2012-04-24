@@ -23,7 +23,7 @@
     
 }
 
-- (NSURLRequest *)httpRequest {
+- (NSMutableURLRequest *)httpRequest {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self url]];
     return request;
 }

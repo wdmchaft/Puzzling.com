@@ -7,7 +7,13 @@
 //
 
 #import "PuzzleAPIURLFactory.h"
+#define ROOT "http://localhost"
 
 @implementation PuzzleAPIURLFactory
+
++ (NSURL*)urlForGetPuzzle:(NSString*)puzzleID{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle/%@",ROOT,puzzleID]];
+}
+
 
 @end

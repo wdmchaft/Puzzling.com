@@ -10,7 +10,11 @@
 
 @interface PuzzleOperation : NSOperation
 
-- (NSURLRequest *)httpRequest;
+- (NSMutableURLRequest *)httpRequest;
 - (NSURL *)url;
+
+@end
+
+@protocol PuzzleOperationDelegate <NSObject>
 
 @end
