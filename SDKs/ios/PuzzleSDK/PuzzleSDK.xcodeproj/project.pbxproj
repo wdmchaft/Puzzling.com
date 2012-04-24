@@ -1,0 +1,274 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		70AA228F1546457200011F3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AA228E1546457200011F3B /* UIKit.framework */; };
+		70AA22911546457200011F3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AA22901546457200011F3B /* Foundation.framework */; };
+		70AA22931546457300011F3B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AA22921546457200011F3B /* CoreGraphics.framework */; };
+		70AA22991546457300011F3B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 70AA22971546457300011F3B /* InfoPlist.strings */; };
+		70AA229B1546457300011F3B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AA229A1546457300011F3B /* main.m */; };
+		70AA229F1546457300011F3B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AA229E1546457300011F3B /* AppDelegate.m */; };
+		70AA22AA1546462300011F3B /* Classes in Resources */ = {isa = PBXBuildFile; fileRef = 70AA22A91546462300011F3B /* Classes */; };
+		70AA22AE1546463F00011F3B /* server.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AA22AD1546463F00011F3B /* server.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		70AA228A1546457200011F3B /* PuzzleSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PuzzleSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		70AA228E1546457200011F3B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		70AA22901546457200011F3B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		70AA22921546457200011F3B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		70AA22961546457300011F3B /* PuzzleSDK-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PuzzleSDK-Info.plist"; sourceTree = "<group>"; };
+		70AA22981546457300011F3B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		70AA229A1546457300011F3B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		70AA229C1546457300011F3B /* PuzzleSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PuzzleSDK-Prefix.pch"; sourceTree = "<group>"; };
+		70AA229D1546457300011F3B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		70AA229E1546457300011F3B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		70AA22A91546462300011F3B /* Classes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Classes; sourceTree = "<group>"; };
+		70AA22AC1546463F00011F3B /* server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = server.h; sourceTree = "<group>"; };
+		70AA22AD1546463F00011F3B /* server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = server.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		70AA22871546457200011F3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70AA228F1546457200011F3B /* UIKit.framework in Frameworks */,
+				70AA22911546457200011F3B /* Foundation.framework in Frameworks */,
+				70AA22931546457300011F3B /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		70AA227F1546457200011F3B = {
+			isa = PBXGroup;
+			children = (
+				70AA22941546457300011F3B /* PuzzleSDK */,
+				70AA228D1546457200011F3B /* Frameworks */,
+				70AA228B1546457200011F3B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		70AA228B1546457200011F3B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				70AA228A1546457200011F3B /* PuzzleSDK.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		70AA228D1546457200011F3B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				70AA228E1546457200011F3B /* UIKit.framework */,
+				70AA22901546457200011F3B /* Foundation.framework */,
+				70AA22921546457200011F3B /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		70AA22941546457300011F3B /* PuzzleSDK */ = {
+			isa = PBXGroup;
+			children = (
+				70AA22AC1546463F00011F3B /* server.h */,
+				70AA22AD1546463F00011F3B /* server.m */,
+				70AA22A91546462300011F3B /* Classes */,
+				70AA229D1546457300011F3B /* AppDelegate.h */,
+				70AA229E1546457300011F3B /* AppDelegate.m */,
+				70AA22951546457300011F3B /* Supporting Files */,
+			);
+			path = PuzzleSDK;
+			sourceTree = "<group>";
+		};
+		70AA22951546457300011F3B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				70AA22961546457300011F3B /* PuzzleSDK-Info.plist */,
+				70AA22971546457300011F3B /* InfoPlist.strings */,
+				70AA229A1546457300011F3B /* main.m */,
+				70AA229C1546457300011F3B /* PuzzleSDK-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		70AA22891546457200011F3B /* PuzzleSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 70AA22A21546457300011F3B /* Build configuration list for PBXNativeTarget "PuzzleSDK" */;
+			buildPhases = (
+				70AA22861546457200011F3B /* Sources */,
+				70AA22871546457200011F3B /* Frameworks */,
+				70AA22881546457200011F3B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PuzzleSDK;
+			productName = PuzzleSDK;
+			productReference = 70AA228A1546457200011F3B /* PuzzleSDK.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		70AA22811546457200011F3B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 70AA22841546457200011F3B /* Build configuration list for PBXProject "PuzzleSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 70AA227F1546457200011F3B;
+			productRefGroup = 70AA228B1546457200011F3B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				70AA22891546457200011F3B /* PuzzleSDK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		70AA22881546457200011F3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70AA22991546457300011F3B /* InfoPlist.strings in Resources */,
+				70AA22AA1546462300011F3B /* Classes in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		70AA22861546457200011F3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70AA229B1546457300011F3B /* main.m in Sources */,
+				70AA229F1546457300011F3B /* AppDelegate.m in Sources */,
+				70AA22AE1546463F00011F3B /* server.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		70AA22971546457300011F3B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				70AA22981546457300011F3B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		70AA22A01546457300011F3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		70AA22A11546457300011F3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		70AA22A31546457300011F3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PuzzleSDK/PuzzleSDK-Prefix.pch";
+				INFOPLIST_FILE = "PuzzleSDK/PuzzleSDK-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		70AA22A41546457300011F3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PuzzleSDK/PuzzleSDK-Prefix.pch";
+				INFOPLIST_FILE = "PuzzleSDK/PuzzleSDK-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		70AA22841546457200011F3B /* Build configuration list for PBXProject "PuzzleSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70AA22A01546457300011F3B /* Debug */,
+				70AA22A11546457300011F3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		70AA22A21546457300011F3B /* Build configuration list for PBXNativeTarget "PuzzleSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70AA22A31546457300011F3B /* Debug */,
+				70AA22A41546457300011F3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 70AA22811546457200011F3B /* Project object */;
+}
