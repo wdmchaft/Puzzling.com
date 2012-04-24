@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "PuzzleSDK.h"
 
+
 @interface PuzzleOperationManager : NSObject
 
-- (void)getPuzzleForID:(PuzzleID *)puzzleID;
+- (void)getPuzzleForID:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
 
 @end

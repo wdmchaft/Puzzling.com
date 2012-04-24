@@ -11,16 +11,26 @@
 
 @interface PuzzleOperation() <NSURLConnectionDelegate> {
     NSURLConnection* puzzle_connection;
+	PuzzleOnCompletionBlock puzzle_onCompletion;
 }
-@property(nonatomic, readwrite, retain) NSURLConnection* connection; 
+@property (nonatomic, readwrite, retain) NSURLConnection* connection;
+@property (nonatomic, readwrite, copy) PuzzleOnCompletionBlock onCompletion;
 
 @end
 
 @implementation PuzzleOperation
 
-@synthesize connection = puzzle_connection;
+@synthesize connection = puzzle_connection, onCompletion = puzzle_onCompletion;
 
--(void) start{
+- (id)initWithOnCompletionBlock:(PuzzleOnCompletionBlock)onCompletionBlock {
+	self = [super init];
+	if (self) {
+		self.onCompletion = onCompletionBlock;
+	}
+	return self;
+}
+
+-(void) start {
     self.connection = [[[NSURLConnection alloc] initWithRequest:[self httpRequest] delegate:self] autorelease];
     
 }

@@ -30,7 +30,7 @@
     return self;
 }
 
-- (void)getPuzzleForID:(PuzzleID *)puzzleID {
+- (void)getPuzzleForID:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion {
 	GetPuzzleOperation * operation = [[GetPuzzleOperation alloc] initWithPuzzleID:@"4f9204c648a71e7312000003" delegate:self];
 	[self.queue addOperation:operation];
 }

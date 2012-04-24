@@ -45,7 +45,7 @@ PuzzleSDK * sharedInstance = nil;
 #pragma mark - Public Methods
 
 - (void)getPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion {
-	
+	[self.operationManager getPuzzleForID:puzzleID onCompletion:onCompletion];
 }
 
 @end
