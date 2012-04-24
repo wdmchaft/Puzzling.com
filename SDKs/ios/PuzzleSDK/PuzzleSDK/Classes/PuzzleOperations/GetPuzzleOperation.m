@@ -12,14 +12,17 @@
 @interface GetPuzzleOperation() {
     NSString* puzzle_ID;
 }
+@property (nonatomic,retain,readwrite) NSString* puzzleID;
 @end
 
 @implementation GetPuzzleOperation
 
+@synthesize puzzleID = puzzle_ID;
+
 -(id)initWithPuzzleID:(NSString*)puzzleID onCompletionBlock:(PuzzleOnCompletionBlock)block delegate:(id<PuzzleOperationDelegate>)delegate{
     self = [super initWithOnCompletionBlock:block];
     if(self){
-        puzzle_ID = puzzleID;
+        self.puzzleID = puzzleID;
     }
     return self;
 }
@@ -31,7 +34,7 @@
 }
 
 - (NSURL *)url {
-    return [PuzzleAPIURLFactory urlForGetPuzzle:puzzle_ID];
+    return [PuzzleAPIURLFactory urlForGetPuzzle:self.puzzleID];
 }
 
 

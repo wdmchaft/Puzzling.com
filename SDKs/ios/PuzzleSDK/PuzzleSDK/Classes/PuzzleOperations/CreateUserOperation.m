@@ -7,6 +7,9 @@
 //
 
 #import "CreateUserOperation.h"
+#define USER_NAME @"username"
+#define PASSWORD @"password"
+#define USER_DATA @"userdata"
 
 
 @interface CreateUserOperation() {
@@ -14,16 +17,25 @@
     NSString* user_password;
     NSDictionary* user_data;
 }
+@property (nonatomic, retain, readwrite) NSString* userName;
+@property (nonatomic, retain, readwrite) NSString* password;
+@property (nonatomic, retain, readwrite) NSDictionary* data;
+
 @end
 
 @implementation CreateUserOperation
 
+@synthesize userName = user_name;
+@synthesize password = user_password;
+@synthesize data = user_data;
+
+
 -(id)initWithUserName:(NSString*)userName password:(NSString*)password userData:(NSDictionary*)data delegate:(id<PuzzleOperationDelegate>) delegate{
     self = [super init];
     if(self){
-        user_name = userName;
-        user_password = password;
-        user_data = data;
+        self.userName = userName;
+        self.password = password;
+        self.data = data;
     }
     return self;
 }
@@ -31,6 +43,8 @@
 - (NSMutableURLRequest *)httpRequest {
     NSMutableURLRequest* request = [super httpRequest];
 	[request setHTTPMethod:@"POST"];
+    NSData* jsonData = [[NSDictionary dictionaryWithObjectsAndKeys:self.userName, USER_NAME, self.password, PASSWORD, self.data,USER_DATA, nil] JSONData];
+    [request setHTTPBody: jsonData];
     return request;
 }
 

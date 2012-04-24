@@ -10,6 +10,7 @@
 #import "PuzzleAPIKey.h"
 #import "PuzzleAPIURLFactory.h"
 #import "PuzzleSDK.h"
+#import "JSONKit.h"
 
 
 @interface PuzzleOperation : NSOperation
