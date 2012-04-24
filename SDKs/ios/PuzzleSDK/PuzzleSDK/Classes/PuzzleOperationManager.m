@@ -31,7 +31,7 @@
 }
 
 - (void)getPuzzleForID:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion {
-	GetPuzzleOperation * operation = [[GetPuzzleOperation alloc] initWithPuzzleID:@"4f9204c648a71e7312000003" delegate:self];
+	GetPuzzleOperation * operation = [[GetPuzzleOperation alloc] initWithPuzzleID:puzzleID delegate:self];
 	[self.queue addOperation:operation];
 }
 
