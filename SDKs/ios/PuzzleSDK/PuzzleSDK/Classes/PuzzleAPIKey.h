@@ -6,4 +6,4 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-extern NSString* API_KEY = @"asdf";
+#define API_KEY @"asdf"

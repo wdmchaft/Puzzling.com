@@ -83,8 +83,6 @@
 				7014DC8D1546492200344799 /* PuzzleOperations */,
 				7014DC7F1546491000344799 /* PuzzleAPIURLFactory.h */,
 				7014DC801546491000344799 /* PuzzleAPIURLFactory.m */,
-				7014DC811546491000344799 /* PuzzleOperation.h */,
-				7014DC821546491000344799 /* PuzzleOperation.m */,
 				7014DC831546491000344799 /* PuzzleOperationManager.h */,
 				7014DC841546491000344799 /* PuzzleOperationManager.m */,
 				703F1A2415464D9E003BAD29 /* PuzzleAPIKey.h */,
@@ -135,6 +133,8 @@
 		7014DC8D1546492200344799 /* PuzzleOperations */ = {
 			isa = PBXGroup;
 			children = (
+				7014DC811546491000344799 /* PuzzleOperation.h */,
+				7014DC821546491000344799 /* PuzzleOperation.m */,
 				7014DC8E1546492D00344799 /* GetPuzzleOperation.h */,
 				7014DC8F1546492D00344799 /* GetPuzzleOperation.m */,
 				70CE9FCC154650F800B65FE2 /* CreateUserOperation.h */,

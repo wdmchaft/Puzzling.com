@@ -19,10 +19,11 @@
 
 @synthesize puzzleID = puzzle_ID;
 
--(id)initWithPuzzleID:(NSString*)puzzleID onCompletionBlock:(PuzzleOnCompletionBlock)block delegate:(id<PuzzleOperationDelegate>)delegate{
+-(id)initWithPuzzleID:(NSString*)puzzleID onCompletionBlock:(PuzzleOnCompletionBlock)block delegate:(id<NSURLConnectionDelegate>)delegate{
     self = [super initWithOnCompletionBlock:block];
     if(self){
         self.puzzleID = puzzleID;
+		self.delegate = delegate;
     }
     return self;
 }

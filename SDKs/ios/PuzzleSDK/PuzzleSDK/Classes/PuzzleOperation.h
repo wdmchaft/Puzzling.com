@@ -15,6 +15,8 @@
 
 @interface PuzzleOperation : NSOperation
 
+@property (nonatomic, readwrite, assign) id<NSURLConnectionDelegate> delegate;
+
 - (id)initWithOnCompletionBlock:(PuzzleOnCompletionBlock)onCompletionBlock;
 - (NSMutableURLRequest *)httpRequest;
 - (NSURL *)url;

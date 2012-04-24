@@ -10,6 +10,6 @@
 
 @interface GetPuzzleOperation : PuzzleOperation
 
--(id)initWithPuzzleID:(NSString*)puzzleID delegate:(id<PuzzleOperationDelegate>) delegate;
+-(id)initWithPuzzleID:(NSString*)puzzleID onCompletionBlock:(PuzzleOnCompletionBlock)block delegate:(id<NSURLConnectionDelegate>)delegate;
 
 @end
