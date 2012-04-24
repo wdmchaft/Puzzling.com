@@ -76,6 +76,7 @@ app.post('/puzzle', puzzle.create);
 app.post('/puzzle/:id', puzzle.takePuzzle);
 app.get('/puzzle/:id', puzzle.getPuzzle);
 app.get('/puzzle/user/:id', puzzle.getUserPuzzles);
+app.get('/puzzle', puzzle.puzzleSuggestion);
 
 
 // Puzzling apps - Examples of POST / GET parameters
