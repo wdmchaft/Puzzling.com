@@ -7,6 +7,8 @@
 //
 
 #import "PuzzleOperationManager.h"
+#import "GetPuzzleOperation.h"
+
 
 @interface PuzzleOperationManager() {
     NSOperationQueue *puzzle_queue;
@@ -28,10 +30,9 @@
     return self;
 }
 
-//- (void)sendGetPuzzle {
-//    GetPuzzleOp = init;
-//    op.delegate = self;
-//    [self.queue addOperation:op];
-//}
+- (void)getPuzzleForID:(PuzzleID *)puzzleID {
+	GetPuzzleOperation * operation = [[GetPuzzleOperation alloc] init];
+	[self.queue addOperation:operation];
+}
 
 @end

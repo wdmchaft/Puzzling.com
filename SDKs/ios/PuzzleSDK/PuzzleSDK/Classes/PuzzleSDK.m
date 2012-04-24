@@ -7,7 +7,45 @@
 //
 
 #import "PuzzleSDK.h"
+#import "PuzzleOperationManager.h"
+
+
+@interface PuzzleSDK() {
+	PuzzleOperationManager *puzzle_operationManager;
+}
+
+@property (nonatomic, readwrite, retain) PuzzleOperationManager *operationManager;
+
+@end
 
 @implementation PuzzleSDK
+
+@synthesize operationManager = puzzle_operationManager;
+
+#pragma mark - Singleton
+
+PuzzleSDK * sharedInstance = nil;
+
++ (PuzzleSDK *)sharedInstance {
+	if (sharedInstance == nil) {
+		sharedInstance = [[PuzzleSDK alloc] init];
+	}
+	return sharedInstance;
+}
+
+#pragma mark - Properties
+
+- (PuzzleOperationManager *)operationManager {
+	if (!puzzle_operationManager) {
+		puzzle_operationManager = [[PuzzleOperationManager alloc] init];
+	}
+	return puzzle_operationManager;
+}
+
+#pragma mark - Public Methods
+
+- (void)getPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion {
+	
+}
 
 @end

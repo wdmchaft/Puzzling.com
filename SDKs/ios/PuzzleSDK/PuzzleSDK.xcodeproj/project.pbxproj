@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3692A0D015464A2800D59C99 /* PuzzleSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 3692A0CF15464A2800D59C99 /* PuzzleSDK.m */; };
+		3692A0DF15464AE400D59C99 /* PuzzleUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3692A0DD15464AE400D59C99 /* PuzzleUser.m */; };
 		7014DC851546491000344799 /* PuzzleAPIURLFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7014DC801546491000344799 /* PuzzleAPIURLFactory.m */; };
 		7014DC861546491000344799 /* PuzzleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7014DC821546491000344799 /* PuzzleOperation.m */; };
 		7014DC871546491000344799 /* PuzzleOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7014DC841546491000344799 /* PuzzleOperationManager.m */; };
@@ -21,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3692A0CE15464A2800D59C99 /* PuzzleSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleSDK.h; path = Classes/PuzzleSDK.h; sourceTree = "<group>"; };
+		3692A0CF15464A2800D59C99 /* PuzzleSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleSDK.m; path = Classes/PuzzleSDK.m; sourceTree = "<group>"; };
+		3692A0DC15464AE400D59C99 /* PuzzleUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleUser.h; sourceTree = "<group>"; };
+		3692A0DD15464AE400D59C99 /* PuzzleUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleUser.m; sourceTree = "<group>"; };
 		7014DC7F1546491000344799 /* PuzzleAPIURLFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleAPIURLFactory.h; path = Classes/PuzzleAPIURLFactory.h; sourceTree = "<group>"; };
 		7014DC801546491000344799 /* PuzzleAPIURLFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleAPIURLFactory.m; path = Classes/PuzzleAPIURLFactory.m; sourceTree = "<group>"; };
 		7014DC811546491000344799 /* PuzzleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleOperation.h; path = Classes/PuzzleOperation.h; sourceTree = "<group>"; };
@@ -58,9 +64,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3692A0D915464AE400D59C99 /* Puzzle Models */ = {
+			isa = PBXGroup;
+			children = (
+				3692A0DC15464AE400D59C99 /* PuzzleUser.h */,
+				3692A0DD15464AE400D59C99 /* PuzzleUser.m */,
+			);
+			name = "Puzzle Models";
+			path = "Classes/Puzzle Models";
+			sourceTree = "<group>";
+		};
 		7014DC7E1546490500344799 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3692A0D915464AE400D59C99 /* Puzzle Models */,
 				7014DC8D1546492200344799 /* PuzzleOperations */,
 				7014DC7F1546491000344799 /* PuzzleAPIURLFactory.h */,
 				7014DC801546491000344799 /* PuzzleAPIURLFactory.m */,
@@ -69,6 +86,8 @@
 				7014DC831546491000344799 /* PuzzleOperationManager.h */,
 				7014DC841546491000344799 /* PuzzleOperationManager.m */,
 				703F1A2415464D9E003BAD29 /* PuzzleAPIKey.h */,
+				3692A0CE15464A2800D59C99 /* PuzzleSDK.h */,
+				3692A0CF15464A2800D59C99 /* PuzzleSDK.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -201,6 +220,8 @@
 				7014DC861546491000344799 /* PuzzleOperation.m in Sources */,
 				7014DC871546491000344799 /* PuzzleOperationManager.m in Sources */,
 				7014DC901546492D00344799 /* GetPuzzleOperation.m in Sources */,
+				3692A0D015464A2800D59C99 /* PuzzleSDK.m in Sources */,
+				3692A0DF15464AE400D59C99 /* PuzzleUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

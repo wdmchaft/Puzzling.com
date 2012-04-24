@@ -7,6 +7,8 @@
 //
 
 #import "PuzzleOperation.h"
+
+
 @interface PuzzleOperation() <NSURLConnectionDelegate> {
     NSURLConnection* puzzle_connection;
 }
