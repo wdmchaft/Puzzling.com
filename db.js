@@ -43,26 +43,26 @@ User = new Schema({
 				  });
 
 Puzzle = new Schema({
-					puzzleID : ObjectID /* QUESTION: HOW DO YOU SET THIS. SHOULD THIS JUST BE THE _id WHICH COMES WITH THE OBJECT? */
-					,	creator: ObjectID		
-					,	meta : String			    /* JSON; additional metadata */
-					,	setupData : String			/* JSON of puzzle’s main data */
-					,	solutionData: String		/* JSON of solution */
-					,	type : String		        /* user-defined enum */
-					,	likes : Number			    /* number of upvotes */
-					, 	dislikes : Number			/* number of downvotes */
-					,	taken : Number			    /* rating == (likes / taken) */
-					, 	timestamp : Date			/* date created */
-					,	rating : Number			    /* difficulty rating */
-					,   rd : Number					/* Rating deviation */
+                    puzzleID : ObjectID /* QUESTION: HOW DO YOU SET THIS. SHOULD THIS JUST BE THE _id WHICH COMES WITH THE OBJECT? */
+                    ,	creator: ObjectID
+                    ,	meta : String			    /* JSON; additional metadata */
+                    ,	setupData : String			/* JSON of puzzle’s main data */
+                    ,	solutionData: String		/* JSON of solution */
+                    ,	type : String		        /* user-defined enum */
+                    ,	likes : Number			    /* number of upvotes */
+                    , 	dislikes : Number			/* number of downvotes */
+                    ,	taken : Number			    /* rating == (likes / taken) */
+                    , 	timestamp : Date			/* date created */
+                    ,	rating : Number			    /* difficulty rating */
+                    ,   rd : Number					/* Rating deviation */
 					});
 
 PuzzleAdditionalData = new Schema({
-								  puzzle : ObjectID
-								  ,	creator : ObjectID		
-								  ,	value : String			/* JSON Data */
-								  ,	timestamp : Date
-								  });
+                    puzzle : ObjectID
+                    ,	creator : ObjectID
+                    ,	value : String			/* JSON Data */
+                    ,	timestamp : Date
+                    });
 
 Score = new Schema({
 				   user : ObjectID
