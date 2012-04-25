@@ -103,12 +103,12 @@ exports.list = function(req, res){
 /***** Handles incoming POST requests *****/
 
 exports.handle = function(req, res, next){
-/*
+
     // @auth
     if(!isAuthenticated(req, res)) {
         return;
     }
-*/
+
     // handle POST only
     var params = req.body;
     var op = req.params.op;
@@ -200,12 +200,12 @@ function changeCallback(found, res) {
 /***** Handles incoming GET requests *****/
 
 exports.info = function(req, res) {
-/*
+
     // @auth
     if(!isAuthenticated(req, res)) {
         return;
     }
-*/
+
     if(!req.params.name) {
         res.send(msg.MISSING_INFO);
         return;
