@@ -14,16 +14,18 @@
 	UIViewController * rootViewController;
 }
 
+@property (nonatomic, readwrite, retain) UIViewController *rootViewController;
 
 @end
 
 @implementation AppDelegate
 
-@synthesize window = _window;
+@synthesize window = _window, rootViewController = rootViewController;
 
 - (void)dealloc
 {
     [_window release];
+	[rootViewController release];
     [super dealloc];
 }
 
@@ -31,7 +33,8 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
-	
+	self.rootViewController = [[[MainViewController alloc] init] autorelease];
+	[self.window addSubview:self.rootViewController.view];
 	
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
