@@ -6,14 +6,17 @@
  * To change this template use File | Settings | File Templates.
  */
 
-// Taken from Github.
+// I think if you have a new database name,
+// you create a new databse with connect?
+// Maybe we want a new database for each app? => database name = apikey?
 
-var DATABASE_NAME = 'test'; //I think if you have a new database name, you create a new databse with connect? Maybe we want a new database for each app? => database name = apikey?
+var DATABASE_NAME = 'test';
 
-var mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://localhost/' + DATABASE_NAME);
-var Schema = mongoose.Schema
-, ObjectID = Schema.ObjectId;
+// Requires
+var mongoose = require('mongoose'),
+          db = mongoose.connect('mongodb://localhost/' + DATABASE_NAME),
+      Schema = mongoose.Schema,
+    ObjectID = Schema.ObjectId;
 
 App = new Schema({
 				 puzzles : [ObjectID]
@@ -23,43 +26,43 @@ App = new Schema({
 				 });
 
 FriendRequest = new Schema({
-						   to : ObjectID
-						   ,	from : ObjectID
-//						   ,	value : { type:String, enum: [“1to2”, “2to1”, “confirmed”] } //don't know why but this doesnt compile
-						   });
+                  to : ObjectID
+                , from : ObjectID
+});
 
 User = new Schema({
 				  name : String
-				  ,	userID : ObjectID			/* For unique id name could change*/ /* QUESTION: HOW DO YOU SET THIS. SHOULD THIS JUST BE THE _id WHICH COMES WITH THE OBJECT? */
 				  ,	password : String
+                  , salt : String
 				  ,	authToken : String
-				  ,	friendRequests : [FriendRequest]	/* requests */
+				  ,	friendRequests : [ObjectID]	    /* requests */
 				  ,	friends : [ObjectID]
-				  ,	rating : Number				/* Ability at puzzles */
-					, rd : Number						/* Rating deviation */
+				  ,	rating : Number				    /* Ability at puzzles */
+				  , rd : Number					    /* Rating deviation */
+                  , user_data : String              /* JSON data */
 				  });
 
 Puzzle = new Schema({
-					puzzleID : ObjectID /* QUESTION: HOW DO YOU SET THIS. SHOULD THIS JUST BE THE _id WHICH COMES WITH THE OBJECT? */
-					,	creator: ObjectID		
-					,	meta : String			/* JSON; additional metadata */
-					,	setupData : String			/* JSON of puzzle’s main data */
-					,	solutionData: String			/* JSON of solution */
-					,	type : String		/* user-defined enum */
-					,	likes : Number			/* number of upvotes */
-					, 	dislikes : Number			/* number of downvotes */
-					,	taken : Number			/* rating == (likes / taken) */
-					, 	timestamp : Date			/* date created */
-					,	rating : Number			/* difficulty rating */
-					, rd : Number						/* Rating deviation */
+                    puzzleID : ObjectID /* QUESTION: HOW DO YOU SET THIS. SHOULD THIS JUST BE THE _id WHICH COMES WITH THE OBJECT? */
+                    ,	creator: ObjectID
+                    ,	meta : String			    /* JSON; additional metadata */
+                    ,	setupData : String			/* JSON of puzzle’s main data */
+                    ,	solutionData: String		/* JSON of solution */
+                    ,	type : String		        /* user-defined enum */
+                    ,	likes : Number			    /* number of upvotes */
+                    , 	dislikes : Number			/* number of downvotes */
+                    ,	taken : Number			    /* rating == (likes / taken) */
+                    , 	timestamp : Date			/* date created */
+                    ,	rating : Number			    /* difficulty rating */
+                    ,   rd : Number					/* Rating deviation */
 					});
 
 PuzzleAdditionalData = new Schema({
-								  puzzle : ObjectID
-								  ,	creator : ObjectID		
-								  ,	value : String			/* JSON Data */
-								  ,	timestamp : Date
-								  });
+                    puzzle : ObjectID
+                    ,	creator : ObjectID
+                    ,	value : String			/* JSON Data */
+                    ,	timestamp : Date
+                    });
 
 Score = new Schema({
 				   user : ObjectID

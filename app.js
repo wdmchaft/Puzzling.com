@@ -7,6 +7,7 @@ var express = require('express')
   , routes = require('./routes')
   , papp = require('./routes/papp')
   , user = require('./user')
+  , friend = require('./friend')
   , puzzle = require('./puzzle')
   , db = require('./db');
 
@@ -64,13 +65,14 @@ app.get('/', routes.index);
 // at once...
 
 app.all('/users', user.list);
-app.all('/user/:id/:op?', user.load);
-app.get('/user/:id', user.view);
-app.get('/user/:id/view', user.view);
-app.get('/user/:id/edit', user.edit);
-app.put('/user/:id/edit', user.update);
+app.get('/user/:name/info', user.info);
+app.get('/user/:name', user.view);
+app.post('/user/:op', user.handle)
 
-//Puzzle
+// app.get('/friend', friend.list);
+// app.post('/friend/:id/:id', friend.request);
+
+// Puzzle
 
 app.post('/puzzle', puzzle.create);
 app.post('/puzzle/:id', puzzle.takePuzzle);
