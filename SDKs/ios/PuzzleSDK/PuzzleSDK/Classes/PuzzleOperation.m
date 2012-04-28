@@ -40,13 +40,13 @@
 
 - (void)start {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	self.connection = [NSURLConnection connectionWithRequest:[self httpRequest] delegate:self.delegate];
+	self.connection = [NSURLConnection connectionWithRequest:[self httpRequest] delegate:self];
 	[pool drain];
 	CFRunLoopRun();
 }
 
 - (void)main {
-	[self.connection start];
+	//[self.connection start];
 }
 
 - (NSMutableURLRequest *)httpRequest {

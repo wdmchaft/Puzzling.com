@@ -28,24 +28,4 @@
 //	[connection start];
 //	[pool drain];
 }
-
-#pragma mark - NSConnectionDelegate Methods
-
-- (void)connection:(NSURLConnection *)theConnection	didReceiveData:(NSData *)incrementalData {
-
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection*)theConnection {
-   
-}
-- (void)connection:(NSURLConnection *)theConnection didFailWithError:(NSError *)error 
-{ 
-	
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	NSLog(@"%@",response);
-}
-
-
 @end
