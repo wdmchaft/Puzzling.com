@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36099929154B90E10006A5F5 /* PuzzleErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099928154B90E10006A5F5 /* PuzzleErrorHandler.m */; };
 		362536B81546521000DFF2F3 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362536B61546521000DFF2F3 /* MainViewController.m */; };
 		362536B91546521000DFF2F3 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 362536B71546521000DFF2F3 /* MainViewController.xib */; };
 		362536BD1546532E00DFF2F3 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 362536BC1546532E00DFF2F3 /* JSONKit.m */; };
@@ -27,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		36099927154B90E10006A5F5 /* PuzzleErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleErrorHandler.h; path = Classes/PuzzleErrorHandler.h; sourceTree = "<group>"; };
+		36099928154B90E10006A5F5 /* PuzzleErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleErrorHandler.m; path = Classes/PuzzleErrorHandler.m; sourceTree = "<group>"; };
 		362536B51546521000DFF2F3 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = "Sample App/MainViewController.h"; sourceTree = "<group>"; };
 		362536B61546521000DFF2F3 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = "Sample App/MainViewController.m"; sourceTree = "<group>"; };
 		362536B71546521000DFF2F3 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainViewController.xib; path = "Sample App/MainViewController.xib"; sourceTree = "<group>"; };
@@ -88,6 +91,8 @@
 				703F1A2415464D9E003BAD29 /* PuzzleAPIKey.h */,
 				3692A0CE15464A2800D59C99 /* PuzzleSDK.h */,
 				3692A0CF15464A2800D59C99 /* PuzzleSDK.m */,
+				36099927154B90E10006A5F5 /* PuzzleErrorHandler.h */,
+				36099928154B90E10006A5F5 /* PuzzleErrorHandler.m */,
 			);
 			name = SDK;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 				70CE9FCE154650F800B65FE2 /* CreateUserOperation.m in Sources */,
 				362536B81546521000DFF2F3 /* MainViewController.m in Sources */,
 				362536BD1546532E00DFF2F3 /* JSONKit.m in Sources */,
+				36099929154B90E10006A5F5 /* PuzzleErrorHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

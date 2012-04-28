@@ -7,10 +7,12 @@
 //
 
 #import "CreateUserOperation.h"
+#import "PuzzleAPIURLFactory.h"
+#import "JSONKit.h"
+
+
 #define USER_NAME @"username"
 #define PASSWORD @"password"
-#define USER_DATA @"userdata"
-
 
 @interface CreateUserOperation() {
     NSString* user_name;
@@ -30,7 +32,7 @@
 @synthesize data = user_data;
 
 
--(id)initWithUserName:(NSString*)userName password:(NSString*)password userData:(NSDictionary*)data delegate:(id<PuzzleOperationDelegate>) delegate{
+-(id)initWithUserName:(NSString*)userName password:(NSString*)password userData:(NSDictionary*)data{
     self = [super init];
     if(self){
         self.userName = userName;
@@ -43,7 +45,7 @@
 - (NSMutableURLRequest *)httpRequest {
     NSMutableURLRequest* request = [super httpRequest];
 	[request setHTTPMethod:@"POST"];
-    NSData* jsonData = [[NSDictionary dictionaryWithObjectsAndKeys:self.userName, USER_NAME, self.password, PASSWORD, self.data,USER_DATA, nil] JSONData];
+    NSData* jsonData = [[NSDictionary dictionaryWithObjectsAndKeys:self.userName, USER_NAME, self.password, PASSWORD, nil] JSONData];
     [request setHTTPBody: jsonData];
     return request;
 }

@@ -7,22 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PuzzleAPIKey.h"
-#import "PuzzleAPIURLFactory.h"
+#import "PuzzleErrorHandler.h"
 #import "PuzzleSDK.h"
-#import "JSONKit.h"
 
 
 @interface PuzzleOperation : NSOperation
 
-@property (nonatomic, readwrite, assign) id<NSURLConnectionDelegate> delegate;
+@property (nonatomic, readonly, assign) PuzzleAPIResponse response;
 
 - (id)initWithOnCompletionBlock:(PuzzleOnCompletionBlock)onCompletionBlock;
 - (NSMutableURLRequest *)httpRequest;
 - (NSURL *)url;
-
-@end
-
-@protocol PuzzleOperationDelegate <NSObject>
 
 @end

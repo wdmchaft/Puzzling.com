@@ -9,6 +9,8 @@
 #import "PuzzleOperation.h"
 #import "PuzzleUser.h"
 #import "JSONKit.h"
+#import "PuzzleAPIKey.h"
+#import "PuzzleAPIURLFactory.h"
 
 
 @interface PuzzleOperation() {
@@ -16,37 +18,47 @@
 	PuzzleOnCompletionBlock puzzle_onCompletion;
 	NSMutableData *puzzle_data;
 	BOOL puzzle_isFinished;
-	id<NSURLConnectionDelegate> puzzle_delegate;
+	BOOL puzzle_isExecuting;
+	PuzzleAPIResponse puzzle_response;
 }
+
 @property (nonatomic, readwrite, retain) NSURLConnection* connection;
 @property (nonatomic, readwrite, copy) PuzzleOnCompletionBlock onCompletion;
 @property (nonatomic, readwrite, retain) NSMutableData *data;
 @property (nonatomic, readwrite, assign) BOOL isFinished;
+@property (nonatomic, readwrite, assign) BOOL isExecuting;
+@property (nonatomic, readwrite, assign) PuzzleAPIResponse response;
+
+- (void)closeConnectionAndFinish;
 
 @end
 
 @implementation PuzzleOperation
 
-@synthesize connection = puzzle_connection, onCompletion = puzzle_onCompletion, data = puzzle_data, isFinished = puzzle_isFinished, delegate = puzzle_delegate;
+@synthesize connection = puzzle_connection, onCompletion = puzzle_onCompletion, data = puzzle_data, isFinished = puzzle_isFinished, isExecuting = puzzle_isExecuting, response = puzzle_response;
 
 - (id)initWithOnCompletionBlock:(PuzzleOnCompletionBlock)onCompletionBlock {
 	self = [super init];
 	if (self) {
 		self.onCompletion = onCompletionBlock;
 		self.isFinished = NO;
+		self.isExecuting = NO;
 	}
 	return self;
 }
 
 - (void)start {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	self.connection = [NSURLConnection connectionWithRequest:[self httpRequest] delegate:self];
-	[pool drain];
-	CFRunLoopRun();
-}
-
-- (void)main {
-	//[self.connection start];
+	if (![self isCancelled]) {
+		[self willChangeValueForKey:@"isExecuting"];
+		self.isExecuting = YES;
+		[self didChangeValueForKey:@"isExecuting"];
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		self.connection = [NSURLConnection connectionWithRequest:[self httpRequest] delegate:self];
+		[pool drain];
+		CFRunLoopRun();
+	} else {
+		[self closeConnectionAndFinish];
+	}
 }
 
 - (NSMutableURLRequest *)httpRequest {
@@ -66,57 +78,63 @@
 }
 
 - (BOOL)isExecuting {
-	return YES;
+	return puzzle_isExecuting;
 }
 
 - (BOOL)isFinished {
-	return NO;
+	return puzzle_isFinished;
 }
 
 -(void) dealloc{
     [puzzle_connection release];
     puzzle_connection = nil;
+	[puzzle_data release];
+	puzzle_data = nil;
 
     [super dealloc];
+}
+
+#pragma mark - Private Helper Methods
+
+- (void)closeConnectionAndFinish {
+	[self willChangeValueForKey:@"isExecuting"];
+	self.isExecuting = NO;
+	[self didChangeValueForKey:@"isExecuting"];
+	[self willChangeValueForKey:@"isFinished"];
+	self.isFinished = YES;
+	[self didChangeValueForKey:@"isFinished"];
+	
+	[puzzle_connection release];
+    puzzle_connection = nil;
+	
+	dispatch_async(dispatch_get_main_queue(), ^(void) {
+		self.onCompletion(self.response, [self.data objectFromJSONData]); //FIXME: This should be passing back an object, not an NSDictionary
+	});
+	
+	CFRunLoopStop(CFRunLoopGetCurrent());
 }
 
 #pragma mark - NSConnectionDelegate Methods
 
 - (void)connection:(NSURLConnection *)theConnection	didReceiveData:(NSData *)incrementalData {
     if (self.data == nil) {
-		self.data = [[NSMutableData alloc] init];
+		self.data = [[[NSMutableData alloc] init] autorelease];
     }
     [self.data appendData:incrementalData];
-	NSLog(@"%@", [[[NSString alloc] initWithData:incrementalData encoding:NSUTF8StringEncoding] autorelease]);
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection*)theConnection {
-    [puzzle_connection release];
-    puzzle_connection = nil;
-	
-	self.isFinished = YES;
-	dispatch_async(dispatch_get_main_queue(), ^(void) {
-		self.onCompletion(0, [self.data objectFromJSONData]);
-	});
-	[puzzle_data release];
-	puzzle_data = nil;
-	NSLog(@"Connection finished");
+	self.response = PuzzleOperationSuccessful;
+	[self closeConnectionAndFinish];
 }
 
 - (void)connection:(NSURLConnection *)theConnection didFailWithError:(NSError *)error 
-{ 
-	// release the connection, and the data object
-//	[puzzle_connection release];
-//	puzzle_connection = nil;
-//	[puzzle_data release]; 
-//	puzzle_data = nil; 
-	CFRunLoopStop(CFRunLoopGetCurrent());
-	NSLog(@"Connection failed! Error - %@", 
-		  [error localizedDescription]); 
+{
+	[self closeConnectionAndFinish];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	NSLog(@"Connection received response.");
+	
 }
 
 @end

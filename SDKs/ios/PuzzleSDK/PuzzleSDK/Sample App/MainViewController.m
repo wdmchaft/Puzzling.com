@@ -21,11 +21,5 @@
 		NSLog(@"Status: %d", status);
 		NSLog(@"Data: %@", data);
 	}];
-//	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-//	NSURLConnection *connection = [[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.google.com"]] delegate:self] retain];
-//	[connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-//	[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-//	[connection start];
-//	[pool drain];
 }
 @end

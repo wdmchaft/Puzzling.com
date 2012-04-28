@@ -7,6 +7,7 @@
 //
 
 #import "GetPuzzleOperation.h"
+#import "PuzzleAPIURLFactory.h"
 
 
 @interface GetPuzzleOperation() {
@@ -23,7 +24,6 @@
     self = [super initWithOnCompletionBlock:block];
     if(self){
         self.puzzleID = puzzleID;
-		self.delegate = delegate;
     }
     return self;
 }

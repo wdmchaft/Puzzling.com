@@ -10,6 +10,6 @@
 
 @interface CreateUserOperation : PuzzleOperation
 
--(id)initWithUserName:(NSString*)puzzleID password:(NSString*)password userData:(NSDictionary*)data delegate:(id<PuzzleOperationDelegate>) delegate;
+-(id)initWithUserName:(NSString*)puzzleID password:(NSString*)password userData:(NSDictionary*)data;
 
 @end
