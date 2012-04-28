@@ -45,7 +45,7 @@ function send_error(msg, res) {
 // When a user is first being created
 var DEFAULTS = {
     DEFAULT_RATING      : 1500,
-    DEFAULT_DEVIATION   : 0
+    DEFAULT_DEVIATION   : 150
 }
 
 // Map of possible user operations

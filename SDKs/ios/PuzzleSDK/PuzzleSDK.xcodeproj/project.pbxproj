@@ -7,47 +7,48 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		36099929154B90E10006A5F5 /* PuzzleErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099928154B90E10006A5F5 /* PuzzleErrorHandler.m */; };
-		362536B81546521000DFF2F3 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362536B61546521000DFF2F3 /* MainViewController.m */; };
-		362536B91546521000DFF2F3 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 362536B71546521000DFF2F3 /* MainViewController.xib */; };
-		362536BD1546532E00DFF2F3 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 362536BC1546532E00DFF2F3 /* JSONKit.m */; };
-		3692A0D015464A2800D59C99 /* PuzzleSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 3692A0CF15464A2800D59C99 /* PuzzleSDK.m */; };
-		3692A0DF15464AE400D59C99 /* PuzzleUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3692A0DD15464AE400D59C99 /* PuzzleUser.m */; };
-		7014DC851546491000344799 /* PuzzleAPIURLFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7014DC801546491000344799 /* PuzzleAPIURLFactory.m */; };
-		7014DC861546491000344799 /* PuzzleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7014DC821546491000344799 /* PuzzleOperation.m */; };
-		7014DC871546491000344799 /* PuzzleOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7014DC841546491000344799 /* PuzzleOperationManager.m */; };
-		7014DC901546492D00344799 /* GetPuzzleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7014DC8F1546492D00344799 /* GetPuzzleOperation.m */; };
+		36099977154B9C340006A5F5 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609995C154B9C340006A5F5 /* MainViewController.m */; };
+		36099978154B9C340006A5F5 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3609995D154B9C340006A5F5 /* MainViewController.xib */; };
+		36099979154B9C340006A5F5 /* PuzzleAPIURLFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099961154B9C340006A5F5 /* PuzzleAPIURLFactory.m */; };
+		3609997A154B9C340006A5F5 /* CreateUserOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099964154B9C340006A5F5 /* CreateUserOperation.m */; };
+		3609997B154B9C340006A5F5 /* GetPuzzleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099966154B9C340006A5F5 /* GetPuzzleOperation.m */; };
+		3609997C154B9C340006A5F5 /* PuzzleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099968154B9C340006A5F5 /* PuzzleOperation.m */; };
+		3609997D154B9C340006A5F5 /* PuzzleOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609996A154B9C340006A5F5 /* PuzzleOperationManager.m */; };
+		3609997E154B9C340006A5F5 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609996D154B9C340006A5F5 /* JSONKit.m */; };
+		3609997F154B9C340006A5F5 /* PuzzleUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099971154B9C340006A5F5 /* PuzzleUser.m */; };
+		36099980154B9C340006A5F5 /* PuzzleErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099974154B9C340006A5F5 /* PuzzleErrorHandler.m */; };
+		36099981154B9C340006A5F5 /* PuzzleSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099976154B9C340006A5F5 /* PuzzleSDK.m */; };
 		70AA228F1546457200011F3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AA228E1546457200011F3B /* UIKit.framework */; };
 		70AA22911546457200011F3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AA22901546457200011F3B /* Foundation.framework */; };
 		70AA22931546457300011F3B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AA22921546457200011F3B /* CoreGraphics.framework */; };
 		70AA22991546457300011F3B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 70AA22971546457300011F3B /* InfoPlist.strings */; };
 		70AA229B1546457300011F3B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AA229A1546457300011F3B /* main.m */; };
 		70AA229F1546457300011F3B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AA229E1546457300011F3B /* AppDelegate.m */; };
-		70AA22AE1546463F00011F3B /* server.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AA22AD1546463F00011F3B /* server.m */; };
-		70CE9FCE154650F800B65FE2 /* CreateUserOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 70CE9FCD154650F800B65FE2 /* CreateUserOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		36099927154B90E10006A5F5 /* PuzzleErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleErrorHandler.h; path = Classes/PuzzleErrorHandler.h; sourceTree = "<group>"; };
-		36099928154B90E10006A5F5 /* PuzzleErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleErrorHandler.m; path = Classes/PuzzleErrorHandler.m; sourceTree = "<group>"; };
-		362536B51546521000DFF2F3 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = "Sample App/MainViewController.h"; sourceTree = "<group>"; };
-		362536B61546521000DFF2F3 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = "Sample App/MainViewController.m"; sourceTree = "<group>"; };
-		362536B71546521000DFF2F3 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainViewController.xib; path = "Sample App/MainViewController.xib"; sourceTree = "<group>"; };
-		362536BB1546532E00DFF2F3 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		362536BC1546532E00DFF2F3 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		3692A0CE15464A2800D59C99 /* PuzzleSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleSDK.h; path = Classes/PuzzleSDK.h; sourceTree = "<group>"; };
-		3692A0CF15464A2800D59C99 /* PuzzleSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleSDK.m; path = Classes/PuzzleSDK.m; sourceTree = "<group>"; };
-		3692A0DC15464AE400D59C99 /* PuzzleUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleUser.h; sourceTree = "<group>"; };
-		3692A0DD15464AE400D59C99 /* PuzzleUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleUser.m; sourceTree = "<group>"; };
-		7014DC7F1546491000344799 /* PuzzleAPIURLFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleAPIURLFactory.h; path = Classes/PuzzleAPIURLFactory.h; sourceTree = "<group>"; };
-		7014DC801546491000344799 /* PuzzleAPIURLFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleAPIURLFactory.m; path = Classes/PuzzleAPIURLFactory.m; sourceTree = "<group>"; };
-		7014DC811546491000344799 /* PuzzleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleOperation.h; path = Classes/PuzzleOperation.h; sourceTree = "<group>"; };
-		7014DC821546491000344799 /* PuzzleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleOperation.m; path = Classes/PuzzleOperation.m; sourceTree = "<group>"; };
-		7014DC831546491000344799 /* PuzzleOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleOperationManager.h; path = Classes/PuzzleOperationManager.h; sourceTree = "<group>"; };
-		7014DC841546491000344799 /* PuzzleOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleOperationManager.m; path = Classes/PuzzleOperationManager.m; sourceTree = "<group>"; };
-		7014DC8E1546492D00344799 /* GetPuzzleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetPuzzleOperation.h; path = Classes/PuzzleOperations/GetPuzzleOperation.h; sourceTree = "<group>"; };
-		7014DC8F1546492D00344799 /* GetPuzzleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetPuzzleOperation.m; path = Classes/PuzzleOperations/GetPuzzleOperation.m; sourceTree = "<group>"; };
-		703F1A2415464D9E003BAD29 /* PuzzleAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleAPIKey.h; path = Classes/PuzzleAPIKey.h; sourceTree = "<group>"; };
+		3609995B154B9C340006A5F5 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		3609995C154B9C340006A5F5 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		3609995D154B9C340006A5F5 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		36099960154B9C340006A5F5 /* PuzzleAPIURLFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleAPIURLFactory.h; sourceTree = "<group>"; };
+		36099961154B9C340006A5F5 /* PuzzleAPIURLFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleAPIURLFactory.m; sourceTree = "<group>"; };
+		36099963154B9C340006A5F5 /* CreateUserOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateUserOperation.h; sourceTree = "<group>"; };
+		36099964154B9C340006A5F5 /* CreateUserOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateUserOperation.m; sourceTree = "<group>"; };
+		36099965154B9C340006A5F5 /* GetPuzzleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPuzzleOperation.h; sourceTree = "<group>"; };
+		36099966154B9C340006A5F5 /* GetPuzzleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPuzzleOperation.m; sourceTree = "<group>"; };
+		36099967154B9C340006A5F5 /* PuzzleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleOperation.h; sourceTree = "<group>"; };
+		36099968154B9C340006A5F5 /* PuzzleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleOperation.m; sourceTree = "<group>"; };
+		36099969154B9C340006A5F5 /* PuzzleOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleOperationManager.h; sourceTree = "<group>"; };
+		3609996A154B9C340006A5F5 /* PuzzleOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleOperationManager.m; sourceTree = "<group>"; };
+		3609996C154B9C340006A5F5 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		3609996D154B9C340006A5F5 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		36099970154B9C340006A5F5 /* PuzzleUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleUser.h; sourceTree = "<group>"; };
+		36099971154B9C340006A5F5 /* PuzzleUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleUser.m; sourceTree = "<group>"; };
+		36099972154B9C340006A5F5 /* PuzzleAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleAPIKey.h; sourceTree = "<group>"; };
+		36099973154B9C340006A5F5 /* PuzzleErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleErrorHandler.h; sourceTree = "<group>"; };
+		36099974154B9C340006A5F5 /* PuzzleErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleErrorHandler.m; sourceTree = "<group>"; };
+		36099975154B9C340006A5F5 /* PuzzleSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleSDK.h; sourceTree = "<group>"; };
+		36099976154B9C340006A5F5 /* PuzzleSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleSDK.m; sourceTree = "<group>"; };
 		70AA228A1546457200011F3B /* PuzzleSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PuzzleSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70AA228E1546457200011F3B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		70AA22901546457200011F3B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -58,10 +59,6 @@
 		70AA229C1546457300011F3B /* PuzzleSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PuzzleSDK-Prefix.pch"; sourceTree = "<group>"; };
 		70AA229D1546457300011F3B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		70AA229E1546457300011F3B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		70AA22AC1546463F00011F3B /* server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = server.h; sourceTree = "<group>"; };
-		70AA22AD1546463F00011F3B /* server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = server.m; sourceTree = "<group>"; };
-		70CE9FCC154650F800B65FE2 /* CreateUserOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateUserOperation.h; path = Classes/PuzzleOperations/CreateUserOperation.h; sourceTree = "<group>"; };
-		70CE9FCD154650F800B65FE2 /* CreateUserOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateUserOperation.m; path = Classes/PuzzleOperations/CreateUserOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,74 +75,89 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		362536AD154651B900DFF2F3 /* SDK */ = {
+		36099959154B9C340006A5F5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				362536BA1546532600DFF2F3 /* Vendor */,
-				3692A0D915464AE400D59C99 /* Puzzle Models */,
-				7014DC8D1546492200344799 /* PuzzleOperations */,
-				7014DC7F1546491000344799 /* PuzzleAPIURLFactory.h */,
-				7014DC801546491000344799 /* PuzzleAPIURLFactory.m */,
-				7014DC831546491000344799 /* PuzzleOperationManager.h */,
-				7014DC841546491000344799 /* PuzzleOperationManager.m */,
-				703F1A2415464D9E003BAD29 /* PuzzleAPIKey.h */,
-				3692A0CE15464A2800D59C99 /* PuzzleSDK.h */,
-				3692A0CF15464A2800D59C99 /* PuzzleSDK.m */,
-				36099927154B90E10006A5F5 /* PuzzleErrorHandler.h */,
-				36099928154B90E10006A5F5 /* PuzzleErrorHandler.m */,
+				3609995A154B9C340006A5F5 /* Sample App */,
+				3609995E154B9C340006A5F5 /* SDK */,
 			);
-			name = SDK;
+			path = Classes;
 			sourceTree = "<group>";
 		};
-		362536AF154651C000DFF2F3 /* Sample App */ = {
+		3609995A154B9C340006A5F5 /* Sample App */ = {
 			isa = PBXGroup;
 			children = (
-				362536B51546521000DFF2F3 /* MainViewController.h */,
-				362536B61546521000DFF2F3 /* MainViewController.m */,
-				362536B71546521000DFF2F3 /* MainViewController.xib */,
+				3609995B154B9C340006A5F5 /* MainViewController.h */,
+				3609995C154B9C340006A5F5 /* MainViewController.m */,
+				3609995D154B9C340006A5F5 /* MainViewController.xib */,
 			);
-			name = "Sample App";
+			path = "Sample App";
 			sourceTree = "<group>";
 		};
-		362536BA1546532600DFF2F3 /* Vendor */ = {
+		3609995E154B9C340006A5F5 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				362536BB1546532E00DFF2F3 /* JSONKit.h */,
-				362536BC1546532E00DFF2F3 /* JSONKit.m */,
+				3609995F154B9C340006A5F5 /* Private */,
+				3609996E154B9C340006A5F5 /* Public */,
 			);
-			name = Vendor;
+			path = SDK;
 			sourceTree = "<group>";
 		};
-		3692A0D915464AE400D59C99 /* Puzzle Models */ = {
+		3609995F154B9C340006A5F5 /* Private */ = {
 			isa = PBXGroup;
 			children = (
-				3692A0DC15464AE400D59C99 /* PuzzleUser.h */,
-				3692A0DD15464AE400D59C99 /* PuzzleUser.m */,
+				36099960154B9C340006A5F5 /* PuzzleAPIURLFactory.h */,
+				36099961154B9C340006A5F5 /* PuzzleAPIURLFactory.m */,
+				36099962154B9C340006A5F5 /* PuzzleOperations */,
+				3609996B154B9C340006A5F5 /* Vendor */,
 			);
-			name = "Puzzle Models";
-			path = "Classes/Puzzle Models";
+			path = Private;
 			sourceTree = "<group>";
 		};
-		7014DC7E1546490500344799 /* Classes */ = {
+		36099962154B9C340006A5F5 /* PuzzleOperations */ = {
 			isa = PBXGroup;
 			children = (
-				362536AF154651C000DFF2F3 /* Sample App */,
-				362536AD154651B900DFF2F3 /* SDK */,
+				36099963154B9C340006A5F5 /* CreateUserOperation.h */,
+				36099964154B9C340006A5F5 /* CreateUserOperation.m */,
+				36099965154B9C340006A5F5 /* GetPuzzleOperation.h */,
+				36099966154B9C340006A5F5 /* GetPuzzleOperation.m */,
+				36099967154B9C340006A5F5 /* PuzzleOperation.h */,
+				36099968154B9C340006A5F5 /* PuzzleOperation.m */,
+				36099969154B9C340006A5F5 /* PuzzleOperationManager.h */,
+				3609996A154B9C340006A5F5 /* PuzzleOperationManager.m */,
 			);
-			name = Classes;
+			path = PuzzleOperations;
 			sourceTree = "<group>";
 		};
-		7014DC8D1546492200344799 /* PuzzleOperations */ = {
+		3609996B154B9C340006A5F5 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				7014DC811546491000344799 /* PuzzleOperation.h */,
-				7014DC821546491000344799 /* PuzzleOperation.m */,
-				7014DC8E1546492D00344799 /* GetPuzzleOperation.h */,
-				7014DC8F1546492D00344799 /* GetPuzzleOperation.m */,
-				70CE9FCC154650F800B65FE2 /* CreateUserOperation.h */,
-				70CE9FCD154650F800B65FE2 /* CreateUserOperation.m */,
+				3609996C154B9C340006A5F5 /* JSONKit.h */,
+				3609996D154B9C340006A5F5 /* JSONKit.m */,
 			);
-			name = PuzzleOperations;
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		3609996E154B9C340006A5F5 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				3609996F154B9C340006A5F5 /* Puzzle Models */,
+				36099972154B9C340006A5F5 /* PuzzleAPIKey.h */,
+				36099973154B9C340006A5F5 /* PuzzleErrorHandler.h */,
+				36099974154B9C340006A5F5 /* PuzzleErrorHandler.m */,
+				36099975154B9C340006A5F5 /* PuzzleSDK.h */,
+				36099976154B9C340006A5F5 /* PuzzleSDK.m */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		3609996F154B9C340006A5F5 /* Puzzle Models */ = {
+			isa = PBXGroup;
+			children = (
+				36099970154B9C340006A5F5 /* PuzzleUser.h */,
+				36099971154B9C340006A5F5 /* PuzzleUser.m */,
+			);
+			path = "Puzzle Models";
 			sourceTree = "<group>";
 		};
 		70AA227F1546457200011F3B = {
@@ -178,9 +190,7 @@
 		70AA22941546457300011F3B /* PuzzleSDK */ = {
 			isa = PBXGroup;
 			children = (
-				7014DC7E1546490500344799 /* Classes */,
-				70AA22AC1546463F00011F3B /* server.h */,
-				70AA22AD1546463F00011F3B /* server.m */,
+				36099959154B9C340006A5F5 /* Classes */,
 				70AA229D1546457300011F3B /* AppDelegate.h */,
 				70AA229E1546457300011F3B /* AppDelegate.m */,
 				70AA22951546457300011F3B /* Supporting Files */,
@@ -250,7 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70AA22991546457300011F3B /* InfoPlist.strings in Resources */,
-				362536B91546521000DFF2F3 /* MainViewController.xib in Resources */,
+				36099978154B9C340006A5F5 /* MainViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,19 +271,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70AA22AE1546463F00011F3B /* server.m in Sources */,
 				70AA229B1546457300011F3B /* main.m in Sources */,
 				70AA229F1546457300011F3B /* AppDelegate.m in Sources */,
-				7014DC851546491000344799 /* PuzzleAPIURLFactory.m in Sources */,
-				7014DC861546491000344799 /* PuzzleOperation.m in Sources */,
-				7014DC871546491000344799 /* PuzzleOperationManager.m in Sources */,
-				7014DC901546492D00344799 /* GetPuzzleOperation.m in Sources */,
-				3692A0D015464A2800D59C99 /* PuzzleSDK.m in Sources */,
-				3692A0DF15464AE400D59C99 /* PuzzleUser.m in Sources */,
-				70CE9FCE154650F800B65FE2 /* CreateUserOperation.m in Sources */,
-				362536B81546521000DFF2F3 /* MainViewController.m in Sources */,
-				362536BD1546532E00DFF2F3 /* JSONKit.m in Sources */,
-				36099929154B90E10006A5F5 /* PuzzleErrorHandler.m in Sources */,
+				36099977154B9C340006A5F5 /* MainViewController.m in Sources */,
+				36099979154B9C340006A5F5 /* PuzzleAPIURLFactory.m in Sources */,
+				3609997A154B9C340006A5F5 /* CreateUserOperation.m in Sources */,
+				3609997B154B9C340006A5F5 /* GetPuzzleOperation.m in Sources */,
+				3609997C154B9C340006A5F5 /* PuzzleOperation.m in Sources */,
+				3609997D154B9C340006A5F5 /* PuzzleOperationManager.m in Sources */,
+				3609997E154B9C340006A5F5 /* JSONKit.m in Sources */,
+				3609997F154B9C340006A5F5 /* PuzzleUser.m in Sources */,
+				36099980154B9C340006A5F5 /* PuzzleErrorHandler.m in Sources */,
+				36099981154B9C340006A5F5 /* PuzzleSDK.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
