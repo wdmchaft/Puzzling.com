@@ -32,8 +32,8 @@
 @synthesize data = user_data;
 
 
--(id)initWithUserName:(NSString*)userName password:(NSString*)password userData:(NSDictionary*)data{
-    self = [super init];
+-(id)initWithUserName:(NSString*)userName password:(NSString*)password userData:(NSDictionary*)data onCompletionBlock:(PuzzleOnCompletionBlock)block{
+    self = [super initWithOnCompletionBlock:block];
     if(self){
         self.userName = userName;
         self.password = password;

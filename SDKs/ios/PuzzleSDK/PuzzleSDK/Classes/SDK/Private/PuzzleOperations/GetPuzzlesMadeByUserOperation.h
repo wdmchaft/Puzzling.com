@@ -10,4 +10,7 @@
 
 @interface GetPuzzlesMadeByUserOperation : PuzzleOperation
 
+-(id)initWithUsername:(NSString*)username onCompletionBlock:(PuzzleOnCompletionBlock)block;
+
+
 @end

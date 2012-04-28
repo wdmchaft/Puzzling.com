@@ -10,4 +10,6 @@
 
 @interface DeleteUserOperation : PuzzleOperation
 
+-(id)initWithUserName:(NSString*)userName onCompletionBlock:(PuzzleOnCompletionBlock)block;
+
 @end

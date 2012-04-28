@@ -10,4 +10,7 @@
 
 @interface CreatePuzzleOperation : PuzzleOperation
 
+-(id)initWithType:(NSString*)type setupData:(NSDictionary*)setupData solutionData:(NSDictionary*)solutionData additionalData:(NSDictionary*)additionalData puzzleType:(NSString*)puzzleType authToken:(NSString*)authToken onCompletionBlock:(PuzzleOnCompletionBlock)block;
+
+
 @end

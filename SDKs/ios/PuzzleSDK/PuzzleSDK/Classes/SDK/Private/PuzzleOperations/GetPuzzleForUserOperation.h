@@ -8,6 +8,10 @@
 
 #import "PuzzleOperation.h"
 
-@interface GetPuzzleForUser : PuzzleOperation
+@interface GetPuzzleForUserOperation : PuzzleOperation
+
+-(id)initWithAuthToken:(NSString*)authToken onCompletionBlock:(PuzzleOnCompletionBlock)block;
+
+
 
 @end
