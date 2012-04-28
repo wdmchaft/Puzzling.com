@@ -8,6 +8,7 @@ Thumbs.db
 # Other
 *.xcuserstate
 *.xcuserdatad/
+*.orig
 .idea
 node_modules
 SDK/ios/PuzzlingSDK/PuzzlingSDK.xcodeproj/xcuserdata/*
