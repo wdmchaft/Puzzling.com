@@ -14,7 +14,6 @@
 	UIViewController * rootViewController;
 }
 
-@property
 
 @end
 
