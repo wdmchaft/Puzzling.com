@@ -7,13 +7,25 @@
 //
 
 #import "AppDelegate.h"
+#import "MainMenuViewController.h"
+
+
+@interface AppDelegate() {
+	UIViewController *__rootViewController;
+}
+
+@property (nonatomic, readwrite, retain) UIViewController *rootViewController;
+
+@end
 
 @implementation AppDelegate
 
-@synthesize window = _window;
+@synthesize window = _window, rootViewController = __rootViewController;
 
 - (void)dealloc
 {
+	[__rootViewController release];
+	__rootViewController = nil;
 	[_window release];
     [super dealloc];
 }
@@ -21,7 +33,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
+	
+	MainMenuViewController *vc = [[[MainMenuViewController alloc] init] autorelease];
+	self.rootViewController = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
+	[self.window addSubview:self.rootViewController.view];
+	
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
