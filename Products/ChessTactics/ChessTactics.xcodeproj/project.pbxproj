@@ -37,7 +37,6 @@
 		36099A2D154C71720006A5F5 /* Queen.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A22154C71720006A5F5 /* Queen.m */; };
 		36099A2E154C71720006A5F5 /* Rook.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A24154C71720006A5F5 /* Rook.m */; };
 		36099A32154C76480006A5F5 /* ChessBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A31154C76480006A5F5 /* ChessBoardViewController.m */; };
-		36099A35154C76C30006A5F5 /* ChessBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A34154C76C30006A5F5 /* ChessBoardView.m */; };
 		36099A52154C7D4E0006A5F5 /* bb.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A39154C7D4E0006A5F5 /* bb.png */; };
 		36099A53154C7D4E0006A5F5 /* bb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A3A154C7D4E0006A5F5 /* bb@2x.png */; };
 		36099A54154C7D4E0006A5F5 /* bk.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A3B154C7D4E0006A5F5 /* bk.png */; };
@@ -63,6 +62,10 @@
 		36099A68154C7D4E0006A5F5 /* wr.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A4F154C7D4E0006A5F5 /* wr.png */; };
 		36099A69154C7D4E0006A5F5 /* squareHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A50154C7D4E0006A5F5 /* squareHighlight.png */; };
 		36099A6A154C7D4E0006A5F5 /* squareHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A51154C7D4E0006A5F5 /* squareHighlight@2x.png */; };
+		361354B6154D1EB6004A056F /* ChessMove.m in Sources */ = {isa = PBXBuildFile; fileRef = 361354B5154D1EB6004A056F /* ChessMove.m */; };
+		361354B9154D1EE6004A056F /* ChessBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 361354B8154D1EE6004A056F /* ChessBoardView.m */; };
+		361354BD154D3005004A056F /* CreatePuzzleSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361354BB154D3005004A056F /* CreatePuzzleSetupViewController.m */; };
+		361354BE154D3005004A056F /* CreatePuzzleSetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 361354BC154D3005004A056F /* CreatePuzzleSetupViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,8 +127,6 @@
 		36099A24154C71720006A5F5 /* Rook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rook.m; sourceTree = "<group>"; };
 		36099A30154C76480006A5F5 /* ChessBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChessBoardViewController.h; path = "Classes/View Controllers/Chess Board/ChessBoardViewController.h"; sourceTree = "<group>"; };
 		36099A31154C76480006A5F5 /* ChessBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChessBoardViewController.m; path = "Classes/View Controllers/Chess Board/ChessBoardViewController.m"; sourceTree = "<group>"; };
-		36099A33154C76C20006A5F5 /* ChessBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessBoardView.h; sourceTree = "<group>"; };
-		36099A34154C76C30006A5F5 /* ChessBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessBoardView.m; sourceTree = "<group>"; };
 		36099A39154C7D4E0006A5F5 /* bb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bb.png; sourceTree = "<group>"; };
 		36099A3A154C7D4E0006A5F5 /* bb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bb@2x.png"; sourceTree = "<group>"; };
 		36099A3B154C7D4E0006A5F5 /* bk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bk.png; sourceTree = "<group>"; };
@@ -151,6 +152,13 @@
 		36099A4F154C7D4E0006A5F5 /* wr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wr.png; sourceTree = "<group>"; };
 		36099A50154C7D4E0006A5F5 /* squareHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squareHighlight.png; sourceTree = "<group>"; };
 		36099A51154C7D4E0006A5F5 /* squareHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "squareHighlight@2x.png"; sourceTree = "<group>"; };
+		361354B4154D1EB6004A056F /* ChessMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessMove.h; sourceTree = "<group>"; };
+		361354B5154D1EB6004A056F /* ChessMove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessMove.m; sourceTree = "<group>"; };
+		361354B7154D1EE6004A056F /* ChessBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChessBoardView.h; path = "Classes/View Controllers/Chess Board/ChessBoardView.h"; sourceTree = "<group>"; };
+		361354B8154D1EE6004A056F /* ChessBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChessBoardView.m; path = "Classes/View Controllers/Chess Board/ChessBoardView.m"; sourceTree = "<group>"; };
+		361354BA154D3005004A056F /* CreatePuzzleSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreatePuzzleSetupViewController.h; path = "Classes/View Controllers/Create Puzzle/CreatePuzzleSetupViewController.h"; sourceTree = "<group>"; };
+		361354BB154D3005004A056F /* CreatePuzzleSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreatePuzzleSetupViewController.m; path = "Classes/View Controllers/Create Puzzle/CreatePuzzleSetupViewController.m"; sourceTree = "<group>"; };
+		361354BC154D3005004A056F /* CreatePuzzleSetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CreatePuzzleSetupViewController.xib; path = "Classes/View Controllers/Create Puzzle/CreatePuzzleSetupViewController.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -328,6 +336,9 @@
 				36099A03154C70C90006A5F5 /* CreatePuzzleViewController.h */,
 				36099A04154C70C90006A5F5 /* CreatePuzzleViewController.m */,
 				36099A05154C70C90006A5F5 /* CreatePuzzleViewController.xib */,
+				361354BA154D3005004A056F /* CreatePuzzleSetupViewController.h */,
+				361354BB154D3005004A056F /* CreatePuzzleSetupViewController.m */,
+				361354BC154D3005004A056F /* CreatePuzzleSetupViewController.xib */,
 			);
 			name = "Create Puzzle";
 			sourceTree = "<group>";
@@ -335,6 +346,8 @@
 		36099A0D154C71720006A5F5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				361354B4154D1EB6004A056F /* ChessMove.h */,
+				361354B5154D1EB6004A056F /* ChessMove.m */,
 				36099A0E154C71720006A5F5 /* Chess Board */,
 				36099A15154C71720006A5F5 /* Chess Pieces */,
 			);
@@ -380,10 +393,10 @@
 		36099A2F154C762F0006A5F5 /* Chess Board */ = {
 			isa = PBXGroup;
 			children = (
+				361354B7154D1EE6004A056F /* ChessBoardView.h */,
+				361354B8154D1EE6004A056F /* ChessBoardView.m */,
 				36099A30154C76480006A5F5 /* ChessBoardViewController.h */,
 				36099A31154C76480006A5F5 /* ChessBoardViewController.m */,
-				36099A33154C76C20006A5F5 /* ChessBoardView.h */,
-				36099A34154C76C30006A5F5 /* ChessBoardView.m */,
 			);
 			name = "Chess Board";
 			sourceTree = "<group>";
@@ -516,6 +529,7 @@
 				36099A68154C7D4E0006A5F5 /* wr.png in Resources */,
 				36099A69154C7D4E0006A5F5 /* squareHighlight.png in Resources */,
 				36099A6A154C7D4E0006A5F5 /* squareHighlight@2x.png in Resources */,
+				361354BE154D3005004A056F /* CreatePuzzleSetupViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,7 +564,9 @@
 				36099A2D154C71720006A5F5 /* Queen.m in Sources */,
 				36099A2E154C71720006A5F5 /* Rook.m in Sources */,
 				36099A32154C76480006A5F5 /* ChessBoardViewController.m in Sources */,
-				36099A35154C76C30006A5F5 /* ChessBoardView.m in Sources */,
+				361354B6154D1EB6004A056F /* ChessMove.m in Sources */,
+				361354B9154D1EE6004A056F /* ChessBoardView.m in Sources */,
+				361354BD154D3005004A056F /* CreatePuzzleSetupViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,9 +23,10 @@
 	ChessModel *__chessModel;
 	NSMutableArray *__highlightSquares;
 	BOOL __inEditingMode;
+	id<ChessBoardViewControllerDelegate> __delegate;
+	BOOL __fullBoard;
 }
 
-@property (nonatomic, readwrite, assign) Color playerColor; 
 @property (nonatomic, readwrite, assign) BOOL interactionAllowed;
 @property (nonatomic, readwrite, retain) ChessPiece *selectedPiece;
 @property (nonatomic, readwrite, retain) ChessPiece *pannedPiece;
@@ -33,7 +34,7 @@
 @property (nonatomic, readwrite, retain) NSMutableArray *highlightSquares;
 
 - (int)squareSize;
-- (void)movePiece:(ChessPiece*)piece to:(Coordinate*)finish withDelay:(double)timeForMove; //0 means recalculated
+- (void)movePiece:(ChessPiece*)piece to:(Coordinate*)finish;
 - (NSTimeInterval)timeForMoveFrom:(Coordinate*)start to:(Coordinate*)finish;
 - (void)boardPanned:(UIPanGestureRecognizer *)gr;
 - (void)boardTapped:(UITapGestureRecognizer*)tapGesture;
@@ -43,12 +44,13 @@
 
 @implementation ChessBoardViewController
 
-@synthesize playerColor = __playerColor, interactionAllowed = __interactionAllowed, selectedPiece = __selectedPiece, chessModel = __chessModel, highlightSquares = __highlightSquares, inEditingMode = __inEditingMode, pannedPiece = __pannedPiece;
+@synthesize playerColor = __playerColor, interactionAllowed = __interactionAllowed, selectedPiece = __selectedPiece, chessModel = __chessModel, highlightSquares = __highlightSquares, inEditingMode = __inEditingMode, pannedPiece = __pannedPiece, delegate = __delegate, fullBoard = __fullBoard;
 
 - (id)initWithColor:(Color)newColor {
 	self = [self init];
 	if (self) {
 		self.playerColor = newColor;
+		self.fullBoard = YES; //default
 	}
 	return self;
 }
@@ -78,6 +80,9 @@
 	__chessModel = nil;
 	[__highlightSquares release];
 	__highlightSquares = nil;
+	[__pannedPiece release];
+	__pannedPiece = nil;
+	__delegate = nil;
 	
 	[super dealloc];
 }
@@ -91,23 +96,58 @@
 	return __highlightSquares;
 }
 
-#pragma mark - Private Methods
+- (NSArray *)allPieces {
+	NSMutableArray *allPieces = [NSMutableArray array];
+	for (int x = 0; x<8; x++) {
+		for (int y = 0; y<8; y++) {
+			ChessPiece *piece = [self.chessModel getPieceAtX:x Y:y];
+			if (piece != nil) {
+				[allPieces addObject:piece];
+			}
+		}
+	}
+	return allPieces;
+}
+
+#pragma mark - Public Methods
 
 - (int)squareSize {
 	return self.view.bounds.size.width/8;
 }
 
-- (void)movePiece:(ChessPiece*)piece to:(Coordinate*)finish withDelay:(double)timeForMove {
-	[UIView beginAnimations:nil context:NULL];
-	if (timeForMove == 0) {
-		timeForMove = [self timeForMoveFrom:[[[Coordinate alloc] initWithX:piece.x Y:piece.y] autorelease] to:finish];
+- (void)addPiece:(Class)ChessPieceType withColor:(Color)color toLocation:(CGPoint)loc {
+	if (!CGRectContainsPoint(self.view.frame, loc)) {
+		return;
 	}
+	int x = loc.x/self.squareSize;
+	int y = 8 - loc.y/self.squareSize;
+	ChessPiece *piece = [[((ChessPiece *)[ChessPieceType alloc]) initWithColor:color] autorelease];
+	piece.x = x;
+	piece.y = y;
+	if (self.playerColor == kBlack) {
+		piece.view.transform = CGAffineTransformMakeRotation(M_PI);
+	}
+	[self.view addSubview:piece.view];
+	[self movePiece:piece to:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
+}
+
+#pragma mark - Private Methods
+
+- (void)movePiece:(ChessPiece*)piece to:(Coordinate*)finish {
+	if ([self.delegate respondsToSelector:@selector(piece:willMoveToX:Y:)]) {
+		[self.delegate piece:piece willMoveToX:finish.x Y:finish.y];
+	}
+	
+	[UIView beginAnimations:nil context:NULL];
+	double timeForMove = [self timeForMoveFrom:[[[Coordinate alloc] initWithX:piece.x Y:piece.y] autorelease] to:finish];
 	[UIView setAnimationDuration:timeForMove];
 	[UIView setAnimationCurve:UIViewAnimationCurveLinear];
 	piece.view.frame = CGRectMake(finish.x*self.squareSize, (7-finish.y)*self.squareSize, self.squareSize, self.squareSize);
 	[UIView commitAnimations];
 	self.interactionAllowed = NO;
 	[self performSelector:@selector(setInteractionAllowed:) withObject:[NSNumber numberWithBool:YES] afterDelay:timeForMove];
+	
+	[self.chessModel movePiece:piece toX:finish.x Y:finish.y withDelay:[self timeForMoveFrom:[[[Coordinate alloc] initWithX:piece.x Y:piece.y] autorelease] to:[[[Coordinate alloc] initWithX:finish.x Y:finish.y] autorelease]]];
 }
 
 - (NSTimeInterval)timeForMoveFrom:(Coordinate*)start to:(Coordinate*)finish {
@@ -119,7 +159,7 @@
 
 - (void)boardTapped:(UITapGestureRecognizer*)tapGesture {
 	
-	if (!self.interactionAllowed) {
+	if (!self.interactionAllowed || self.inEditingMode) {
 		return;
 	}
 	
@@ -138,20 +178,17 @@
 				if (x == 2) {
 					ChessPiece * rook = [self.chessModel getPieceAtX:0 Y:self.selectedPiece.y];
 					if (rook) {
-						[self movePiece:rook to:[[[Coordinate alloc] initWithX:3 Y:self.selectedPiece.y] autorelease] withDelay:0];
-						[self.chessModel movePiece:rook toX:3 Y:self.selectedPiece.y withDelay:[self timeForMoveFrom:[[[Coordinate alloc] initWithX:rook.x Y:rook.y] autorelease] to:[[[Coordinate alloc] initWithX:3 Y:rook.y] autorelease]]];
+						[self movePiece:rook to:[[[Coordinate alloc] initWithX:3 Y:self.selectedPiece.y] autorelease]];
 					}
 				} else if (x == 6) {
 					ChessPiece * rook = [self.chessModel getPieceAtX:7 Y:self.selectedPiece.y];
 					if (rook) {
-						[self movePiece:rook to:[[[Coordinate alloc] initWithX:5 Y:self.selectedPiece.y] autorelease] withDelay:0];
-						[self.chessModel movePiece:rook toX:5 Y:self.selectedPiece.y withDelay:[self timeForMoveFrom:[[[Coordinate alloc] initWithX:rook.x Y:rook.y] autorelease] to:[[[Coordinate alloc] initWithX:5 Y:rook.y] autorelease]]];
+						[self movePiece:rook to:[[[Coordinate alloc] initWithX:5 Y:self.selectedPiece.y] autorelease]];
 					}
 				}
 			}
 			//Move piece
-			[self movePiece:self.selectedPiece to:[[[Coordinate alloc] initWithX:x Y:y] autorelease] withDelay:0];
-			[self.chessModel movePiece:self.selectedPiece toX:x Y:y withDelay:[self timeForMoveFrom:[[[Coordinate alloc] initWithX:self.selectedPiece.x Y:self.selectedPiece.y] autorelease] to:[[[Coordinate alloc] initWithX:x Y:y] autorelease]]];
+			[self movePiece:self.selectedPiece to:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
 		}
 		
 		for (UIView * highlightView in [self.highlightSquares reverseObjectEnumerator]) {
@@ -213,8 +250,7 @@
 		if (CGRectContainsPoint(self.view.frame, [gr locationInView:self.view])) {
 			int x = [gr locationInView:self.view].x/self.squareSize;
 			int y = 8-[gr locationInView:self.view].y/self.squareSize;
-			[self.chessModel movePiece:self.pannedPiece toX:x Y:y withDelay:.05];
-			[self movePiece:self.pannedPiece to:[[[Coordinate alloc] initWithX:x Y:y] autorelease] withDelay:.05];
+			[self movePiece:self.pannedPiece to:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
 		} else { //remove piece
 			[self.chessModel removePiece:self.pannedPiece];
 			[self.pannedPiece.view removeFromSuperview];
@@ -228,7 +264,9 @@
 		self.view.transform = CGAffineTransformMakeRotation(M_PI);
 	}
 	
-	[self.chessModel setUpBoard];
+	if (self.fullBoard) { //otherwise, leave it empty
+		[self.chessModel setUpBoard];
+	}
 	
 	//Add piece views
 	for (int x = 0; x<8; x++) {

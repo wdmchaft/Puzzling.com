@@ -7,7 +7,7 @@
 //
 
 #import "MainMenuViewController.h"
-#import "CreatePuzzleViewController.h"
+#import "CreatePuzzleSetupViewController.h"
 
 
 @interface MainMenuViewController ()
@@ -16,12 +16,18 @@
 
 @implementation MainMenuViewController
 
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	
+	self.title = @"Tactics";
+}
+
 - (IBAction)playPuzzlePressed:(id)sender {
 	
 }
 
 - (IBAction)createPuzzlePressed:(id)sender {
-	CreatePuzzleViewController *vc = [[[CreatePuzzleViewController alloc] init] autorelease];
+	CreatePuzzleSetupViewController *vc = [[[CreatePuzzleSetupViewController alloc] init] autorelease];
 	[self.navigationController pushViewController:vc animated:YES];
 }
 

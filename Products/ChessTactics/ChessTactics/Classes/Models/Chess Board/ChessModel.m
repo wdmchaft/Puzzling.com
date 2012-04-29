@@ -19,7 +19,8 @@
 @property (nonatomic, readonly, retain) NSMutableArray * board;
 
 - (void)setPiece:(ChessPiece*)piece atX:(int)x Y:(int)y;
-- (void)finishPieceMovement:(ChessPiece*)piece;
+- (void)finishPieceMovement:(ChessPiece*)piece withDelay:(NSTimeInterval)seconds;
+- (void)sendMessageToDelegatePieceMoved:(ChessPiece *)piece;
 
 @end
 
@@ -56,39 +57,39 @@
 - (void)setUpBoard {
 	//Pawns
 	for (int i = 0; i<8; i++) {
-		ChessPiece * piece = [[Pawn alloc] initWithColor:kWhite tag:i];
+		ChessPiece * piece = [[Pawn alloc] initWithColor:kWhite];
 		[self setPiece:piece atX:i Y:1];
 		[piece release];
 		
-		piece = [[Pawn alloc] initWithColor:kBlack tag:i];
+		piece = [[Pawn alloc] initWithColor:kBlack];
 		[self setPiece:piece atX:i Y:6];
 		[piece release];
 	}
 	//Rooks
-	[self setPiece:[[[Rook alloc] initWithColor:kWhite tag:0] autorelease] atX:0 Y:0];
-	[self setPiece:[[[Rook alloc] initWithColor:kWhite tag:1] autorelease] atX:7 Y:0];
-	[self setPiece:[[[Rook alloc] initWithColor:kBlack tag:0] autorelease] atX:0 Y:7];
-	[self setPiece:[[[Rook alloc] initWithColor:kBlack tag:1] autorelease] atX:7 Y:7];
+	[self setPiece:[[[Rook alloc] initWithColor:kWhite] autorelease] atX:0 Y:0];
+	[self setPiece:[[[Rook alloc] initWithColor:kWhite] autorelease] atX:7 Y:0];
+	[self setPiece:[[[Rook alloc] initWithColor:kBlack] autorelease] atX:0 Y:7];
+	[self setPiece:[[[Rook alloc] initWithColor:kBlack] autorelease] atX:7 Y:7];
 	
 	//Bishops
-	[self setPiece:[[[Bishop alloc] initWithColor:kWhite tag:0] autorelease] atX:2 Y:0];
-	[self setPiece:[[[Bishop alloc] initWithColor:kWhite tag:1] autorelease] atX:5 Y:0];
-	[self setPiece:[[[Bishop alloc] initWithColor:kBlack tag:0] autorelease] atX:2 Y:7];
-	[self setPiece:[[[Bishop alloc] initWithColor:kBlack tag:1] autorelease] atX:5 Y:7];
+	[self setPiece:[[[Bishop alloc] initWithColor:kWhite] autorelease] atX:2 Y:0];
+	[self setPiece:[[[Bishop alloc] initWithColor:kWhite] autorelease] atX:5 Y:0];
+	[self setPiece:[[[Bishop alloc] initWithColor:kBlack] autorelease] atX:2 Y:7];
+	[self setPiece:[[[Bishop alloc] initWithColor:kBlack] autorelease] atX:5 Y:7];
 	
 	//Knights
-	[self setPiece:[[[Knight alloc] initWithColor:kWhite tag:0] autorelease] atX:1 Y:0];
-	[self setPiece:[[[Knight alloc] initWithColor:kWhite tag:1] autorelease] atX:6 Y:0];
-	[self setPiece:[[[Knight alloc] initWithColor:kBlack tag:0] autorelease] atX:1 Y:7];
-	[self setPiece:[[[Knight alloc] initWithColor:kBlack tag:1] autorelease] atX:6 Y:7];
+	[self setPiece:[[[Knight alloc] initWithColor:kWhite] autorelease] atX:1 Y:0];
+	[self setPiece:[[[Knight alloc] initWithColor:kWhite] autorelease] atX:6 Y:0];
+	[self setPiece:[[[Knight alloc] initWithColor:kBlack] autorelease] atX:1 Y:7];
+	[self setPiece:[[[Knight alloc] initWithColor:kBlack] autorelease] atX:6 Y:7];
 	
 	//Queens
-	[self setPiece:[[[Queen alloc] initWithColor:kWhite tag:2] autorelease] atX:3 Y:0];
-	[self setPiece:[[[Queen alloc] initWithColor:kBlack tag:2] autorelease] atX:3 Y:7];
+	[self setPiece:[[[Queen alloc] initWithColor:kWhite] autorelease] atX:3 Y:0];
+	[self setPiece:[[[Queen alloc] initWithColor:kBlack] autorelease] atX:3 Y:7];
 	
 	//Kings
-	[self setPiece:[[[King alloc] initWithColor:kWhite tag:2] autorelease] atX:4 Y:0];
-	[self setPiece:[[[King alloc] initWithColor:kBlack tag:2] autorelease] atX:4 Y:7];
+	[self setPiece:[[[King alloc] initWithColor:kWhite] autorelease] atX:4 Y:0];
+	[self setPiece:[[[King alloc] initWithColor:kBlack] autorelease] atX:4 Y:7];
 	
 }
 
@@ -217,7 +218,7 @@
 	piece.x = x;
 	piece.y = y;
 	piece.moved = YES;
-	[self finishPieceMovement:piece];
+	[self finishPieceMovement:piece withDelay:seconds];
 }
 
 #pragma mark - Private Methods
@@ -240,11 +241,17 @@
 	}
 }
 
-- (void)finishPieceMovement:(ChessPiece*)piece {
+- (void)sendMessageToDelegatePieceMoved:(ChessPiece *)piece {
+	if ([self.delegate respondsToSelector:@selector(pawnPromotedToQueen:)]) {
+		[self.delegate pawnPromotedToQueen:piece];
+	}
+}
+
+- (void)finishPieceMovement:(ChessPiece*)piece withDelay:(NSTimeInterval)seconds {
 	if ([piece isKindOfClass:[Pawn class]] && (piece.y == 0 || piece.y == 7)) {
 		((Pawn*)piece).promoted = YES;
 		if (self.delegate && [self.delegate respondsToSelector:@selector(pawnPromotedToQueen:)]) {
-			[self.delegate pawnPromotedToQueen:piece];
+			[self performSelector:@selector(sendMessageToDelegatePieceMoved:) withObject:piece afterDelay:seconds];
 		}
 	}
 	[self setPiece:piece atX:piece.x Y:piece.y];

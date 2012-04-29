@@ -16,14 +16,12 @@
 @synthesize view;
 @synthesize movementVectors;
 @synthesize moved;
-@synthesize tag;
 
-- (id)initWithColor:(Color)initialColor tag:(int)tagInt {
+- (id)initWithColor:(Color)initialColor {
 	self = [super init];
 	if (self) {
 		self.color = initialColor;
 		self.moved = NO;
-		self.tag = [NSString stringWithFormat:@"num%d", tagInt];
 	}
 	return self;
 }
@@ -41,7 +39,6 @@
 
 - (void)dealloc {
 	self.view = nil;
-	self.tag = nil;
 	
 	[super dealloc];
 }

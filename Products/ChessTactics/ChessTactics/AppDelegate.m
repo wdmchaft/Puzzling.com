@@ -11,10 +11,10 @@
 
 
 @interface AppDelegate() {
-	UIViewController *__rootViewController;
+	UINavigationController *__rootViewController;
 }
 
-@property (nonatomic, readwrite, retain) UIViewController *rootViewController;
+@property (nonatomic, readwrite, retain) UINavigationController *rootViewController;
 
 @end
 
@@ -36,6 +36,7 @@
 	
 	MainMenuViewController *vc = [[[MainMenuViewController alloc] init] autorelease];
 	self.rootViewController = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
+	self.rootViewController.navigationBar.tintColor = [UIColor blackColor];
 	[self.window addSubview:self.rootViewController.view];
 	
     self.window.backgroundColor = [UIColor whiteColor];

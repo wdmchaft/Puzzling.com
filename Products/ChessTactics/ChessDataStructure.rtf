@@ -9,12 +9,18 @@
 
 \b0 type: tactic\
 setup: \{\
-	piecesSetup: \{\
-		b4: \{\
-			type: pawn\
-			color: white\
-		\}\
+	player: \{\
+		colorIsWhite: true\
 	\}\
+	pieces_setup: \
+		[\
+			\{\
+				type: pawn\
+				color: white\
+				x: 1\
+				y: 3\
+			\}, ...\
+		]\
 	computerMove: \{\
 		b4 : \{\
 			destination: a4\
@@ -22,7 +28,23 @@ setup: \{\
 		\}\
 	\}\
 \}\
-solution: \{\
+//current\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 solution: \{\
+	moves: [\
+			\{\
+				startX:\
+				startY:\
+				finishX:\
+				finishY:\
+		]\
+	\}\
+\}\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+//future\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 solution: \{\
 	moves: \{\
 		d4: \{\
 			destination: d5\

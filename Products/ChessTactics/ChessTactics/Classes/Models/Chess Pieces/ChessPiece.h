@@ -24,8 +24,7 @@ typedef enum {
 @property (nonatomic, assign) int x;
 @property (nonatomic, assign) int y;
 @property (nonatomic, assign) BOOL moved;
-@property (nonatomic, retain) NSString * tag;
 
-- (id)initWithColor:(Color)color tag:(int)tagInt;
+- (id)initWithColor:(Color)color;
 
 @end

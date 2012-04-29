@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChessPieces.h"
+
 
 @interface CreatePuzzleViewController : UIViewController
+
+@property (nonatomic, readwrite, assign) Color playerColor;
+@property (nonatomic, readwrite, assign) BOOL fullBoard;
 
 @end
