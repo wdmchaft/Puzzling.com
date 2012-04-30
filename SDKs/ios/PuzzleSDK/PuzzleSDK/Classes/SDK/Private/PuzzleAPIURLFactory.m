@@ -17,5 +17,23 @@
 + (NSURL*)urlForCreateUser{
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@/login",ROOT_API_URL]];
 }
++ (NSURL*)urlForGetAuthTokenForUser{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/login",ROOT_API_URL]];
+}
 
++ (NSURL*)urlForDeleteUser{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/login",ROOT_API_URL]];
+}
++ (NSURL*)urlForCreatePuzzle{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle",ROOT_API_URL]];
+}
++ (NSURL*)urlForGetPuzzleForUser{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle",ROOT_API_URL]];
+}
++ (NSURL*)urlForGetPuzzlesMadeByUser:(NSString*)username{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/user/%@",ROOT_API_URL,username]];
+}
++ (NSURL*)urlForTakenPuzzle:(NSString*)puzzleID{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/takePuzzle/%@",ROOT_API_URL,puzzleID]];
+}
 @end
