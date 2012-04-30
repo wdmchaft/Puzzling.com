@@ -8,10 +8,10 @@
 
 /* User Authentication is handled by checking an */
 
-var db = require('./db')
-    , hash = require('./hash')
+var db = require('./../db')
+    , hash = require('./../hash')
     , user = require('./user')
-    , auth = require('./authentication.js')
+    , auth = require('./../authentication.js')
     , mongoose = require('mongoose')
 
     , Friend = db.FriendRequestModel;
