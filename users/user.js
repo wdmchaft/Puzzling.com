@@ -9,11 +9,9 @@
 
 /* User Authentication is handled by checking an */
 
-var db = require('./db')
-  , hash = require('./hash')
-  , auth = require('./authentication.js')
+var db = require('./../db')
+  , hash = require('./../hash')
   , mongoose = require('mongoose')
-
   , User = db.UserModel;
 
 /**** Error Handling *****/
@@ -29,9 +27,9 @@ var msg = {
     NOT_AUTHENTICATED   : "not_authenticated"
 }
 
-function send_error(msg, res) {
+function send_error(message, res) {
     res.statusCode = 400;
-    res.send( {error: msg } );
+    res.send( {error: message } );
 }
 
 /**** User Module *****/
@@ -54,37 +52,38 @@ var DEFAULTS = {
 var OPS = {
     "create"  : createCallback,
     "delete"  : deleteCallback,
-    "change"  : changeCallback
+    "update"  : updateCallback
 }
 
 // sha1 hash
 function generateHash(input, salt) {
     return hash.sha1(input, salt);
 }
+exports.generateHash = generateHash;
 
 // md5 hash using (presumably) name + password
 function generateToken(first, second) {
    return generateHash(first + second);
 }
 
-// finds and returns execution back to
-// fnCallback when done
-function findUserByName(name, res, fnCallback) {
+/*
+ * findUserByName:
+ *
+ * finds and returns execution back to
+ * fnCallback when done. We want to have the
+ * res parameter visible to back to the callback.
+ */
+exports.findUserByName = function findUserByName(name, res, fnCallback) {
     var query = {'name': name };
     User.findOne(query, function(err, foundUser) {
         if(!err) {
             fnCallback(foundUser, res);
+        } else {
+            res.statusCode = 500;
+            res.send({error: "Oops, something bad happened on our end. We're trying to fix it asap!"});
         }
     });
 }
-exports.findUserByName = findUserByName;
-
-function isAuthenticated(req, res, exitCallback) {
-    auth.verifyRequestAuthtokenAndAPI(req, res, function(success) {
-        return success;
-    });
-}
-exports.isAuthenticated = isAuthenticated;
 
 /***** List all users - DEBUGGING *****/
 
@@ -102,18 +101,9 @@ exports.list = function(req, res){
 
 /***** Handles incoming POST requests *****/
 
-exports.handle = function(req, res, next){
+exports.handle = function(op, params, res){
 
-    // @auth
-    if(!isAuthenticated(req, res)) {
-        return;
-    }
-
-    // handle POST only
-    var params = req.body;
-    var op = req.params.op;
-
-    if(!(op && params && OPS.hasOwnProperty(op))) {
+    if(!OPS.hasOwnProperty(op)) {
         send_error(msg.BAD_OP, res);
         return;
     }
@@ -122,18 +112,24 @@ exports.handle = function(req, res, next){
     res.reqBody = params;
 
     // call the function callback
-    findUserByName(params.name, res, OPS[op]);
+    this.findUserByName(params.name, res, OPS[op]);
 };
 
-/* if mongoose finds, create callback */
+/*
+* USER CREATION
+*
+* if mongoose find the user, report an error
+* message. Otherwise, try to create and save the
+* user info. If successful, returns a dict of
+* {<username>, <authtoken>}
+*/
 function createCallback(found, res) {
     if(found) {
+        console.log("[CREATE] : User " + found.name + " exists; stopping creation");
         send_error(msg.EXISTS_USER, res);
         return;
     }
-
     var params = res.reqBody;
-
     var salt = "abcd" + Math.floor(Math.random() * 100000);
     var specs = {
                     name       : params.name
@@ -151,30 +147,40 @@ function createCallback(found, res) {
         }
     });
 
-    res.send(JSON.stringify(newUser));
+    console.log("[CREATE] : Created user " + newUser.name)
+    res.send({"username" : newUser.name, "authtoken" : newUser.authToken });
 }
 
-/* if mongoose finds, delete it */
+/*
+* DELETE USER
+*
+* if mongoose finds, delete user and report
+* a "successful" status message.
+*/
 function deleteCallback(found, res) {
     if(!found) {
         send_error(msg.NO_USER, res);
         return;
     }
+    var name = found.name;
+    console.log("[DELETE] : Deleting user " + name);
     found.remove();
-    res.send("Successfully deleted user");
+    res.send({"username" : name, "status":"SUCCESS"});
 }
 
 /* if mongoose finds, change and post a response */
-function changeCallback(found, res) {
+function updateCallback(found, res) {
     if(!found) {
-        send_error(msg.NO_USER, res);
+        res.send({error: msg.NO_USER, statusCode:400});
+        console.log("[UPDATE] : Tried to update user info for username '" + res.reqBody.name + "' but user not found");
         return;
     }
-
     // saved copy of req data
     var params = res.reqBody;
+    console.log("[UPDATE] : Changed user" + found.name + "'s password to " + params.password);
 
     // hash password b4 continuing
+    // we should probably change the salt too...
     if(params.password)
         params.password = generateHash(params.password, found.salt);
 
@@ -188,11 +194,12 @@ function changeCallback(found, res) {
         update = params;
 
     User.update(conditions, update, {}, function(err, numAffected) {
-        if(!err) {
-            res.send("Ok. " + numAffected + " docs changed.");
+        console.log("[UPDATE] : Numaffected: " + numAffected)
+        if(!err && numAffected > 0) {
+            res.send({"username" : params.name, "status":"SUCCESS"});
         }
         else {
-            send_error(msg, msg.UPDATE_ERROR);
+            res.send({error: msg.UPDATE_ERROR, statusCode:400});
         }
     });
 }
@@ -200,12 +207,6 @@ function changeCallback(found, res) {
 /***** Handles incoming GET requests *****/
 
 exports.info = function(req, res) {
-
-    // @auth
-    if(!isAuthenticated(req, res)) {
-        return;
-    }
-
     if(!req.params.name) {
         res.send(msg.MISSING_INFO);
         return;
@@ -216,7 +217,7 @@ exports.info = function(req, res) {
             res.send(msg.NOT_FOUND);
         }
         else {
-            res.send(JSON.stringify(found));
+            res.send(found);
         }
     });
 

@@ -13,6 +13,59 @@
 		3609994D154B9B120006A5F5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3609994B154B9B120006A5F5 /* InfoPlist.strings */; };
 		3609994F154B9B120006A5F5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3609994E154B9B120006A5F5 /* main.m */; };
 		36099953154B9B120006A5F5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099952154B9B120006A5F5 /* AppDelegate.m */; };
+		360999F0154B9F840006A5F5 /* PuzzleAPIURLFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 360999DA154B9F840006A5F5 /* PuzzleAPIURLFactory.m */; };
+		360999F1154B9F840006A5F5 /* CreateUserOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 360999DD154B9F840006A5F5 /* CreateUserOperation.m */; };
+		360999F2154B9F840006A5F5 /* GetPuzzleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 360999DF154B9F840006A5F5 /* GetPuzzleOperation.m */; };
+		360999F3154B9F840006A5F5 /* PuzzleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 360999E1154B9F840006A5F5 /* PuzzleOperation.m */; };
+		360999F4154B9F840006A5F5 /* PuzzleOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 360999E3154B9F840006A5F5 /* PuzzleOperationManager.m */; };
+		360999F5154B9F840006A5F5 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 360999E6154B9F840006A5F5 /* JSONKit.m */; };
+		360999F6154B9F840006A5F5 /* PuzzleUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 360999EA154B9F840006A5F5 /* PuzzleUser.m */; };
+		360999F7154B9F840006A5F5 /* PuzzleErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 360999ED154B9F840006A5F5 /* PuzzleErrorHandler.m */; };
+		360999F8154B9F840006A5F5 /* PuzzleSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 360999EF154B9F840006A5F5 /* PuzzleSDK.m */; };
+		360999FF154C70010006A5F5 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 360999FD154C70010006A5F5 /* MainMenuViewController.m */; };
+		36099A00154C70010006A5F5 /* MainMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360999FE154C70010006A5F5 /* MainMenuViewController.xib */; };
+		36099A06154C70C90006A5F5 /* CreatePuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A04154C70C90006A5F5 /* CreatePuzzleViewController.m */; };
+		36099A07154C70C90006A5F5 /* CreatePuzzleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36099A05154C70C90006A5F5 /* CreatePuzzleViewController.xib */; };
+		36099A25154C71720006A5F5 /* ChessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A10154C71720006A5F5 /* ChessModel.m */; };
+		36099A26154C71720006A5F5 /* Coordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A12154C71720006A5F5 /* Coordinate.m */; };
+		36099A27154C71720006A5F5 /* MovementVectors.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A14154C71720006A5F5 /* MovementVectors.m */; };
+		36099A28154C71720006A5F5 /* Bishop.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A17154C71720006A5F5 /* Bishop.m */; };
+		36099A29154C71720006A5F5 /* ChessPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A19154C71720006A5F5 /* ChessPiece.m */; };
+		36099A2A154C71720006A5F5 /* King.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A1C154C71720006A5F5 /* King.m */; };
+		36099A2B154C71720006A5F5 /* Knight.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A1E154C71720006A5F5 /* Knight.m */; };
+		36099A2C154C71720006A5F5 /* Pawn.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A20154C71720006A5F5 /* Pawn.m */; };
+		36099A2D154C71720006A5F5 /* Queen.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A22154C71720006A5F5 /* Queen.m */; };
+		36099A2E154C71720006A5F5 /* Rook.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A24154C71720006A5F5 /* Rook.m */; };
+		36099A32154C76480006A5F5 /* ChessBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099A31154C76480006A5F5 /* ChessBoardViewController.m */; };
+		36099A52154C7D4E0006A5F5 /* bb.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A39154C7D4E0006A5F5 /* bb.png */; };
+		36099A53154C7D4E0006A5F5 /* bb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A3A154C7D4E0006A5F5 /* bb@2x.png */; };
+		36099A54154C7D4E0006A5F5 /* bk.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A3B154C7D4E0006A5F5 /* bk.png */; };
+		36099A55154C7D4E0006A5F5 /* bk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A3C154C7D4E0006A5F5 /* bk@2x.png */; };
+		36099A56154C7D4E0006A5F5 /* bn.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A3D154C7D4E0006A5F5 /* bn.png */; };
+		36099A57154C7D4E0006A5F5 /* bn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A3E154C7D4E0006A5F5 /* bn@2x.png */; };
+		36099A58154C7D4E0006A5F5 /* bp.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A3F154C7D4E0006A5F5 /* bp.png */; };
+		36099A59154C7D4E0006A5F5 /* bp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A40154C7D4E0006A5F5 /* bp@2x.png */; };
+		36099A5A154C7D4E0006A5F5 /* bq.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A41154C7D4E0006A5F5 /* bq.png */; };
+		36099A5B154C7D4E0006A5F5 /* bq@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A42154C7D4E0006A5F5 /* bq@2x.png */; };
+		36099A5C154C7D4E0006A5F5 /* br.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A43154C7D4E0006A5F5 /* br.png */; };
+		36099A5D154C7D4E0006A5F5 /* br@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A44154C7D4E0006A5F5 /* br@2x.png */; };
+		36099A5E154C7D4E0006A5F5 /* wb.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A45154C7D4E0006A5F5 /* wb.png */; };
+		36099A5F154C7D4E0006A5F5 /* wb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A46154C7D4E0006A5F5 /* wb@2x.png */; };
+		36099A60154C7D4E0006A5F5 /* wk.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A47154C7D4E0006A5F5 /* wk.png */; };
+		36099A61154C7D4E0006A5F5 /* wk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A48154C7D4E0006A5F5 /* wk@2x.png */; };
+		36099A62154C7D4E0006A5F5 /* wn.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A49154C7D4E0006A5F5 /* wn.png */; };
+		36099A63154C7D4E0006A5F5 /* wn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A4A154C7D4E0006A5F5 /* wn@2x.png */; };
+		36099A64154C7D4E0006A5F5 /* wp.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A4B154C7D4E0006A5F5 /* wp.png */; };
+		36099A65154C7D4E0006A5F5 /* wp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A4C154C7D4E0006A5F5 /* wp@2x.png */; };
+		36099A66154C7D4E0006A5F5 /* wq.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A4D154C7D4E0006A5F5 /* wq.png */; };
+		36099A67154C7D4E0006A5F5 /* wq@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A4E154C7D4E0006A5F5 /* wq@2x.png */; };
+		36099A68154C7D4E0006A5F5 /* wr.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A4F154C7D4E0006A5F5 /* wr.png */; };
+		36099A69154C7D4E0006A5F5 /* squareHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A50154C7D4E0006A5F5 /* squareHighlight.png */; };
+		36099A6A154C7D4E0006A5F5 /* squareHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36099A51154C7D4E0006A5F5 /* squareHighlight@2x.png */; };
+		361354B6154D1EB6004A056F /* ChessMove.m in Sources */ = {isa = PBXBuildFile; fileRef = 361354B5154D1EB6004A056F /* ChessMove.m */; };
+		361354B9154D1EE6004A056F /* ChessBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 361354B8154D1EE6004A056F /* ChessBoardView.m */; };
+		361354BD154D3005004A056F /* CreatePuzzleSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361354BB154D3005004A056F /* CreatePuzzleSetupViewController.m */; };
+		361354BE154D3005004A056F /* CreatePuzzleSetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 361354BC154D3005004A056F /* CreatePuzzleSetupViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +79,86 @@
 		36099950154B9B120006A5F5 /* ChessTactics-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChessTactics-Prefix.pch"; sourceTree = "<group>"; };
 		36099951154B9B120006A5F5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		36099952154B9B120006A5F5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		360999D9154B9F840006A5F5 /* PuzzleAPIURLFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleAPIURLFactory.h; sourceTree = "<group>"; };
+		360999DA154B9F840006A5F5 /* PuzzleAPIURLFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleAPIURLFactory.m; sourceTree = "<group>"; };
+		360999DC154B9F840006A5F5 /* CreateUserOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateUserOperation.h; sourceTree = "<group>"; };
+		360999DD154B9F840006A5F5 /* CreateUserOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateUserOperation.m; sourceTree = "<group>"; };
+		360999DE154B9F840006A5F5 /* GetPuzzleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPuzzleOperation.h; sourceTree = "<group>"; };
+		360999DF154B9F840006A5F5 /* GetPuzzleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPuzzleOperation.m; sourceTree = "<group>"; };
+		360999E0154B9F840006A5F5 /* PuzzleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleOperation.h; sourceTree = "<group>"; };
+		360999E1154B9F840006A5F5 /* PuzzleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleOperation.m; sourceTree = "<group>"; };
+		360999E2154B9F840006A5F5 /* PuzzleOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleOperationManager.h; sourceTree = "<group>"; };
+		360999E3154B9F840006A5F5 /* PuzzleOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleOperationManager.m; sourceTree = "<group>"; };
+		360999E5154B9F840006A5F5 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		360999E6154B9F840006A5F5 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		360999E9154B9F840006A5F5 /* PuzzleUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleUser.h; sourceTree = "<group>"; };
+		360999EA154B9F840006A5F5 /* PuzzleUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleUser.m; sourceTree = "<group>"; };
+		360999EB154B9F840006A5F5 /* PuzzleAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleAPIKey.h; sourceTree = "<group>"; };
+		360999EC154B9F840006A5F5 /* PuzzleErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleErrorHandler.h; sourceTree = "<group>"; };
+		360999ED154B9F840006A5F5 /* PuzzleErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleErrorHandler.m; sourceTree = "<group>"; };
+		360999EE154B9F840006A5F5 /* PuzzleSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleSDK.h; sourceTree = "<group>"; };
+		360999EF154B9F840006A5F5 /* PuzzleSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleSDK.m; sourceTree = "<group>"; };
+		360999FC154C70010006A5F5 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuViewController.h; path = "Classes/View Controllers/Main View Controller/MainMenuViewController.h"; sourceTree = "<group>"; };
+		360999FD154C70010006A5F5 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenuViewController.m; path = "Classes/View Controllers/Main View Controller/MainMenuViewController.m"; sourceTree = "<group>"; };
+		360999FE154C70010006A5F5 /* MainMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenuViewController.xib; path = "Classes/View Controllers/Main View Controller/MainMenuViewController.xib"; sourceTree = "<group>"; };
+		36099A03154C70C90006A5F5 /* CreatePuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreatePuzzleViewController.h; path = "Classes/View Controllers/Create Puzzle/CreatePuzzleViewController.h"; sourceTree = "<group>"; };
+		36099A04154C70C90006A5F5 /* CreatePuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreatePuzzleViewController.m; path = "Classes/View Controllers/Create Puzzle/CreatePuzzleViewController.m"; sourceTree = "<group>"; };
+		36099A05154C70C90006A5F5 /* CreatePuzzleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CreatePuzzleViewController.xib; path = "Classes/View Controllers/Create Puzzle/CreatePuzzleViewController.xib"; sourceTree = "<group>"; };
+		36099A0F154C71720006A5F5 /* ChessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessModel.h; sourceTree = "<group>"; };
+		36099A10154C71720006A5F5 /* ChessModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessModel.m; sourceTree = "<group>"; };
+		36099A11154C71720006A5F5 /* Coordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coordinate.h; sourceTree = "<group>"; };
+		36099A12154C71720006A5F5 /* Coordinate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coordinate.m; sourceTree = "<group>"; };
+		36099A13154C71720006A5F5 /* MovementVectors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovementVectors.h; sourceTree = "<group>"; };
+		36099A14154C71720006A5F5 /* MovementVectors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovementVectors.m; sourceTree = "<group>"; };
+		36099A16154C71720006A5F5 /* Bishop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bishop.h; sourceTree = "<group>"; };
+		36099A17154C71720006A5F5 /* Bishop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bishop.m; sourceTree = "<group>"; };
+		36099A18154C71720006A5F5 /* ChessPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessPiece.h; sourceTree = "<group>"; };
+		36099A19154C71720006A5F5 /* ChessPiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessPiece.m; sourceTree = "<group>"; };
+		36099A1A154C71720006A5F5 /* ChessPieces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessPieces.h; sourceTree = "<group>"; };
+		36099A1B154C71720006A5F5 /* King.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = King.h; sourceTree = "<group>"; };
+		36099A1C154C71720006A5F5 /* King.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = King.m; sourceTree = "<group>"; };
+		36099A1D154C71720006A5F5 /* Knight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Knight.h; sourceTree = "<group>"; };
+		36099A1E154C71720006A5F5 /* Knight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Knight.m; sourceTree = "<group>"; };
+		36099A1F154C71720006A5F5 /* Pawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pawn.h; sourceTree = "<group>"; };
+		36099A20154C71720006A5F5 /* Pawn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pawn.m; sourceTree = "<group>"; };
+		36099A21154C71720006A5F5 /* Queen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queen.h; sourceTree = "<group>"; };
+		36099A22154C71720006A5F5 /* Queen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queen.m; sourceTree = "<group>"; };
+		36099A23154C71720006A5F5 /* Rook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rook.h; sourceTree = "<group>"; };
+		36099A24154C71720006A5F5 /* Rook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rook.m; sourceTree = "<group>"; };
+		36099A30154C76480006A5F5 /* ChessBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChessBoardViewController.h; path = "Classes/View Controllers/Chess Board/ChessBoardViewController.h"; sourceTree = "<group>"; };
+		36099A31154C76480006A5F5 /* ChessBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChessBoardViewController.m; path = "Classes/View Controllers/Chess Board/ChessBoardViewController.m"; sourceTree = "<group>"; };
+		36099A39154C7D4E0006A5F5 /* bb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bb.png; sourceTree = "<group>"; };
+		36099A3A154C7D4E0006A5F5 /* bb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bb@2x.png"; sourceTree = "<group>"; };
+		36099A3B154C7D4E0006A5F5 /* bk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bk.png; sourceTree = "<group>"; };
+		36099A3C154C7D4E0006A5F5 /* bk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bk@2x.png"; sourceTree = "<group>"; };
+		36099A3D154C7D4E0006A5F5 /* bn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bn.png; sourceTree = "<group>"; };
+		36099A3E154C7D4E0006A5F5 /* bn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bn@2x.png"; sourceTree = "<group>"; };
+		36099A3F154C7D4E0006A5F5 /* bp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bp.png; sourceTree = "<group>"; };
+		36099A40154C7D4E0006A5F5 /* bp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bp@2x.png"; sourceTree = "<group>"; };
+		36099A41154C7D4E0006A5F5 /* bq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bq.png; sourceTree = "<group>"; };
+		36099A42154C7D4E0006A5F5 /* bq@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bq@2x.png"; sourceTree = "<group>"; };
+		36099A43154C7D4E0006A5F5 /* br.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = br.png; sourceTree = "<group>"; };
+		36099A44154C7D4E0006A5F5 /* br@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "br@2x.png"; sourceTree = "<group>"; };
+		36099A45154C7D4E0006A5F5 /* wb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wb.png; sourceTree = "<group>"; };
+		36099A46154C7D4E0006A5F5 /* wb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wb@2x.png"; sourceTree = "<group>"; };
+		36099A47154C7D4E0006A5F5 /* wk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wk.png; sourceTree = "<group>"; };
+		36099A48154C7D4E0006A5F5 /* wk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wk@2x.png"; sourceTree = "<group>"; };
+		36099A49154C7D4E0006A5F5 /* wn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wn.png; sourceTree = "<group>"; };
+		36099A4A154C7D4E0006A5F5 /* wn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wn@2x.png"; sourceTree = "<group>"; };
+		36099A4B154C7D4E0006A5F5 /* wp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wp.png; sourceTree = "<group>"; };
+		36099A4C154C7D4E0006A5F5 /* wp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wp@2x.png"; sourceTree = "<group>"; };
+		36099A4D154C7D4E0006A5F5 /* wq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wq.png; sourceTree = "<group>"; };
+		36099A4E154C7D4E0006A5F5 /* wq@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wq@2x.png"; sourceTree = "<group>"; };
+		36099A4F154C7D4E0006A5F5 /* wr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wr.png; sourceTree = "<group>"; };
+		36099A50154C7D4E0006A5F5 /* squareHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squareHighlight.png; sourceTree = "<group>"; };
+		36099A51154C7D4E0006A5F5 /* squareHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "squareHighlight@2x.png"; sourceTree = "<group>"; };
+		361354B4154D1EB6004A056F /* ChessMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessMove.h; sourceTree = "<group>"; };
+		361354B5154D1EB6004A056F /* ChessMove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessMove.m; sourceTree = "<group>"; };
+		361354B7154D1EE6004A056F /* ChessBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChessBoardView.h; path = "Classes/View Controllers/Chess Board/ChessBoardView.h"; sourceTree = "<group>"; };
+		361354B8154D1EE6004A056F /* ChessBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChessBoardView.m; path = "Classes/View Controllers/Chess Board/ChessBoardView.m"; sourceTree = "<group>"; };
+		361354BA154D3005004A056F /* CreatePuzzleSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreatePuzzleSetupViewController.h; path = "Classes/View Controllers/Create Puzzle/CreatePuzzleSetupViewController.h"; sourceTree = "<group>"; };
+		361354BB154D3005004A056F /* CreatePuzzleSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreatePuzzleSetupViewController.m; path = "Classes/View Controllers/Create Puzzle/CreatePuzzleSetupViewController.m"; sourceTree = "<group>"; };
+		361354BC154D3005004A056F /* CreatePuzzleSetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CreatePuzzleSetupViewController.xib; path = "Classes/View Controllers/Create Puzzle/CreatePuzzleSetupViewController.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +205,9 @@
 		36099948154B9B120006A5F5 /* ChessTactics */ = {
 			isa = PBXGroup;
 			children = (
+				360999F9154C6FC00006A5F5 /* Classes */,
+				360999D7154B9F840006A5F5 /* SDK */,
+				36099A36154C7CF90006A5F5 /* Assets */,
 				36099951154B9B120006A5F5 /* AppDelegate.h */,
 				36099952154B9B120006A5F5 /* AppDelegate.m */,
 				36099949154B9B120006A5F5 /* Supporting Files */,
@@ -88,6 +224,230 @@
 				36099950154B9B120006A5F5 /* ChessTactics-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		360999D7154B9F840006A5F5 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				360999D8154B9F840006A5F5 /* Private */,
+				360999E7154B9F840006A5F5 /* Public */,
+			);
+			name = SDK;
+			path = ../../../SDKs/ios/PuzzleSDK/PuzzleSDK/Classes/SDK;
+			sourceTree = "<group>";
+		};
+		360999D8154B9F840006A5F5 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				360999D9154B9F840006A5F5 /* PuzzleAPIURLFactory.h */,
+				360999DA154B9F840006A5F5 /* PuzzleAPIURLFactory.m */,
+				360999DB154B9F840006A5F5 /* PuzzleOperations */,
+				360999E4154B9F840006A5F5 /* Vendor */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		360999DB154B9F840006A5F5 /* PuzzleOperations */ = {
+			isa = PBXGroup;
+			children = (
+				360999DC154B9F840006A5F5 /* CreateUserOperation.h */,
+				360999DD154B9F840006A5F5 /* CreateUserOperation.m */,
+				360999DE154B9F840006A5F5 /* GetPuzzleOperation.h */,
+				360999DF154B9F840006A5F5 /* GetPuzzleOperation.m */,
+				360999E0154B9F840006A5F5 /* PuzzleOperation.h */,
+				360999E1154B9F840006A5F5 /* PuzzleOperation.m */,
+				360999E2154B9F840006A5F5 /* PuzzleOperationManager.h */,
+				360999E3154B9F840006A5F5 /* PuzzleOperationManager.m */,
+			);
+			path = PuzzleOperations;
+			sourceTree = "<group>";
+		};
+		360999E4154B9F840006A5F5 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				360999E5154B9F840006A5F5 /* JSONKit.h */,
+				360999E6154B9F840006A5F5 /* JSONKit.m */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		360999E7154B9F840006A5F5 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				360999E8154B9F840006A5F5 /* Puzzle Models */,
+				360999EB154B9F840006A5F5 /* PuzzleAPIKey.h */,
+				360999EC154B9F840006A5F5 /* PuzzleErrorHandler.h */,
+				360999ED154B9F840006A5F5 /* PuzzleErrorHandler.m */,
+				360999EE154B9F840006A5F5 /* PuzzleSDK.h */,
+				360999EF154B9F840006A5F5 /* PuzzleSDK.m */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		360999E8154B9F840006A5F5 /* Puzzle Models */ = {
+			isa = PBXGroup;
+			children = (
+				360999E9154B9F840006A5F5 /* PuzzleUser.h */,
+				360999EA154B9F840006A5F5 /* PuzzleUser.m */,
+			);
+			path = "Puzzle Models";
+			sourceTree = "<group>";
+		};
+		360999F9154C6FC00006A5F5 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				36099A0D154C71720006A5F5 /* Models */,
+				360999FA154C6FC60006A5F5 /* View Controllers */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		360999FA154C6FC60006A5F5 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				36099A2F154C762F0006A5F5 /* Chess Board */,
+				36099A02154C709C0006A5F5 /* Create Puzzle */,
+				36099A01154C70940006A5F5 /* Play Puzzle */,
+				360999FB154C6FD40006A5F5 /* Main View Controller */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		360999FB154C6FD40006A5F5 /* Main View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				360999FC154C70010006A5F5 /* MainMenuViewController.h */,
+				360999FD154C70010006A5F5 /* MainMenuViewController.m */,
+				360999FE154C70010006A5F5 /* MainMenuViewController.xib */,
+			);
+			name = "Main View Controller";
+			sourceTree = "<group>";
+		};
+		36099A01154C70940006A5F5 /* Play Puzzle */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Play Puzzle";
+			sourceTree = "<group>";
+		};
+		36099A02154C709C0006A5F5 /* Create Puzzle */ = {
+			isa = PBXGroup;
+			children = (
+				36099A03154C70C90006A5F5 /* CreatePuzzleViewController.h */,
+				36099A04154C70C90006A5F5 /* CreatePuzzleViewController.m */,
+				36099A05154C70C90006A5F5 /* CreatePuzzleViewController.xib */,
+				361354BA154D3005004A056F /* CreatePuzzleSetupViewController.h */,
+				361354BB154D3005004A056F /* CreatePuzzleSetupViewController.m */,
+				361354BC154D3005004A056F /* CreatePuzzleSetupViewController.xib */,
+			);
+			name = "Create Puzzle";
+			sourceTree = "<group>";
+		};
+		36099A0D154C71720006A5F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				361354B4154D1EB6004A056F /* ChessMove.h */,
+				361354B5154D1EB6004A056F /* ChessMove.m */,
+				36099A0E154C71720006A5F5 /* Chess Board */,
+				36099A15154C71720006A5F5 /* Chess Pieces */,
+			);
+			name = Models;
+			path = Classes/Models;
+			sourceTree = "<group>";
+		};
+		36099A0E154C71720006A5F5 /* Chess Board */ = {
+			isa = PBXGroup;
+			children = (
+				36099A0F154C71720006A5F5 /* ChessModel.h */,
+				36099A10154C71720006A5F5 /* ChessModel.m */,
+				36099A11154C71720006A5F5 /* Coordinate.h */,
+				36099A12154C71720006A5F5 /* Coordinate.m */,
+				36099A13154C71720006A5F5 /* MovementVectors.h */,
+				36099A14154C71720006A5F5 /* MovementVectors.m */,
+			);
+			path = "Chess Board";
+			sourceTree = "<group>";
+		};
+		36099A15154C71720006A5F5 /* Chess Pieces */ = {
+			isa = PBXGroup;
+			children = (
+				36099A16154C71720006A5F5 /* Bishop.h */,
+				36099A17154C71720006A5F5 /* Bishop.m */,
+				36099A18154C71720006A5F5 /* ChessPiece.h */,
+				36099A19154C71720006A5F5 /* ChessPiece.m */,
+				36099A1A154C71720006A5F5 /* ChessPieces.h */,
+				36099A1B154C71720006A5F5 /* King.h */,
+				36099A1C154C71720006A5F5 /* King.m */,
+				36099A1D154C71720006A5F5 /* Knight.h */,
+				36099A1E154C71720006A5F5 /* Knight.m */,
+				36099A1F154C71720006A5F5 /* Pawn.h */,
+				36099A20154C71720006A5F5 /* Pawn.m */,
+				36099A21154C71720006A5F5 /* Queen.h */,
+				36099A22154C71720006A5F5 /* Queen.m */,
+				36099A23154C71720006A5F5 /* Rook.h */,
+				36099A24154C71720006A5F5 /* Rook.m */,
+			);
+			path = "Chess Pieces";
+			sourceTree = "<group>";
+		};
+		36099A2F154C762F0006A5F5 /* Chess Board */ = {
+			isa = PBXGroup;
+			children = (
+				361354B7154D1EE6004A056F /* ChessBoardView.h */,
+				361354B8154D1EE6004A056F /* ChessBoardView.m */,
+				36099A30154C76480006A5F5 /* ChessBoardViewController.h */,
+				36099A31154C76480006A5F5 /* ChessBoardViewController.m */,
+			);
+			name = "Chess Board";
+			sourceTree = "<group>";
+		};
+		36099A36154C7CF90006A5F5 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				36099A37154C7D4E0006A5F5 /* Chess Board */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		36099A37154C7D4E0006A5F5 /* Chess Board */ = {
+			isa = PBXGroup;
+			children = (
+				36099A38154C7D4E0006A5F5 /* Chess Pieces */,
+				36099A50154C7D4E0006A5F5 /* squareHighlight.png */,
+				36099A51154C7D4E0006A5F5 /* squareHighlight@2x.png */,
+			);
+			name = "Chess Board";
+			path = "Assets/Chess Board";
+			sourceTree = "<group>";
+		};
+		36099A38154C7D4E0006A5F5 /* Chess Pieces */ = {
+			isa = PBXGroup;
+			children = (
+				36099A39154C7D4E0006A5F5 /* bb.png */,
+				36099A3A154C7D4E0006A5F5 /* bb@2x.png */,
+				36099A3B154C7D4E0006A5F5 /* bk.png */,
+				36099A3C154C7D4E0006A5F5 /* bk@2x.png */,
+				36099A3D154C7D4E0006A5F5 /* bn.png */,
+				36099A3E154C7D4E0006A5F5 /* bn@2x.png */,
+				36099A3F154C7D4E0006A5F5 /* bp.png */,
+				36099A40154C7D4E0006A5F5 /* bp@2x.png */,
+				36099A41154C7D4E0006A5F5 /* bq.png */,
+				36099A42154C7D4E0006A5F5 /* bq@2x.png */,
+				36099A43154C7D4E0006A5F5 /* br.png */,
+				36099A44154C7D4E0006A5F5 /* br@2x.png */,
+				36099A45154C7D4E0006A5F5 /* wb.png */,
+				36099A46154C7D4E0006A5F5 /* wb@2x.png */,
+				36099A47154C7D4E0006A5F5 /* wk.png */,
+				36099A48154C7D4E0006A5F5 /* wk@2x.png */,
+				36099A49154C7D4E0006A5F5 /* wn.png */,
+				36099A4A154C7D4E0006A5F5 /* wn@2x.png */,
+				36099A4B154C7D4E0006A5F5 /* wp.png */,
+				36099A4C154C7D4E0006A5F5 /* wp@2x.png */,
+				36099A4D154C7D4E0006A5F5 /* wq.png */,
+				36099A4E154C7D4E0006A5F5 /* wq@2x.png */,
+				36099A4F154C7D4E0006A5F5 /* wr.png */,
+			);
+			path = "Chess Pieces";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +502,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				3609994D154B9B120006A5F5 /* InfoPlist.strings in Resources */,
+				36099A00154C70010006A5F5 /* MainMenuViewController.xib in Resources */,
+				36099A07154C70C90006A5F5 /* CreatePuzzleViewController.xib in Resources */,
+				36099A52154C7D4E0006A5F5 /* bb.png in Resources */,
+				36099A53154C7D4E0006A5F5 /* bb@2x.png in Resources */,
+				36099A54154C7D4E0006A5F5 /* bk.png in Resources */,
+				36099A55154C7D4E0006A5F5 /* bk@2x.png in Resources */,
+				36099A56154C7D4E0006A5F5 /* bn.png in Resources */,
+				36099A57154C7D4E0006A5F5 /* bn@2x.png in Resources */,
+				36099A58154C7D4E0006A5F5 /* bp.png in Resources */,
+				36099A59154C7D4E0006A5F5 /* bp@2x.png in Resources */,
+				36099A5A154C7D4E0006A5F5 /* bq.png in Resources */,
+				36099A5B154C7D4E0006A5F5 /* bq@2x.png in Resources */,
+				36099A5C154C7D4E0006A5F5 /* br.png in Resources */,
+				36099A5D154C7D4E0006A5F5 /* br@2x.png in Resources */,
+				36099A5E154C7D4E0006A5F5 /* wb.png in Resources */,
+				36099A5F154C7D4E0006A5F5 /* wb@2x.png in Resources */,
+				36099A60154C7D4E0006A5F5 /* wk.png in Resources */,
+				36099A61154C7D4E0006A5F5 /* wk@2x.png in Resources */,
+				36099A62154C7D4E0006A5F5 /* wn.png in Resources */,
+				36099A63154C7D4E0006A5F5 /* wn@2x.png in Resources */,
+				36099A64154C7D4E0006A5F5 /* wp.png in Resources */,
+				36099A65154C7D4E0006A5F5 /* wp@2x.png in Resources */,
+				36099A66154C7D4E0006A5F5 /* wq.png in Resources */,
+				36099A67154C7D4E0006A5F5 /* wq@2x.png in Resources */,
+				36099A68154C7D4E0006A5F5 /* wr.png in Resources */,
+				36099A69154C7D4E0006A5F5 /* squareHighlight.png in Resources */,
+				36099A6A154C7D4E0006A5F5 /* squareHighlight@2x.png in Resources */,
+				361354BE154D3005004A056F /* CreatePuzzleSetupViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +542,31 @@
 			files = (
 				3609994F154B9B120006A5F5 /* main.m in Sources */,
 				36099953154B9B120006A5F5 /* AppDelegate.m in Sources */,
+				360999F0154B9F840006A5F5 /* PuzzleAPIURLFactory.m in Sources */,
+				360999F1154B9F840006A5F5 /* CreateUserOperation.m in Sources */,
+				360999F2154B9F840006A5F5 /* GetPuzzleOperation.m in Sources */,
+				360999F3154B9F840006A5F5 /* PuzzleOperation.m in Sources */,
+				360999F4154B9F840006A5F5 /* PuzzleOperationManager.m in Sources */,
+				360999F5154B9F840006A5F5 /* JSONKit.m in Sources */,
+				360999F6154B9F840006A5F5 /* PuzzleUser.m in Sources */,
+				360999F7154B9F840006A5F5 /* PuzzleErrorHandler.m in Sources */,
+				360999F8154B9F840006A5F5 /* PuzzleSDK.m in Sources */,
+				360999FF154C70010006A5F5 /* MainMenuViewController.m in Sources */,
+				36099A06154C70C90006A5F5 /* CreatePuzzleViewController.m in Sources */,
+				36099A25154C71720006A5F5 /* ChessModel.m in Sources */,
+				36099A26154C71720006A5F5 /* Coordinate.m in Sources */,
+				36099A27154C71720006A5F5 /* MovementVectors.m in Sources */,
+				36099A28154C71720006A5F5 /* Bishop.m in Sources */,
+				36099A29154C71720006A5F5 /* ChessPiece.m in Sources */,
+				36099A2A154C71720006A5F5 /* King.m in Sources */,
+				36099A2B154C71720006A5F5 /* Knight.m in Sources */,
+				36099A2C154C71720006A5F5 /* Pawn.m in Sources */,
+				36099A2D154C71720006A5F5 /* Queen.m in Sources */,
+				36099A2E154C71720006A5F5 /* Rook.m in Sources */,
+				36099A32154C76480006A5F5 /* ChessBoardViewController.m in Sources */,
+				361354B6154D1EB6004A056F /* ChessMove.m in Sources */,
+				361354B9154D1EE6004A056F /* ChessBoardView.m in Sources */,
+				361354BD154D3005004A056F /* CreatePuzzleSetupViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +670,7 @@
 				36099958154B9B120006A5F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

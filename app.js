@@ -5,9 +5,7 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , papp = require('./routes/papp')
-  , user = require('./user')
-  , friend = require('./friend')
+  , login = require('./users/login')
   , puzzle = require('./puzzle')
   , db = require('./db');
 
@@ -64,10 +62,14 @@ app.get('/', routes.index);
 // Haven't yet figured out how to render two kinds of views
 // at once...
 
+app.all('/login', login.login);
+
+/*
 app.all('/users', user.list);
 app.get('/user/:name/info', user.info);
 app.get('/user/:name', user.view);
 app.post('/user/:op', user.handle)
+  */
 
 // app.get('/friend', friend.list);
 // app.post('/friend/:id/:id', friend.request);
@@ -80,15 +82,7 @@ app.get('/puzzle/:id', puzzle.getPuzzle);
 app.get('/puzzle/user/:id', puzzle.getUserPuzzles);
 app.get('/puzzle', puzzle.puzzleSuggestion);
 
-
-// Puzzling apps - Examples of POST / GET parameters
-
-app.get('/papp', papp.paramExampleGET);
-app.post('/papp', papp.paramExamplePOST);
-
-/*
- * Start up our server
- */
+// Start up our server
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });

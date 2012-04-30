@@ -9,7 +9,6 @@
 // Taken from Github.
 
 var authentication = require('./authentication');
-var url = require('url');
 var glicko = require('./glicko');
 var db = require('./db');
 
