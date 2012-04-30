@@ -22,6 +22,9 @@ exports.login = function(req, res) {
     });*/
 }
 
+/*
+* Handle authentication based on request method
+*/
 function handle_authenticated_request(req, res) {
     switch(req.method) {
         // Authentication
@@ -64,7 +67,7 @@ function handle_login(params, res) {
 }
 
 /*
- * Success response: { <username>, <authtoken> }
+ * Success response: { <username>, <authtoken>, <userdata> }
  */
 function handle_create(params, res) {
     user.handle("create", params, res);

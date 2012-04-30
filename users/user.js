@@ -14,31 +14,6 @@ var db = require('./../db')
   , mongoose = require('mongoose')
   , User = db.UserModel;
 
-/**** Error Handling *****/
-
-var msg = {
-    NO_PASSWORD         : "no_password_exists",
-    NO_USER             : "no_username_exists",
-    EXISTS_USER         : "user_exists",
-    NO_MATCHING_USER    : "no_such_user_exists",
-    BAD_OP              : "no_such_operation",
-    NOT_FOUND           : "not_found",
-    UPDATE_ERROR        : "error_updating",
-    NOT_AUTHENTICATED   : "not_authenticated"
-}
-
-function send_error(message, res) {
-    res.statusCode = 400;
-    res.send( {error: message } );
-}
-
-/**** User Module *****/
-
-/*
- * Edits information about the user depending
- * on the field.
- * @auth token required
- */
 
 // When a user is first being created
 var DEFAULTS = {
@@ -55,34 +30,23 @@ var OPS = {
     "update"  : updateCallback
 }
 
-// sha1 hash
-function generateHash(input, salt) {
-    return hash.sha1(input, salt);
-}
-exports.generateHash = generateHash;
+/***** Handles incoming GET requests *****/
 
-// md5 hash using (presumably) name + password
-function generateToken(first, second) {
-   return generateHash(first + second);
-}
+exports.info = function(req, res) {
+    if(!req.params.name) {
+        res.send(msg.MISSING_INFO);
+        return;
+    }
 
-/*
- * findUserByName:
- *
- * finds and returns execution back to
- * fnCallback when done. We want to have the
- * res parameter visible to back to the callback.
- */
-exports.findUserByName = function findUserByName(name, res, fnCallback) {
-    var query = {'name': name };
-    User.findOne(query, function(err, foundUser) {
-        if(!err) {
-            fnCallback(foundUser, res);
-        } else {
-            res.statusCode = 500;
-            res.send({error: "Oops, something bad happened on our end. We're trying to fix it asap!"});
+    findUserByName(req.params.name, res, function(found, res) {
+        if(!found) {
+            res.send(msg.NOT_FOUND);
+        }
+        else {
+            res.send(found);
         }
     });
+
 }
 
 /***** List all users - DEBUGGING *****/
@@ -114,6 +78,58 @@ exports.handle = function(op, params, res){
     // call the function callback
     this.findUserByName(params.name, res, OPS[op]);
 };
+
+/******* Rendered Views *********/
+
+exports.view = function(req, res){
+    res.render('users/view', {
+        title: 'Viewing user ' + req.user
+        , user: req.user
+    });
+};
+
+/******** Error Handling *********/
+
+var msg = {NO_PASSWORD: "no_password_exists", NO_USER: "no_username_exists", EXISTS_USER: "user_exists",
+    NO_MATCHING_USER: "no_such_user_exists", BAD_OP: "no_such_operation", NOT_FOUND: "not_found",
+    UPDATE_ERROR: "error_updating", NOT_AUTHENTICATED: "not_authenticated"}
+
+function send_error(message, res) {
+    res.statusCode = 400;
+    res.send( {error: message } );
+}
+
+/******** Helper functions ******/
+
+// sha1 hash
+function generateHash(input, salt) {
+    return hash.sha1(input, salt);
+}
+exports.generateHash = generateHash;
+
+// md5 hash using (presumably) name + password
+function generateToken(first, second) {
+   return generateHash(first + second);
+}
+
+/*
+ * FIND USER
+ *
+ * finds and returns execution back to
+ * fnCallback when done. We want to have the
+ * res parameter visible to back to the callback.
+ */
+exports.findUserByName = function findUserByName(name, res, fnCallback) {
+    var query = {'name': name };
+    User.findOne(query, function(err, foundUser) {
+        if(!err) {
+            fnCallback(foundUser, res);
+        } else {
+            res.statusCode = 500;
+            res.send({error: "Oops, something bad happened on our end. We're trying to fix it asap!"});
+        }
+    });
+}
 
 /*
 * USER CREATION
@@ -162,13 +178,24 @@ function deleteCallback(found, res) {
         send_error(msg.NO_USER, res);
         return;
     }
+    if(found.authToken != res.reqBody["authtoken"]) {
+        send_error(msg.NOT_AUTHENTICATED, res);
+        return;
+    }
     var name = found.name;
     console.log("[DELETE] : Deleting user " + name);
     found.remove();
     res.send({"username" : name, "status":"SUCCESS"});
 }
 
-/* if mongoose finds, change and post a response */
+/*
+* UPDATE USER
+*
+* Treats the request body as an update statement
+* and, as long as the auth token is good, updates
+* the user info
+*
+*/
 function updateCallback(found, res) {
     if(!found) {
         res.send({error: msg.NO_USER, statusCode:400});
@@ -177,20 +204,25 @@ function updateCallback(found, res) {
     }
     // saved copy of req data
     var params = res.reqBody;
-    console.log("[UPDATE] : Changed user" + found.name + "'s password to " + params.password);
 
     // hash password b4 continuing
     // we should probably change the salt too...
     if(params.password)
         params.password = generateHash(params.password, found.salt);
 
-    // don't allow changing of tokens
-    delete params.authToken;
+    // verify tokens
+    if(params["authtoken"] != found.authToken) {
+        res.send({error:msg.NOT_AUTHENTICATED, statusCode:400});
+        return;
+    }
 
-    // params.data is JSON object rep. of
-    // user data taken from retrieving
-    // user information
-    var conditions = {name : params.name},
+    var name = params.name;
+    // delete params that shouldn't be set
+    delete params.authtoken;
+    delete params.name;
+
+    // make sure our parameters are
+    var conditions = {name : name},
         update = params;
 
     User.update(conditions, update, {}, function(err, numAffected) {
@@ -203,32 +235,3 @@ function updateCallback(found, res) {
         }
     });
 }
-
-/***** Handles incoming GET requests *****/
-
-exports.info = function(req, res) {
-    if(!req.params.name) {
-        res.send(msg.MISSING_INFO);
-        return;
-    }
-
-    findUserByName(req.params.name, res, function(found, res) {
-        if(!found) {
-            res.send(msg.NOT_FOUND);
-        }
-        else {
-            res.send(found);
-        }
-    });
-
-}
-
-/***** Rendered Views *****/
-
-exports.view = function(req, res){
-    res.render('users/view', {
-        title: 'Viewing user ' + req.user
-        , user: req.user
-    });
-};
-
