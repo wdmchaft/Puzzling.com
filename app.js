@@ -18,7 +18,7 @@ var app = module.exports = express.createServer();
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
-  //app.set('view engine', 'jade');
+  // app.set('view engine', 'jade');
   app.set('view engine', 'ejs');
 
   /* Middlewares */
@@ -40,47 +40,24 @@ app.configure('production', function(){
 });
 
 // Routes
-/*
- * Express maps javascript regex's to pages loaded in from routes module.
- * App.get takes in two parameters: the regex to match the url, and an object
- * to serve from the routes module.
- * NOTE: These regexes are compiled down to regex literals, but you can also
- * choose to pass literal regex's for more complex things.
- * For more info see expressjs.com/guide.html/#routing
- * and look up "expressjs route-separation" for an example on Github.
- */
 
 // General Site
-
 app.get('/', routes.index);
 
-// Users
-// NOTE : for this to work, comment out
-// the line in app.configure view engine 'jade'
-// and uncomment the line app.configure view engine 'ejs'
-// all others won't work.
-// Haven't yet figured out how to render two kinds of views
-// at once...
-
+// Login - Verbs handled internally
 app.all('/login', login.login);
 
-/*
-app.all('/users', user.list);
-app.get('/user/:name/info', user.info);
-app.get('/user/:name', user.view);
-app.post('/user/:op', user.handle)
-  */
-
+// Friends
 // app.get('/friend', friend.list);
 // app.post('/friend/:id/:id', friend.request);
 
 // Puzzle
-
 app.post('/puzzle', puzzle.create);
 app.post('/puzzle/:id', puzzle.takePuzzle);
 app.get('/puzzle/:id', puzzle.getPuzzle);
 app.get('/puzzle/user/:id', puzzle.getUserPuzzles);
 app.get('/puzzle', puzzle.puzzleSuggestion);
+// app.del('/puzzle', puzzle.deletePuzzle);
 
 // Start up our server
 app.listen(3000, function(){

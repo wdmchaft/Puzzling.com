@@ -2,7 +2,6 @@ package com.Puzzling.SDK;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.simple.parser.JSONParser;
 
 public class APIConfig {
 
@@ -15,10 +14,4 @@ public class APIConfig {
 	public static String password = "";
 	
 	public static String serverRoot = "http://localhost:3000";
-	
-	/* -------------------- Dependencies---------------------- */
-	
-	/* parser / client are globally declared here and used by APIHttp */ 
-	public static JSONParser parser = new JSONParser();
-	public static HttpClient client = new DefaultHttpClient();
 }

@@ -6,7 +6,7 @@ root = "http://localhost:3000"
   
 # CREATE USER
 def create_user(name, password):
-  payload = {"name"  : name,
+  payload = {"username"  : name,
            "password" : password,
            "user_data" : 
             json.dumps({"first"   : "John",
@@ -24,19 +24,19 @@ def create_user(name, password):
 
 # CHECK USER PASSWORD
 def check_password(name, password):
-  r = requests.get(root + "/login?name=" + name + "&password=" + password)
+  r = requests.get(root + "/login?username=" + name + "&password=" + password)
   print r.content
   return json.loads(r.content)
 
 # CHANGE USER PASSWORD
 def change_password(name, password, token):
-  r = requests.put(root + "/login", data={"name" : name, "password" : password, "authtoken" : token})
+  r = requests.put(root + "/login", data={"username" : name, "password" : password, "authtoken" : token})
   print r.content
   return json.loads(r.content)
 
 # DELETE USER
 def delete_user(name, token):
-  r = requests.delete(root + "/login", data={"name" : name, "authtoken" : token})
+  r = requests.delete(root + "/login", data={"username" : name, "authtoken" : token})
   print r.content
   return json.loads(r.content)
 

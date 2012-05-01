@@ -31,7 +31,7 @@ FriendRequest = new Schema({
 });
 
 User = new Schema({
-				  name : String
+				  username : String
 				  ,	password : String
                   , salt : String
 				  ,	authToken : String

@@ -4,6 +4,7 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="jars/json-simple-1.1.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/jimzheng/Applications/eclipse 2/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100/junit.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
