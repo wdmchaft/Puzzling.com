@@ -17,9 +17,10 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.simple.parser.JSONParser;
 
 public class APIHttp {
+	
+	/* global static client used by all requests */
 	public static HttpClient client = new DefaultHttpClient();
 	
 	/**

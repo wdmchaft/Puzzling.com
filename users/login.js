@@ -7,44 +7,51 @@
  */
 
 var user = require('./user.js')
-  , auth = require('./../authentication');
+    , auth = require('./../authentication')
+    , err = require("../error.js");
 
 exports.login = function(req, res) {
-    handle_authenticated_request(req, res);
+    _login(req, res);
     /*
-    auth.verifyRequestAuthtokenAndAPI(req, res, function(verified) {
-        if(!verified) {
-            res.send({ "error" : "Bad HTTP Method", "statusCode" : 402 });
-        }
-        else {
-            handle_authenticated_request(req, res);
-        }
-    });*/
+    if(req.method != GET && req.method != POST) {
+        auth.verifyRequestAuthtokenAndAPI(req, res, function(verified) {
+            if(!verified) {
+                res.send({ "error" : "Bad HTTP Method", "statusCode" : 402 });
+            }
+            else {
+                _login(req, res);
+            }
+        });
+    }
+    else {
+        // If GET request, don't worry about checking params
+        _login(req, res);
+    }
+    */
 }
 
-/*
-* Handle authentication based on request method
-*/
-function handle_authenticated_request(req, res) {
+// HTTP verbs correspond to different actions
+
+function _login(req, res) {
     switch(req.method) {
         // Authentication
         case "GET" :
-            handle_login(req.query, res);
+            _verify(req.query, res);
             break;
 
         // Creation
         case "POST" :
-            handle_create(req.body, res);
+            _create(req.body, res);
             break;
 
         // Deletion
         case "DELETE" :
-            handle_delete(req.body, res);
+            _delete(req.body, res);
             break;
 
         // Updates
         case "PUT" :
-            handle_update(req.body, res);
+            _update(req.body, res);
             break;
 
         default :
@@ -55,35 +62,39 @@ function handle_authenticated_request(req, res) {
 /*
  * Success response: { <username>, <authtoken> }
  */
-function handle_login(params, res) {
+function _verify(params, res) {
+    console.log("Trying to verify { user %s , password %s }", params.username, params.password);
+
     user.findUserByName(params.username, res, function(foundUser, res) {
         if(foundUser && user.generateHash(params.password, foundUser.salt) == foundUser.password) {
-            res.send({"username" : foundUser.username, "authtoken" : foundUser.authToken});
-            return;
+            // only give back auth token and
+            // username; in the future, we may
+            // want to give back the whole username
+            res.send({"username" : foundUser.username, "authToken" : foundUser.authToken});
+        } else {
+            err.send_error(err.NO_MATCHING_USER, res);
         }
-        res.statusCode = 400;
-        res.send({error: "Error, couldn't authenticate"});
     });
 }
 
 /*
  * Success response: { <username>, <authtoken>, <userdata> }
  */
-function handle_create(params, res) {
+function _create(params, res) {
     user.handle("create", params, res);
 }
 
 /*
  * Success response: { <username>, status: "SUCCESS" }
  */
-function handle_delete(params, res) {
+function _delete(params, res) {
     user.handle("delete", params, res);
 }
 
 /*
  * Success response: { <username>, status: "SUCCESS" }
  */
-function handle_update(params, res) {
+function _update(params, res) {
     user.handle("update", params, res);
 }
 

@@ -2,7 +2,6 @@ package com.Puzzling.SDK;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.simple.parser.JSONParser;
 
 public class APIConfig {
 

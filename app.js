@@ -18,7 +18,7 @@ var app = module.exports = express.createServer();
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
-  //app.set('view engine', 'jade');
+  // app.set('view engine', 'jade');
   app.set('view engine', 'ejs');
 
   /* Middlewares */
@@ -44,9 +44,10 @@ app.configure('production', function(){
 // General Site
 app.get('/', routes.index);
 
-// Login
+// Login - Verbs handled internally
 app.all('/login', login.login);
 
+// Friends
 // app.get('/friend', friend.list);
 // app.post('/friend/:id/:id', friend.request);
 
@@ -56,6 +57,7 @@ app.post('/puzzle/:id', puzzle.takePuzzle);
 app.get('/puzzle/:id', puzzle.getPuzzle);
 app.get('/puzzle/user/:id', puzzle.getUserPuzzles);
 app.get('/puzzle', puzzle.puzzleSuggestion);
+// app.del('/puzzle', puzzle.deletePuzzle);
 
 // Start up our server
 app.listen(3000, function(){

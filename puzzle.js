@@ -8,9 +8,10 @@
 
 // Taken from Github.
 
-var authentication = require('./authentication');
-var glicko = require('./glicko');
-var db = require('./db');
+var authentication = require('./authentication')
+    , glicko = require('./glicko')
+    , db = require('./db')
+    , err = require('./error.js');
 
 exports.create = function(req, res) {
 	authentication.verifyRequestAuthtokenAndAPI(req, res, function(success, user) {
@@ -200,4 +201,18 @@ exports.takePuzzle = function(req, res) {
 		}
 	});
 }
+
+/* v2
+exports.deletePuzzle = function(req, res) {
+    var puzzleId = req.body.puzzle_id || undefined;
+    if(puzzleId) {
+        db.PuzzleModel.findOne({"_id" : puzzleId}, function(e, docs) {
+            if(!e) { err.send_error(err.NOT_FOUND, res); return; }
+            res.send({"puzzle_id" : puzzleId, "status" : "SUCCESS"});
+        });
+    } else {
+        err.send_error(err.MISSING_INFO, res); return;
+    }
+}
+*/
 
