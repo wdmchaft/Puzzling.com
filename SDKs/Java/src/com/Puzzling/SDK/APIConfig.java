@@ -15,10 +15,4 @@ public class APIConfig {
 	public static String password = "";
 	
 	public static String serverRoot = "http://localhost:3000";
-	
-	/* -------------------- Dependencies---------------------- */
-	
-	/* parser / client are globally declared here and used by APIHttp */ 
-	public static JSONParser parser = new JSONParser();
-	public static HttpClient client = new DefaultHttpClient();
 }

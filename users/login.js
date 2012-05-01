@@ -56,9 +56,9 @@ function handle_authenticated_request(req, res) {
  * Success response: { <username>, <authtoken> }
  */
 function handle_login(params, res) {
-    user.findUserByName(params.name, res, function(foundUser, res) {
+    user.findUserByName(params.username, res, function(foundUser, res) {
         if(foundUser && user.generateHash(params.password, foundUser.salt) == foundUser.password) {
-            res.send({"username" : foundUser.name, "authtoken" : foundUser.authToken});
+            res.send({"username" : foundUser.username, "authtoken" : foundUser.authToken});
             return;
         }
         res.statusCode = 400;

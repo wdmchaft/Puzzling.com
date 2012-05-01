@@ -1,4 +1,5 @@
 package com.Puzzling.SDK;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import com.Puzzling.SDK.APIHttp;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
@@ -25,7 +27,9 @@ public class API {
 	
 	public static final String loginPath = "/login";
 	public static final String puzzlePath = "/puzzle";
-	public static final String serverRoot = APIConfig.serverRoot;
+	public static final String serverRoot = "http://localhost:3000";
+	
+	public static JSONParser parser = new JSONParser();
 	
 	public API() {/* placeholder */}
 	
@@ -46,16 +50,19 @@ public class API {
 		 * any JSON library to create userDataJSON; all we require
 		 * is that the user add the small JSON-simple library
 		 * to deal with most things.
+		 * 
+		 * 
 		 * @param u Username
 		 * @param p Password
-		 * @return True on success
+		 * @return JSONObject (subclass of java.util.Map) that contains fields
+		 * relating to a typical user model (see User model in APIModels.java)
 		 */
 		public static JSONObject createUser(String u, String p, String userDataJSON) {
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair("name", u));
 			pairs.add(new BasicNameValuePair("password", p));
 			pairs.add(new BasicNameValuePair("user_data", userDataJSON));
-			JSONObject result = getParseJSONResponse("POST", serverRoot + loginPath, pairs);
+			JSONObject result = (JSONObject) getParseJSONResponse("POST", serverRoot + loginPath, pairs);
 			return result;
 		}
 		
@@ -67,8 +74,11 @@ public class API {
 		 * @return String token
 		 */
 		public static String getAuthTokenForUser(String u, String p) {
-			JSONObject result = getParseJSONResponse("GET", serverRoot + loginPath, null);
-			return (String) result.get("authtoken");
+			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			pairs.add(new BasicNameValuePair("name", u));
+			pairs.add(new BasicNameValuePair("password", p));
+			JSONObject result = (JSONObject) getParseJSONResponse("GET", serverRoot + loginPath, pairs);
+			return (String) result.get("authToken");
 		}
 		
 		/**
@@ -80,8 +90,8 @@ public class API {
 		public static boolean deleteUser(String u, String authToken) {
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair("name", u));
-			pairs.add(new BasicNameValuePair("authtoken", authToken));
-			JSONObject result = getParseJSONResponse("DELETE", serverRoot + loginPath, pairs);
+			pairs.add(new BasicNameValuePair("authToken", authToken));
+			JSONObject result = (JSONObject) getParseJSONResponse("DELETE", serverRoot + loginPath, pairs);
 			String status = (String) result.get("status");
 			return (status.equalsIgnoreCase("SUCCESS"));
 		}
@@ -92,12 +102,12 @@ public class API {
 		 * @param p new password
 		 * @return True on success
 		 */
-		public static boolean changeUserPassword(String u, String authToken, String p) {
+		public static boolean changeUserPassword(String u, String p, String authToken) {
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair("name", u));
-			pairs.add(new BasicNameValuePair("authtoken", authToken));
+			pairs.add(new BasicNameValuePair("authToken", authToken));
 			pairs.add(new BasicNameValuePair("password", p));
-			JSONObject result = getParseJSONResponse("PUT", serverRoot + loginPath, pairs);
+			JSONObject result = (JSONObject) getParseJSONResponse("PUT", serverRoot + loginPath, pairs);
 			String status;
 			status = (String) result.get("status");
 			return (status.equalsIgnoreCase("SUCCESS"));
@@ -105,15 +115,17 @@ public class API {
 		
 		/**
 		 * Change user data 
-		 * @param u
-		 * @param jsonData
+		 * @param u Username
+		 * @param authToken Token obtained from logging in or creating user 
+		 * @param jsonData new userdata to include.
 		 * @return
 		 */
 		public static boolean changeUserData(String u, String authToken, String jsonData) {
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair("name", u));
-			pairs.add(new BasicNameValuePair("authtoken", authToken));
-			JSONObject result = getParseJSONResponse("PUT", serverRoot + loginPath, pairs);
+			pairs.add(new BasicNameValuePair("authToken", authToken));
+			pairs.add(new BasicNameValuePair("user_data", jsonData));
+			JSONObject result = (JSONObject) getParseJSONResponse("PUT", serverRoot + loginPath, pairs);
 			String status = (String) result.get("status");
 			return (status.equalsIgnoreCase("SUCCESS"));
 		}
@@ -128,125 +140,169 @@ public class API {
 	 * @author jimzheng
 	 */
 	public static class Puzzle {
-		public static boolean createPuzzle(String authtoken, String type, 
+		
+		/**
+		 * Create puzzle with specified parameters.
+		 * Empty parameters may be denoted by empty string.
+		 * 
+		 * @param authToken: Required auth token obtained from user
+		 * @param type: Required puzzle type. Think of it as a keyword for curation
+		 * @param setupData: Required setup data.
+		 * @param solutionData: Required solution data.
+		 * @param additionalData: Optional extraneous
+		 * @param puzzleType: Optional type.
+		 * @return JSONObject representing the puzzle that was just created by
+		 * the backend. Includes puzzleID as parameter. Use JSONObject's get("param1")
+		 * method to get the parameters.
+		 */
+		public static JSONObject createPuzzle(String authToken, String type, 
 										 String setupData, String solutionData,
 										 String additionalData, String puzzleType) {
 			
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			// Body txt
-			pairs.add(new BasicNameValuePair("authtoken", authtoken));
+			// Request body
+			pairs.add(new BasicNameValuePair("authToken", authToken));
 			pairs.add(new BasicNameValuePair("setupData", setupData));
 			pairs.add(new BasicNameValuePair("solutionData", solutionData));
 			pairs.add(new BasicNameValuePair("additionalData", additionalData));
 			pairs.add(new BasicNameValuePair("puzzleType", puzzleType));
 			
-			JSONObject result = getParseJSONResponse("POST", serverRoot + puzzlePath, pairs);
-			String status = (String) result.get("status");
-			return false;
+			JSONObject result = (JSONObject) getParseJSONResponse("POST", serverRoot + puzzlePath, pairs);
+			return result;
 		}
 		
-		public static boolean updateSetupData(String authToken, String puzzleID, String setupData) {
-		
-		}
-		
-		public static boolean updateSolutionData(String authToken, String puzzleID, String setupData) {
+		/**
+		 * Deletes specified puzzle, given user's auth token. We make sure that a
+		 * user who is authenticating cannot delete the puzzle.
+		 * @param puzzleId
+		 * @param authToken
+		 * @return True on success
+		 */
+		public static boolean deletePuzzle(String puzzleId, String authToken) {
+			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			// Request body
+			pairs.add(new BasicNameValuePair("authToken", authToken));
+			pairs.add(new BasicNameValuePair("puzzleId", puzzleId));
 			
-		}
-		
-		public static boolean updateAdditionalData(String authToken, String puzzleID, String setupData) {
-			
-		}
-		
-		public static boolean amendToAdditionalData() {
-			
-		}
-		
-		public static boolean deletePuzzle() {
-			
+			JSONObject response = (JSONObject) getParseJSONResponse("POST", serverRoot + puzzlePath, pairs);
+			String result = (String) response.get("status");
+			return (result.equalsIgnoreCase("SUCCESS"));
 		}
 	
-		public static boolean getPuzzleForUser(String u) {
+		/**
+		 * Gets curated puzzles for given user.
+		 * @param u
+		 * @param authToken
+		 * @return
+		 */
+		public static JSONArray getPuzzleForUser(String u, String authToken) {
+			StringBuilder url =  new StringBuilder(serverRoot);
+			url.append(puzzlePath).append("/").append(u);
 			
+			JSONArray result = (JSONArray) getParseJSONResponse("GET",url.toString(), null);
+			return result;
 		}
 		
-		public static void setOptions(String u) {
-			
+		/**
+		 * Gets a specific puzzle object by ID.
+		 * @param puzzleId
+		 * @return
+		 */
+		public static JSONObject getPuzzle(String puzzleId) {
+			StringBuilder url =  new StringBuilder(serverRoot);
+			url.append(puzzlePath).append("/").append(puzzleId);
+			JSONObject result = (JSONObject) getParseJSONResponse("GET",url.toString(), null);
+			return result;
 		}
 		
-		public static boolean getPuzzle(Integer puzzleId) {
-			
+		/**
+		 * Call this when a user takes a puzzle; 
+		 * @param user_id
+		 * @param authToken
+		 * @param puzzleID
+		 * @param score
+		 * @return
+		 */
+		public static boolean takePuzzle(String user_id, String authToken, String puzzleID, Float score) {
+			StringBuilder url =  new StringBuilder(serverRoot);
+			url.append(puzzlePath).append("/").append(user_id);
+			JSONObject result = (JSONObject) getParseJSONResponse("POST", url.toString(), null);
+			String status = (String) result.get("status");
+			return (status.equalsIgnoreCase("SUCCESS"));
 		}
-		
-		public static JSONArray getComments() {
-			
+
+		/**
+		 * Gets all puzzles made by certain user_id. Useful for using
+		 * @param user_id
+		 * @return JSONArray; each entry is a JSONObject representing
+		 * a 
+		 */
+		public static JSONArray getPuzzlesMadeByUser(String user_id) {
+			StringBuilder url =  new StringBuilder(serverRoot);
+			url.append(puzzlePath).append("/user/").append(user_id);
+			JSONArray result = (JSONArray) getParseJSONResponse("GET",url.toString(), null);
+			return result;
 		}
-		
-		public static JSONArray getPuzzlesMadeByUser() {
-			
-		}
-		
-		public static void takePuzzle(String authToken, String puzzleID, Float score) {
-			
-		}
-		
-		public static void commentOnPuzzle(String authToken, String puzzleID, String comment) {
-			
-		}
-		
-		public static String getExtraInfoForUser(String u) {
-			
-		}
-		
-		public static boolean sendFriendRequest(String authtoken, String u) {
-			
-		}
-		
-		public static JSONArray getFriendRequests(String authtoken, String u) {
-			
-		}
-		
-		public static boolean acceptFriendRequest(String authtoken, String u) {
-			
-		}
-		
-		public static boolean sendMessage(String authtoken, String u, String msg ) {
-			
-		}
-		
-		public static JSONArray getMessages(String u) {
-			
-		}
-		
-		public static void deleteMessage(Integer messageId) {
-			
-		}
-		
 	}
 	
 	/* ---------------------------- Helper methods ---------------------------------- */
 	
-	public static JSONObject getParseJSONResponse(String method, String url, List<NameValuePair> pairs) {
+	public static Object getParseJSONResponse(String method, String url, List<NameValuePair> pairs) {
+		
 		// Distinguish by method
+		// If we ever find an "authToken" in the pairs passed in,
+		// we know to add that as a header
+		
 		String response;
-		if(method.equalsIgnoreCase("GET")) {
-			response = APIHttp.get(url);
-		} else if(method.equalsIgnoreCase("POST")) {
-			response = APIHttp.post(url, pairs);
-		} else if(method.equalsIgnoreCase("PUT")) {
-			response = APIHttp.put(url, pairs);
-		} else if(method.equalsIgnoreCase("DELETE")) {
-			response = APIHttp.delete(url, pairs);
-		} else {
-			return null;
+		List<NameValuePair> headers = null;
+		boolean withHeaders = false;
+		
+		for(NameValuePair pair : pairs) {
+			if (pair.getName().equalsIgnoreCase("authToken")) {
+				String authToken = pair.getValue();
+				withHeaders = true;
+				if(headers == null) headers = new ArrayList<NameValuePair>();
+				headers.add(new BasicNameValuePair("puzzle_auth_token", authToken));
+			}
 		}
+		
+		if(withHeaders) {
+			
+			if(method.equalsIgnoreCase("GET")) {
+				response = APIHttp.getWithHeaders(url, headers);
+			} else if(method.equalsIgnoreCase("POST")) {
+				response = APIHttp.postWithHeaders(url, pairs, headers);
+			} else if(method.equalsIgnoreCase("PUT")) {
+				response = APIHttp.putWithHeaders(url, pairs, headers);
+			} else if(method.equalsIgnoreCase("DELETE")) {
+				response = APIHttp.deleteWithHeaders(url, pairs, headers);
+			} else {
+				return null;
+			}
+			
+		} else {
+		
+			if(method.equalsIgnoreCase("GET")) {
+				response = APIHttp.get(url);
+			} else if(method.equalsIgnoreCase("POST")) {
+				response = APIHttp.post(url, pairs);
+			} else if(method.equalsIgnoreCase("PUT")) {
+				response = APIHttp.put(url, pairs);
+			} else if(method.equalsIgnoreCase("DELETE")) {
+				response = APIHttp.delete(url, pairs);
+			} else {
+				return null;
+			}
+		}
+		
 		// Parse and return data 
-		JSONObject result;
 		try {
-			result = (JSONObject) APIConfig.parser.parse(response);
-			return result;
+			return parser.parse(response);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
+		// Return an empty JSONObject so we avoid potential errors? 
 		return null;
 	}
 }

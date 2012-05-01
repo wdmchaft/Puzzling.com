@@ -46,7 +46,7 @@ exports.create = function(req, res) {
 					returnData.likes = puzzleInstance.likes;
 					returnData.dislikes = puzzleInstance.dislikes;
 					returnData.rating = puzzleInstance.rating;
-					res.send(returnData);
+					res.send(JSON.stringify(returnData));
 				}
 			});
 		}
@@ -95,7 +95,7 @@ exports.puzzleSuggestion = function(req, res) {
 						weightedDocs.push(container);
 					}
 					var puzzle = pickRandomPuzzle(weightedDocs, weightedTotal);
-					res.send(puzzle);
+					res.send(JSON.stringify(puzzle));
 				}
 			});
 		}
@@ -114,7 +114,7 @@ exports.getPuzzle = function(req, res) {
 					res.statusCode = 400;
 					res.send( {statusCode: 400, error: "no_such_puzzle_exists" } );
 				} else {
-					res.send(doc);
+					res.send(JSON.stringifY(doc));
 				}
 			});
 		}
@@ -138,7 +138,7 @@ exports.getUserPuzzles = function(req, res) {
 							res.statusCode = 500;
 							res.send( { statusCode: 500, error : err} );
 						} else {
-							res.send(docs);
+							res.send(JSON.stringify(docs));
 						}
 					});
 				}
@@ -189,7 +189,7 @@ exports.takePuzzle = function(req, res) {
 										res.send( { statusCode: 500, error : err} );
 									} else {
 										var returnValue = { "newPlayerRating" : newPlayerRating, "newPuzzleRating" : newPuzzleRating, "newPlayerRD": newPlayerRD, "newPuzzleRD" : newPuzzleRD };
-										res.send(returnValue);
+										res.send(JSON.stringify(returnValue));
 									}
 								});
 							}

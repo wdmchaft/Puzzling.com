@@ -33,17 +33,17 @@ var OPS = {
 /***** Handles incoming GET requests *****/
 
 exports.info = function(req, res) {
-    if(!req.params.name) {
+    if(!req.params.username) {
         res.send(msg.MISSING_INFO);
         return;
     }
 
-    findUserByName(req.params.name, res, function(found, res) {
+    findUserByName(req.params.username, res, function(found, res) {
         if(!found) {
             res.send(msg.NOT_FOUND);
         }
         else {
-            res.send(found);
+            res.send(JSON.stringify(found));
         }
     });
 
@@ -59,7 +59,7 @@ exports.list = function(req, res){
                 resultSet.push(JSON.stringify(doc));
             });
         }
-        res.send(resultSet.toString());
+        res.send(JSON.stringify(resultSet));
     });
 };
 
@@ -76,7 +76,7 @@ exports.handle = function(op, params, res){
     res.reqBody = params;
 
     // call the function callback
-    this.findUserByName(params.name, res, OPS[op]);
+    this.findUserByName(params.username, res, OPS[op]);
 };
 
 /******* Rendered Views *********/
@@ -120,7 +120,7 @@ function generateToken(first, second) {
  * res parameter visible to back to the callback.
  */
 exports.findUserByName = function findUserByName(name, res, fnCallback) {
-    var query = {'name': name };
+    var query = {'username': name };
     User.findOne(query, function(err, foundUser) {
         if(!err) {
             fnCallback(foundUser, res);
@@ -141,17 +141,17 @@ exports.findUserByName = function findUserByName(name, res, fnCallback) {
 */
 function createCallback(found, res) {
     if(found) {
-        console.log("[CREATE] : User " + found.name + " exists; stopping creation");
+        console.log("[CREATE] : User " + found.username + " exists; stopping creation");
         send_error(msg.EXISTS_USER, res);
         return;
     }
     var params = res.reqBody;
     var salt = "abcd" + Math.floor(Math.random() * 100000);
     var specs = {
-                    name       : params.name
+                    username   : params.username
                   , password   : generateHash(params.password, salt)
                   , salt       : salt
-                  , authToken  : generateToken(params.name, params.password)
+                  , authToken  : generateToken(params.username, params.password)
                   , rating     : DEFAULTS.DEFAULT_RATING
                   , rd         : DEFAULTS.DEFAULT_DEVIATION
                   , user_data  : params.user_data
@@ -163,8 +163,8 @@ function createCallback(found, res) {
         }
     });
 
-    console.log("[CREATE] : Created user " + newUser.name)
-    res.send({"username" : newUser.name, "authtoken" : newUser.authToken });
+    console.log("[CREATE] : Created user " + newUser.username)
+    res.send({"username" : newUser.username, "authtoken" : newUser.authToken });
 }
 
 /*
@@ -182,7 +182,7 @@ function deleteCallback(found, res) {
         send_error(msg.NOT_AUTHENTICATED, res);
         return;
     }
-    var name = found.name;
+    var name = found.username;
     console.log("[DELETE] : Deleting user " + name);
     found.remove();
     res.send({"username" : name, "status":"SUCCESS"});
@@ -199,7 +199,7 @@ function deleteCallback(found, res) {
 function updateCallback(found, res) {
     if(!found) {
         res.send({error: msg.NO_USER, statusCode:400});
-        console.log("[UPDATE] : Tried to update user info for username '" + res.reqBody.name + "' but user not found");
+        console.log("[UPDATE] : Tried to update user info for username '" + res.reqBody.username + "' but user not found");
         return;
     }
     // saved copy of req data
@@ -216,19 +216,19 @@ function updateCallback(found, res) {
         return;
     }
 
-    var name = params.name;
+    var name = params.username;
     // delete params that shouldn't be set
     delete params.authtoken;
-    delete params.name;
+    delete params.username;
 
     // make sure our parameters are
-    var conditions = {name : name},
+    var conditions = {username : name},
         update = params;
 
     User.update(conditions, update, {}, function(err, numAffected) {
         console.log("[UPDATE] : Numaffected: " + numAffected)
         if(!err && numAffected > 0) {
-            res.send({"username" : params.name, "status":"SUCCESS"});
+            res.send({"username" : name, "status":"SUCCESS"});
         }
         else {
             res.send({error: msg.UPDATE_ERROR, statusCode:400});

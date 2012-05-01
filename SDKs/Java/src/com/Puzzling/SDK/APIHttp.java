@@ -9,25 +9,27 @@ import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpDelete;
-
-import com.Puzzling.SDK.APIConfig;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.simple.parser.JSONParser;
 
 public class APIHttp {
-
-	/*
+	public static HttpClient client = new DefaultHttpClient();
+	
+	/**
 	 * Class APIHttp
 	 * 
 	 * Helper Class for our API. 
 	 * Encapsulates GET/POST/PUT/DELETE Http requests on Android. 
-	 * @dependency APIConfig.client - globally initiated HttpClient
 	 */
 	
-	/* 
+	/** 
 	 * Helper function; independent of request issued,
 	 * parse response and just send back the string read
 	 */
@@ -49,10 +51,15 @@ public class APIHttp {
 	
 	/* ---------------------------- GET ------------------------------ */
 	
-	private static String _get(String urlpath) throws ClientProtocolException, IOException {
+	private static String _get(String urlpath, List<NameValuePair> headers) throws ClientProtocolException, IOException {
 		// construct the body
 		HttpGet request = new HttpGet(urlpath);
-	    HttpResponse response = APIConfig.client.execute(request);
+		if(headers != null) {
+			for(NameValuePair pair : headers) {
+				request.setHeader(pair.getName(), pair.getValue());
+			}
+		}
+	    HttpResponse response = client.execute(request);
 	    return parseResponse(response);
 	}
 	
@@ -63,7 +70,23 @@ public class APIHttp {
 	 */
 	public static String get(String urlpath) {
 		try {
-			return _get(urlpath);
+			return _get(urlpath, null);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		// return empty object to fail gracefully
+		return "{}";
+	}
+	/**
+	 * Same version as get(urlPath) but with cusotm headers
+	 * @param urlpath
+	 * @return JSON response string
+	 */
+	public static String getWithHeaders(String urlpath, List<NameValuePair> headers) {
+		try {
+			return _get(urlpath, headers);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -75,11 +98,16 @@ public class APIHttp {
 	
 	/* ---------------------------- POST ------------------------------ */
 	
-	private static String _post(String urlpath, List<NameValuePair> pairs) throws ClientProtocolException, IOException {
+	private static String _post(String urlpath, List<NameValuePair> pairs, List<NameValuePair> headers) throws ClientProtocolException, IOException {
 		// Construct request
 		HttpPost request = new HttpPost(urlpath);
+		if(headers != null) {
+			for(NameValuePair pair : headers) {
+				request.setHeader(pair.getName(), pair.getValue());
+			}
+		}
 		request.setEntity(new UrlEncodedFormEntity(pairs));
-	    HttpResponse response = APIConfig.client.execute(request);
+	    HttpResponse response = client.execute(request);
 	    return parseResponse(response);
 	}
 	/**
@@ -89,7 +117,19 @@ public class APIHttp {
 	 */
 	public static String post(String urlpath, List<NameValuePair> pairs) {
 		try {
-			return _post(urlpath, pairs);
+			return _post(urlpath, pairs, null);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		// return empty JSON object to fail gracefully
+		return "{}";
+	}
+	public static String postWithHeaders(String urlpath, List<NameValuePair> pairs, 
+											List<NameValuePair> headers) {
+		try {
+			return _post(urlpath, pairs, headers);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -101,17 +141,35 @@ public class APIHttp {
 	
 	/* ---------------------------- PUT ------------------------------ */
 	
-	private static String _put(String urlpath, List<NameValuePair> pairs) throws ClientProtocolException, IOException {
+	private static String _put(String urlpath, List<NameValuePair> pairs, 
+								List<NameValuePair> headers) throws ClientProtocolException, IOException {
 		// Construct request
 		HttpPut request = new HttpPut(urlpath);
+		if(headers != null) {
+			for(NameValuePair pair : headers) {
+				request.setHeader(pair.getName(), pair.getValue());
+			}
+		}
 		request.setEntity(new UrlEncodedFormEntity(pairs));
-	    HttpResponse response = APIConfig.client.execute(request);
+	    HttpResponse response = client.execute(request);
 	    return parseResponse(response);
 	}
 	
 	public static String put(String urlpath, List<NameValuePair> pairs) {
 		try {
-			return _put(urlpath, pairs);
+			return _put(urlpath, pairs, null);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		// return empty JSON object to fail gracefully
+		return "{}";
+	}
+	public static String putWithHeaders(String urlpath, List<NameValuePair> pairs, 
+										List<NameValuePair> headers) {
+		try {
+			return _put(urlpath, pairs, headers);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -122,16 +180,35 @@ public class APIHttp {
 	}
 	
 	/* ---------------------------- DELETE ------------------------------ */
-	private static String _delete(String urlpath, List<NameValuePair> pairs) throws ClientProtocolException, IOException {
+	
+	private static String _delete(String urlpath, List<NameValuePair> pairs, 
+								List<NameValuePair> headers) throws ClientProtocolException, IOException {
 		// Construct request
 		HttpPut request = new HttpPut(urlpath);
+		if(headers != null) {
+			for(NameValuePair pair : headers) {
+				request.setHeader(pair.getName(), pair.getValue());
+			}
+		}
 		request.setEntity(new UrlEncodedFormEntity(pairs));
-	    HttpResponse response = APIConfig.client.execute(new HttpDelete(urlpath));
+	    HttpResponse response = client.execute(new HttpDelete(urlpath));
 	    return parseResponse(response);
 	}
 	public static String delete(String urlpath, List<NameValuePair> pairs) {
 		try {
-			return _delete(urlpath, pairs);
+			return _delete(urlpath, pairs, null);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		// return empty JSON object to fail gracefully
+		return "{}";
+	}
+	public static String deleteWithHeaders(String urlpath, List<NameValuePair> pairs, 
+											List<NameValuePair> headers) {
+		try {
+			return _delete(urlpath, pairs, headers);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
