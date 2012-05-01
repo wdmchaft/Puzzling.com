@@ -210,7 +210,7 @@
 		}
 		
 		for (Coordinate * coord in [self.chessModel getLegalMovesForPiece:self.selectedPiece]) {
-			UIImageView * highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"squareHighlight.png"]];
+			UIImageView * highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"squareHighlight"]];
 			highlight.frame = CGRectMake(coord.x*self.squareSize, (7-coord.y)*self.squareSize, self.squareSize, self.squareSize);
 			[self.view addSubview:highlight];
 			[self.highlightSquares addObject:highlight];
@@ -242,7 +242,18 @@
 		if (self.pannedPiece == nil) {
 			return;
 		}
-		self.pannedPiece.view.frame = CGRectMake([gr locationInView:self.view].x, [gr locationInView:self.view].y, self.pannedPiece.view.frame.size.width, self.pannedPiece.view.frame.size.height);
+		self.pannedPiece.view.frame = CGRectMake([gr locationInView:self.view].x - self.pannedPiece.view.frame.size.width/2, [gr locationInView:self.view].y - self.pannedPiece.view.frame.size.height, self.pannedPiece.view.frame.size.width, self.pannedPiece.view.frame.size.height);
+		
+		//highlight square
+		for (UIView *view in self.highlightSquares) {
+			[view removeFromSuperview];
+		}
+		[self.highlightSquares removeAllObjects];
+		UIImageView * highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"editingSquareHighlight"]];
+		highlight.frame = CGRectMake(x*self.squareSize, (7-y)*self.squareSize, self.squareSize, self.squareSize);
+		[self.view addSubview:highlight];
+		[self.highlightSquares addObject:highlight];
+		[highlight release];
 	} else if (gr.state == UIGestureRecognizerStateEnded) {
 		if (self.pannedPiece == nil) {
 			return;
@@ -256,6 +267,12 @@
 			[self.pannedPiece.view removeFromSuperview];
 		}
 		self.pannedPiece = nil;
+		
+		//Unhighlight all the squares
+		for (UIView *view in self.highlightSquares) {
+			[view removeFromSuperview];
+		}
+		[self.highlightSquares removeAllObjects];
 	}
 }
 

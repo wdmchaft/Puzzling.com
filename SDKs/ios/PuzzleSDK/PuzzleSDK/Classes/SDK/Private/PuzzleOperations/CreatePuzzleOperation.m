@@ -7,9 +7,9 @@
 //
 
 #import "CreatePuzzleOperation.h"
-
 #import "PuzzleAPIURLFactory.h"
 #import "JSONKit.h"
+
 
 #define USER_NAME @"username"
 #define TYPE @"type"
@@ -17,9 +17,6 @@
 #define SOLUTION_DATA @"solutionData"
 #define ADDITIONAL_DATA @"additionalData"
 #define PUZZLE_TYPE @"puzzleType"
-#define AUTHTOKEN @"authtoken"
-
-
 
 @interface CreatePuzzleOperation() {
     NSString* p_type; 
@@ -27,14 +24,12 @@
     NSDictionary* p_setupData;
     NSDictionary* p_solutionData;
     NSDictionary* p_additionalData;
-    NSString* p_puzzleType;
 }
 @property (nonatomic, retain, readwrite)NSString* type; 
 @property (nonatomic, retain, readwrite)NSString* authToken; 
 @property (nonatomic, retain, readwrite)NSDictionary* setupData;
 @property (nonatomic, retain, readwrite)NSDictionary* solutionData;
 @property (nonatomic, retain, readwrite)NSDictionary* additionalData;
-@property (nonatomic, retain, readwrite)NSString* puzzleType;
 
 
 @end
@@ -47,7 +42,6 @@
 @synthesize setupData = p_setupData;
 @synthesize solutionData = p_solutionData;
 @synthesize additionalData = p_additionalData;
-@synthesize puzzleType = p_puzzleType;
 
 -(id)initWithType:(NSString*)type setupData:(NSDictionary*)setupData solutionData:(NSDictionary*)solutionData additionalData:(NSDictionary*)additionalData puzzleType:(NSString*)puzzleType authToken:(NSString*)authToken onCompletionBlock:(PuzzleOnCompletionBlock)block{
     self = [super initWithOnCompletionBlock:block];
@@ -57,16 +51,14 @@
         self.setupData = setupData;
         self.solutionData = solutionData;
         self.additionalData = additionalData;
-        self.puzzleType = puzzleType;
     }
     return self;
 }
 
-
 - (NSMutableURLRequest *)httpRequest {
     NSMutableURLRequest* request = [super httpRequest];
 	[request setHTTPMethod:@"POST"];
-    NSData* jsonData = [[NSDictionary dictionaryWithObjectsAndKeys:self.type, TYPE, self.setupData, SETUP_DATA, self.solutionData, SOLUTION_DATA, self.additionalData, ADDITIONAL_DATA, self.puzzleType, PUZZLE_TYPE, self.authToken, AUTHTOKEN, nil] JSONData];
+    NSData* jsonData = [[NSDictionary dictionaryWithObjectsAndKeys:self.type, TYPE, self.setupData, SETUP_DATA, self.solutionData, SOLUTION_DATA, self.additionalData, ADDITIONAL_DATA, nil] JSONData];
     [request setHTTPBody: jsonData];
     return request;
 }
