@@ -38,4 +38,9 @@
     return [PuzzleAPIURLFactory urlForGetPuzzlesMadeByUser:self.username];
 }
 
+-(void) dealloc{
+    [p_username release]; 
+    [super dealloc];
+}
+
 @end

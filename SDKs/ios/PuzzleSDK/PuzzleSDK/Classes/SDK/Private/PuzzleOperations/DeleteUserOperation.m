@@ -47,6 +47,10 @@
 }
 
 
+-(void) dealloc{
+    [user_name release];
+    [super dealloc];
+}
 
 
 @end

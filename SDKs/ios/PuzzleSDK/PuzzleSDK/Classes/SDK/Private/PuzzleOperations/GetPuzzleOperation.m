@@ -39,4 +39,8 @@
 }
 
 
+-(void) dealloc{
+    [puzzle_ID release];
+    [super dealloc];
+}
 @end
