@@ -10,7 +10,7 @@
 
 @interface TakePuzzleOperation : PuzzleOperation
 
--(id)initWithAuthtoken:(NSString*)authtoken puzzleID:(PuzzleID*)puzzleID score:(float)score onCompletionBlock:(PuzzleOnCompletionBlock)block;
+-(id)initWithPuzzleID:(PuzzleID*)puzzleID score:(float)score onCompletionBlock:(PuzzleOnCompletionBlock)block;
 
 
 @end

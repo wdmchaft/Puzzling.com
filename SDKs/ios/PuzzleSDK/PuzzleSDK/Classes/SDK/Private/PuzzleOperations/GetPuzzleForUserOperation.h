@@ -10,8 +10,4 @@
 
 @interface GetPuzzleForUserOperation : PuzzleOperation
 
--(id)initWithAuthToken:(NSString*)authToken onCompletionBlock:(PuzzleOnCompletionBlock)block;
-
-
-
 @end
