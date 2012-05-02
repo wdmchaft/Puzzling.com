@@ -43,4 +43,9 @@
     return [PuzzleAPIURLFactory urlForGetPuzzleForUser];
 }
 
+-(void) dealloc{
+    [p_authToken release];
+    [super dealloc];
+}
+
 @end

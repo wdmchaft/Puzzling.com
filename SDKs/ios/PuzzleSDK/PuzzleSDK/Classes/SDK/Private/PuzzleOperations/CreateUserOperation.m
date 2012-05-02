@@ -54,6 +54,13 @@
     return [PuzzleAPIURLFactory urlForCreateUser];
 }
 
+-(void) dealloc{
+    [user_name release];
+    [user_password release];
+    [user_data release];
+    [super dealloc];
+}
+
 
 
 @end

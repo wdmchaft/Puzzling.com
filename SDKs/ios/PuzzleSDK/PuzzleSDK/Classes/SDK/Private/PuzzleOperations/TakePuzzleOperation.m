@@ -53,6 +53,10 @@
     return [PuzzleAPIURLFactory urlForTakenPuzzle:self.puzzleID];
 }
 
-
+-(void) dealloc{
+    [p_authToken release];
+    [p_puzzleID release];
+    [super dealloc];
+}
 
 @end

@@ -76,4 +76,15 @@
 }
 
 
+-(void) dealloc{
+    [p_type release]; 
+    [p_authToken release];
+    [p_setupData release];
+    [ p_solutionData release];
+    [p_additionalData release];
+    [p_puzzleType release];
+    [super dealloc];
+}
+
+
 @end
