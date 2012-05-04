@@ -22,7 +22,8 @@ exports.create = function(req, res) {
 			var puzzleName = req.body.name;
 			var puzzleType = req.body.type;
 			
-			var puzzleInstance = new db.PuzzleModel();
+			var PuzzleModel = db.PuzzleModel("asdf");
+			var puzzleInstance = new PuzzleModel();
 			puzzleInstance.name = puzzleName;
 			puzzleInstance.setupData = JSON.stringify(setupData);
 			puzzleInstance.solutionData = JSON.stringify(solutionData);

@@ -89,9 +89,13 @@ Message = new Schema({
 //All the names of collections must end in s. Otherwise, they add one for you.
 exports.AppModel = mongoose.model('apps', App);
 exports.FriendRequestModel = mongoose.model('friend_requests', FriendRequest);
-exports.PuzzleModel = mongoose.model('puzzles', Puzzle);
+//exports.PuzzleModel = mongoose.model('puzzles', Puzzle);
 exports.UserModel = mongoose.model('users', User);
 exports.ObjectID = ObjectID;
+
+exports.PuzzleModel = function (apiKey) {
+	return mongoose.model('puzzles' + apiKey, Puzzle);
+}
 
 //var simple = new Schema({
 //						  a    : String });
