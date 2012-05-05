@@ -48,6 +48,10 @@ PuzzleSDK * sharedInstance = nil;
 	[self.operationManager getPuzzleForID:puzzleID onCompletion:onCompletion];
 }
 
+- (void)getPuzzleForCurrentUserOnCompletion:(PuzzleOnCompletionBlock)onCompletion {
+	[self.operationManager getPuzzleForCurrentUserOnCompletion:onCompletion];
+}
+
 - (void)createPuzzleWithType:(NSString *)type setupData:(NSDictionary *)setupData solutionData:(NSDictionary *)solutionData onCompletionBlock:(PuzzleOnCompletionBlock)onCompletion {
 	[self.operationManager createPuzzleWithType:type setupData:setupData solutionData:solutionData onCompletionBlock:onCompletion];
 }

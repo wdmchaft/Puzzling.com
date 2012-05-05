@@ -9,12 +9,13 @@
 #import "CreatePuzzleSetupViewController.h"
 #import "ChessPieces.h"
 #import "CreatePuzzleViewController.h"
+#import "TacticsDataConstants.h"
 
 
 #define FULL_BOARD @"Full Board"
 #define EMPTY_BOARD @"Empty Board"
-#define WHITE @"White"
-#define BLACK @"Black"
+#define WHITE_LABEL @"White"
+#define BLACK_LABEL @"Black"
 
 @interface CreatePuzzleSetupViewController () {
 	Color __color;
@@ -55,10 +56,10 @@
 
 - (IBAction)changeColor:(UIButton *)sender {
 	if (self.color == kWhite) {
-		[sender setTitle:BLACK forState:UIControlStateNormal];
+		[sender setTitle:BLACK_LABEL forState:UIControlStateNormal];
 		self.color = kBlack;
 	} else {
-		[sender setTitle:WHITE forState:UIControlStateNormal];
+		[sender setTitle:WHITE_LABEL forState:UIControlStateNormal];
 		self.color = kWhite;		
 	}
 }

@@ -28,6 +28,7 @@
 
 @protocol ChessBoardViewControllerDelegate <NSObject>
 
+@optional
 - (void)piece:(ChessPiece *)piece willMoveToX:(int)x Y:(int)y;
 
 @end

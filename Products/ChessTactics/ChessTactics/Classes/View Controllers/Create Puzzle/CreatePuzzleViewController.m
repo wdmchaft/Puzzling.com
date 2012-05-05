@@ -11,22 +11,12 @@
 #import "ChessMove.h"
 #import "Coordinate.h"
 #import "PuzzleSDK.h"
+#import "TacticsDataConstants.h"
 
 
 #define EXTRA_PIECE_X 14
 #define EXTRA_PIECE_DIFFERENCE 50
 #define EXTRA_PIECE_Y 331
-
-#define TYPE @"type"
-#define COLOR @"color"
-#define PIECES_SETUP @"pieces_setup"
-#define X_LOCATION @"x"
-#define Y_LOCATION @"y"
-#define START_X @"start_x"
-#define START_Y @"start_y"
-#define FINISH_X @"finish_x"
-#define FINISH_Y @"finish_y"
-#define MOVES @"moves"
 
 @interface CreatePuzzleViewController () <ChessBoardViewControllerDelegate, UIAlertViewDelegate> {
 	ChessBoardViewController *__chessBoardViewController;
@@ -213,7 +203,7 @@
 			}
 		}
 		
-		NSString *color = piece.color==kWhite?@"white":@"black";
+		NSString *color = piece.color==kWhite?WHITE:BLACK;
 		NSString *type = [NSStringFromClass([piece class]) lowercaseString];
 		NSDictionary *info = [NSMutableDictionary dictionary];
 		[info setValue:color forKey:COLOR];
@@ -223,6 +213,8 @@
 		[piecesSetup addObject:info];
 	}
 	[self.setup setValue:piecesSetup forKey:PIECES_SETUP];
+	
+	[self.setup setValue:self.playerColor==kWhite?WHITE:BLACK forKey:PLAYER_COLOR];
 	
 	return blackKingCount == 1 && whiteKingCount == 1;
 }

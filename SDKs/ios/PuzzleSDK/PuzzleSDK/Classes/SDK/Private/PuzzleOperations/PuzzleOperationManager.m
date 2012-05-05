@@ -9,6 +9,7 @@
 #import "PuzzleOperationManager.h"
 #import "GetPuzzleOperation.h"
 #import "CreatePuzzleOperation.h"
+#import "GetPuzzleForUserOperation.h"
 
 
 @interface PuzzleOperationManager() <NSURLConnectionDelegate> {
@@ -38,7 +39,13 @@
 }
 
 - (void)createPuzzleWithType:(NSString *)type setupData:(NSDictionary *)setupData solutionData:(NSDictionary*)solutionData onCompletionBlock:(PuzzleOnCompletionBlock)block {
-	CreatePuzzleOperation *op = [[CreatePuzzleOperation alloc] initWithType:type setupData:setupData solutionData:solutionData additionalData:nil puzzleType:type authToken:nil onCompletionBlock:block];
+	CreatePuzzleOperation *op = [[CreatePuzzleOperation alloc] initWithType:type setupData:setupData solutionData:solutionData additionalData:nil puzzleType:type onCompletionBlock:block];
+	[self.queue addOperation:op];
+	[op release];
+}
+
+- (void)getPuzzleForCurrentUserOnCompletion:(PuzzleOnCompletionBlock)onCompletion {
+	GetPuzzleForUserOperation *op = [[GetPuzzleForUserOperation alloc] initWithOnCompletionBlock:onCompletion];
 	[self.queue addOperation:op];
 	[op release];
 }

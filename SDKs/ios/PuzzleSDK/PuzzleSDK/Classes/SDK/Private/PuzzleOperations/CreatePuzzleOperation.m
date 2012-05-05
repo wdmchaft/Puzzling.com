@@ -54,7 +54,7 @@
 - (NSMutableURLRequest *)httpRequest {
     NSMutableURLRequest* request = [super httpRequest];
 	[request setHTTPMethod:@"POST"];
-    NSData* jsonData = [[NSDictionary dictionaryWithObjectsAndKeys:self.type, TYPE, self.setupData, SETUP_DATA, self.solutionData, SOLUTION_DATA, self.additionalData, ADDITIONAL_DATA, self.puzzleType, PUZZLE_TYPE, nil] JSONData];
+    NSData* jsonData = [[NSDictionary dictionaryWithObjectsAndKeys:self.type, TYPE, self.setupData, SETUP_DATA, self.solutionData, SOLUTION_DATA, self.additionalData, ADDITIONAL_DATA, nil] JSONData];
     [request setHTTPBody: jsonData];
     return request;
 }
@@ -69,7 +69,6 @@
     [p_setupData release];
     [ p_solutionData release];
     [p_additionalData release];
-    [p_puzzleType release];
     [super dealloc];
 }
 
