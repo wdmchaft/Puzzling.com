@@ -9,20 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "PuzzleModel.h"
 #import "PuzzleUser.h"
+#import "PuzzleErrorHandler.h"
 
-typedef enum {
-    RequestSuccess
-} PuzzleRequestStatus;
 
 typedef NSString PuzzleID;
 
-typedef void(^PuzzleOnCompletionBlock)(PuzzleRequestStatus, PuzzleModel*);
 typedef void(^UserOnCompletionBlock)(PuzzleRequestStatus, PuzzleUser*);
-
+typedef void(^PuzzleOnCompletionBlock)(PuzzleAPIResponse, id);
 
 @interface PuzzleSDK : NSObject
 
 + (PuzzleSDK *)sharedInstance;
 - (void)getPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+- (void)getPuzzleForCurrentUserOnCompletion:(PuzzleOnCompletionBlock)onCompletion;
+- (void)createPuzzleWithType:(NSString *)type setupData:(NSDictionary *)setupData solutionData:(NSDictionary *)solutionData onCompletionBlock:(PuzzleOnCompletionBlock)onCompletion;
 
 @end

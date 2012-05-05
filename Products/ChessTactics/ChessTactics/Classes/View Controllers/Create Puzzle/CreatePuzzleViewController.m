@@ -10,24 +10,15 @@
 #import "ChessBoardViewController.h"
 #import "ChessMove.h"
 #import "Coordinate.h"
+#import "PuzzleSDK.h"
+#import "TacticsDataConstants.h"
 
 
 #define EXTRA_PIECE_X 14
 #define EXTRA_PIECE_DIFFERENCE 50
 #define EXTRA_PIECE_Y 331
 
-#define TYPE @"type"
-#define COLOR @"color"
-#define PIECES_SETUP @"pieces_setup"
-#define X_LOCATION @"x"
-#define Y_LOCATION @"y"
-#define START_X @"start_x"
-#define START_Y @"start_y"
-#define FINISH_X @"finish_x"
-#define FINISH_Y @"finish_y"
-#define MOVES @"moves"
-
-@interface CreatePuzzleViewController () <ChessBoardViewControllerDelegate> {
+@interface CreatePuzzleViewController () <ChessBoardViewControllerDelegate, UIAlertViewDelegate> {
 	ChessBoardViewController *__chessBoardViewController;
 	Pawn *__extraPawn;
 	Rook *__extraRook;
@@ -42,6 +33,11 @@
 	NSMutableDictionary *__setup;
 	Color __playerColor;
 	BOOL __fullBoard;
+	BOOL __computerMoveFirst;
+	BOOL __tacticSubmitted;
+	
+	IBOutlet UILabel *__moveEnteringLabel;
+	IBOutlet UIActivityIndicatorView *__activityView;
 }
 
 @property (nonatomic, readwrite, retain) ChessBoardViewController *chessBoardViewController;
@@ -55,16 +51,21 @@
 @property (nonatomic, readwrite, retain) ChessPiece *pannedPiece;
 @property (nonatomic, readwrite, retain) NSMutableArray *moves;
 @property (nonatomic, readwrite, retain) NSMutableDictionary *setup;
+@property (nonatomic, readwrite, assign) BOOL tacticSubmitted;
+
+@property (nonatomic, readwrite, retain) UILabel *moveEnteringLabel;
+@property (nonatomic, readwrite, retain) UIActivityIndicatorView *activityView;
 
 - (void)setupExtraPieces;
 - (void)addPiecesToView;
 - (void)submitTactic;
+- (void)setHelpMessageForLastPlayerColor:(Color)color;
 
 @end
 
 @implementation CreatePuzzleViewController
 
-@synthesize chessBoardViewController = __chessBoardViewController, extraKing = __extraKing, extraPawn = __extraPawn, extraRook = __extraRook, extraQueen = __extraQueen, extraBishop = __extraBishop, extraKnight = __extraKnight, extraPieces = __extraPieces, pannedPiece = __pannedPiece, moves = __moves, setup = __setup, playerColor = __playerColor, fullBoard = __fullBoard;
+@synthesize chessBoardViewController = __chessBoardViewController, extraKing = __extraKing, extraPawn = __extraPawn, extraRook = __extraRook, extraQueen = __extraQueen, extraBishop = __extraBishop, extraKnight = __extraKnight, extraPieces = __extraPieces, pannedPiece = __pannedPiece, moves = __moves, setup = __setup, playerColor = __playerColor, fullBoard = __fullBoard, moveEnteringLabel = __moveEnteringLabel, computerMoveFirst = __computerMoveFirst, activityView = __activityView, tacticSubmitted = __tacticSubmitted;
 
 #pragma mark - View Life Cycle
 
@@ -106,6 +107,8 @@
 	__moves = nil;
 	[__setup release];
 	__setup = nil;
+	[__moveEnteringLabel release];
+	__moveEnteringLabel = nil;
 	
 	[super dealloc];
 }
@@ -165,15 +168,42 @@
 	}
 	[solutionData setValue:solutionMoves forKey:MOVES];
 	
-	NSLog(@"%@", self.setup);
-	NSLog(@"%@", solutionData);
+	self.activityView.hidden = NO;
+	[self.view bringSubviewToFront:self.activityView];
+	[self.activityView startAnimating];
+	self.view.userInteractionEnabled = NO;
+	
+	[[PuzzleSDK sharedInstance] createPuzzleWithType:@"tactic" setupData:self.setup solutionData:solutionData onCompletionBlock:^(PuzzleAPIResponse status, id data) {
+		self.activityView.hidden = YES;
+		[self.activityView stopAnimating];
+		self.view.userInteractionEnabled = YES;
+		if (status == PuzzleOperationSuccessful) {
+			self.tacticSubmitted = YES;
+			[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"The tactic was successfully created." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		} else {
+			NSLog(@"aww crap");
+		}
+	}];
 }
 
-- (void)createSetup {
+- (BOOL)createSetup { //does some basic checking
 	self.setup = [NSMutableDictionary dictionary];
 	NSMutableArray *piecesSetup = [NSMutableArray array];
+	
+	int blackKingCount = 0;
+	int whiteKingCount = 0;
+	
 	for (ChessPiece *piece in self.chessBoardViewController.allPieces) {
-		NSString *color = piece.color==kWhite?@"white":@"black";
+		//Checking
+		if ([piece isKindOfClass:[King class]]) {
+			if (piece.color == kWhite) {
+				whiteKingCount++;
+			} else {
+				blackKingCount++;
+			}
+		}
+		
+		NSString *color = piece.color==kWhite?WHITE:BLACK;
 		NSString *type = [NSStringFromClass([piece class]) lowercaseString];
 		NSDictionary *info = [NSMutableDictionary dictionary];
 		[info setValue:color forKey:COLOR];
@@ -183,6 +213,15 @@
 		[piecesSetup addObject:info];
 	}
 	[self.setup setValue:piecesSetup forKey:PIECES_SETUP];
+	
+	[self.setup setValue:self.playerColor==kWhite?WHITE:BLACK forKey:PLAYER_COLOR];
+	
+	return blackKingCount == 1 && whiteKingCount == 1;
+}
+
+- (void)setHelpMessageForLastPlayerColor:(Color)color {
+	NSString *helpMessage = [NSString stringWithFormat:@"Play %@ move (%@).", color==self.playerColor?@"computer":@"user", color==kWhite?@"Black":@"White"];
+	self.moveEnteringLabel.text = helpMessage;
 }
 
 #pragma mark - IBActions
@@ -208,11 +247,35 @@
 
 - (IBAction)next:(id)sender {
 	if (self.chessBoardViewController.inEditingMode) {
-		self.chessBoardViewController.inEditingMode = NO;
-		[sender setTitle:@"Submit" forState:UIControlStateNormal];
-		[self createSetup];
-		self.moves = [NSMutableArray array];
-		self.chessBoardViewController.playerColor = self.playerColor;
+		if ([self createSetup]) {
+			self.chessBoardViewController.inEditingMode = NO;
+			[sender setTitle:@"Submit" forState:UIControlStateNormal];
+			self.moves = [NSMutableArray array];
+			
+			//hide editing pieces
+			for (ChessPiece *piece in self.extraPieces) {
+				piece.view.hidden = YES;
+			}
+			self.moveEnteringLabel.hidden = NO;
+			
+			if (self.computerMoveFirst) {
+				[self setHelpMessageForLastPlayerColor:self.playerColor];
+				if (self.playerColor == kWhite) {
+					self.chessBoardViewController.playerColor = kBlack;
+				} else {
+					self.chessBoardViewController.playerColor = kWhite;
+				}
+			} else {
+				self.chessBoardViewController.playerColor = self.playerColor;
+				if (self.playerColor == kWhite) {
+					[self setHelpMessageForLastPlayerColor:kBlack];
+				} else {
+					[self setHelpMessageForLastPlayerColor:kWhite];
+				}
+			}
+		} else {
+			[[[[UIAlertView alloc] initWithTitle:@"Malformed tactic" message:@"Check that there is exactly one king for both white and black." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		}
 	} else {
 		[self submitTactic];
 	}
@@ -232,7 +295,7 @@
 		if (self.pannedPiece == nil) {
 			return;
 		}
-		self.pannedPiece.view.frame = CGRectMake([gr locationInView:self.view].x, [gr locationInView:self.view].y, self.pannedPiece.view.frame.size.width, self.pannedPiece.view.frame.size.height);
+		self.pannedPiece.view.frame = CGRectMake([gr locationInView:self.view].x - self.pannedPiece.view.frame.size.width/2, [gr locationInView:self.view].y - self.pannedPiece.view.frame.size.height, self.pannedPiece.view.frame.size.width, self.pannedPiece.view.frame.size.height);
 	} else if (gr.state == UIGestureRecognizerStateEnded) {
 		if (self.pannedPiece == nil) {
 			return;
@@ -253,11 +316,21 @@
 		model.start = [[[Coordinate alloc] initWithX:piece.x Y:piece.y] autorelease];
 		model.finish = [[[Coordinate alloc] initWithX:x Y:y] autorelease];
 		[self.moves addObject:model];
+		
+		[self setHelpMessageForLastPlayerColor:piece.color];
 		if (self.chessBoardViewController.playerColor == kWhite) {
 			self.chessBoardViewController.playerColor = kBlack;
 		} else {
 			self.chessBoardViewController.playerColor = kWhite;
 		}
+	}
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if (self.tacticSubmitted) {
+		[self.navigationController popViewControllerAnimated:YES];
 	}
 }
 

@@ -14,5 +14,6 @@
 
 @property (nonatomic, readwrite, assign) Color playerColor;
 @property (nonatomic, readwrite, assign) BOOL fullBoard;
+@property (nonatomic, readwrite, assign) BOOL computerMoveFirst;
 
 @end

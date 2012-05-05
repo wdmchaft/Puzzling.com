@@ -93,6 +93,10 @@ exports.PuzzleModel = mongoose.model('puzzles', Puzzle);
 exports.UserModel = mongoose.model('users', User);
 exports.ObjectID = ObjectID;
 
+//exports.PuzzleModel = function (apiKey) {
+	//return mongoose.model('puzzles' + apiKey, Puzzle);
+//}
+
 //var simple = new Schema({
 //						  a    : String });
 //var MyModel = mongoose.model('simples', simple); //I cannot work out what the name of the model does.

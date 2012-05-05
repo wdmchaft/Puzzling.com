@@ -9,20 +9,24 @@
 #import "CreatePuzzleSetupViewController.h"
 #import "ChessPieces.h"
 #import "CreatePuzzleViewController.h"
+#import "TacticsDataConstants.h"
 
 
 #define FULL_BOARD @"Full Board"
 #define EMPTY_BOARD @"Empty Board"
-#define WHITE @"White"
-#define BLACK @"Black"
+#define WHITE_LABEL @"White"
+#define BLACK_LABEL @"Black"
 
 @interface CreatePuzzleSetupViewController () {
 	Color __color;
 	BOOL __fullBoard;
+	
+	IBOutlet UISwitch *__computerMovesFirst;
 }
 
 @property (nonatomic, readwrite, assign) Color color;
 @property (nonatomic, readwrite, assign) BOOL fullBoard;
+@property (nonatomic, readwrite, retain) UISwitch *computerMovesFirst;
 
 - (IBAction)changeColor:(UIButton *)sender;
 - (IBAction)changeBoard:(UIButton *)sender;
@@ -32,7 +36,7 @@
 
 @implementation CreatePuzzleSetupViewController
 
-@synthesize color = __color, fullBoard = __fullBoard;
+@synthesize color = __color, fullBoard = __fullBoard, computerMovesFirst = __computerMovesFirst;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -43,12 +47,19 @@
 	self.color = kWhite;
 }
 
+- (void)dealloc {
+	[__computerMovesFirst release];
+	__computerMovesFirst = nil;
+	
+	[super dealloc];
+}
+
 - (IBAction)changeColor:(UIButton *)sender {
 	if (self.color == kWhite) {
-		[sender setTitle:BLACK forState:UIControlStateNormal];
+		[sender setTitle:BLACK_LABEL forState:UIControlStateNormal];
 		self.color = kBlack;
 	} else {
-		[sender setTitle:WHITE forState:UIControlStateNormal];
+		[sender setTitle:WHITE_LABEL forState:UIControlStateNormal];
 		self.color = kWhite;		
 	}
 }
@@ -67,6 +78,7 @@
 	CreatePuzzleViewController *vc = [[[CreatePuzzleViewController alloc] init] autorelease];
 	vc.fullBoard = self.fullBoard;
 	vc.playerColor = self.color;
+	vc.computerMoveFirst = self.computerMovesFirst.on;
 	[self.navigationController pushViewController:vc animated:YES];
 }
 

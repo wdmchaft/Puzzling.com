@@ -53,7 +53,9 @@
 		self.isExecuting = YES;
 		[self didChangeValueForKey:@"isExecuting"];
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		self.connection = [NSURLConnection connectionWithRequest:[self httpRequest] delegate:self];
+		NSURLRequest *request = [self httpRequest];
+		self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
+		NSLog(@"HTTP REQUEST:\n\nURL: %@\nMethod: %@\nBody: %@", request.URL, request.HTTPMethod, [[[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding] autorelease]);
 		[pool drain];
 		CFRunLoopRun();
 	} else {
@@ -65,7 +67,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self url]];
     [request addValue:API_KEY forHTTPHeaderField:@"puzzle_api_key"];
     [request addValue:@"petertest" forHTTPHeaderField:@"puzzle_auth_token"];
-	NSLog(@"HTTP REQUEST:\n\nURL: %@\nMethod: %@\nBody: %@", request.URL, request.HTTPMethod, request.HTTPBody);
+	[request addValue:@"application/json; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
     return request;
 }
 

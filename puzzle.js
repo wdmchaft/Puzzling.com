@@ -18,12 +18,11 @@ exports.create = function(req, res) {
 		if (success) {
 			var setupData = req.body.setupData;
 			var solutionData = req.body.solutionData;
-			var additionalData = req.body.additionalData;
 			var puzzleType = req.body.puzzleType;
 			var puzzleName = req.body.name;
 			var puzzleType = req.body.type;
 			
-			var puzzleInstance = new db.PuzzleModel();
+			var puzzleInstance = new PuzzleModel();
 			puzzleInstance.name = puzzleName;
 			puzzleInstance.setupData = JSON.stringify(setupData);
 			puzzleInstance.solutionData = JSON.stringify(solutionData);
