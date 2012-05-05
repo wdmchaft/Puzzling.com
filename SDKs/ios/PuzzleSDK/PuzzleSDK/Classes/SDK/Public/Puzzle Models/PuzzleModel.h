@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PuzzlePuzzle : NSObject
+@interface PuzzleModel : NSObject
 
 @property (nonatomic, readonly, retain) NSString* type; 
 @property (nonatomic, readonly, retain) NSDictionary* setupData;

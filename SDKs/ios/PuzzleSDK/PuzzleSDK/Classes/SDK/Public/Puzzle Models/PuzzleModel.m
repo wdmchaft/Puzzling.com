@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "PuzzlePuzzle.h"
+#import "PuzzleModel.h"
 
-@interface PuzzlePuzzle() {
+@interface PuzzleModel() {
     NSString* p_type; 
     NSDictionary* p_setupData;
     NSDictionary* p_solutionData;
@@ -18,7 +18,7 @@
 }
 @end
 
-@implementation PuzzlePuzzle
+@implementation PuzzleModel
 
 @synthesize type = p_type; 
 @synthesize setupData = p_setupData;

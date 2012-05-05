@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PuzzleModel.h"
+#import "PuzzleUser.h"
 
 typedef enum {
     RequestSuccess
@@ -14,7 +16,9 @@ typedef enum {
 
 typedef NSString PuzzleID;
 
-typedef void(^PuzzleOnCompletionBlock)(PuzzleRequestStatus, id);
+typedef void(^PuzzleOnCompletionBlock)(PuzzleRequestStatus, PuzzleModel*);
+typedef void(^UserOnCompletionBlock)(PuzzleRequestStatus, PuzzleUser*);
+
 
 @interface PuzzleSDK : NSObject
 
