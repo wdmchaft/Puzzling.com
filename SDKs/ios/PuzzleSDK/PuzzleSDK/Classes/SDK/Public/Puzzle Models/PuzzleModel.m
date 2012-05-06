@@ -13,7 +13,7 @@
     NSDictionary* p_setupData;
     NSDictionary* p_solutionData;
     NSString* p_puzzleType;
-    
+    NSString* p_puzzleID;
 }
 @end
 
@@ -23,5 +23,7 @@
 @synthesize setupData = p_setupData;
 @synthesize solutionData = p_solutionData;
 @synthesize puzzleType = p_puzzleType;
+@synthesize puzzleID = p_puzzleID;
+
 
 @end

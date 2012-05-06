@@ -10,9 +10,11 @@
 
 @interface PuzzleModel : NSObject
 
-@property (nonatomic, readonly, retain) NSString* type; 
-@property (nonatomic, readonly, retain) NSDictionary* setupData;
-@property (nonatomic, readonly, retain) NSDictionary* solutionData;
-@property (nonatomic, readonly, retain) NSString* puzzleType;
+@property (nonatomic, readwrite, retain) NSString* type; 
+@property (nonatomic, readwrite, retain) NSDictionary* setupData;
+@property (nonatomic, readwrite, retain) NSDictionary* solutionData;
+@property (nonatomic, readwrite, retain) NSString* puzzleType;
+@property (nonatomic, readwrite, retain) NSString* puzzleID;
+
 
 @end

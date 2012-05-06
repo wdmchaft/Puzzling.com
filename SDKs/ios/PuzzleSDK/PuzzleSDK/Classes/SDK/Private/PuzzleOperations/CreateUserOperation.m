@@ -9,6 +9,7 @@
 #import "CreateUserOperation.h"
 #import "PuzzleAPIURLFactory.h"
 #import "JSONKit.h"
+#import "PuzzleUser.h"
 
 
 #define USER_NAME @"username"
@@ -52,6 +53,13 @@
 
 - (NSURL *)url {
     return [PuzzleAPIURLFactory urlForCreateUser];
+}
+
+-(void) runCompletionBlock{
+    PuzzleUser* user = [[PuzzleUser alloc] init];
+    NSDictionary* data = [self.data objectFromJSONData];
+    user.username = [data objectForKey:@"username"];
+    self.onCompletion(self.response, user); 
 }
 
 -(void) dealloc{

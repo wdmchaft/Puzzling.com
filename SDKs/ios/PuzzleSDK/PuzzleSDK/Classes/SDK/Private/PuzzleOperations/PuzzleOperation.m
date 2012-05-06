@@ -8,7 +8,6 @@
 
 #import "PuzzleOperation.h"
 #import "PuzzleUser.h"
-#import "JSONKit.h"
 #import "PuzzleAPIKey.h"
 #import "PuzzleAPIURLFactory.h"
 
@@ -16,15 +15,13 @@
 @interface PuzzleOperation() {
     NSURLConnection* puzzle_connection;
 	PuzzleOnCompletionBlock puzzle_onCompletion;
+    PuzzleAPIResponse puzzle_response;
 	NSMutableData *puzzle_data;
 	BOOL puzzle_isFinished;
 	BOOL puzzle_isExecuting;
-	PuzzleAPIResponse puzzle_response;
 }
 
 @property (nonatomic, readwrite, retain) NSURLConnection* connection;
-@property (nonatomic, readwrite, copy) PuzzleOnCompletionBlock onCompletion;
-@property (nonatomic, readwrite, retain) NSMutableData *data;
 @property (nonatomic, readwrite, assign) BOOL isFinished;
 @property (nonatomic, readwrite, assign) BOOL isExecuting;
 @property (nonatomic, readwrite, assign) PuzzleAPIResponse response;
@@ -110,10 +107,15 @@
     puzzle_connection = nil;
 	
 	dispatch_async(dispatch_get_main_queue(), ^(void) {
-		self.onCompletion(self.response, [self.data objectFromJSONData]); //FIXME: This should be passing back an object, not an NSDictionary
+		[self runCompletionBlock];
 	});
 	
 	CFRunLoopStop(CFRunLoopGetCurrent());
+}
+
+-(void) runCompletionBlock{
+    self.onCompletion(self.response, [self.data objectFromJSONData]); 
+    //Override with actual objects being passed to completion block
 }
 
 #pragma mark - NSConnectionDelegate Methods

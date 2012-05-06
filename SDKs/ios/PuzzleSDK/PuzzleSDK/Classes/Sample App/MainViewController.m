@@ -17,7 +17,7 @@
 @implementation MainViewController
 
 - (IBAction)getPuzzle:(id)sender {
-	[[PuzzleSDK sharedInstance] getPuzzle:@"4f9204c648a71e7312000003" onCompletion:^(PuzzleRequestStatus status, id data) {
+	[[PuzzleSDK sharedInstance] getPuzzle:@"4f9204c648a71e7312000003" onCompletion:^(PuzzleAPIResponse status, id data) {
 		NSLog(@"Status: %d", status);
 		NSLog(@"Data: %@", data);
 	}];

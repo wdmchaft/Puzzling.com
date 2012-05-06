@@ -14,7 +14,6 @@
 
 typedef NSString PuzzleID;
 
-typedef void(^UserOnCompletionBlock)(PuzzleRequestStatus, PuzzleUser*);
 typedef void(^PuzzleOnCompletionBlock)(PuzzleAPIResponse, id);
 
 @interface PuzzleSDK : NSObject

@@ -39,7 +39,7 @@
 }
 
 - (void)createPuzzleWithType:(NSString *)type setupData:(NSDictionary *)setupData solutionData:(NSDictionary*)solutionData onCompletionBlock:(PuzzleOnCompletionBlock)block {
-	CreatePuzzleOperation *op = [[CreatePuzzleOperation alloc] initWithType:type setupData:setupData solutionData:solutionData additionalData:nil puzzleType:type onCompletionBlock:block];
+	CreatePuzzleOperation *op = [[CreatePuzzleOperation alloc] initWithType:type setupData:setupData solutionData:solutionData puzzleType:type onCompletionBlock:block];
 	[self.queue addOperation:op];
 	[op release];
 }

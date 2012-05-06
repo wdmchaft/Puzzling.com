@@ -14,10 +14,6 @@
 	NSString *puzzle_authToken;
 }
 
-@property (nonatomic, readwrite, retain) NSString *username;
-@property (nonatomic, readwrite, retain) PuzzleUserID *userID;
-@property (nonatomic, readwrite, retain) NSString *authToken;
-
 
 @end
 
