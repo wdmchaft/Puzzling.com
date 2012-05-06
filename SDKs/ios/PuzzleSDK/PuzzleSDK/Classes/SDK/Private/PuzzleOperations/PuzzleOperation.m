@@ -10,6 +10,7 @@
 #import "PuzzleUser.h"
 #import "PuzzleAPIKey.h"
 #import "PuzzleAPIURLFactory.h"
+#import "JSONKit.h"
 
 
 @interface PuzzleOperation() {

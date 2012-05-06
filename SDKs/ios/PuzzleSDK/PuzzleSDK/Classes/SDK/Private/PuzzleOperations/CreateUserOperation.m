@@ -13,6 +13,8 @@
 
 
 #define USER_NAME @"username"
+#define USER_DATA @"userData"
+
 #define PASSWORD @"password"
 
 @interface CreateUserOperation() {
@@ -22,7 +24,7 @@
 }
 @property (nonatomic, retain, readwrite) NSString* userName;
 @property (nonatomic, retain, readwrite) NSString* password;
-@property (nonatomic, retain, readwrite) NSDictionary* data;
+@property (nonatomic, retain, readwrite) NSDictionary* userData;
 
 @end
 
@@ -30,7 +32,7 @@
 
 @synthesize userName = user_name;
 @synthesize password = user_password;
-@synthesize data = user_data;
+@synthesize userData = user_data;
 
 
 -(id)initWithUserName:(NSString*)userName password:(NSString*)password userData:(NSDictionary*)data onCompletionBlock:(PuzzleOnCompletionBlock)block{
@@ -38,7 +40,7 @@
     if(self){
         self.userName = userName;
         self.password = password;
-        self.data = data;
+        self.userData = data;
     }
     return self;
 }
@@ -46,7 +48,7 @@
 - (NSMutableURLRequest *)httpRequest {
     NSMutableURLRequest* request = [super httpRequest];
 	[request setHTTPMethod:@"POST"];
-    NSData* jsonData = [[NSDictionary dictionaryWithObjectsAndKeys:self.userName, USER_NAME, self.password, PASSWORD, nil] JSONData];
+    NSData* jsonData = [[NSDictionary dictionaryWithObjectsAndKeys:self.userName, USER_NAME, self.password, PASSWORD, self.userData, USER_DATA, nil] JSONData];
     [request setHTTPBody: jsonData];
     return request;
 }
@@ -59,6 +61,7 @@
     PuzzleUser* user = [[PuzzleUser alloc] init];
     NSDictionary* data = [self.data objectFromJSONData];
     user.username = [data objectForKey:@"username"];
+    user.userData = [data objectForKey:@"userData"];
     self.onCompletion(self.response, user); 
 }
 

@@ -19,7 +19,7 @@
 
 @implementation PuzzleUser
 
-@synthesize username = puzzle_username, userID = puzzle_userID, authToken = puzzle_authToken;
+@synthesize username = puzzle_username, userID = puzzle_userID, authToken = puzzle_authToken, userData;
 
 PuzzleUser * currentUser = nil;
 

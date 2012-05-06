@@ -13,6 +13,8 @@
 typedef NSString PuzzleUserID;
 
 @property (nonatomic, readwrite, retain) NSString *username;
+@property (nonatomic, readwrite, retain) NSDictionary* userData;
+
 @property (nonatomic, readwrite, retain) PuzzleUserID *userID;
 @property (nonatomic, readwrite, retain) NSString *authToken;
 
