@@ -14,7 +14,7 @@
     NSDictionary* p_setupData;
     NSDictionary* p_solutionData;
     NSString* p_puzzleType;
-    
+    NSString* p_puzzleID;
 }
 @end
 
@@ -24,6 +24,8 @@
 @synthesize setupData = p_setupData;
 @synthesize solutionData = p_solutionData;
 @synthesize puzzleType = p_puzzleType;
+@synthesize puzzleID = p_puzzleID;
+
 
 - (void)uploadPuzzleOnCompletion:(PuzzleOnCompletionBlock)onCompletion {
 	[[PuzzleSDK sharedInstance] createPuzzleWithType:self.puzzleType setupData:self.setupData solutionData:self.solutionData onCompletionBlock:onCompletion];

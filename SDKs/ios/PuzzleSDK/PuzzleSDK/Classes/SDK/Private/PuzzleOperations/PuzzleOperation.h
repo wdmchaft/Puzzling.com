@@ -14,9 +14,13 @@
 @interface PuzzleOperation : NSOperation
 
 @property (nonatomic, readonly, assign) PuzzleAPIResponse response;
+@property (nonatomic, readwrite, copy) PuzzleOnCompletionBlock onCompletion;
+@property (nonatomic, readwrite, retain) NSMutableData *data;
+
 
 - (id)initWithOnCompletionBlock:(PuzzleOnCompletionBlock)onCompletionBlock;
 - (NSMutableURLRequest *)httpRequest;
 - (NSURL *)url;
+-(void) runCompletionBlock;
 
 @end

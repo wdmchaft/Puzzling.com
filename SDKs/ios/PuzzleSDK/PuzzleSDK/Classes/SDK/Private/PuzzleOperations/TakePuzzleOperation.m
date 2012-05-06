@@ -9,6 +9,7 @@
 #import "TakePuzzleOperation.h"
 #import "PuzzleAPIURLFactory.h"
 #import "JSONKit.h"
+#import "TakePuzzleResults.h"
 
 #define PUZZLE_ID @"puzzleType"
 #define SCORE @"score"
@@ -46,6 +47,18 @@
 
 - (NSURL *)url {
     return [PuzzleAPIURLFactory urlForTakenPuzzle:self.puzzleID];
+}
+
+-(void) runCompletionBlock{
+    TakePuzzleResults* results = [[TakePuzzleResults alloc] init];
+    
+    NSDictionary* data = [self.data objectFromJSONData];
+    results.userRatingChange = [[data objectForKey:@"userRatingChange"]intValue];
+    results.newUserRating = [[data objectForKey:@"newUserRating"]intValue];
+    results.newPuzzleRating = [[data objectForKey:@"newPuzzleRating"]intValue];
+    results.puzzleRatingChange = [[data objectForKey:@"puzzleRatingChange"]intValue];
+
+    self.onCompletion(self.response, results); 
 }
 
 -(void) dealloc{

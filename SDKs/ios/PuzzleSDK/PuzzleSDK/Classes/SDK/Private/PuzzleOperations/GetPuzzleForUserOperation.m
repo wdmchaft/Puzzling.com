@@ -9,7 +9,7 @@
 #import "GetPuzzleForUserOperation.h"
 #import "PuzzleAPIURLFactory.h"
 #import "JSONKit.h"
-
+#import "PuzzleModel.h"
 
 
 @interface GetPuzzleForUserOperation() {
@@ -27,6 +27,18 @@
 
 - (NSURL *)url {
     return [PuzzleAPIURLFactory urlForGetPuzzleForUser];
+}
+
+-(void) runCompletionBlock{
+    PuzzleModel* puzzle = [[PuzzleModel alloc] init];
+    
+    NSDictionary* data = [self.data objectFromJSONData];
+    puzzle.setupData = [data objectForKey:@"setupData"];
+    puzzle.solutionData = [data objectForKey:@"solutionData"];
+    puzzle.type = [data objectForKey:@"type"];
+    puzzle.puzzleID = [data objectForKey:@"puzzleID"];
+    
+    self.onCompletion(self.response, puzzle); 
 }
 
 -(void) dealloc{

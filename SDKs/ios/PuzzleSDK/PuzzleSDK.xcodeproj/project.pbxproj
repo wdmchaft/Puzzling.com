@@ -33,6 +33,7 @@
 		70E1A471154BDF5B0042B4FF /* GetPuzzleForUserOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E1A470154BDF5A0042B4FF /* GetPuzzleForUserOperation.m */; };
 		70E1A478154BE2DC0042B4FF /* GetPuzzlesMadeByUserOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E1A477154BE2DB0042B4FF /* GetPuzzlesMadeByUserOperation.m */; };
 		70E1A47C154BE4890042B4FF /* TakePuzzleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E1A47B154BE4880042B4FF /* TakePuzzleOperation.m */; };
+		70EFF7C61555FA5200A88098 /* TakePuzzleResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EFF7C51555FA5200A88098 /* TakePuzzleResults.m */; };
 		70F195961551DF4F00C997E6 /* PuzzleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F195951551DF4F00C997E6 /* PuzzleModel.m */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,8 @@
 		70E1A477154BE2DB0042B4FF /* GetPuzzlesMadeByUserOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPuzzlesMadeByUserOperation.m; sourceTree = "<group>"; };
 		70E1A47A154BE4870042B4FF /* TakePuzzleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePuzzleOperation.h; sourceTree = "<group>"; };
 		70E1A47B154BE4880042B4FF /* TakePuzzleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePuzzleOperation.m; sourceTree = "<group>"; };
+		70EFF7C41555FA5200A88098 /* TakePuzzleResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePuzzleResults.h; sourceTree = "<group>"; };
+		70EFF7C51555FA5200A88098 /* TakePuzzleResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePuzzleResults.m; sourceTree = "<group>"; };
 		70F195941551DF4F00C997E6 /* PuzzleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleModel.h; sourceTree = "<group>"; };
 		70F195951551DF4F00C997E6 /* PuzzleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -189,6 +192,8 @@
 				368826BA1555F69500801441 /* PuzzleCurrentUser.m */,
 				70F195941551DF4F00C997E6 /* PuzzleModel.h */,
 				70F195951551DF4F00C997E6 /* PuzzleModel.m */,
+				70EFF7C41555FA5200A88098 /* TakePuzzleResults.h */,
+				70EFF7C51555FA5200A88098 /* TakePuzzleResults.m */,
 			);
 			path = "Puzzle Models";
 			sourceTree = "<group>";
@@ -349,6 +354,7 @@
 				70F195961551DF4F00C997E6 /* PuzzleModel.m in Sources */,
 				368826BB1555F69500801441 /* PuzzleCurrentUser.m in Sources */,
 				368826BF1555FAD700801441 /* UIApplication+Security.m in Sources */,
+				70EFF7C61555FA5200A88098 /* TakePuzzleResults.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
