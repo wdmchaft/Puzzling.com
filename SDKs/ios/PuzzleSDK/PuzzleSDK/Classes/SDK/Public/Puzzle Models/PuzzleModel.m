@@ -8,6 +8,7 @@
 
 #import "PuzzleModel.h"
 
+
 @interface PuzzleModel() {
     NSString* p_type; 
     NSDictionary* p_setupData;
@@ -23,5 +24,9 @@
 @synthesize setupData = p_setupData;
 @synthesize solutionData = p_solutionData;
 @synthesize puzzleType = p_puzzleType;
+
+- (void)uploadPuzzleOnCompletion:(PuzzleOnCompletionBlock)onCompletion {
+	[[PuzzleSDK sharedInstance] createPuzzleWithType:self.puzzleType setupData:self.setupData solutionData:self.solutionData onCompletionBlock:onCompletion];
+}
 
 @end

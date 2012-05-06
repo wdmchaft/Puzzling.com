@@ -18,6 +18,9 @@
 		3609997F154B9C340006A5F5 /* PuzzleUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099971154B9C340006A5F5 /* PuzzleUser.m */; };
 		36099980154B9C340006A5F5 /* PuzzleErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099974154B9C340006A5F5 /* PuzzleErrorHandler.m */; };
 		36099981154B9C340006A5F5 /* PuzzleSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 36099976154B9C340006A5F5 /* PuzzleSDK.m */; };
+		368826BB1555F69500801441 /* PuzzleCurrentUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 368826BA1555F69500801441 /* PuzzleCurrentUser.m */; };
+		368826BF1555FAD700801441 /* UIApplication+Security.m in Sources */ = {isa = PBXBuildFile; fileRef = 368826BE1555FAD700801441 /* UIApplication+Security.m */; };
+		368826C11555FB1300801441 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368826C01555FB1200801441 /* Security.framework */; };
 		70AA228F1546457200011F3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AA228E1546457200011F3B /* UIKit.framework */; };
 		70AA22911546457200011F3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AA22901546457200011F3B /* Foundation.framework */; };
 		70AA22931546457300011F3B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AA22921546457200011F3B /* CoreGraphics.framework */; };
@@ -56,6 +59,11 @@
 		36099974154B9C340006A5F5 /* PuzzleErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleErrorHandler.m; sourceTree = "<group>"; };
 		36099975154B9C340006A5F5 /* PuzzleSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleSDK.h; sourceTree = "<group>"; };
 		36099976154B9C340006A5F5 /* PuzzleSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleSDK.m; sourceTree = "<group>"; };
+		368826B91555F69500801441 /* PuzzleCurrentUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleCurrentUser.h; sourceTree = "<group>"; };
+		368826BA1555F69500801441 /* PuzzleCurrentUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleCurrentUser.m; sourceTree = "<group>"; };
+		368826BD1555FAD700801441 /* UIApplication+Security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+Security.h"; sourceTree = "<group>"; };
+		368826BE1555FAD700801441 /* UIApplication+Security.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+Security.m"; sourceTree = "<group>"; };
+		368826C01555FB1200801441 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		70AA228A1546457200011F3B /* PuzzleSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PuzzleSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70AA228E1546457200011F3B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		70AA22901546457200011F3B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -87,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				368826C11555FB1300801441 /* Security.framework in Frameworks */,
 				70AA228F1546457200011F3B /* UIKit.framework in Frameworks */,
 				70AA22911546457200011F3B /* Foundation.framework in Frameworks */,
 				70AA22931546457300011F3B /* CoreGraphics.framework in Frameworks */,
@@ -150,6 +159,8 @@
 		3609996B154B9C340006A5F5 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				368826BD1555FAD700801441 /* UIApplication+Security.h */,
+				368826BE1555FAD700801441 /* UIApplication+Security.m */,
 				3609996C154B9C340006A5F5 /* JSONKit.h */,
 				3609996D154B9C340006A5F5 /* JSONKit.m */,
 			);
@@ -174,6 +185,8 @@
 			children = (
 				36099970154B9C340006A5F5 /* PuzzleUser.h */,
 				36099971154B9C340006A5F5 /* PuzzleUser.m */,
+				368826B91555F69500801441 /* PuzzleCurrentUser.h */,
+				368826BA1555F69500801441 /* PuzzleCurrentUser.m */,
 				70F195941551DF4F00C997E6 /* PuzzleModel.h */,
 				70F195951551DF4F00C997E6 /* PuzzleModel.m */,
 			);
@@ -200,6 +213,7 @@
 		70AA228D1546457200011F3B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				368826C01555FB1200801441 /* Security.framework */,
 				70AA228E1546457200011F3B /* UIKit.framework */,
 				70AA22901546457200011F3B /* Foundation.framework */,
 				70AA22921546457200011F3B /* CoreGraphics.framework */,
@@ -333,6 +347,8 @@
 				70E1A478154BE2DC0042B4FF /* GetPuzzlesMadeByUserOperation.m in Sources */,
 				70E1A47C154BE4890042B4FF /* TakePuzzleOperation.m in Sources */,
 				70F195961551DF4F00C997E6 /* PuzzleModel.m in Sources */,
+				368826BB1555F69500801441 /* PuzzleCurrentUser.m in Sources */,
+				368826BF1555FAD700801441 /* UIApplication+Security.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

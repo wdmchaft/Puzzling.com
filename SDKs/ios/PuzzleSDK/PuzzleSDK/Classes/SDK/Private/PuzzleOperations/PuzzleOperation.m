@@ -87,7 +87,7 @@
 	return puzzle_isFinished;
 }
 
--(void) dealloc{
+- (void)dealloc{
     [puzzle_connection release];
     puzzle_connection = nil;
 	[puzzle_data release];

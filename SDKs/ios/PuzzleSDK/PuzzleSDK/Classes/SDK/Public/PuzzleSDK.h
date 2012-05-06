@@ -7,21 +7,31 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PuzzleModel.h"
-#import "PuzzleUser.h"
 #import "PuzzleErrorHandler.h"
 
 
 typedef NSString PuzzleID;
 
-typedef void(^UserOnCompletionBlock)(PuzzleRequestStatus, PuzzleUser*);
 typedef void(^PuzzleOnCompletionBlock)(PuzzleAPIResponse, id);
 
 @interface PuzzleSDK : NSObject
 
 + (PuzzleSDK *)sharedInstance;
+
+//Puzzles
 - (void)getPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
 - (void)getPuzzleForCurrentUserOnCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
 - (void)createPuzzleWithType:(NSString *)type setupData:(NSDictionary *)setupData solutionData:(NSDictionary *)solutionData onCompletionBlock:(PuzzleOnCompletionBlock)onCompletion;
+
+- (void)takePuzzle:(PuzzleID *)puzzleID score:(float)score onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
+//Login
+- (void)loginUserWithUsername:(NSString *)username password:(NSString *)password onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
+- (void)createUser:(NSString *)username password:(NSString *)password userData:(NSDictionary *)data onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
+- (void)deleteUser:(NSString *)username onCompletion:(PuzzleOnCompletionBlock)onCompletion;
 
 @end

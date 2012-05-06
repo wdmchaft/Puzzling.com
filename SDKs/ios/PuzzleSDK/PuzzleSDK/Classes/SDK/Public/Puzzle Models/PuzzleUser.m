@@ -11,28 +11,13 @@
 @interface PuzzleUser() {
 	NSString *puzzle_username;
 	PuzzleUserID *puzzle_userID;
-	NSString *puzzle_authToken;
+	NSDictionary *puzzle_userData;
 }
-
-@property (nonatomic, readwrite, retain) NSString *username;
-@property (nonatomic, readwrite, retain) PuzzleUserID *userID;
-@property (nonatomic, readwrite, retain) NSString *authToken;
-
 
 @end
 
 @implementation PuzzleUser
 
-@synthesize username = puzzle_username, userID = puzzle_userID, authToken = puzzle_authToken;
-
-PuzzleUser * currentUser = nil;
-
-+ (PuzzleUser *)currentUser {
-	if (!currentUser) {
-		currentUser = [[PuzzleUser alloc] init];
-		currentUser.authToken = @"petertest";
-	}
-	return currentUser;
-}
+@synthesize username = puzzle_username, userID = puzzle_userID, userData = puzzle_userData;
 
 @end

@@ -43,6 +43,7 @@ PuzzleSDK * sharedInstance = nil;
 }
 
 #pragma mark - Public Methods
+#pragma mark - Puzzles
 
 - (void)getPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion {
 	[self.operationManager getPuzzleForID:puzzleID onCompletion:onCompletion];
@@ -54,6 +55,24 @@ PuzzleSDK * sharedInstance = nil;
 
 - (void)createPuzzleWithType:(NSString *)type setupData:(NSDictionary *)setupData solutionData:(NSDictionary *)solutionData onCompletionBlock:(PuzzleOnCompletionBlock)onCompletion {
 	[self.operationManager createPuzzleWithType:type setupData:setupData solutionData:solutionData onCompletionBlock:onCompletion];
+}
+
+- (void)takePuzzle:(PuzzleID *)puzzleID score:(float)score onCompletion:(PuzzleOnCompletionBlock)onCompletion {
+	[self.operationManager takePuzzle:puzzleID score:score onCompletion:onCompletion];
+}
+
+#pragma mark - Login
+
+- (void)loginUserWithUsername:(NSString *)username password:(NSString *)password onCompletion:(PuzzleOnCompletionBlock)onCompletion {
+	[self.operationManager loginUserWithUsername:username password:password onCompletion:onCompletion];
+}
+
+- (void)createUser:(NSString *)username password:(NSString *)password userData:(NSDictionary *)data onCompletion:(PuzzleOnCompletionBlock)onCompletion {
+	[self.operationManager createUser:username password:password userData:data onCompletion:onCompletion];
+}
+
+- (void)deleteUser:(NSString *)username onCompletion:(PuzzleOnCompletionBlock)onCompletion {
+	[self.operationManager deleteUser:username onCompletion:onCompletion];
 }
 
 @end

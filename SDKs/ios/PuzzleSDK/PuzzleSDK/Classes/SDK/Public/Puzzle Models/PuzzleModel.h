@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PuzzleSDK.h"
 
 @interface PuzzleModel : NSObject
 
@@ -14,5 +15,7 @@
 @property (nonatomic, readonly, retain) NSDictionary* setupData;
 @property (nonatomic, readonly, retain) NSDictionary* solutionData;
 @property (nonatomic, readonly, retain) NSString* puzzleType;
+
+- (void)uploadPuzzleOnCompletion:(PuzzleOnCompletionBlock)onCompletion;
 
 @end
