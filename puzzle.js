@@ -22,7 +22,7 @@ exports.create = function(req, res) {
 			var puzzleName = req.body.name;
 			var puzzleType = req.body.type;
 			
-			var puzzleInstance = new PuzzleModel();
+			var puzzleInstance = new db.PuzzleModel();
 			puzzleInstance.name = puzzleName;
 			puzzleInstance.setupData = JSON.stringify(setupData);
 			puzzleInstance.solutionData = JSON.stringify(solutionData);
@@ -55,10 +55,8 @@ exports.create = function(req, res) {
 
 var pickRandomPuzzle = function(weightedDocs, weightedTotal) {
 	var random = Math.random()*weightedTotal;
-	console.log('random: ' + random);
 	for (var i = 0; i<weightedDocs.length; i++) {
 		random = random - weightedDocs[i].weight;
-		console.log('new random: ' + random);
 		if (random <= 0) {
 			console.log('returning');
 			return weightedDocs[i].puzzle;
@@ -91,7 +89,6 @@ exports.puzzleSuggestion = function(req, res) {
 							container.weight = Math.abs(puzzle.rating-user.rating)/minRatingDifference + Math.min(1, userLikesWeight*(puzzle.likes-puzzle.dislikes)/puzzle.taken);
 						}
 						weightedTotal += container.weight;
-						console.log("weight: ", container.weight);
 						weightedDocs.push(container);
 					}
 					var puzzle = pickRandomPuzzle(weightedDocs, weightedTotal);

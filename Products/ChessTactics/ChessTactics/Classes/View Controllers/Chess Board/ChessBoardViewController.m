@@ -11,27 +11,33 @@
 #import "ChessModel.h"
 #import "Coordinate.h"
 #import "ChessModel.h"
+#import "PawnPromotionViewController.h"
 
 
 #define SECONDS_PER_SQUARE .05
 
-@interface ChessBoardViewController () <ChessModelDelegate> {
+@interface ChessBoardViewController () <ChessModelDelegate, PawnPromotionDelegate> {
 	Color __playerColor;
 	BOOL __interactionAllowed;
 	ChessPiece *__selectedPiece;
 	ChessPiece *__pannedPiece;
 	ChessModel *__chessModel;
 	NSMutableArray *__highlightSquares;
+	NSMutableArray *__recentMoveSquares;
 	BOOL __inEditingMode;
 	id<ChessBoardViewControllerDelegate> __delegate;
 	BOOL __fullBoard;
+	BOOL __promotionInProgress;
+	ChessPiece *__promotedPiece;
 }
 
-@property (nonatomic, readwrite, assign) BOOL interactionAllowed;
 @property (nonatomic, readwrite, retain) ChessPiece *selectedPiece;
 @property (nonatomic, readwrite, retain) ChessPiece *pannedPiece;
 @property (nonatomic, readwrite, retain) ChessModel *chessModel;
 @property (nonatomic, readwrite, retain) NSMutableArray *highlightSquares;
+@property (nonatomic, readwrite, retain) NSMutableArray *recentMoveSquares;
+@property (nonatomic, readwrite, assign) BOOL promotionInProgress;
+@property (nonatomic, readwrite, retain) ChessPiece *promotedPiece;
 
 - (int)squareSize;
 - (void)movePiece:(ChessPiece*)piece to:(Coordinate*)finish;
@@ -44,7 +50,7 @@
 
 @implementation ChessBoardViewController
 
-@synthesize playerColor = __playerColor, interactionAllowed = __interactionAllowed, selectedPiece = __selectedPiece, chessModel = __chessModel, highlightSquares = __highlightSquares, inEditingMode = __inEditingMode, pannedPiece = __pannedPiece, delegate = __delegate, fullBoard = __fullBoard;
+@synthesize playerColor = __playerColor, interactionAllowed = __interactionAllowed, selectedPiece = __selectedPiece, chessModel = __chessModel, highlightSquares = __highlightSquares, inEditingMode = __inEditingMode, pannedPiece = __pannedPiece, delegate = __delegate, fullBoard = __fullBoard, recentMoveSquares = __recentMoveSquares, promotedPiece = __promotedPiece, promotionInProgress = __promotionInProgress;
 
 - (id)initWithColor:(Color)newColor {
 	self = [self init];
@@ -83,6 +89,10 @@
 	[__pannedPiece release];
 	__pannedPiece = nil;
 	__delegate = nil;
+	[__recentMoveSquares release];
+	__recentMoveSquares = nil;
+	[__promotedPiece release];
+	__promotedPiece = nil;
 	
 	[super dealloc];
 }
@@ -94,6 +104,13 @@
 		__highlightSquares = [[NSMutableArray alloc] init];
 	}
 	return __highlightSquares;
+}
+
+- (NSMutableArray *)recentMoveSquares {
+	if (!__recentMoveSquares) {
+		__recentMoveSquares = [[NSMutableArray arrayWithCapacity:2] retain];
+	}
+	return __recentMoveSquares;
 }
 
 - (NSArray *)allPieces {
@@ -115,6 +132,10 @@
 	return self.view.bounds.size.width/8;
 }
 
+- (void)addPiece:(Class)ChessPieceType withColor:(Color)color toCoordinate:(Coordinate *)coord {
+	[self addPiece:ChessPieceType withColor:color toLocation:CGPointMake(coord.x*self.squareSize, (8-coord.y) * self.squareSize-1)];
+}
+
 - (void)addPiece:(Class)ChessPieceType withColor:(Color)color toLocation:(CGPoint)loc {
 	if (!CGRectContainsPoint(self.view.frame, loc)) {
 		return;
@@ -131,23 +152,50 @@
 	[self movePiece:piece to:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
 }
 
+- (void)movePieceFromX:(int)startX Y:(int)startY toX:(int)finishX Y:(int)finishY {
+	ChessPiece *piece = [self.chessModel getPieceAtX:startX Y:startY];
+	[self movePiece:piece to:[[[Coordinate alloc] initWithX:finishX Y:finishY] autorelease]];
+}
+
 #pragma mark - Private Methods
 
 - (void)movePiece:(ChessPiece*)piece to:(Coordinate*)finish {
-	if ([self.delegate respondsToSelector:@selector(piece:willMoveToX:Y:)]) {
-		[self.delegate piece:piece willMoveToX:finish.x Y:finish.y];
-	}
-	
 	[UIView beginAnimations:nil context:NULL];
 	double timeForMove = [self timeForMoveFrom:[[[Coordinate alloc] initWithX:piece.x Y:piece.y] autorelease] to:finish];
 	[UIView setAnimationDuration:timeForMove];
+	[UIView setAnimationDelegate:self];
 	[UIView setAnimationCurve:UIViewAnimationCurveLinear];
 	piece.view.frame = CGRectMake(finish.x*self.squareSize, (7-finish.y)*self.squareSize, self.squareSize, self.squareSize);
 	[UIView commitAnimations];
 	self.interactionAllowed = NO;
 	[self performSelector:@selector(setInteractionAllowed:) withObject:[NSNumber numberWithBool:YES] afterDelay:timeForMove];
 	
+	int startX = piece.x;
+	int startY = piece.y;
+	
+	NSArray *test = self.recentMoveSquares;
+	NSLog(@"%d", [test count]);
+	for (UIView *view in self.recentMoveSquares) {
+		[view removeFromSuperview];
+	}
+	[self.recentMoveSquares removeAllObjects];
+	
+	UIImageView * highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"squareHighlight"]];
+	highlight.frame = CGRectMake(startX*self.squareSize, (7-startY)*self.squareSize, self.squareSize, self.squareSize);
+	[self.view addSubview:highlight];
+	[self.recentMoveSquares addObject:highlight];
+	[highlight release];
+	highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"squareHighlight"]];
+	highlight.frame = CGRectMake(finish.x*self.squareSize, (7-finish.y)*self.squareSize, self.squareSize, self.squareSize);
+	[self.view addSubview:highlight];
+	[self.recentMoveSquares addObject:highlight];
+	[highlight release];
+	
 	[self.chessModel movePiece:piece toX:finish.x Y:finish.y withDelay:[self timeForMoveFrom:[[[Coordinate alloc] initWithX:piece.x Y:piece.y] autorelease] to:[[[Coordinate alloc] initWithX:finish.x Y:finish.y] autorelease]]];
+	
+	if (!self.promotionInProgress && [self.delegate respondsToSelector:@selector(piece:didMoveFromX:Y:)]) {
+		[self.delegate piece:piece didMoveFromX:startX Y:startY];
+	}
 }
 
 - (NSTimeInterval)timeForMoveFrom:(Coordinate*)start to:(Coordinate*)finish {
@@ -158,7 +206,6 @@
 #pragma mark - TapGesture
 
 - (void)boardTapped:(UITapGestureRecognizer*)tapGesture {
-	
 	if (!self.interactionAllowed || self.inEditingMode) {
 		return;
 	}
@@ -301,11 +348,38 @@
 #pragma mark - Chess Model Delegate
 
 - (void)pawnPromotedToQueen:(ChessPiece *)pawn {
+	/*PawnPromotionViewController *vc = [[PawnPromotionViewController alloc] init]; //released in delegate method
+	vc.delegate = self;
+	vc.view.transform = CGAffineTransformMakeRotation(M_PI);
+	[self.view addSubview:vc.view];
 	
+	self.promotedPiece = pawn;
+	self.promotionInProgress = YES;*/
+	CGRect loc = pawn.view.frame;
+	[pawn.view removeFromSuperview];
+	pawn.view = nil;
+	pawn.view.frame = loc;
+	[self.view addSubview:pawn.view];
+	
+	if (self.playerColor == kBlack) {
+		pawn.view.transform = CGAffineTransformMakeRotation(M_PI);
+	}
 }
 
 - (void)pieceRemoved:(ChessPiece *)piece {
 	[piece.view removeFromSuperview];
+}
+
+#pragma mark - Pawn Promotion Delegate
+
+- (void)pawnPromotionViewController:(PawnPromotionViewController *)pawnPromotionVC didSelectClass:(Class)type {
+	[pawnPromotionVC.view removeFromSuperview];
+	[pawnPromotionVC release];
+	if ([self.delegate respondsToSelector:@selector(piece:didMoveFromX:Y:)]) {
+		[self.delegate piece:self.promotedPiece didMoveFromX:0 Y:0]; //FIXME: 0 0 is obviously wrong
+	}
+	self.promotedPiece = nil;
+	self.promotionInProgress = NO;
 }
 
 @end

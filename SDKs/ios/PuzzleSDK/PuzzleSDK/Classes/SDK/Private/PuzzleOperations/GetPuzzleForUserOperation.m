@@ -33,8 +33,8 @@
     PuzzleModel* puzzle = [[PuzzleModel alloc] init];
     
     NSDictionary* data = [self.data objectFromJSONData];
-    puzzle.setupData = [data objectForKey:@"setupData"];
-    puzzle.solutionData = [data objectForKey:@"solutionData"];
+    puzzle.setupData = [[data objectForKey:@"setupData"] objectFromJSONString];
+    puzzle.solutionData = [[data objectForKey:@"solutionData"] objectFromJSONString];
     puzzle.type = [data objectForKey:@"type"];
     puzzle.puzzleID = [data objectForKey:@"puzzleID"];
     

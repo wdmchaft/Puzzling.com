@@ -12,3 +12,4 @@
 #define FINISH_X @"finish_x"
 #define FINISH_Y @"finish_y"
 #define MOVES @"moves"
+#define COMPUTER_MOVE_FIRST @"computer_move_first"

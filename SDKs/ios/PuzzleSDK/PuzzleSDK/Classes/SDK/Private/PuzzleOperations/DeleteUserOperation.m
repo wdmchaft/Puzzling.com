@@ -48,7 +48,7 @@
 
 -(void) runCompletionBlock{
     NSDictionary* data = [self.data objectFromJSONData];
-    NSString* success = [data objectForKey:success];
+    NSString* success = [data objectForKey:@"success"];
     self.onCompletion(self.response, success); 
 }
 

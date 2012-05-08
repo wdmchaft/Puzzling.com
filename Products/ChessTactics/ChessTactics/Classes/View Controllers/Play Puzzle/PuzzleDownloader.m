@@ -20,7 +20,7 @@ static PuzzleDownloader *sharedInstance;
 	return sharedInstance;
 }
 
-- (void)downloadPuzzleWithCallback:(void(^)(PuzzlePuzzle *))block {
+- (void)downloadPuzzleWithCallback:(void(^)(PuzzleModel *))block {
 	[[PuzzleSDK sharedInstance] getPuzzleForCurrentUserOnCompletion:^(PuzzleAPIResponse response, id data) {
 		block(data);
 	}];

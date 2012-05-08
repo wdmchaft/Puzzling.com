@@ -10,6 +10,7 @@
 #import "ChessPieces.h"
 
 
+@class Coordinate;
 @protocol ChessBoardViewControllerDelegate;
 
 @interface ChessBoardViewController : UIViewController
@@ -18,17 +19,20 @@
 @property (nonatomic, readwrite, assign) BOOL inEditingMode;
 @property (nonatomic, readonly) NSArray *allPieces;
 @property (nonatomic, readwrite, assign) BOOL fullBoard;
-@property (nonatomic, readwrite, assign) Color playerColor; 
+@property (nonatomic, readwrite, assign) Color playerColor;
+@property (nonatomic, readwrite, assign) BOOL interactionAllowed;
 
 - (id)initWithColor:(Color)newColor;
 - (int)squareSize;
 - (void)addPiece:(Class)ChessPieceType withColor:(Color)color toLocation:(CGPoint)loc;
+- (void)addPiece:(Class)ChessPieceType withColor:(Color)color toCoordinate:(Coordinate *)coord;
+- (void)movePieceFromX:(int)startX Y:(int)startY toX:(int)finishX Y:(int)finishY;
 
 @end
 
 @protocol ChessBoardViewControllerDelegate <NSObject>
 
 @optional
-- (void)piece:(ChessPiece *)piece willMoveToX:(int)x Y:(int)y;
+- (void)piece:(ChessPiece *)piece didMoveFromX:(int)x Y:(int)y;
 
 @end

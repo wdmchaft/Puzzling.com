@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PuzzlePuzzle.h"
+#import "PuzzleModel.h"
 
 @interface PuzzleDownloader : NSObject
 
 + (PuzzleDownloader *)sharedInstance;
 
-- (void)downloadPuzzleWithCallback:(void(^)(PuzzlePuzzle *))block;
+- (void)downloadPuzzleWithCallback:(void(^)(PuzzleModel *))block;
 
 @end

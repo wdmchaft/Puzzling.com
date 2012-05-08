@@ -204,7 +204,7 @@
 		}
 		
 		NSString *color = piece.color==kWhite?WHITE:BLACK;
-		NSString *type = [NSStringFromClass([piece class]) lowercaseString];
+		NSString *type = NSStringFromClass([piece class]);
 		NSDictionary *info = [NSMutableDictionary dictionary];
 		[info setValue:color forKey:COLOR];
 		[info setValue:type forKey:TYPE];
@@ -215,6 +215,7 @@
 	[self.setup setValue:piecesSetup forKey:PIECES_SETUP];
 	
 	[self.setup setValue:self.playerColor==kWhite?WHITE:BLACK forKey:PLAYER_COLOR];
+	[self.setup setValue:[NSNumber numberWithBool:self.computerMoveFirst] forKey:COMPUTER_MOVE_FIRST];
 	
 	return blackKingCount == 1 && whiteKingCount == 1;
 }
@@ -310,11 +311,11 @@
 
 #pragma mark - ChessBoardViewController Delegate Methods
 
-- (void)piece:(ChessPiece *)piece willMoveToX:(int)x Y:(int)y {
+- (void)piece:(ChessPiece *)piece didMoveFromX:(int)x Y:(int)y {
 	if (!self.chessBoardViewController.inEditingMode) {
 		ChessMove *model = [[[ChessMove alloc] init] autorelease];
-		model.start = [[[Coordinate alloc] initWithX:piece.x Y:piece.y] autorelease];
-		model.finish = [[[Coordinate alloc] initWithX:x Y:y] autorelease];
+		model.start = [[[Coordinate alloc] initWithX:x Y:y] autorelease];
+		model.finish = [[[Coordinate alloc] initWithX:piece.x Y:piece.y] autorelease];
 		[self.moves addObject:model];
 		
 		[self setHelpMessageForLastPlayerColor:piece.color];
