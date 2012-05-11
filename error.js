@@ -10,21 +10,69 @@
  * Error codes defined here.
  */
 
-exports.NO_PASSWORD = "no_password_exists";
-exports.NO_USER = "no_username_exists";
-exports.EXISTS_USER = "user_exists";
-exports.NO_MATCHING_USER = "no_such_user_exists";
-exports.BAD_OP = "no_such_operation";
-exports.NOT_FOUND = "not_found";
-exports.UPDATE_ERROR = "error_updating";
-exports.NOT_AUTHENTICATED = "not_authenticated";
-exports.MISSING_INFO = "missing_parameters";
+exports.UNKNOWN_ERROR = 0;
+exports.NO_PASSWORD = 1;
+exports.NO_USER = 2;
+exports.EXISTS_USER = 3;
+exports.NO_MATCHING_USER = 4; //only return for userids
+exports.INVALID_AUTHTOKEN = 5;
+exports.DB_ERROR = 6;
+exports.NO_PUZZLES = 7;
+
+//Got bored…add these as needed
+//exports.BAD_OP = "no_such_operation";
+//exports.NOT_FOUND = "not_found";
+//exports.UPDATE_ERROR = "error_updating";
+//exports.NOT_AUTHENTICATED = "not_authenticated";
+//exports.MISSING_INFO = "missing_parameters";
+
+//Codes
+AUTHENTICATION = 401;
+METHOD_NOT_ALLOWED = 405;
+INTERNAL_SERVER = 500;
 
 /*
  * Sends JSON formatted error code back to the user.
  * Message can be any of the above, or a custom string.
  */
-exports.send_error = function send_error(message, res) {
-    res.statusCode = 400;
-    res.send( {error: message } );
+exports.send_error = function send_error(errorType, res, dbMessage) { //last param optional
+    switch(errorType) 
+		{
+		case NO_PASSWORD:
+			res.statusCode = AUTHENTICATION;
+			res.send({"error": "wrong_password", "message": "Invalid password."});
+			break;
+		case NO_USERNAME:
+			res.statusCode = AUTHENTICATION;
+			res.send({"error": "no_username_exists", "message": "Username not found."});
+			break;
+		case EXISTS_USER:
+			res.statusCode = METHOD_NOT_ALLOWED;
+			res.send({"error": "user_exists", "message": "Username already exists."});
+			break;
+		case NO_MATCHING_USER:
+			res.statusCode = METHOD_NOT_ALLOWED;
+			res.send({"error": "no_such_user_exists", "message": "User does not exist."});
+			break;
+		case INVALID_AUTHTOKEN:
+			res.statusCode = AUTHENTICATION;
+			res.send({"error": "invalid_authtoken", "message": "Your session has expired. Please login again."});
+			break;
+		case DB_ERROR:
+			res.statusCode = INTERNAL_SERVER;
+			if (!dbMessage) {
+				dbMessage = "Database error.";
+			}
+			res.send({"error": "internal_server_error", "message": dbMessage});
+			break;
+		case NO_PUZZLES:
+			res.statusCode = METHOD_NOT_ALLOWED;
+			res.send({"error": "no_puzzles_to_return", "message": "There arn't any puzzles in the database right now."});
+			break;
+		default:
+			res.statusCode = INTERNAL_SERVER;
+			res.send({"error": "unknown_error", "message": "Unknown error."});
+			break;
+		}
 }
+
