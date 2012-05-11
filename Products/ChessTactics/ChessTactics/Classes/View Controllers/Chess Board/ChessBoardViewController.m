@@ -12,6 +12,7 @@
 #import "Coordinate.h"
 #import "ChessModel.h"
 #import "PawnPromotionViewController.h"
+#import "TacticsDataConstants.h"
 
 
 #define SECONDS_PER_SQUARE .05
@@ -126,7 +127,21 @@
 	return allPieces;
 }
 
+- (void)setPlayerColor:(Color)playerColor {
+	__playerColor = playerColor;
+}
+
 #pragma mark - Public Methods
+
+- (void)setupPieces:(NSArray *)pieces {
+	for (NSDictionary *pieceSetupData in pieces) {
+		Color color = [[pieceSetupData objectForKey:COLOR] isEqualToString:WHITE]?kWhite:kBlack;
+		Class pieceClass = NSClassFromString([pieceSetupData objectForKey:TYPE]);
+		int x = [[pieceSetupData objectForKey:X_LOCATION] intValue];
+		int y = [[pieceSetupData objectForKey:Y_LOCATION] intValue];
+		[self addPiece:pieceClass withColor:color toCoordinate:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
+	}
+}
 
 - (int)squareSize {
 	return self.view.bounds.size.width/8;
@@ -145,11 +160,17 @@
 	ChessPiece *piece = [[((ChessPiece *)[ChessPieceType alloc]) initWithColor:color] autorelease];
 	piece.x = x;
 	piece.y = y;
+	
 	if (self.playerColor == kBlack) {
 		piece.view.transform = CGAffineTransformMakeRotation(M_PI);
 	}
 	[self.view addSubview:piece.view];
 	[self movePiece:piece to:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
+	
+	for (UIView *view in self.recentMoveSquares) {
+		[view removeFromSuperview];
+	}
+	[self.recentMoveSquares removeAllObjects];
 }
 
 - (void)movePieceFromX:(int)startX Y:(int)startY toX:(int)finishX Y:(int)finishY {
@@ -173,8 +194,6 @@
 	int startX = piece.x;
 	int startY = piece.y;
 	
-	NSArray *test = self.recentMoveSquares;
-	NSLog(@"%d", [test count]);
 	for (UIView *view in self.recentMoveSquares) {
 		[view removeFromSuperview];
 	}
@@ -279,12 +298,8 @@
 		if (piece == nil) {
 			return;
 		}
-		if (self.inEditingMode) {
-			self.pannedPiece = piece;
-			self.pannedPiece.view.frame = CGRectMake([gr locationInView:self.view].x, [gr locationInView:self.view].y, self.pannedPiece.view.frame.size.width, self.pannedPiece.view.frame.size.height);
-		} else {
-			//FIXME: add piece movements here
-		}
+		self.pannedPiece = piece;
+		self.pannedPiece.view.frame = CGRectMake([gr locationInView:self.view].x, [gr locationInView:self.view].y, self.pannedPiece.view.frame.size.width, self.pannedPiece.view.frame.size.height);
 	} else if (gr.state == UIGestureRecognizerStateChanged) {
 		if (self.pannedPiece == nil) {
 			return;
@@ -305,13 +320,42 @@
 		if (self.pannedPiece == nil) {
 			return;
 		}
-		if (CGRectContainsPoint(self.view.frame, [gr locationInView:self.view])) {
-			int x = [gr locationInView:self.view].x/self.squareSize;
-			int y = 8-[gr locationInView:self.view].y/self.squareSize;
-			[self movePiece:self.pannedPiece to:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
-		} else { //remove piece
-			[self.chessModel removePiece:self.pannedPiece];
-			[self.pannedPiece.view removeFromSuperview];
+		if (self.inEditingMode) {
+			if (CGRectContainsPoint(self.view.frame, [gr locationInView:self.view])) {
+				int x = [gr locationInView:self.view].x/self.squareSize;
+				int y = 8-[gr locationInView:self.view].y/self.squareSize;
+				[self movePiece:self.pannedPiece to:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
+			} else { //remove piece
+				[self.chessModel removePiece:self.pannedPiece];
+				[self.pannedPiece.view removeFromSuperview];
+			}
+		} else { //move the piece
+			BOOL legalMove = NO;
+			for (Coordinate * coord in [self.chessModel getLegalMovesForPiece:self.pannedPiece]) {
+				if (coord.x == x && coord.y == y) {
+					legalMove = YES;
+					break;
+				}
+			}
+			if (legalMove) {
+				if ([self.pannedPiece isKindOfClass:[King class]] && abs(self.pannedPiece.x - x) == 2) { //castling
+					if (x == 2) {
+						ChessPiece * rook = [self.chessModel getPieceAtX:0 Y:self.pannedPiece.y];
+						if (rook) {
+							[self movePiece:rook to:[[[Coordinate alloc] initWithX:3 Y:self.pannedPiece.y] autorelease]];
+						}
+					} else if (x == 6) {
+						ChessPiece * rook = [self.chessModel getPieceAtX:7 Y:self.pannedPiece.y];
+						if (rook) {
+							[self movePiece:rook to:[[[Coordinate alloc] initWithX:5 Y:self.pannedPiece.y] autorelease]];
+						}
+					}
+				}
+				//Move piece
+				[self movePiece:self.pannedPiece to:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
+			} else { //move it back to where it was
+				self.pannedPiece.view.frame = CGRectMake(self.pannedPiece.x*self.squareSize, (7-self.pannedPiece.y)*self.squareSize, self.squareSize, self.squareSize);
+			}
 		}
 		self.pannedPiece = nil;
 		

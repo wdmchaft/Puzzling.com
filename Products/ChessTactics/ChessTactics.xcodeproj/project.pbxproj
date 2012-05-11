@@ -75,6 +75,8 @@
 		3612F977155715F7000F761B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3612F976155715F7000F761B /* Security.framework */; };
 		3612F97B1557764A000F761B /* PawnPromotionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3612F97915577649000F761B /* PawnPromotionViewController.m */; };
 		3612F97C1557764A000F761B /* PawnPromotionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3612F97A15577649000F761B /* PawnPromotionViewController.xib */; };
+		3612F9901559D024000F761B /* AnalysisBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3612F98E1559D023000F761B /* AnalysisBoardViewController.m */; };
+		3612F9911559D024000F761B /* AnalysisBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3612F98F1559D023000F761B /* AnalysisBoardViewController.xib */; };
 		361354B6154D1EB6004A056F /* ChessMove.m in Sources */ = {isa = PBXBuildFile; fileRef = 361354B5154D1EB6004A056F /* ChessMove.m */; };
 		361354B9154D1EE6004A056F /* ChessBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 361354B8154D1EE6004A056F /* ChessBoardView.m */; };
 		361354BD154D3005004A056F /* CreatePuzzleSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361354BB154D3005004A056F /* CreatePuzzleSetupViewController.m */; };
@@ -194,6 +196,9 @@
 		3612F97815577649000F761B /* PawnPromotionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PawnPromotionViewController.h; path = "Classes/View Controllers/Chess Board/PawnPromotionViewController.h"; sourceTree = "<group>"; };
 		3612F97915577649000F761B /* PawnPromotionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PawnPromotionViewController.m; path = "Classes/View Controllers/Chess Board/PawnPromotionViewController.m"; sourceTree = "<group>"; };
 		3612F97A15577649000F761B /* PawnPromotionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PawnPromotionViewController.xib; path = "Classes/View Controllers/Chess Board/PawnPromotionViewController.xib"; sourceTree = "<group>"; };
+		3612F98D1559D022000F761B /* AnalysisBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalysisBoardViewController.h; path = "Classes/View Controllers/Play Puzzle/AnalysisBoardViewController.h"; sourceTree = "<group>"; };
+		3612F98E1559D023000F761B /* AnalysisBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnalysisBoardViewController.m; path = "Classes/View Controllers/Play Puzzle/AnalysisBoardViewController.m"; sourceTree = "<group>"; };
+		3612F98F1559D023000F761B /* AnalysisBoardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AnalysisBoardViewController.xib; path = "Classes/View Controllers/Play Puzzle/AnalysisBoardViewController.xib"; sourceTree = "<group>"; };
 		361354B4154D1EB6004A056F /* ChessMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessMove.h; sourceTree = "<group>"; };
 		361354B5154D1EB6004A056F /* ChessMove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessMove.m; sourceTree = "<group>"; };
 		361354B7154D1EE6004A056F /* ChessBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChessBoardView.h; path = "Classes/View Controllers/Chess Board/ChessBoardView.h"; sourceTree = "<group>"; };
@@ -317,6 +322,9 @@
 				3613550A154FA6B9004A056F /* PlayPuzzleViewController.xib */,
 				3688269C1555E38700801441 /* PuzzleDownloader.h */,
 				3688269D1555E38700801441 /* PuzzleDownloader.m */,
+				3612F98D1559D022000F761B /* AnalysisBoardViewController.h */,
+				3612F98E1559D023000F761B /* AnalysisBoardViewController.m */,
+				3612F98F1559D023000F761B /* AnalysisBoardViewController.xib */,
 			);
 			name = "Play Puzzle";
 			sourceTree = "<group>";
@@ -617,6 +625,7 @@
 				3613550F154FB5DA004A056F /* editingSquareHighlight.png in Resources */,
 				36135510154FB5DA004A056F /* editingSquareHighlight@2x.png in Resources */,
 				3612F97C1557764A000F761B /* PawnPromotionViewController.xib in Resources */,
+				3612F9911559D024000F761B /* AnalysisBoardViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +676,7 @@
 				3612F974155714E2000F761B /* PuzzleErrorHandler.m in Sources */,
 				3612F975155714E2000F761B /* PuzzleSDK.m in Sources */,
 				3612F97B1557764A000F761B /* PawnPromotionViewController.m in Sources */,
+				3612F9901559D024000F761B /* AnalysisBoardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

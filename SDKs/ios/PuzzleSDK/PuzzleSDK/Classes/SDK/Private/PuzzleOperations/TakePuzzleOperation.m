@@ -40,7 +40,7 @@
 - (NSMutableURLRequest *)httpRequest {
     NSMutableURLRequest* request = [super httpRequest];
 	[request setHTTPMethod:@"POST"];
-    NSData* jsonData = [[NSDictionary dictionaryWithObjectsAndKeys: self.puzzleID, PUZZLE_ID, self.score,SCORE, nil] JSONData];
+    NSData* jsonData = [[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:self.score], SCORE, nil] JSONData];
     [request setHTTPBody: jsonData];
     return request;
 }
@@ -49,14 +49,14 @@
     return [PuzzleAPIURLFactory urlForTakenPuzzle:self.puzzleID];
 }
 
--(void) runCompletionBlock{
+- (void)runCompletionBlock{
     TakePuzzleResults* results = [[TakePuzzleResults alloc] init];
     
     NSDictionary* data = [self.data objectFromJSONData];
-    results.userRatingChange = [[data objectForKey:@"userRatingChange"]intValue];
-    results.newUserRating = [[data objectForKey:@"newUserRating"]intValue];
-    results.newPuzzleRating = [[data objectForKey:@"newPuzzleRating"]intValue];
-    results.puzzleRatingChange = [[data objectForKey:@"puzzleRatingChange"]intValue];
+    results.userRatingChange = [[data objectForKey:@"playerRatingChange"] doubleValue] + .5;
+    results.newUserRating = [[data objectForKey:@"newPlayerRating"] doubleValue] + .5;
+    results.newPuzzleRating = [[data objectForKey:@"newPuzzleRating"] doubleValue] + .5;
+    results.puzzleRatingChange = [[data objectForKey:@"puzzleRatingChange"] doubleValue] + .5;
 
     self.onCompletion(self.response, results); 
 }

@@ -36,7 +36,7 @@
     puzzle.setupData = [[data objectForKey:@"setupData"] objectFromJSONString];
     puzzle.solutionData = [[data objectForKey:@"solutionData"] objectFromJSONString];
     puzzle.type = [data objectForKey:@"type"];
-    puzzle.puzzleID = [data objectForKey:@"puzzleID"];
+    puzzle.puzzleID = [data objectForKey:@"_id"];
     
     self.onCompletion(self.response, puzzle); 
 }

@@ -58,14 +58,13 @@ var pickRandomPuzzle = function(weightedDocs, weightedTotal) {
 	for (var i = 0; i<weightedDocs.length; i++) {
 		random = random - weightedDocs[i].weight;
 		if (random <= 0) {
-			console.log('returning');
 			return weightedDocs[i].puzzle;
 		}
 	}
 	return null;
 };
 
-var minRatingDifference = 300;
+var minRatingDifference = 1000;
 var userLikesWeight = 10;
 
 //TODO: Error messages, no docs returned, check user has not taken or created the puzzle
@@ -75,7 +74,7 @@ exports.puzzleSuggestion = function(req, res) {
 			var userRating = user.rating;
 			db.PuzzleModel.where('rating').gte(userRating-minRatingDifference).lte(userRating+minRatingDifference).run(function(err, docs) {
 				if (docs.length == 0 || docs == null) {
-					
+						console.log("Error: no puzzles available within min rating difference. This code still needs to be written.");
 				} else {
 					var weightedDocs = [];
 					var weightedTotal = 0;
@@ -148,7 +147,7 @@ exports.takePuzzle = function(req, res) {
 	authentication.verifyRequestAuthtokenAndAPI(req, res, function(success, user) {
 		if (success) {
 			var playerRating = user.rating;
-			var puzzleID = req.body.puzzle_id;
+			var puzzleID = req.params.id;
 			if (!puzzleID) {
 				res.statusCode = 400;
 				res.send( {statusCode: 400, error: "no_puzzle_id_included" } );
@@ -185,7 +184,7 @@ exports.takePuzzle = function(req, res) {
 										res.statusCode = 500;
 										res.send( { statusCode: 500, error : err} );
 									} else {
-										var returnValue = { "newPlayerRating" : newPlayerRating, "newPuzzleRating" : newPuzzleRating, "newPlayerRD": newPlayerRD, "newPuzzleRD" : newPuzzleRD };
+										var returnValue = { "newPlayerRating" : newPlayerRating, "newPuzzleRating" : newPuzzleRating, "newPlayerRD": newPlayerRD, "newPuzzleRD" : newPuzzleRD, "playerRatingChange" : newPlayerRating - playerRating, "puzzleRatingChange" : newPuzzleRating - puzzleRating };
 										res.send(JSON.stringify(returnValue));
 									}
 								});

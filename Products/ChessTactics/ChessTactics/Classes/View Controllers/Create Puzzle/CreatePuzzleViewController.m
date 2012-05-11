@@ -38,6 +38,8 @@
 	
 	IBOutlet UILabel *__moveEnteringLabel;
 	IBOutlet UIActivityIndicatorView *__activityView;
+	IBOutlet UIButton *__backToPlacePiecesButton;
+	IBOutlet UIButton *__nextButton;
 }
 
 @property (nonatomic, readwrite, retain) ChessBoardViewController *chessBoardViewController;
@@ -53,8 +55,11 @@
 @property (nonatomic, readwrite, retain) NSMutableDictionary *setup;
 @property (nonatomic, readwrite, assign) BOOL tacticSubmitted;
 
+//IBOutlets
 @property (nonatomic, readwrite, retain) UILabel *moveEnteringLabel;
 @property (nonatomic, readwrite, retain) UIActivityIndicatorView *activityView;
+@property (nonatomic, readwrite, retain) UIButton *nextButton;
+@property (nonatomic, readwrite, retain) UIButton *backToPlacePiecesButton;
 
 - (void)setupExtraPieces;
 - (void)addPiecesToView;
@@ -65,7 +70,7 @@
 
 @implementation CreatePuzzleViewController
 
-@synthesize chessBoardViewController = __chessBoardViewController, extraKing = __extraKing, extraPawn = __extraPawn, extraRook = __extraRook, extraQueen = __extraQueen, extraBishop = __extraBishop, extraKnight = __extraKnight, extraPieces = __extraPieces, pannedPiece = __pannedPiece, moves = __moves, setup = __setup, playerColor = __playerColor, fullBoard = __fullBoard, moveEnteringLabel = __moveEnteringLabel, computerMoveFirst = __computerMoveFirst, activityView = __activityView, tacticSubmitted = __tacticSubmitted;
+@synthesize chessBoardViewController = __chessBoardViewController, extraKing = __extraKing, extraPawn = __extraPawn, extraRook = __extraRook, extraQueen = __extraQueen, extraBishop = __extraBishop, extraKnight = __extraKnight, extraPieces = __extraPieces, pannedPiece = __pannedPiece, moves = __moves, setup = __setup, playerColor = __playerColor, fullBoard = __fullBoard, moveEnteringLabel = __moveEnteringLabel, computerMoveFirst = __computerMoveFirst, activityView = __activityView, tacticSubmitted = __tacticSubmitted, backToPlacePiecesButton = __backToPlacePiecesButton, nextButton = __nextButton;
 
 #pragma mark - View Life Cycle
 
@@ -109,6 +114,10 @@
 	__setup = nil;
 	[__moveEnteringLabel release];
 	__moveEnteringLabel = nil;
+	[__backToPlacePiecesButton release];
+	__backToPlacePiecesButton = nil;
+	[__nextButton release];
+	__nextButton = nil;
 	
 	[super dealloc];
 }
@@ -250,14 +259,16 @@
 	if (self.chessBoardViewController.inEditingMode) {
 		if ([self createSetup]) {
 			self.chessBoardViewController.inEditingMode = NO;
-			[sender setTitle:@"Submit" forState:UIControlStateNormal];
+			[self.nextButton setTitle:@"Submit" forState:UIControlStateNormal];
 			self.moves = [NSMutableArray array];
 			
 			//hide editing pieces
 			for (ChessPiece *piece in self.extraPieces) {
 				piece.view.hidden = YES;
 			}
+			
 			self.moveEnteringLabel.hidden = NO;
+			self.backToPlacePiecesButton.hidden = NO;
 			
 			if (self.computerMoveFirst) {
 				[self setHelpMessageForLastPlayerColor:self.playerColor];
@@ -280,6 +291,20 @@
 	} else {
 		[self submitTactic];
 	}
+}
+
+- (IBAction)backToSetup:(id)sender {
+	self.chessBoardViewController = [[[ChessBoardViewController alloc] initWithColor:self.playerColor] autorelease];
+	self.chessBoardViewController.inEditingMode = YES;
+	self.chessBoardViewController.delegate = self;
+	self.chessBoardViewController.fullBoard = NO;
+	[self.view addSubview:self.chessBoardViewController.view];
+	
+	[self.chessBoardViewController setupPieces:[self.setup objectForKey:PIECES_SETUP]];
+	
+	self.moveEnteringLabel.hidden = YES;
+	self.backToPlacePiecesButton.hidden = YES;
+	[self.nextButton setTitle:@"Next" forState:UIControlStateNormal];
 }
 
 #pragma mark - Gesture Recognizers

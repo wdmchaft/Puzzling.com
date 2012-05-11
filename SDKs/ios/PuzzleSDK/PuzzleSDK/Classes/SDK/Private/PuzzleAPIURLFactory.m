@@ -34,6 +34,6 @@
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@/user/%@",ROOT_API_URL,username]];
 }
 + (NSURL*)urlForTakenPuzzle:(NSString*)puzzleID{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/takePuzzle/%@",ROOT_API_URL,puzzleID]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle/%@",ROOT_API_URL,puzzleID]];
 }
 @end

@@ -115,8 +115,8 @@
 }
 
 -(void) runCompletionBlock{
-    self.onCompletion(self.response, [self.data objectFromJSONData]); 
-    //Override with actual objects being passed to completion block
+	NSLog(@"%@", [[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding] autorelease]);
+    self.onCompletion(self.response, [self.data objectFromJSONData]);  //Override with actual objects being passed to completion block
 }
 
 #pragma mark - NSConnectionDelegate Methods
