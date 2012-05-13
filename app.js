@@ -55,6 +55,7 @@ app.get('/login', auth.restrictByApi, login.get);
 app.post('/login', auth.restrictByApi, login.post);
 app.put('/login', auth.restrict, login.put);
 app.delete('/login', auth.restrict, login.delete);
+app.get('/user/:name', auth.restrict, login.getData);
 
 // Friends
 

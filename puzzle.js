@@ -146,14 +146,17 @@ exports.delete = function(req, res) {
 // all fields they want updated fully specified
 //
 exports.update = function(req, res) {
-    var data = {},
-        body = req.body,
-        puzzleId = req.body.puzzle_id;
+    var data = {}
+      , body = req.body
+      , puzzleId = _.u.stripNonAlphaNum(req.body.puzzle_id)
+      , apiKey = _u.stripNonAlphaNum(req.apiKey);
+
     if(puzzleId) {
         if (body["additionalData"]) data["additionalData"] = body["additionalData"];
         if (body["solutionData"]) data["solutionData"] = body["solutionData"];
+        if (body["setupData"]) data["setupData"] = body["setupData"];
 
-        var TargetModel = pApp.findPuzzleModel(req.apiKey);
+        var TargetModel = pApp.findPuzzleModel(apiKey);
         TargetModel.update({_id: puzzleId}, data, function(e, puzzle) {
             if(e) err.sendError(err.transactionError, res);
             else if(!puzzle) err.sendError(err.notFound, res);
@@ -274,10 +277,15 @@ exports.take = function(req, res) {
     }
 };
 
+//
+// callback after user has been
+// presumably found
+//
 function takeCB(req, res, user) {
     var puzzleID = _u.stripNonAlphaNum(req.body["puzzle_id"]);
     var apiKey = _u.stripNonAlphaNum(req.apiKey);
     var TargetModel = pApp.findPuzzleModel(apiKey);
+
     TargetModel.findById(puzzleID, function(e, puzzle) {
         if (e) {
             console.log("[DB] " + e);
@@ -288,7 +296,11 @@ function takeCB(req, res, user) {
             err.sendError(err.notFound, res);
         }
         else {
-            adjustRating(req, res, user.rating, user);
+            puzzle.taken = puzzle.taken + 1;
+            puzzle.save(function(e) {
+                if(!e) adjustRating(req, res, user.rating, user);
+                else err.sendError(err.transactionError, res);
+            });
         }
     });
 }
@@ -323,15 +335,14 @@ function adjustRating(req, res, playerRating, doc) {
             doc.save(function(err) {
                 if (err) err.sendError(err.transactionError, res);
                 else {
-                    var returnValue = {success : true
-                                        , newPlayerRD: newPlayerRD
-                                        , newPuzzleRD : newPuzzleRD
-                                        , newPlayerRating : newPlayerRating
-                                        , newPuzzleRating : newPuzzleRating};
-                    res.send(JSON.stringify(returnValue));
+                    var retVal = {success : true
+                                , newPlayerRD: newPlayerRD
+                                , newPuzzleRD : newPuzzleRD
+                                , newPlayerRating : newPlayerRating
+                                , newPuzzleRating : newPuzzleRating};
+                    res.send(JSON.stringify(retVal));
                 }
             });
         }
     });
 }
-

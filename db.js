@@ -12,6 +12,7 @@ var DATABASE_NAME = 'test';
  * Requirements
  */
 var mongoose = require('mongoose')
+    , hash = require('./hash')
     , _u = require('./utils.js');
 
 /**
@@ -71,6 +72,19 @@ User = new Schema({
     ,   user_data : String              /* JSON data */
     });
 
+User.methods.generate_password = function(input, salt) {
+    return hash.sha1(input, salt);
+};
+
+User.methods.set_password = function(pw) {
+    var salt = "abcd" + Math.floor(Math.random() * 100000);
+    this.salt = salt;
+    this.password = this.generate_password(pw, salt);
+};
+
+User.methods.check_password = function(pw) {
+    return (this.generate_password(pw, this.salt) === this.password);
+};
 
 // separate this from the APIkey field
 // so that we can integrate in the future
@@ -193,26 +207,3 @@ exports.UserModel = mongoose.model('users', User);
 exports.PuzzleModel = mongoose.model('puzzles', Puzzle);
 exports.FriendRequestModel = mongoose.model('friendRequests', FriendRequest);
 exports.ObjectID = mongoose.Types.ObjectId;
-exports.dropCollection = dropCollection;
-
-//
-// Functions
-//
-function dropCollection(collectionName, fn) {
-    var coll = mongoose.connection.collections[collectionName];
-    if(coll) {
-        coll.drop( function(e) {
-            if(!e) {
-                console.log("[DB] Dropping collection " + collectionName);
-                fn();
-            } else {
-                console.log("[DB] Error dropping collection " + collectionName);
-                fn(e);
-            }
-        });
-    }
-    else {
-        fn();
-    }
-
-}

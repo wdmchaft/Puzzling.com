@@ -68,18 +68,21 @@ function deleteApp(req, res) {
     // deletes app, then collection of all puzzles.
     pApp.findOne({apiKey : key}, function(e, found) {
         if(!e) {
-            found.remove();
-            db.dropCollection("puzzles" + key, function(e) {
-                var status = {apiKey: key, success: true, dropped : false};
-                if (e) {
-                    console.log('[papp] ' + e.toString());
-                    res.send(JSON.stringify(status));
-                }
-                else {
-                    status['dropped'] = true;
-                    res.send(JSON.stringify(status));
-                }
+            // drop the collection along
+            // with all its docs; if we
+            // can't, then let it persist
+            // in the backend and log the
+            // error. In the future, have
+            // an async task look at the
+            // outputs and manually call
+            // drop on these collections.
+            var PuzzleModel = pApp.findPuzzleModel(key);
+            var inst = new PuzzleModel();
+            inst.collection.drop(function(e) {
+                if(e) console.log(e);
+                else console.log("[papp] successfully dropped collection puzzle" + key)
             });
+            res.send({"success": true});
         }
         else err.sendError(err.transactionError, res);
     });

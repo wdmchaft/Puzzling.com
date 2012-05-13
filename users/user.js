@@ -135,16 +135,15 @@ function createCB(existingUser, res) {
         // Newly created users start with a baseline rating and
         // an auto-created authToken, which is at the moment a SHA-1 hash
 
-        var salt = "abcd" + Math.floor(Math.random() * 100000);
         var specs = {username   : params.username
-                      , password   : generateHash(params.password, salt)
-                      , salt       : salt
-                      , authToken  : generateToken(params.username, params.password)
-                      , rating     : DEFAULTS.DEFAULT_RATING
-                      , rd         : DEFAULTS.DEFAULT_DEVIATION
-                      , user_data  : params.user_data || "{}"
-        };
+                   , authToken  : generateToken(params.username, params.password)
+                   , rating     : DEFAULTS.DEFAULT_RATING
+                   , rd         : DEFAULTS.DEFAULT_DEVIATION
+                   , user_data  : params.user_data || "{}"
+            };
         var newUser = new User(specs);
+
+        newUser.set_password(params["password"]);
         newUser.save(function(e) {
             if(!e) console.log("[CREATE] : Created user " + newUser.username);
         });
@@ -203,8 +202,11 @@ function updateCB(found, res) {
 
     // hash password in-place so we don't have to
     // compute afterwards. Should change the salt too...
-    if(params.password)
+    if(params.hasOwnProperty(password) && user) {
+
         params.password = generateHash(params.password, found.salt);
+    }
+
 
     // authToken in body should match
     // target user's token

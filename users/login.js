@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var user = require('./user.js')
+var userModule = require('./user.js')
     , err = require("../error.js");
 
 //
@@ -19,16 +19,19 @@ exports.get = read;
 exports.post = create;
 exports.put = update;
 exports.delete = _delete; // delete is a js keyword
+exports.getData = getData;
 
-/*
- * Success response: { <username>, <authtoken> }
- */
+//
+// Success response: { <username>, <authtoken> }
+//
 function read(req, res) {
     var params = req.query;
+
     console.log(params);
     console.log("[login] Trying to verify { user %s , password %s }", params.username, params.password);
-    user.findUserByName(params.username, res, function(foundUser, res) {
-        if(foundUser && user.generateHash(params.password, foundUser.salt) == foundUser.password) {
+
+    userModule.findUserByName(params.username, res, function(foundUser, res) {
+        if(foundUser && userModule.generateHash(params.password, foundUser.salt) == foundUser.password) {
             // only give back auth token and
             // username; in the future, we may
             // want to give back the whole username
@@ -40,25 +43,42 @@ function read(req, res) {
     });
 }
 
-/*
- * Success response: { <username>, <authtoken>, <userdata> }
- */
+//
+// gets user data
+//
+function getData(req, res) {
+    // API rules specify username should
+    // be part of url, authToken a GET
+    // parameter
+    var targetName = req.params["username"]
+      , targetToken = req.query["authToken"];
+
+    userModule.findUserByName(targetName, res, function(foundUser, res) {
+        if(foundUser && foundUser.authToken === targetToken) {
+            res.send(JSON.stringify(foundUser.user_data));
+        } else err.sendError(err.notFound, res);
+    })
+}
+
+//
+// Success response: { <username>, <authtoken>, <userdata> }
+//
 function create(req, res) {
-    user.handle("create", req.body, res);
+    userModule.handle("create", req.body, res);
 }
 
-/*
- * Success response: { <username>, "success":true }
- */
+//
+// Success response: { <username>, "success":true }
+//
 function _delete(req, res) {
-    user.handle("delete", req.body, res);
+    userModule.handle("delete", req.body, res);
 }
 
-/*
- * Success response: { <username>, "success":true }
- */
+//
+// Success response: { <username>, "success":true }
+//
 function update(req, res) {
-    user.handle("update", req.body, res);
+    userModule.handle("update", req.body, res);
 }
 
 
