@@ -19,6 +19,22 @@ exports.INVALID_AUTHTOKEN = 5;
 exports.DB_ERROR = 6;
 exports.NO_PUZZLES = 7;
 exports.PUZZLE_DOESNT_EXIST = 8;
+// users
+exports.noPassword= "no_password_exists";
+exports.noUser = "no_username_exists";
+exports.existsUser = "user_exists";
+exports.noMatchingUser= "no_such_user_exists";
+exports.notAuthenticated= "not_authenticated";
+exports.missingInfo= "missing_parameters";
+// Auth
+exports.noAuthenticationString = "no_auth_token_found";
+exports.incorrectAuthTokenString = "user_not_found";
+exports.noAPIKeyString = "api_key_required";
+// Generic errors
+exports.notFound = "not_found";
+exports.updateError = "error_updating";
+exports.badOperation = "no_such_operation";
+exports.transactionError = "transaction_could_not_be_processed";
 
 //Got bored…add these as needed
 //exports.BAD_OP = "no_such_operation";
@@ -31,6 +47,8 @@ exports.PUZZLE_DOESNT_EXIST = 8;
 AUTHENTICATION = 401;
 METHOD_NOT_ALLOWED = 405;
 INTERNAL_SERVER = 500;
+
+exports._500_Errors = [this.transactionError];
 
 /*
  * Sends JSON formatted error code back to the user.
@@ -81,3 +99,7 @@ exports.send_error = function send_error(errorType, res, dbMessage) { //last par
 		}
 }
 
+exports.sendError = function sendError(message, res) {
+    res.statusCode = (this._500_Errors.indexOf(message) != -1) ? 500 : 400;
+    res.send( {error: message} );
+};

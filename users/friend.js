@@ -39,7 +39,7 @@ exports.request = function(req, res) {
         return;
     }
     if(!(req.params.to && req.params.from)) {
-        send_error(msg.MISSING_INFO, res);
+        sendError(msg.MISSING_INFO, res);
         return;
     }
 

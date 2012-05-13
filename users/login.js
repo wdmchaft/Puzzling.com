@@ -6,96 +6,79 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var user = require('./user.js')
-    , auth = require('./../authentication')
+var userModule = require('./user.js')
     , err = require("../error.js");
 
-exports.login = function(req, res) {
-    _login(req, res);
-    /*
-    if(req.method != GET && req.method != POST) {
-        auth.verifyRequestAuthtokenAndAPI(req, res, function(verified) {
-            if(!verified) {
-                res.send({ "error" : "Bad HTTP Method", "statusCode" : 402 });
-            }
-            else {
-                _login(req, res);
-            }
-        });
-    }
-    else {
-        // If GET request, don't worry about checking params
-        _login(req, res);
-    }
-    */
-}
+//
+// Filter Middleware to prevent redundancy.
+// Special because we're filtering based on
+// the request type, so we can't use a generic
+// type of filtering
+//
+exports.get = read;
+exports.post = create;
+exports.put = update;
+exports.delete = _delete; // delete is a js keyword
+exports.getData = getData;
 
-// HTTP verbs correspond to different actions
+//
+// Success response: { <username>, <authtoken> }
+//
+function read(req, res) {
+    var params = req.query;
 
-function _login(req, res) {
-    switch(req.method) {
-        // Authentication
-        case "GET" :
-            _verify(req.query, res);
-            break;
+    console.log(params);
+    console.log("[login] Trying to verify { user %s , password %s }", params.username, params.password);
 
-        // Creation
-        case "POST" :
-            _create(req.body, res);
-            break;
-
-        // Deletion
-        case "DELETE" :
-            _delete(req.body, res);
-            break;
-
-        // Updates
-        case "PUT" :
-            _update(req.body, res);
-            break;
-
-        default :
-            res.send({ "error" : "Bad HTTP Method", "statusCode" : 402 });
-    }
-}
-
-/*
- * Success response: { <username>, <authtoken> }
- */
-function _verify(params, res) {
-    console.log("Trying to verify { user %s , password %s }", params.username, params.password);
-
-    user.findUserByName(params.username, res, function(foundUser, res) {
-        if(foundUser && user.generateHash(params.password, foundUser.salt) == foundUser.password) {
+    userModule.findUserByName(params.username, res, function(foundUser, res) {
+        if(foundUser && userModule.generateHash(params.password, foundUser.salt) == foundUser.password) {
             // only give back auth token and
             // username; in the future, we may
             // want to give back the whole username
-            res.send({"username" : foundUser.username, "authToken" : foundUser.authToken});
+            var info = {'username' : foundUser.username, 'authToken' : foundUser.authToken };
+            res.send(JSON.stringify(info));
         } else {
-            err.send_error(err.NO_MATCHING_USER, res);
+            err.sendError(err.noMatchingUser, res);
         }
     });
 }
 
-/*
- * Success response: { <username>, <authtoken>, <userdata> }
- */
-function _create(params, res) {
-    user.handle("create", params, res);
+//
+// gets user data
+//
+function getData(req, res) {
+    // API rules specify username should
+    // be part of url, authToken a GET
+    // parameter
+    var targetName = req.params["username"]
+      , targetToken = req.query["authToken"];
+
+    userModule.findUserByName(targetName, res, function(foundUser, res) {
+        if(foundUser && foundUser.authToken === targetToken) {
+            res.send(JSON.stringify(foundUser.user_data));
+        } else err.sendError(err.notFound, res);
+    })
 }
 
-/*
- * Success response: { <username>, status: "SUCCESS" }
- */
-function _delete(params, res) {
-    user.handle("delete", params, res);
+//
+// Success response: { <username>, <authtoken>, <userdata> }
+//
+function create(req, res) {
+    userModule.handle("create", req.body, res);
 }
 
-/*
- * Success response: { <username>, status: "SUCCESS" }
- */
-function _update(params, res) {
-    user.handle("update", params, res);
+//
+// Success response: { <username>, "success":true }
+//
+function _delete(req, res) {
+    userModule.handle("delete", req.body, res);
+}
+
+//
+// Success response: { <username>, "success":true }
+//
+function update(req, res) {
+    userModule.handle("update", req.body, res);
 }
 
 

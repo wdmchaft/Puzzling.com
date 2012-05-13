@@ -26,6 +26,8 @@ public class APIModels {
 	}
 	
 	public class Puzzle {
+		APIModels.User creator;			/* Foreignkey to user who created puzzle */
+		
 		String puzzleId; 				/* the unique _id for a puzzle */
 		String meta;
 		String setupData;
