@@ -6,37 +6,55 @@
  * To change this template use File | Settings | File Templates.
  */
 
-// These functions check for api keys and authtokens. They call a callback function when finished.
+/**
+ * Requires
+ */
 
-var db = require('./db');
+var db = require('./db')
+  , err = require('./error.js')
+  , _u = require('./utils.js');
 
-var noAuthenticationString = "no_auth_token_found";
-var incorrectAuthTokenString = "user_not_found";
-var noAPIKeyString = "api_key_required";
-var incorrectAPIString = "no_api_key_registered";
+var APIkeyModel = db.APIkeyModel
+    , ObjectID = db.ObjectID;
 
-exports.verifyRequestAuthtokenAndAPI = function(req, res, callback) { //callback return bool success and a user when finished
-	
-	var authToken = req.headers.puzzle_auth_token;
-	
-	this.verifyRequestAPIKey(req, res, function(success) {
+// Verify only API key and not the auth token.
+// Necessary for some operations for developers
+// when they don't yet have tokens
+
+function verifyRequestAPIKey(req, res, callback) { //callback returns bool success
+    var puzzleKey = _u.stripNonAlphaNum(req.headers["puzzle_api_key"]);
+    APIkeyModel.findById(puzzleKey.toString(), function (e, doc) {
+        if (e || !doc) {
+            if(e) console.log(e);
+            err.sendError(err.notFound, res);
+            callback(false);
+        } else callback(true);
+    });
+}
+
+// Verifies auth token + API.
+function verifyRequestAuthTokenAndAPIKey(req, res, callback) {
+	var authToken = req.headers["puzzle_auth_token"];
+	verifyRequestAPIKey(req, res, function(success) {
 		if (!success) {
+            console.log("[auth] can't verify api key and auth token");
+            err.sendError(err.notAuthenticated, res);
 			callback(false);
 		} else {
-			var puzzleAuth = req.headers.puzzle_auth_token;
+			var puzzleAuth = req.headers["puzzle_auth_token"];
 			if (puzzleAuth == null) {
-				res.statusCode = 401;
-				res.send({ "error" : noAuthenticationString, "statusCode" : 401 });
+                console.log("[auth] can't verify api key and auth token");
+				err.sendError(err.noAuthenticationString, res);
 				callback(false);
 			} else {
-				db.UserModel.findOne({"authToken": authToken}, function(err, doc) {
-					if (err) {
-						res.statusCode = 500;
-						res.send( { statusCode: 500, error : err} );
+				db.UserModel.findOne({"authToken": authToken}, function(e, doc) {
+					if (e) {
+                        console.log("[auth] can't verify api key and auth token");
+						err.sendError(err.transactionError, res);
 						callback(false);
 					} else if (doc == null) {
-						res.statusCode = 401; //Unauthorized
-						res.send( { statusCode: 401, error : incorrectAuthTokenString } );
+                        console.log("[auth] can't verify api key and auth token");
+                        err.sendError(err.incorrectAuthTokenString, res);
 						callback(false);
 					} else {
 						callback(true, doc);
@@ -45,15 +63,47 @@ exports.verifyRequestAuthtokenAndAPI = function(req, res, callback) { //callback
 			}
 		}
 	});
-};
-
-exports.verifyRequestAPIKey = function(req, res, callback) { //callback returns bool success
-	var puzzleAPI = req.headers.puzzle_api_key;
-	if (puzzleAPI == null) {
-		res.statusCode = 401;
-		res.send({ "error" : noAPIKeyString, "statusCode" : 401 });
-		callback(false);
-	} else {
-		callback(true);
-	}
 }
+
+// limited restriction function
+function restrictByApi (req, res, next) {
+    verifyRequestAPIKey(req, res, function(success, user) {
+        // case !success is taken care of for us by
+        // the authentication class
+        if(success) {
+            req.apiKey = req.headers["puzzle_api_key"];
+            req.user = user;
+            next();
+        } else console.log("[auth] couldn't find api key " + req.headers["puzzle_api_key"]);
+    });
+}
+
+//
+// restrict user access
+// and find and put 'user'
+// 'apiKey', and 'authToken'
+// fields into the request obj
+//
+
+function restrict (req, res, next) {
+    verifyRequestAuthTokenAndAPIKey(req, res, function(success, user) {
+        // case !success is taken care of for us by
+        // the authentication class
+        if(success) {
+            req.apiKey = req.headers["puzzle_api_key"];
+            req.authToken = req.headers["puzzle_auth_token"];
+            req.user = user;
+            next();
+        } else console.log("[auth] couldn't find api key " + req.headers["puzzle_api_key"]
+                            + " and matching auth token " + req.headers["puzzle_auth_token"]);
+    });
+}
+
+
+/**
+ * Exports
+ */
+exports.restrictByApi = restrictByApi;
+exports.restrict = restrict;
+exports.verifyApi = verifyRequestAPIKey;
+exports.verifyRequestApiAuth = verifyRequestAuthTokenAndAPIKey;

@@ -29,10 +29,22 @@ public class API {
 	 * 
 	 */
 	
+	/* ------------------ Config ------------------------- */
+	 // Configurations set manually by the developer.
+	 // A lot of this info you get after registering
+	
+	// Set this to be developer's key issued during registration
+	public static final String APIKey = "asdf";
+	
+	// Server root; should point to our site
+	public static final String serverRoot = "http://10.0.2.2:3000";
+	
+	
+	/* ----------------- End Config ----------------------- */
+	
+	
 	public static final String loginPath = "login";
 	public static final String puzzlePath = "puzzle";
-	public static final String serverRoot = "http://10.0.2.2:3000";
-	public static final String serverAuthority = "10.0.2.2:3000";
 	
 	public API() {/* placeholder */}
 	
@@ -60,15 +72,17 @@ public class API {
 		 * relating to a typical user model (see User model in APIModels.java)
 		 */
 		public static JSONObject createUser(String u, String p, String userDataJSON) {
-			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			pairs.add(new BasicNameValuePair("username", u));
-			pairs.add(new BasicNameValuePair("password", p));
-			pairs.add(new BasicNameValuePair("user_data", userDataJSON));
-			String jsonResult = getJSONResponse("POST", serverRoot + loginPath, pairs);
+			List<NameValuePair> bodyKVPairs = new ArrayList<NameValuePair>();
+			bodyKVPairs.add(new BasicNameValuePair("username", u));
+			bodyKVPairs.add(new BasicNameValuePair("password", p));
+			bodyKVPairs.add(new BasicNameValuePair("user_data", userDataJSON));
+			String jsonResult = getJSONResponse("POST", serverRoot + loginPath, bodyKVPairs);
 			return JSON.parse(jsonResult);
 		}
 		
 		/**
+		 * @Tested v1
+		 * 
 		 * Get auth token for user given a username and password
 		 * Boils down essentially to a GET request to login url.
 		 * This is one of the only methods that doesn't require an 
@@ -78,44 +92,50 @@ public class API {
 		 * @return String token; if none found, returns an empty string.
 		 */
 		public static String getAuthTokenForUser(String u, String p) {
-			Uri.Builder url = Uri.parse(serverRoot).buildUpon();
-			url.appendPath(loginPath);
-			url.appendQueryParameter("username", u);
-			url.appendQueryParameter("password", p);
-			
-			Log.i("API", url.toString());
-			String jsonString = getJSONResponse("GET", url.toString(), null);
-			JSONObject userObj = JSON.parse(jsonString);
-			
+			JSONObject userObj = Login.getUser(u, p);
 			try {
 				return userObj.getString("authToken");
-			} catch (JSONException e) {
-				return "";
 			} catch (Exception e) {
+				e.printStackTrace();
 				return "";
 			}
 		}
 		
 		/**
+		 * Gets all info about a user stored in database.
+		 * Password must be known to do this.
+		 * 
+		 * @param u Username
+		 * @param p Password
+		 * @return User object containing all user fields in the backend of one user.
+		 */
+		public static JSONObject getUser(String u, String p) {
+			Uri.Builder url = Uri.parse(serverRoot).buildUpon();
+			url.appendPath(loginPath);
+			url.appendQueryParameter("username", u);
+			url.appendQueryParameter("password", p);
+			String jsonString = getJSONResponse("GET", url.toString(), null);
+			return JSON.parse(jsonString);
+		}
+		
+		/**
 		 * Deletes user permanently, including all past records.
 		 * This affects at most one user.
+		 * 
 		 * @param u User to be deleted.
 		 * @return True on success
 		 */
 		public static boolean deleteUser(String u, String authToken) {
-			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			pairs.add(new BasicNameValuePair("username", u));
-			pairs.add(new BasicNameValuePair("authToken", authToken));
-
-			String jsonString = getJSONResponse("DELETE", serverRoot + loginPath, pairs);
+			List<NameValuePair> bodyKVPairs = new ArrayList<NameValuePair>();
+			bodyKVPairs.add(new BasicNameValuePair("username", u));
+			bodyKVPairs.add(new BasicNameValuePair("authToken", authToken));
+			String jsonString = getJSONResponse("DELETE", serverRoot + loginPath, bodyKVPairs);
 			JSONObject successObj = JSON.parse(jsonString);
 			
 			try {
 				return (successObj.getString("status").equalsIgnoreCase("SUCCESS"));
-			} catch (JSONException e) {
-				e.printStackTrace();
-				return false;
 			} catch (Exception e) {
+				e.printStackTrace();
 				return false;
 			}
 		}
@@ -127,20 +147,18 @@ public class API {
 		 * @return True on success
 		 */
 		public static boolean changeUserPassword(String u, String p, String authToken) {
-			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			pairs.add(new BasicNameValuePair("username", u));
-			pairs.add(new BasicNameValuePair("authToken", authToken));
-			pairs.add(new BasicNameValuePair("password", p));
+			List<NameValuePair> bodyKVPairs = new ArrayList<NameValuePair>();
+			bodyKVPairs.add(new BasicNameValuePair("username", u));
+			bodyKVPairs.add(new BasicNameValuePair("authToken", authToken));
+			bodyKVPairs.add(new BasicNameValuePair("password", p));
 			
-			String jsonString = getJSONResponse("PUT", serverRoot + loginPath, pairs);
+			String jsonString = getJSONResponse("PUT", serverRoot + loginPath, bodyKVPairs);
 			JSONObject successObj = JSON.parse(jsonString);
 			
 			try {
 				return (successObj.getString("status").equalsIgnoreCase("SUCCESS"));
-			} catch (JSONException e) {
-				e.printStackTrace();
-				return false;
 			} catch (Exception e) {
+				e.printStackTrace();
 				return false;
 			}
 		}
@@ -153,11 +171,11 @@ public class API {
 		 * @return
 		 */
 		public static boolean changeUserData(String u, String authToken, String jsonData) {
-			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			pairs.add(new BasicNameValuePair("username", u));
-			pairs.add(new BasicNameValuePair("authToken", authToken));
-			pairs.add(new BasicNameValuePair("user_data", jsonData));
-			String jsonString = getJSONResponse("PUT", serverRoot + loginPath, pairs);
+			List<NameValuePair> bodyKVPairs = new ArrayList<NameValuePair>();
+			bodyKVPairs.add(new BasicNameValuePair("username", u));
+			bodyKVPairs.add(new BasicNameValuePair("authToken", authToken));
+			bodyKVPairs.add(new BasicNameValuePair("user_data", jsonData));
+			String jsonString = getJSONResponse("PUT", serverRoot + loginPath, bodyKVPairs);
 			JSONObject successObj = JSON.parse(jsonString);
 			
 			try {
@@ -203,15 +221,16 @@ public class API {
 			Uri.Builder url = Uri.parse(serverRoot).buildUpon();
 			url.appendPath(puzzlePath);
 			
-			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			List<NameValuePair> bodyKVPairs = new ArrayList<NameValuePair>();
 			// Request body
-			pairs.add(new BasicNameValuePair("authToken", authToken));
-			pairs.add(new BasicNameValuePair("setupData", setupData));
-			pairs.add(new BasicNameValuePair("solutionData", solutionData));
-			pairs.add(new BasicNameValuePair("additionalData", additionalData));
-			pairs.add(new BasicNameValuePair("puzzleType", puzzleType));
+			bodyKVPairs.add(new BasicNameValuePair("authToken", authToken));
+			bodyKVPairs.add(new BasicNameValuePair("type", type));
+			bodyKVPairs.add(new BasicNameValuePair("setupData", setupData));
+			bodyKVPairs.add(new BasicNameValuePair("solutionData", solutionData));
+			bodyKVPairs.add(new BasicNameValuePair("additionalData", additionalData));
+			bodyKVPairs.add(new BasicNameValuePair("puzzleType", puzzleType));
 			
-			String puzzleObj = getJSONResponse("POST", url.toString(), pairs);
+			String puzzleObj = getJSONResponse("POST", url.toString(), bodyKVPairs);
 			return JSON.parse(puzzleObj);
 		}
 	
@@ -281,16 +300,21 @@ public class API {
 
 		/**
 		 * Gets all puzzles made by certain user_id, which maps to an
-		 * ObjectID in the backend.
-		 * @param user_id
-		 * @return JSONArray; each entry is a JSONObject representing
-		 * a puzzle
+		 * ObjectID in the backend. 
+		 * @param user_id Mongo ObjectID associated with user.
+		 * @param authToken AuthToken should belong to the user with user_id.
+		 * @return JSONArray; each entry is a JSONObject representing a puzzle
 		 */
-		public static JSONArray getPuzzlesMadeByUser(String user_id) {
+		public static JSONArray getPuzzlesMadeByUser(String user_id, String authToken) {
 			Uri.Builder url = Uri.parse(serverRoot).buildUpon();
 			url.appendPath(loginPath);
-			url.appendPath("user");
+			url.appendPath("user_id");
 			url.appendPath(user_id);
+			
+			// Build Header
+			List<NameValuePair> header = new ArrayList<NameValuePair>();
+			header.add(new BasicNameValuePair("authToken", authToken));
+			
 			String jsonString = getJSONResponse("GET", url.toString(), null);
 			return JSON.parseArray(jsonString);
 		}
@@ -365,6 +389,11 @@ public class API {
 		public static String stringify(JSONArray obj) {
 			return obj.toString();
 		}
+		
+		public static String stringify(Map<?, ?> obj) {
+			return new JSONObject(obj).toString();
+		}
+		
 	}
 	
 	/**
@@ -378,7 +407,7 @@ public class API {
 	 * @param pairs
 	 * @return
 	 */
-	private static String getJSONResponse(String method, String url, List<NameValuePair> pairs) {
+	private static String getJSONResponse(String method, String url, List<NameValuePair> bodydata) {
 		
 		// NOTE: If we ever find an "authToken" in the pairs passed in,
 		// we know to add that as a header. This then takes care
@@ -390,10 +419,11 @@ public class API {
 		boolean withHeaders = true;
 		
 		// v1 : any puzzle_api_key works for now
-		headers.add(new BasicNameValuePair("puzzle_api_key", "anything"));
+		headers.add(new BasicNameValuePair("puzzle_api_key", APIKey));
 		
-		if(pairs != null) {
-			for(NameValuePair pair : pairs) {
+		// if we have auth token, put it in the header
+		if(bodydata != null) {
+			for(NameValuePair pair : bodydata) {
 				if (pair.getName().equalsIgnoreCase("authToken")) {
 					String authToken = pair.getValue();
 					headers.add(new BasicNameValuePair("puzzle_auth_token", authToken));
@@ -406,11 +436,11 @@ public class API {
 			if(method.equalsIgnoreCase("GET")) {
 				response = APIHttp.getWithHeaders(url, headers);
 			} else if(method.equalsIgnoreCase("POST")) {
-				response = APIHttp.postWithHeaders(url, pairs, headers);
+				response = APIHttp.postWithHeaders(url, bodydata, headers);
 			} else if(method.equalsIgnoreCase("PUT")) {
-				response = APIHttp.putWithHeaders(url, pairs, headers);
+				response = APIHttp.putWithHeaders(url, bodydata, headers);
 			} else if(method.equalsIgnoreCase("DELETE")) {
-				response = APIHttp.deleteWithHeaders(url, pairs, headers);
+				response = APIHttp.deleteWithHeaders(url, bodydata, headers);
 			} else {
 				return null;
 			}
@@ -420,11 +450,11 @@ public class API {
 			if(method.equalsIgnoreCase("GET")) {
 				response = APIHttp.get(url);
 			} else if(method.equalsIgnoreCase("POST")) {
-				response = APIHttp.post(url, pairs);
+				response = APIHttp.post(url, bodydata);
 			} else if(method.equalsIgnoreCase("PUT")) {
-				response = APIHttp.put(url, pairs);
+				response = APIHttp.put(url, bodydata);
 			} else if(method.equalsIgnoreCase("DELETE")) {
-				response = APIHttp.delete(url, pairs);
+				response = APIHttp.delete(url, bodydata);
 			} else {
 				return null;
 			}
