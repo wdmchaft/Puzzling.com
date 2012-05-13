@@ -294,121 +294,120 @@ exports.getUserPuzzles = function(req, res) {
 	});
 };
 
-exports.deletePuzzle = function(req, res) {
+/*exports.deletePuzzle = function(req, res) {
 	var puzzleId = req.body.puzzle_id || undefined;
 	if(puzzleId) {
 		db.PuzzleModel.findOne({"_id" : puzzleId}, function(e, docs) {
 			if(!e) { err.send_error(err.NOT_FOUND, res); return; }
-			res.send({"puzzle_id" : puzzleId, "status" : "SUCCESS"});
-			//
-			// "takes" a puzzle + adjusts rating
-			// need to be passed in the auth token
-			// of the user who we claim is taking
-			// the puzzle
-			//
-			exports.take = function(req, res) {
-				var token = _u.stripNonAlphaNum(req.body["authToken"]);
-				if(token) {
-					UserModel.findOne({authToken: token}, function(e, doc) {
-            if(!e && doc) takeCB(req, res, doc);
-            else {
-							if(e) {
-								console.log(e);
-								err.sendError(err.transactionError, res);
-							}
-							if(!doc) {
-								console.log("[DB] couldn't find user with authToken " + token);
-								err.sendError(err.notFound, res);
-							}
-            }
-					});
-				} else {
-					err.sendError(err.missingInfo + " , missing puzzle_id", res);
+			res.send({"puzzle_id" : puzzleId, "status" : "SUCCESS"});*/
+//
+// "takes" a puzzle + adjusts rating
+// need to be passed in the auth token
+// of the user who we claim is taking
+// the puzzle
+//
+exports.take = function(req, res) {
+	var token = _u.stripNonAlphaNum(req.body["authToken"]);
+	if(token) {
+		UserModel.findOne({authToken: token}, function(e, doc) {
+			if(!e && doc) takeCB(req, res, doc);
+			else {
+				if(e) {
+					console.log(e);
+					err.sendError(err.transactionError, res);
 				}
-			};
-			
-			//
-			// callback after user has been
-			// presumably found
-			//
-			function takeCB(req, res, user) {
-				var puzzleID = _u.stripNonAlphaNum(req.body["puzzle_id"]);
-				var apiKey = _u.stripNonAlphaNum(req.apiKey);
-				var TargetModel = pApp.findPuzzleModel(apiKey);
-				
-				var url_parts = url.parse(req.url, true);
-				var notRated = url_parts.query.notRated == 'true';
-				var playerRating = user.rating;
-				
-				TargetModel.findById(puzzleID, function(e, puzzle) {
-					if (e) {
-            console.log("[DB] " + e);
-            err.sendError(err.transactionError, res);
-					}
-					else if (!puzzle) {
-            console.log("[DB] didn't find puzzle with apikey" + puzzleID);
-            err.sendError(err.notFound, res);
-					}
-					else {
-            puzzle.taken = puzzle.taken + 1;
-            puzzle.save(function(e) {
-							if(!e) adjustRating(req, res, user.rating, user, notRated);
-							else err.sendError(err.transactionError, res);
-            });
-					}
-				});
+				if(!doc) {
+					console.log("[DB] couldn't find user with authToken " + token);
+					err.sendError(err.notFound, res);
+				}
 			}
-			
-			
-			//
-			// adjusts player rating based on new data.
-			// @param playerRating is current player rating.
-			// @param doc refers to a puzzle document
-			//
-			function adjustRating(req, res, playerRating, doc, isRated) {
-				var user = req.user;
-				
-				var puzzleRating = doc.rating;
-				var puzzleRD = doc.rd;
-				var playerRD = user.rd;
-				var score = req.body.score;
-				var newPlayerRating = glicko.newRating(playerRating, puzzleRating, playerRD, puzzleRD, score);
-				var newPuzzleRating = glicko.newRating(puzzleRating, playerRating, puzzleRD, playerRD, 1-score);
-				var newPlayerRD = glicko.newRD(playerRating, puzzleRating, playerRD, puzzleRD, score, false);
-				var newPuzzleRD = glicko.newRD(puzzleRating, playerRating, puzzleRD, playerRD, 1-score, true);
-				
-				doc.rd = newPuzzleRD;
-				doc.rating = newPuzzleRating;
-				
-				user.rd = newPlayerRD;
-				user.rating = newPlayerRating;
-				
-				var scoreInstance = new db.ScoreModel();
-				scoreInstance.user = user._id;
-				scoreInstance.puzzle = doc._id;
-				scoreInstance.value = score;
-				scoreInstance.puzzleRating = newPuzzleRating;
-				scoreInstance.userRating = newPlayerRating;
-				
-				scoreInstance.save(function(err) {
-					//do nothing. If err, don't worry about it. It won't affect too much.
-				});
-				
-				user.save(function(err) {
-					if (err) err.sendError(err.transactionError, res);
-					else {
-            doc.save(function(err) {
-							if (err) err.sendError(err.transactionError, res);
-							else {
-								var retVal = {success : true
-									, newPlayerRD: newPlayerRD
-									, newPuzzleRD : newPuzzleRD
-									, newPlayerRating : newPlayerRating
-									, newPuzzleRating : newPuzzleRating};
-								res.send(JSON.stringify(retVal));
-							}
-            });
-					}
-				});
-			}
-			
+		});
+	} else {
+		err.sendError(err.missingInfo + " , missing puzzle_id", res);
+	}
+};
+
+//
+// callback after user has been
+// presumably found
+//
+function takeCB(req, res, user) {
+	var puzzleID = _u.stripNonAlphaNum(req.body["puzzle_id"]);
+	var apiKey = _u.stripNonAlphaNum(req.apiKey);
+	var TargetModel = pApp.findPuzzleModel(apiKey);
+	
+	var url_parts = url.parse(req.url, true);
+	var notRated = url_parts.query.notRated == 'true';
+	var playerRating = user.rating;
+	
+	TargetModel.findById(puzzleID, function(e, puzzle) {
+		if (e) {
+			console.log("[DB] " + e);
+			err.sendError(err.transactionError, res);
+		}
+		else if (!puzzle) {
+			console.log("[DB] didn't find puzzle with apikey" + puzzleID);
+			err.sendError(err.notFound, res);
+		}
+		else {
+			puzzle.taken = puzzle.taken + 1;
+			puzzle.save(function(e) {
+				if(!e) adjustRating(req, res, user.rating, user, notRated);
+				else err.sendError(err.transactionError, res);
+			});
+		}
+	});
+}
+
+
+//
+// adjusts player rating based on new data.
+// @param playerRating is current player rating.
+// @param doc refers to a puzzle document
+//
+function adjustRating(req, res, playerRating, doc, isRated) {
+	var user = req.user;
+	
+	var puzzleRating = doc.rating;
+	var puzzleRD = doc.rd;
+	var playerRD = user.rd;
+	var score = req.body.score;
+	var newPlayerRating = glicko.newRating(playerRating, puzzleRating, playerRD, puzzleRD, score);
+	var newPuzzleRating = glicko.newRating(puzzleRating, playerRating, puzzleRD, playerRD, 1-score);
+	var newPlayerRD = glicko.newRD(playerRating, puzzleRating, playerRD, puzzleRD, score, false);
+	var newPuzzleRD = glicko.newRD(puzzleRating, playerRating, puzzleRD, playerRD, 1-score, true);
+	
+	doc.rd = newPuzzleRD;
+	doc.rating = newPuzzleRating;
+	
+	user.rd = newPlayerRD;
+	user.rating = newPlayerRating;
+	
+	var scoreInstance = new db.ScoreModel();
+	scoreInstance.user = user._id;
+	scoreInstance.puzzle = doc._id;
+	scoreInstance.value = score;
+	scoreInstance.puzzleRating = newPuzzleRating;
+	scoreInstance.userRating = newPlayerRating;
+	
+	scoreInstance.save(function(err) {
+		//do nothing. If err, don't worry about it. It won't affect too much.
+	});
+	
+	user.save(function(err) {
+		if (err) err.sendError(err.transactionError, res);
+		else {
+			doc.save(function(err) {
+				if (err) err.sendError(err.transactionError, res);
+				else {
+					var retVal = {success : true
+						, newPlayerRD: newPlayerRD
+						, newPuzzleRD : newPuzzleRD
+						, newPlayerRating : newPlayerRating
+						, newPuzzleRating : newPuzzleRating};
+					res.send(JSON.stringify(retVal));
+				}
+			});
+		}
+	});
+}
