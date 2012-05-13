@@ -7,72 +7,35 @@
  */
 
 var user = require('./user.js')
-    , auth = require('./../authentication')
     , err = require("../error.js");
 
-exports.login = function(req, res) {
-    _login(req, res);
-    /*
-    if(req.method != GET && req.method != POST) {
-        auth.verifyRequestAuthtokenAndAPI(req, res, function(verified) {
-            if(!verified) {
-                res.send({ "error" : "Bad HTTP Method", "statusCode" : 402 });
-            }
-            else {
-                _login(req, res);
-            }
-        });
-    }
-    else {
-        // If GET request, don't worry about checking params
-        _login(req, res);
-    }
-    */
-}
-
-// HTTP verbs correspond to different actions
-
-function _login(req, res) {
-    switch(req.method) {
-        // Authentication
-        case "GET" :
-            _verify(req.query, res);
-            break;
-
-        // Creation
-        case "POST" :
-            _create(req.body, res);
-            break;
-
-        // Deletion
-        case "DELETE" :
-            _delete(req.body, res);
-            break;
-
-        // Updates
-        case "PUT" :
-            _update(req.body, res);
-            break;
-
-        default :
-            res.send({ "error" : "Bad HTTP Method", "statusCode" : 402 });
-    }
-}
+//
+// Filter Middleware to prevent redundancy.
+// Special because we're filtering based on
+// the request type, so we can't use a generic
+// type of filtering
+//
+exports.get = read;
+exports.post = create;
+exports.put = update;
+exports.delete = _delete; // delete is a js keyword
 
 /*
  * Success response: { <username>, <authtoken> }
  */
-function _verify(params, res) {
-    console.log("Trying to verify { user %s , password %s }", params.username, params.password);
-
+function read(req, res) {
+    var params = req.query;
+    console.log(params);
+    console.log("[login] Trying to verify { user %s , password %s }", params.username, params.password);
     user.findUserByName(params.username, res, function(foundUser, res) {
         if(foundUser && user.generateHash(params.password, foundUser.salt) == foundUser.password) {
             // only give back auth token and
             // username; in the future, we may
             // want to give back the whole username
-            res.send({"username" : foundUser.username, "authToken" : foundUser.authToken});
+            var info = {'username' : foundUser.username, 'authToken' : foundUser.authToken };
+            res.send(JSON.stringify(info));
         } else {
-            err.send_error(err.NO_MATCHING_USER, res);
+            err.sendError(err.noMatchingUser, res);
         }
     });
 }
@@ -80,22 +43,22 @@ function _verify(params, res) {
 /*
  * Success response: { <username>, <authtoken>, <userdata> }
  */
-function _create(params, res) {
-    user.handle("create", params, res);
+function create(req, res) {
+    user.handle("create", req.body, res);
 }
 
 /*
- * Success response: { <username>, status: "SUCCESS" }
+ * Success response: { <username>, "success":true }
  */
-function _delete(params, res) {
-    user.handle("delete", params, res);
+function _delete(req, res) {
+    user.handle("delete", req.body, res);
 }
 
 /*
- * Success response: { <username>, status: "SUCCESS" }
+ * Success response: { <username>, "success":true }
  */
-function _update(params, res) {
-    user.handle("update", params, res);
+function update(req, res) {
+    user.handle("update", req.body, res);
 }
 
 
