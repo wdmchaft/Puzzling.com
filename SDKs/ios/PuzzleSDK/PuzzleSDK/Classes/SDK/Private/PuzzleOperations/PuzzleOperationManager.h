@@ -19,7 +19,7 @@
 
 - (void)getPuzzleForCurrentUserOnCompletion:(PuzzleOnCompletionBlock)onCompletion;
 
-- (void)takePuzzle:(PuzzleID *)puzzleID score:(float)score onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+- (void)takePuzzle:(PuzzleID *)puzzleID score:(float)score rated:(BOOL)rated onCompletion:(PuzzleOnCompletionBlock)onCompletion;
 
 //Login
 - (void)loginUserWithUsername:(NSString *)username password:(NSString *)password onCompletion:(PuzzleOnCompletionBlock)onCompletion;

@@ -164,7 +164,23 @@
 	}
 }
 
+- (BOOL)movesContainsPlayerMove {
+	if (self.computerMoveFirst) {
+		return [self.moves count] >= 2;
+	} else {
+		return [self.moves count] >= 1;
+	}
+}
+
 - (void)submitTactic {
+	if (self.chessBoardViewController.playerColor == self.playerColor) {//still need to input computer move
+		[[[[UIAlertView alloc] initWithTitle:@"Error" message:@"The last move must be a user move. Please enter one more move" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		return;
+	} else if (![self movesContainsPlayerMove]) {
+		[[[[UIAlertView alloc] initWithTitle:@"Error" message:@"There must be at least one user move. Please enter another move." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		return;
+	}
+	
 	NSMutableDictionary *solutionData = [NSMutableDictionary dictionary];
 	NSMutableArray *solutionMoves = [NSMutableArray array];
 	for (ChessMove *move in self.moves) {
@@ -173,6 +189,9 @@
 		[info setValue:[NSNumber numberWithInt:move.start.y] forKey:START_Y];
 		[info setValue:[NSNumber numberWithInt:move.finish.x] forKey:FINISH_X];
 		[info setValue:[NSNumber numberWithInt:move.finish.y] forKey:FINISH_Y];
+		if (move.promotionType != nil) {
+			[info setValue:move.promotionType forKey:PROMOTION_TYPE];
+		}
 		[solutionMoves addObject:info];
 	}
 	[solutionData setValue:solutionMoves forKey:MOVES];
@@ -305,6 +324,11 @@
 	self.moveEnteringLabel.hidden = YES;
 	self.backToPlacePiecesButton.hidden = YES;
 	[self.nextButton setTitle:@"Next" forState:UIControlStateNormal];
+	
+	//show editing pieces
+	for (ChessPiece *piece in self.extraPieces) {
+		piece.view.hidden = NO;
+	}
 }
 
 #pragma mark - Gesture Recognizers
@@ -336,15 +360,16 @@
 
 #pragma mark - ChessBoardViewController Delegate Methods
 
-- (void)piece:(ChessPiece *)piece didMoveFromX:(int)x Y:(int)y {
+- (void)piece:(ChessPiece *)piece didMoveFromX:(int)x Y:(int)y pawnPromoted:(NSString *)aClass {
 	if (!self.chessBoardViewController.inEditingMode) {
 		ChessMove *model = [[[ChessMove alloc] init] autorelease];
 		model.start = [[[Coordinate alloc] initWithX:x Y:y] autorelease];
 		model.finish = [[[Coordinate alloc] initWithX:piece.x Y:piece.y] autorelease];
+		model.promotionType = aClass;
 		[self.moves addObject:model];
 		
 		[self setHelpMessageForLastPlayerColor:piece.color];
-		if (self.chessBoardViewController.playerColor == kWhite) {
+		if (piece.color == kWhite) {
 			self.chessBoardViewController.playerColor = kBlack;
 		} else {
 			self.chessBoardViewController.playerColor = kWhite;

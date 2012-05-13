@@ -10,7 +10,6 @@
 
 @interface TakePuzzleOperation : PuzzleOperation
 
--(id)initWithPuzzleID:(PuzzleID*)puzzleID score:(float)score onCompletionBlock:(PuzzleOnCompletionBlock)block;
-
+-(id)initWithPuzzleID:(PuzzleID*)puzzleID score:(float)score rated:(BOOL)rated onCompletionBlock:(PuzzleOnCompletionBlock)block;
 
 @end

@@ -57,8 +57,8 @@ PuzzleSDK * sharedInstance = nil;
 	[self.operationManager createPuzzleWithType:type setupData:setupData solutionData:solutionData onCompletionBlock:onCompletion];
 }
 
-- (void)takePuzzle:(PuzzleID *)puzzleID score:(float)score onCompletion:(PuzzleOnCompletionBlock)onCompletion {
-	[self.operationManager takePuzzle:puzzleID score:score onCompletion:onCompletion];
+- (void)takePuzzle:(PuzzleID *)puzzleID score:(float)score rated:(BOOL)rated onCompletion:(PuzzleOnCompletionBlock)onCompletion {
+	[self.operationManager takePuzzle:puzzleID score:score rated:rated onCompletion:onCompletion];
 }
 
 #pragma mark - Login

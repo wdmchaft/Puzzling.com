@@ -17,9 +17,11 @@
 @interface TakePuzzleOperation() {
     PuzzleID* p_puzzleID;
     float p_score;
+	BOOL p_rated;
 }
 @property (nonatomic,retain,readwrite) PuzzleID* puzzleID;
 @property (nonatomic,assign,readwrite) float score;
+@property (nonatomic, readwrite, assign) BOOL rated;
 
 @end
 
@@ -27,12 +29,14 @@
 
 @synthesize puzzleID = p_puzzleID;
 @synthesize score = p_score;
+@synthesize rated = p_rated;
 
--(id)initWithPuzzleID:(PuzzleID*)puzzleID score:(float)score onCompletionBlock:(PuzzleOnCompletionBlock)block{
+-(id)initWithPuzzleID:(PuzzleID*)puzzleID score:(float)score rated:(BOOL)rated onCompletionBlock:(PuzzleOnCompletionBlock)block {
     self = [super initWithOnCompletionBlock:block];
     if(self){
         self.puzzleID = puzzleID;
         self.score = score;
+		self.rated = rated;
     }
     return self;
 }
@@ -46,7 +50,7 @@
 }
 
 - (NSURL *)url {
-    return [PuzzleAPIURLFactory urlForTakenPuzzle:self.puzzleID];
+    return [PuzzleAPIURLFactory urlForTakenPuzzle:self.puzzleID rated:self.rated];
 }
 
 - (void)runCompletionBlock{
@@ -63,6 +67,7 @@
 
 -(void) dealloc{
     [p_puzzleID release];
+	p_puzzleID = nil;
     [super dealloc];
 }
 

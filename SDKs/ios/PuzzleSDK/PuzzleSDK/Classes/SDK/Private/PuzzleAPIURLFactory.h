@@ -17,6 +17,6 @@
 + (NSURL*)urlForCreatePuzzle;
 + (NSURL*)urlForGetPuzzleForUser;
 + (NSURL*)urlForGetPuzzlesMadeByUser:(NSString*)username;
-+ (NSURL*)urlForTakenPuzzle:(NSString*)puzzleID;
++ (NSURL*)urlForTakenPuzzle:(NSString*)puzzleID rated:(BOOL)rated;
 
 @end

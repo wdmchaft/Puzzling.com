@@ -89,7 +89,7 @@
 
 #pragma mark - ChessBoard Delegate
 
-- (void)piece:(ChessPiece *)piece didMoveFromX:(int)x Y:(int)y {
+- (void)piece:(ChessPiece *)piece didMoveFromX:(int)x Y:(int)y pawnPromoted:(NSString *)aClass {
 	if (self.piecesSetup) {
 		if (self.chessBoardViewController.playerColor == kWhite) {
 			self.chessBoardViewController.playerColor = kBlack;

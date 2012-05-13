@@ -33,6 +33,12 @@
     PuzzleModel* puzzle = [[PuzzleModel alloc] init];
     
     NSDictionary* data = [self.data objectFromJSONData];
+	puzzle.creatorID = [data objectForKey:@"creator"];
+	puzzle.dislikes = [[data objectForKey:@"dislikes"] intValue];
+	puzzle.likes = [[data objectForKey:@"likes"] intValue];
+	puzzle.rating = [[data objectForKey:@"rating"] doubleValue] + .5;
+	puzzle.taken = [[data objectForKey:@"taken"] intValue];
+	puzzle.timeCreated = [data objectForKey:@"timestamp"];
     puzzle.setupData = [[data objectForKey:@"setupData"] objectFromJSONString];
     puzzle.solutionData = [[data objectForKey:@"solutionData"] objectFromJSONString];
     puzzle.type = [data objectForKey:@"type"];

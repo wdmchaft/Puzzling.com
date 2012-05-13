@@ -12,12 +12,15 @@
 
 @synthesize start;
 @synthesize finish;
+@synthesize promotionType;
 
 - (void)dealloc {
 	[start release];
 	start = nil;
 	[finish release];
 	finish = nil;
+	[promotionType release];
+	promotionType = nil;
 	
 	[super dealloc];
 }

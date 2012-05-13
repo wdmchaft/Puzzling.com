@@ -11,5 +11,6 @@
 #define START_Y @"start_y"
 #define FINISH_X @"finish_x"
 #define FINISH_Y @"finish_y"
+#define PROMOTION_TYPE @"promotion_type"
 #define MOVES @"moves"
 #define COMPUTER_MOVE_FIRST @"computer_move_first"

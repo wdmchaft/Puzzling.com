@@ -43,7 +43,7 @@
 	
 	self.title = @"Select Options";
 	
-	self.fullBoard = YES;
+	self.fullBoard = NO;
 	self.color = kWhite;
 }
 

@@ -24,7 +24,7 @@
 }
 
 - (IBAction)playPuzzlePressed:(id)sender {
-	PlayPuzzleViewController *puzzleViewController = [[[PlayPuzzleViewController alloc] init] autorelease];
+	PlayPuzzleViewController *puzzleViewController = [[[PlayPuzzleViewController alloc] initWithRated:YES] autorelease];
 	[self.navigationController pushViewController:puzzleViewController animated:YES];
 }
 

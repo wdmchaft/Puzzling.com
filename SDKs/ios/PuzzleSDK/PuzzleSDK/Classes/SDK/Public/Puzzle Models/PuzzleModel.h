@@ -16,6 +16,12 @@
 @property (nonatomic, readwrite, retain) NSDictionary* solutionData;
 @property (nonatomic, readwrite, retain) NSString* puzzleType;
 @property (nonatomic, readwrite, retain) NSString* puzzleID;
+@property (nonatomic, readwrite, retain) PuzzleID* creatorID;
+@property (nonatomic, readwrite, assign) int likes;
+@property (nonatomic, readwrite, assign) int dislikes;
+@property (nonatomic, readwrite, assign) int rating;
+@property (nonatomic, readwrite, assign) int taken;
+@property (nonatomic, readwrite, retain) NSString *timeCreated;
 
 
 - (void)uploadPuzzleOnCompletion:(PuzzleOnCompletionBlock)onCompletion;

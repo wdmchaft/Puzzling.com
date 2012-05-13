@@ -56,8 +56,8 @@
 	[op release];
 }
 
-- (void)takePuzzle:(PuzzleID *)puzzleID score:(float)score onCompletion:(PuzzleOnCompletionBlock)onCompletion {
-	TakePuzzleOperation *op = [[TakePuzzleOperation alloc] initWithPuzzleID:puzzleID score:score onCompletionBlock:onCompletion];
+- (void)takePuzzle:(PuzzleID *)puzzleID score:(float)score rated:(BOOL)rated onCompletion:(PuzzleOnCompletionBlock)onCompletion {
+	TakePuzzleOperation *op = [[TakePuzzleOperation alloc] initWithPuzzleID:puzzleID score:score rated:rated onCompletionBlock:onCompletion];
 	[self.queue addOperation:op];
 	[op release];
 }

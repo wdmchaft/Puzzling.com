@@ -20,7 +20,6 @@
 
 - (void)setPiece:(ChessPiece*)piece atX:(int)x Y:(int)y;
 - (void)finishPieceMovement:(ChessPiece*)piece withDelay:(NSTimeInterval)seconds;
-- (void)sendMessageToDelegatePieceMoved:(ChessPiece *)piece;
 
 @end
 
@@ -218,7 +217,15 @@
 	piece.x = x;
 	piece.y = y;
 	piece.moved = YES;
+	
 	[self finishPieceMovement:piece withDelay:seconds];
+	
+	if ([piece isKindOfClass:[Pawn class]] && (piece.y == 0 || piece.y == 7)) {
+		((Pawn*)piece).promoted = YES;
+		if ([self.delegate respondsToSelector:@selector(pawnPromotedToQueen:)]) {
+			[self.delegate pawnPromotedToQueen:piece];
+		}
+	}
 }
 
 #pragma mark - Private Methods
@@ -241,19 +248,7 @@
 	}
 }
 
-- (void)sendMessageToDelegatePieceMoved:(ChessPiece *)piece {
-	if ([self.delegate respondsToSelector:@selector(pawnPromotedToQueen:)]) {
-		[self.delegate pawnPromotedToQueen:piece];
-	}
-}
-
 - (void)finishPieceMovement:(ChessPiece*)piece withDelay:(NSTimeInterval)seconds {
-	if ([piece isKindOfClass:[Pawn class]] && (piece.y == 0 || piece.y == 7)) {
-		((Pawn*)piece).promoted = YES;
-		if (self.delegate && [self.delegate respondsToSelector:@selector(pawnPromotedToQueen:)]) {
-			[self performSelector:@selector(sendMessageToDelegatePieceMoved:) withObject:piece afterDelay:seconds];
-		}
-	}
 	[self setPiece:piece atX:piece.x Y:piece.y];
 }
 

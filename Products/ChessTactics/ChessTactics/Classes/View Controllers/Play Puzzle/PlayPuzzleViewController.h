@@ -10,4 +10,6 @@
 
 @interface PlayPuzzleViewController : UIViewController
 
+- (id)initWithRated:(BOOL)rated;
+
 @end

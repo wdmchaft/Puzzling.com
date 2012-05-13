@@ -33,7 +33,7 @@
 + (NSURL*)urlForGetPuzzlesMadeByUser:(NSString*)username{
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@/user/%@",ROOT_API_URL,username]];
 }
-+ (NSURL*)urlForTakenPuzzle:(NSString*)puzzleID{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle/%@",ROOT_API_URL,puzzleID]];
++ (NSURL*)urlForTakenPuzzle:(NSString*)puzzleID rated:(BOOL)rated {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle/%@?notRated=%@",ROOT_API_URL,puzzleID, rated?@"false":@"true"]];
 }
 @end

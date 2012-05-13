@@ -26,7 +26,7 @@
 - (int)squareSize;
 - (void)addPiece:(Class)ChessPieceType withColor:(Color)color toLocation:(CGPoint)loc;
 - (void)addPiece:(Class)ChessPieceType withColor:(Color)color toCoordinate:(Coordinate *)coord;
-- (void)movePieceFromX:(int)startX Y:(int)startY toX:(int)finishX Y:(int)finishY;
+- (void)movePieceFromX:(int)startX Y:(int)startY toX:(int)finishX Y:(int)finishY promotion:(NSString *)promotionType;
 - (void)setupPieces:(NSArray *)pieces;
 
 @end
@@ -34,6 +34,6 @@
 @protocol ChessBoardViewControllerDelegate <NSObject>
 
 @optional
-- (void)piece:(ChessPiece *)piece didMoveFromX:(int)x Y:(int)y;
+- (void)piece:(ChessPiece *)piece didMoveFromX:(int)x Y:(int)y pawnPromoted:(NSString *)aClass;
 
 @end

@@ -14,5 +14,6 @@
 
 @property (nonatomic, readwrite, retain) Coordinate *start;
 @property (nonatomic, readwrite, retain) Coordinate *finish;
+@property (nonatomic, readwrite, retain) NSString *promotionType;
 
 @end

@@ -70,6 +70,8 @@ Score = new Schema({
 				   ,	value: Number
 				   ,	timestamp : Date
 				   ,	timeTaken : Date			/* time difference */
+					 ,  puzzleRating : Number
+					 ,  userRating : Number
 				   });
 
 Comment = new Schema({
@@ -91,6 +93,7 @@ exports.AppModel = mongoose.model('apps', App);
 exports.FriendRequestModel = mongoose.model('friend_requests', FriendRequest);
 exports.PuzzleModel = mongoose.model('puzzles', Puzzle);
 exports.UserModel = mongoose.model('users', User);
+exports.ScoreModel = mongoose.model('scores', Score);
 exports.ObjectID = ObjectID;
 
 //exports.PuzzleModel = function (apiKey) {

@@ -35,20 +35,28 @@
 	dispatch_queue_t __dispatchQueue;
 	PuzzleModel *__puzzleModel;
 	BOOL __showingSolution;
-	IBOutlet UILabel *__bottomLabel;
 	UIBarButtonItem *__nextTacticButton;
+	BOOL __rated;
+	
+	IBOutlet UILabel *__bottomLabel;
+	IBOutlet UIButton *__anaylsisButton;
+	IBOutlet UIButton *__showSolutionButton;
 }
 
 @property (nonatomic, readwrite, retain) ChessBoardViewController *chessBoardViewController;
 @property (nonatomic, readwrite, retain) NSArray *solutionMoves;
 @property (nonatomic, readwrite, retain) PuzzleModel *puzzleModel;
-@property (nonatomic, readwrite, retain) UILabel *bottomLabel;
 @property (nonatomic, readwrite, retain) UIBarButtonItem *nextTacticButton;
 @property (nonatomic, readwrite, assign) int currentMove;
 @property (nonatomic, readwrite, assign) Color playerColor;
 @property (nonatomic, readwrite, assign) BOOL tacticStarted;
 @property (nonatomic, readwrite, assign) BOOL showingSolution;
 @property (nonatomic, readwrite, assign) dispatch_queue_t dispatchQueue;
+@property (nonatomic, readwrite, assign) BOOL rated;
+
+@property (nonatomic, readwrite, retain) UILabel *bottomLabel;
+@property (nonatomic, readwrite, retain) UIButton *analysisButton;
+@property (nonatomic, readwrite, retain) UIButton *showSolutionButton;
 
 - (void)setupPuzzle;
 - (void)startTactic:(NSNumber *)moveComputerFirst;
@@ -63,9 +71,21 @@
 
 @implementation PlayPuzzleViewController
 
-@synthesize chessBoardViewController = __chessBoardViewController, solutionMoves = __solutionMoves, currentMove = __currentMove, playerColor = __playerColor, tacticStarted = __tacticStarted, dispatchQueue = __dispatchQueue, puzzleModel = __puzzleModel, showingSolution = __showingSolution, bottomLabel = __bottomLabel, nextTacticButton = __nextTacticButton;
+@synthesize chessBoardViewController = __chessBoardViewController, solutionMoves = __solutionMoves, currentMove = __currentMove, playerColor = __playerColor, tacticStarted = __tacticStarted, dispatchQueue = __dispatchQueue, puzzleModel = __puzzleModel, showingSolution = __showingSolution, bottomLabel = __bottomLabel, nextTacticButton = __nextTacticButton, analysisButton = __anaylsisButton, showSolutionButton = __showSolutionButton, rated = __rated;
 
-#pragma mark - View Lify Cycle
+#pragma mark - View Life Cycle
+
+- (id)initWithRated:(BOOL)rated {
+	if (self = [super init]) {
+		self.rated = rated;
+	}
+	return self;
+}
+
+- (id)init {
+	self = [self initWithRated:YES]; //default
+	return self;
+}
 
 - (void)viewDidLoad
 {
@@ -74,6 +94,8 @@
 	self.tacticStarted = NO;
 	self.showingSolution = NO;
 	self.dispatchQueue = dispatch_queue_create("playTacticsQueue", NULL);
+	self.analysisButton.hidden = YES;
+	self.showSolutionButton.hidden = YES;
 	
 	self.title = @"Tactic";
 	
@@ -97,6 +119,10 @@
 	__bottomLabel = nil;
 	[__nextTacticButton release];
 	__nextTacticButton = nil;
+	[__anaylsisButton release];
+	__anaylsisButton = nil;
+	[__showSolutionButton release];
+	__showSolutionButton = nil;
 	if (__dispatchQueue != nil) {
 		dispatch_release(__dispatchQueue);
 		__dispatchQueue = nil;
@@ -131,6 +157,7 @@
 		ChessMove *chessMove = [[[ChessMove alloc] init] autorelease];
 		chessMove.start = [[[Coordinate alloc] initWithX:[[move objectForKey:START_X] intValue] Y:[[move objectForKey:START_Y] intValue]] autorelease];
 		chessMove.finish = [[[Coordinate alloc] initWithX:[[move objectForKey:FINISH_X] intValue] Y:[[move objectForKey:FINISH_Y] intValue]] autorelease];
+		chessMove.promotionType = [move objectForKey:PROMOTION_TYPE];
 		[tempSolutionMoves addObject:chessMove];
 	}
 	self.solutionMoves = tempSolutionMoves;
@@ -150,10 +177,11 @@
 	self.tacticStarted = YES;
 	if ([moveComputerFirst boolValue]) {
 		ChessMove *move = [self.solutionMoves objectAtIndex:self.currentMove];
-		[self.chessBoardViewController movePieceFromX:move.start.x Y:move.start.y toX:move.finish.x Y:move.finish.y];
+		[self.chessBoardViewController movePieceFromX:move.start.x Y:move.start.y toX:move.finish.x Y:move.finish.y promotion:move.promotionType];
 		self.currentMove++;
 	}
 	self.chessBoardViewController.interactionAllowed = YES;
+	self.navigationItem.hidesBackButton = YES;
 }
 
 - (double)moveDelay {
@@ -166,6 +194,9 @@
 
 - (void)endTactic:(double)score {
 	self.chessBoardViewController.view.userInteractionEnabled = NO;
+	self.navigationItem.hidesBackButton = NO;
+	self.showSolutionButton.hidden = NO;
+	self.analysisButton.hidden = NO;
 	
 	self.nextTacticButton.title = NEXT_TACTIC;
 	
@@ -178,9 +209,9 @@
 	[[[[UIAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 	
 	self.bottomLabel.text = LOADING_RATINGS;
-	[[PuzzleSDK sharedInstance] takePuzzle:self.puzzleModel.puzzleID score:score onCompletion:^(PuzzleAPIResponse response, TakePuzzleResults *results) {
+	[[PuzzleSDK sharedInstance] takePuzzle:self.puzzleModel.puzzleID score:score rated:self.rated onCompletion:^(PuzzleAPIResponse response, TakePuzzleResults *results) {
 		if (response == PuzzleOperationSuccessful) {
-			self.bottomLabel.text = [NSString stringWithFormat:@"%@%d(%@%d)\n%@%d", YOUR_NEW_RATING, results.newUserRating, results.userRatingChange>=0?@"+":@"", results.userRatingChange, PUZZLE_RATING, results.newPuzzleRating];
+			self.bottomLabel.text = [NSString stringWithFormat:@"%@%d(%@%d)\n%@%d", YOUR_NEW_RATING, results.newUserRating, results.userRatingChange>=0?@"+":@"", results.userRatingChange, PUZZLE_RATING, results.newPuzzleRating-results.puzzleRatingChange];
 		} else {
 			self.bottomLabel.text = @"There was a problem getting rating changes. Sorry.";
 		}
@@ -189,10 +220,10 @@
 
 #pragma mark - ChessVC Delegate
 
-- (void)piece:(ChessPiece *)piece didMoveFromX:(int)x Y:(int)y {
+- (void)piece:(ChessPiece *)piece didMoveFromX:(int)x Y:(int)y pawnPromoted:(NSString *)aClass {
 	if ((piece.color == self.playerColor && self.tacticStarted) || self.showingSolution) { //do computer move
 		ChessMove *lastMove = [self.solutionMoves objectAtIndex:self.currentMove];
-		if (!self.showingSolution && !(x == lastMove.start.x && y == lastMove.start.y && piece.x == lastMove.finish.x && piece.y == lastMove.finish.y)) { //wrong move
+		if (!self.showingSolution && !(x == lastMove.start.x && y == lastMove.start.y && piece.x == lastMove.finish.x && piece.y == lastMove.finish.y && (aClass == nil || [aClass isEqualToString:lastMove.promotionType]))) { //wrong move
 			[self endTactic:0]; //loss
 			return;
 		}
@@ -214,7 +245,7 @@
 						return;
 					}
 					ChessMove *move = [self.solutionMoves objectAtIndex:self.currentMove];
-					[self.chessBoardViewController movePieceFromX:move.start.x Y:move.start.y toX:move.finish.x Y:move.finish.y];
+					[self.chessBoardViewController movePieceFromX:move.start.x Y:move.start.y toX:move.finish.x Y:move.finish.y promotion:move.promotionType];
 					self.currentMove++;
 					if (!self.showingSolution) {
 						self.chessBoardViewController.view.userInteractionEnabled = YES;
