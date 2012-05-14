@@ -11,7 +11,8 @@
 var db = require('./db')
 , err = require('./error.js')
 , glicko = require('./glicko')
-, _u = require('./utils.js');
+, _u = require('./utils.js')
+, url = require('url');
 
 
 var pApp = db.pAppModel
@@ -202,7 +203,6 @@ exports.suggest = function(req, res) {
 				takenPuzzles.push(docs[i].puzzle);
 			}
 			
-			console.log("APIKEY: " + req.apiKey);
 			var TargetModel = pApp.findPuzzleModel(req.apiKey);
 			
 			TargetModel
@@ -256,7 +256,7 @@ exports.suggest = function(req, res) {
 							if (_puzzle.taken == 0) {
 								container.weight = Math.abs(_puzzle.rating-user.rating)/minRatingDifference;
 							} else {
-								container.weight = Math.abs(_puzzle.rating-user.rating)/minRatingDifference + Math.min(1, userLikesWeight*(puzzle.likes-puzzle.dislikes)/puzzle.taken);
+								container.weight = Math.abs(_puzzle.rating-user.rating)/minRatingDifference + Math.min(1, userLikesWeight*(_puzzle.likes-_puzzle.dislikes)/_puzzle.taken);
 							}
 							weightedTotal += container.weight;
 							weightedDocs.push(container);
@@ -296,12 +296,6 @@ exports.getUserPuzzles = function(req, res) {
 	});
 };
 
-/*exports.deletePuzzle = function(req, res) {
-	var puzzleId = req.body.puzzle_id || undefined;
-	if(puzzleId) {
-		db.PuzzleModel.findOne({"_id" : puzzleId}, function(e, docs) {
-			if(!e) { err.send_error(err.NOT_FOUND, res); return; }
-			res.send({"puzzle_id" : puzzleId, "status" : "SUCCESS"});*/
 //
 // "takes" a puzzle + adjusts rating
 // need to be passed in the auth token
@@ -309,7 +303,7 @@ exports.getUserPuzzles = function(req, res) {
 // the puzzle
 //
 exports.take = function(req, res) {
-	var token = _u.stripNonAlphaNum(req.body["authToken"]);
+	var token = _u.stripNonAlphaNum(req["authToken"]);
 	if(token) {
 		UserModel.findOne({authToken: token}, function(e, doc) {
 			if(!e && doc) takeCB(req, res, doc);
@@ -334,7 +328,7 @@ exports.take = function(req, res) {
 // presumably found
 //
 function takeCB(req, res, user) {
-	var puzzleID = _u.stripNonAlphaNum(req.body["puzzle_id"]);
+	var puzzleID = _u.stripNonAlphaNum(req.params.id);
 	var apiKey = _u.stripNonAlphaNum(req.apiKey);
 	var TargetModel = pApp.findPuzzleModel(apiKey);
 	
@@ -354,7 +348,7 @@ function takeCB(req, res, user) {
 		else {
 			puzzle.taken = puzzle.taken + 1;
 			puzzle.save(function(e) {
-				if(!e) adjustRating(req, res, user.rating, user, notRated);
+				if(!e) adjustRating(req, res, user.rating, puzzle, !notRated);
 				else err.sendError(err.transactionError, res);
 			});
 		}
@@ -367,27 +361,41 @@ function takeCB(req, res, user) {
 // @param playerRating is current player rating.
 // @param doc refers to a puzzle document
 //
-function adjustRating(req, res, playerRating, doc, isRated) {
+function adjustRating(req, res, playerRating, puzzle, isRated) {
 	var user = req.user;
 	
-	var puzzleRating = doc.rating;
-	var puzzleRD = doc.rd;
+	var puzzleRating = puzzle.rating;
+	var puzzleRD = puzzle.rd;
 	var playerRD = user.rd;
 	var score = req.body.score;
-	var newPlayerRating = glicko.newRating(playerRating, puzzleRating, playerRD, puzzleRD, score);
-	var newPuzzleRating = glicko.newRating(puzzleRating, playerRating, puzzleRD, playerRD, 1-score);
-	var newPlayerRD = glicko.newRD(playerRating, puzzleRating, playerRD, puzzleRD, score, false);
-	var newPuzzleRD = glicko.newRD(puzzleRating, playerRating, puzzleRD, playerRD, 1-score, true);
+
+	var newPlayerRating;
+	var newPuzzleRating;
+	var newPlayerRD;
+	var newPuzzleRD;
 	
-	doc.rd = newPuzzleRD;
-	doc.rating = newPuzzleRating;
+	if (isRated) {
+		newPlayerRating = glicko.newRating(playerRating, puzzleRating, playerRD, puzzleRD, score);
+		newPuzzleRating = glicko.newRating(puzzleRating, playerRating, puzzleRD, playerRD, 1-score);
+		newPlayerRD = glicko.newRD(playerRating, puzzleRating, playerRD, puzzleRD, score, false);
+		newPuzzleRD = glicko.newRD(puzzleRating, playerRating, puzzleRD, playerRD, 1-score, true);
+	} else {
+		newPlayerRating = playerRating;
+		newPuzzleRating = puzzleRating;
+		newPlayerRD = playerRD;
+		newPuzzleRD = puzzleRD;
+	}
+	
+	puzzle.rd = newPuzzleRD;
+	puzzle.rating = newPuzzleRating;
 	
 	user.rd = newPlayerRD;
 	user.rating = newPlayerRating;
 	
-	var scoreInstance = new db.ScoreModel();
+	var ScoreModel = pApp.scoreModel(req.apiKey);
+	var scoreInstance = new ScoreModel();
 	scoreInstance.user = user._id;
-	scoreInstance.puzzle = doc._id;
+	scoreInstance.puzzle = _u.stripNonAlphaNum(req.params.id);
 	scoreInstance.value = score;
 	scoreInstance.puzzleRating = newPuzzleRating;
 	scoreInstance.userRating = newPlayerRating;
@@ -399,14 +407,16 @@ function adjustRating(req, res, playerRating, doc, isRated) {
 	user.save(function(err) {
 		if (err) err.sendError(err.transactionError, res);
 		else {
-			doc.save(function(err) {
+			puzzle.save(function(err) {
 				if (err) err.sendError(err.transactionError, res);
 				else {
 					var retVal = {success : true
 						, newPlayerRD: newPlayerRD
 						, newPuzzleRD : newPuzzleRD
 						, newPlayerRating : newPlayerRating
-						, newPuzzleRating : newPuzzleRating};
+						, newPuzzleRating : newPuzzleRating
+						, playerRatingChange : newPlayerRating - playerRating
+						, puzzleRatingChange : newPuzzleRating - puzzleRating};
 					res.send(JSON.stringify(retVal));
 				}
 			});

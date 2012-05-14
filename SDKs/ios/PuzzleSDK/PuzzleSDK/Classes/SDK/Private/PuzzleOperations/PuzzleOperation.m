@@ -107,6 +107,7 @@
 	[puzzle_connection release];
     puzzle_connection = nil;
 	
+	NSLog(@"%@", [[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding] autorelease]);
 	dispatch_async(dispatch_get_main_queue(), ^(void) {
 		[self runCompletionBlock];
 	});
@@ -114,7 +115,7 @@
 	CFRunLoopStop(CFRunLoopGetCurrent());
 }
 
--(void) runCompletionBlock{
+- (void)runCompletionBlock{
 	NSLog(@"%@", [[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding] autorelease]);
     self.onCompletion(self.response, [self.data objectFromJSONData]);  //Override with actual objects being passed to completion block
 }
