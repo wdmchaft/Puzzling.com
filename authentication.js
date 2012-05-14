@@ -34,7 +34,6 @@ function verifyRequestAPIKey(req, res, callback) { //callback returns bool succe
 
 // Verifies auth token + API.
 function verifyRequestAuthTokenAndAPIKey(req, res, callback) {
-	var authToken = req.headers["puzzle_auth_token"];
 	verifyRequestAPIKey(req, res, function(success) {
 		if (!success) {
             console.log("[auth] can't verify api key and auth token");
@@ -47,7 +46,7 @@ function verifyRequestAuthTokenAndAPIKey(req, res, callback) {
 				err.sendError(err.noAuthenticationString, res);
 				callback(false);
 			} else {
-				db.UserModel.findOne({"authToken": authToken}, function(e, doc) {
+				db.UserModel.findOne({"authToken": puzzleAuth}, function(e, doc) {
 					if (e) {
                         console.log("[auth] can't verify api key and auth token");
 						err.sendError(err.transactionError, res);

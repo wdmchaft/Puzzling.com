@@ -50,15 +50,15 @@ function createPuzzle(req, res, papp) {
 	
 	var specs = {
 name            : puzzleName
-		,   setupData       : setupData
-		,   solutionData    : solutionData
+		,   setupData       : JSON.stringify(setupData)
+		,   solutionData    : JSON.stringify(solutionData)
 		,   type            : puzzleType
 		,   likes           : 0
 		,   dislikes        : 0
 		,   taken           : 0
 		,   timestamp       : new Date()
 		,   rating          : 1500
-		,   rd              : 350
+		,   rd              : 250
 		,   creator         : req.user._id
 	};
 	
@@ -262,9 +262,7 @@ exports.suggest = function(req, res) {
 							weightedDocs.push(container);
 						}
 						var puzzle = pickRandomPuzzle(weightedDocs, weightedTotal);
-						puzzle.setupData = JSON.stringify(puzzle.setupData);
-						puzzle.solutionData = JSON.stringify(puzzle.solutionData);
-						console.log(puzzle);
+						
 						res.send(JSON.stringify(puzzle));
 					}
 				});
