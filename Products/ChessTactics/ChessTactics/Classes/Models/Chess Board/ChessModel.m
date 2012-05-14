@@ -162,8 +162,8 @@
 		}
 	}
 	
-	//Castling
-	if ([piece isKindOfClass:[King class]] && !piece.moved) {
+	//Castling - right now its disabled
+	/*if ([piece isKindOfClass:[King class]] && !piece.moved) {
 		ChessPiece * rook = [self getPieceAtX:0 Y:piece.y];
 		if (rook && !rook.moved) {
 			BOOL canCastle = YES;
@@ -190,7 +190,7 @@
 				[temp addObject:[[[Coordinate alloc] initWithX:6 Y:piece.y] autorelease]];
 			}
 		}
-	}
+	}*/
 	
 	return [NSArray arrayWithArray:temp];
 }

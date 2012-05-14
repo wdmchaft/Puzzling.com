@@ -83,6 +83,8 @@
 		3613550C154FA6B9004A056F /* PlayPuzzleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3613550A154FA6B9004A056F /* PlayPuzzleViewController.xib */; };
 		3613550F154FB5DA004A056F /* editingSquareHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 3613550D154FB5DA004A056F /* editingSquareHighlight.png */; };
 		36135510154FB5DA004A056F /* editingSquareHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3613550E154FB5DA004A056F /* editingSquareHighlight@2x.png */; };
+		365E580E1560992A00A9C752 /* TestPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E580C1560992900A9C752 /* TestPuzzleViewController.m */; };
+		365E580F1560992A00A9C752 /* TestPuzzleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 365E580D1560992900A9C752 /* TestPuzzleViewController.xib */; };
 		3688269E1555E38700801441 /* PuzzleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3688269D1555E38700801441 /* PuzzleDownloader.m */; };
 /* End PBXBuildFile section */
 
@@ -206,6 +208,9 @@
 		3613550A154FA6B9004A056F /* PlayPuzzleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayPuzzleViewController.xib; path = "Classes/View Controllers/Play Puzzle/PlayPuzzleViewController.xib"; sourceTree = "<group>"; };
 		3613550D154FB5DA004A056F /* editingSquareHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = editingSquareHighlight.png; sourceTree = "<group>"; };
 		3613550E154FB5DA004A056F /* editingSquareHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "editingSquareHighlight@2x.png"; sourceTree = "<group>"; };
+		365E580B1560992900A9C752 /* TestPuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestPuzzleViewController.h; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.h"; sourceTree = "<group>"; };
+		365E580C1560992900A9C752 /* TestPuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestPuzzleViewController.m; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.m"; sourceTree = "<group>"; };
+		365E580D1560992900A9C752 /* TestPuzzleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestPuzzleViewController.xib; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.xib"; sourceTree = "<group>"; };
 		3688269C1555E38700801441 /* PuzzleDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleDownloader.h; path = "Classes/View Controllers/Play Puzzle/PuzzleDownloader.h"; sourceTree = "<group>"; };
 		3688269D1555E38700801441 /* PuzzleDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleDownloader.m; path = "Classes/View Controllers/Play Puzzle/PuzzleDownloader.m"; sourceTree = "<group>"; };
 		368826A01555EB4C00801441 /* TacticsDataConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TacticsDataConstants.h; path = Classes/TacticsDataConstants.h; sourceTree = "<group>"; };
@@ -333,6 +338,9 @@
 				361354BA154D3005004A056F /* CreatePuzzleSetupViewController.h */,
 				361354BB154D3005004A056F /* CreatePuzzleSetupViewController.m */,
 				361354BC154D3005004A056F /* CreatePuzzleSetupViewController.xib */,
+				365E580B1560992900A9C752 /* TestPuzzleViewController.h */,
+				365E580C1560992900A9C752 /* TestPuzzleViewController.m */,
+				365E580D1560992900A9C752 /* TestPuzzleViewController.xib */,
 			);
 			name = "Create Puzzle";
 			sourceTree = "<group>";
@@ -617,6 +625,7 @@
 				3613550F154FB5DA004A056F /* editingSquareHighlight.png in Resources */,
 				36135510154FB5DA004A056F /* editingSquareHighlight@2x.png in Resources */,
 				3612F9911559D024000F761B /* AnalysisBoardViewController.xib in Resources */,
+				365E580F1560992A00A9C752 /* TestPuzzleViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +676,7 @@
 				3612F974155714E2000F761B /* PuzzleErrorHandler.m in Sources */,
 				3612F975155714E2000F761B /* PuzzleSDK.m in Sources */,
 				3612F9901559D024000F761B /* AnalysisBoardViewController.m in Sources */,
+				365E580E1560992A00A9C752 /* TestPuzzleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

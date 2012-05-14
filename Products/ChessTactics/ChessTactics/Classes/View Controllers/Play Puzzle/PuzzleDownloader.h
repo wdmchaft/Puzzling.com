@@ -13,6 +13,6 @@
 
 + (PuzzleDownloader *)sharedInstance;
 
-- (void)downloadPuzzleWithCallback:(void(^)(PuzzleModel *))block;
+- (void)downloadPuzzleWithCallback:(void(^)(PuzzleAPIResponse, PuzzleModel *))block;
 
 @end

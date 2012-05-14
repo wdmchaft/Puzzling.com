@@ -9,6 +9,19 @@
 #import "PuzzleDownloader.h"
 #import "PuzzleSDK.h"
 
+
+#define MAX_CACHED_PUZZLES 3
+
+@interface PuzzleDownloader() {
+	NSMutableArray *__puzzles;
+}
+
+@property (nonatomic, readonly, retain) NSMutableArray *puzzles;
+
+- (void)downloadMorePuzzles;
+
+@end
+
 @implementation PuzzleDownloader
 
 static PuzzleDownloader *sharedInstance;
@@ -20,10 +33,37 @@ static PuzzleDownloader *sharedInstance;
 	return sharedInstance;
 }
 
-- (void)downloadPuzzleWithCallback:(void(^)(PuzzleModel *))block {
+- (void)downloadMorePuzzles {
+	if ([self.puzzles count] < MAX_CACHED_PUZZLES) {
+		[[PuzzleSDK sharedInstance] getPuzzleForCurrentUserOnCompletion:^(PuzzleAPIResponse response, id data) {
+			if (response == PuzzleOperationSuccessful) {
+				[self.puzzles addObject:data];
+				[self downloadMorePuzzles];
+			}
+		}];
+	}
+}
+
+// If we ever get tactic with id not equal to...
+- (void)downloadPuzzleWithCallback:(void(^)(PuzzleAPIResponse, PuzzleModel *))block {
+//	if ([self.puzzles count] > 0) {
+//		PuzzleModel *puzzle = [self.puzzles objectAtIndex:0];
+//		block(PuzzleOperationSuccessful, puzzle);
+//		[self.puzzles removeObjectAtIndex:0];
+//	}
 	[[PuzzleSDK sharedInstance] getPuzzleForCurrentUserOnCompletion:^(PuzzleAPIResponse response, id data) {
-		block(data);
+		block(response, data);
 	}];
+//	[self downloadMorePuzzles];
+}
+
+#pragma mark - Properties
+
+- (NSMutableArray *)puzzles {
+	if (!__puzzles) {
+		__puzzles = [[NSMutableArray arrayWithCapacity:MAX_CACHED_PUZZLES] retain];
+	}
+	return __puzzles;
 }
 
 @end

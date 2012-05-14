@@ -38,21 +38,18 @@
 	UIBarButtonItem *__nextTacticButton;
 	BOOL __rated;
 	
-	IBOutlet UILabel *__bottomLabel;
-	IBOutlet UIButton *__anaylsisButton;
-	IBOutlet UIButton *__showSolutionButton;
 }
 
 @property (nonatomic, readwrite, retain) ChessBoardViewController *chessBoardViewController;
 @property (nonatomic, readwrite, retain) NSArray *solutionMoves;
 @property (nonatomic, readwrite, retain) PuzzleModel *puzzleModel;
-@property (nonatomic, readwrite, retain) UIBarButtonItem *nextTacticButton;
 @property (nonatomic, readwrite, assign) int currentMove;
 @property (nonatomic, readwrite, assign) Color playerColor;
 @property (nonatomic, readwrite, assign) BOOL tacticStarted;
 @property (nonatomic, readwrite, assign) BOOL showingSolution;
 @property (nonatomic, readwrite, assign) dispatch_queue_t dispatchQueue;
 @property (nonatomic, readwrite, assign) BOOL rated;
+@property (nonatomic, readwrite, retain) UIBarButtonItem *nextTacticButton;
 
 @property (nonatomic, readwrite, retain) UILabel *bottomLabel;
 @property (nonatomic, readwrite, retain) UIButton *analysisButton;
@@ -63,7 +60,6 @@
 - (double)moveDelay;
 - (IBAction)showSolution:(UIButton *)sender;
 - (void)newTactic:(UIBarButtonItem *)button;
-- (void)endTactic:(double)score;
 - (IBAction)showAnalysisBoard:(id)sender;
 - (void)modalViewCancelled;
 
@@ -71,7 +67,7 @@
 
 @implementation PlayPuzzleViewController
 
-@synthesize chessBoardViewController = __chessBoardViewController, solutionMoves = __solutionMoves, currentMove = __currentMove, playerColor = __playerColor, tacticStarted = __tacticStarted, dispatchQueue = __dispatchQueue, puzzleModel = __puzzleModel, showingSolution = __showingSolution, bottomLabel = __bottomLabel, nextTacticButton = __nextTacticButton, analysisButton = __anaylsisButton, showSolutionButton = __showSolutionButton, rated = __rated;
+@synthesize chessBoardViewController = __chessBoardViewController, solutionMoves = __solutionMoves, currentMove = __currentMove, playerColor = __playerColor, tacticStarted = __tacticStarted, dispatchQueue = __dispatchQueue, puzzleModel = __puzzleModel, showingSolution = __showingSolution, bottomLabel = __bottomLabel, nextTacticButton = __nextTacticButton, analysisButton = __anaylsisButton, showSolutionButton = __showSolutionButton, rated = __rated, setupData = __setupData, solutionData = __solutionData;
 
 #pragma mark - View Life Cycle
 
@@ -102,9 +98,14 @@
 	self.nextTacticButton = [[[UIBarButtonItem alloc] initWithTitle:@"Give Up" style:UIBarButtonItemStyleBordered target:self action:@selector(newTactic:)] autorelease];
 	self.navigationItem.rightBarButtonItem = self.nextTacticButton;
 	
-	[[PuzzleDownloader sharedInstance] downloadPuzzleWithCallback:^(PuzzleModel * puzzle) {
-		self.puzzleModel = puzzle;
-		[self setupPuzzle];
+	[[PuzzleDownloader sharedInstance] downloadPuzzleWithCallback:^(PuzzleAPIResponse response, PuzzleModel * puzzle) {
+		if (response == PuzzleOperationSuccessful) {
+			self.puzzleModel = puzzle;
+			[self setupPuzzle];
+		} else {
+			[[[[UIAlertView alloc] initWithTitle:@"Error" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			[self.navigationController popToRootViewControllerAnimated:YES];
+		}
 	}];
 }
 
@@ -123,6 +124,11 @@
 	__anaylsisButton = nil;
 	[__showSolutionButton release];
 	__showSolutionButton = nil;
+	[__setupData release];
+	__setupData = nil;
+	[__solutionData release];
+	__solutionData = nil;
+	
 	if (__dispatchQueue != nil) {
 		dispatch_release(__dispatchQueue);
 		__dispatchQueue = nil;
@@ -134,7 +140,12 @@
 #pragma mark - Private Methods
 
 - (void)setupPuzzle {
-	NSDictionary *setupData = self.puzzleModel.setupData;
+	NSDictionary *setupData;
+	if (self.setupData == nil) {
+		setupData = self.puzzleModel.setupData;
+	} else {
+		setupData = self.setupData;
+	}
 	
 	if ([[setupData objectForKey:PLAYER_COLOR] isEqualToString:WHITE]) {
 		self.playerColor = kWhite;
@@ -151,7 +162,13 @@
 	NSArray *piecesSetup = [setupData objectForKey:PIECES_SETUP];
 	[self.chessBoardViewController setupPieces:piecesSetup];
 	
-	NSArray *moves = [self.puzzleModel.solutionData objectForKey:MOVES];
+	NSArray *moves;
+	if (self.solutionData == nil) {
+		moves = [self.puzzleModel.solutionData objectForKey:MOVES];
+	} else {
+		moves = [self.solutionData objectForKey:MOVES];
+	}
+	
 	NSMutableArray *tempSolutionMoves = [NSMutableArray arrayWithCapacity:[moves count]];
 	for (NSDictionary *move in moves) {
 		ChessMove *chessMove = [[[ChessMove alloc] init] autorelease];

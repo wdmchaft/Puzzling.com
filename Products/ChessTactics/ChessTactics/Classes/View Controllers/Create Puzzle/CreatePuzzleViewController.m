@@ -12,6 +12,7 @@
 #import "Coordinate.h"
 #import "PuzzleSDK.h"
 #import "TacticsDataConstants.h"
+#import "TestPuzzleViewController.h"
 
 
 #define EXTRA_PIECE_X 14
@@ -37,9 +38,9 @@
 	BOOL __tacticSubmitted;
 	
 	IBOutlet UILabel *__moveEnteringLabel;
-	IBOutlet UIActivityIndicatorView *__activityView;
 	IBOutlet UIButton *__backToPlacePiecesButton;
 	IBOutlet UIButton *__nextButton;
+	IBOutlet UIButton *__changeColorButton;
 }
 
 @property (nonatomic, readwrite, retain) ChessBoardViewController *chessBoardViewController;
@@ -57,9 +58,9 @@
 
 //IBOutlets
 @property (nonatomic, readwrite, retain) UILabel *moveEnteringLabel;
-@property (nonatomic, readwrite, retain) UIActivityIndicatorView *activityView;
 @property (nonatomic, readwrite, retain) UIButton *nextButton;
 @property (nonatomic, readwrite, retain) UIButton *backToPlacePiecesButton;
+@property (nonatomic, readwrite, retain) UIButton *changeColorButton;
 
 - (void)setupExtraPieces;
 - (void)addPiecesToView;
@@ -70,7 +71,7 @@
 
 @implementation CreatePuzzleViewController
 
-@synthesize chessBoardViewController = __chessBoardViewController, extraKing = __extraKing, extraPawn = __extraPawn, extraRook = __extraRook, extraQueen = __extraQueen, extraBishop = __extraBishop, extraKnight = __extraKnight, extraPieces = __extraPieces, pannedPiece = __pannedPiece, moves = __moves, setup = __setup, playerColor = __playerColor, fullBoard = __fullBoard, moveEnteringLabel = __moveEnteringLabel, computerMoveFirst = __computerMoveFirst, activityView = __activityView, tacticSubmitted = __tacticSubmitted, backToPlacePiecesButton = __backToPlacePiecesButton, nextButton = __nextButton;
+@synthesize chessBoardViewController = __chessBoardViewController, extraKing = __extraKing, extraPawn = __extraPawn, extraRook = __extraRook, extraQueen = __extraQueen, extraBishop = __extraBishop, extraKnight = __extraKnight, extraPieces = __extraPieces, pannedPiece = __pannedPiece, moves = __moves, setup = __setup, playerColor = __playerColor, fullBoard = __fullBoard, moveEnteringLabel = __moveEnteringLabel, computerMoveFirst = __computerMoveFirst, tacticSubmitted = __tacticSubmitted, backToPlacePiecesButton = __backToPlacePiecesButton, nextButton = __nextButton, changeColorButton = __changeColorButton;
 
 #pragma mark - View Life Cycle
 
@@ -118,6 +119,8 @@
 	__backToPlacePiecesButton = nil;
 	[__nextButton release];
 	__nextButton = nil;
+	[__changeColorButton release];
+	__changeColorButton = nil;
 	
 	[super dealloc];
 }
@@ -196,22 +199,8 @@
 	}
 	[solutionData setValue:solutionMoves forKey:MOVES];
 	
-	self.activityView.hidden = NO;
-	[self.view bringSubviewToFront:self.activityView];
-	[self.activityView startAnimating];
-	self.view.userInteractionEnabled = NO;
-	
-	[[PuzzleSDK sharedInstance] createPuzzleWithType:@"tactic" setupData:self.setup solutionData:solutionData onCompletionBlock:^(PuzzleAPIResponse status, id data) {
-		self.activityView.hidden = YES;
-		[self.activityView stopAnimating];
-		self.view.userInteractionEnabled = YES;
-		if (status == PuzzleOperationSuccessful) {
-			self.tacticSubmitted = YES;
-			[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"The tactic was successfully created." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
-		} else {
-			NSLog(@"aww crap");
-		}
-	}];
+	TestPuzzleViewController *testPuzzleViewController = [[[TestPuzzleViewController alloc] initWithSetup:self.setup solutionData:solutionData] autorelease];
+	[self.navigationController pushViewController:testPuzzleViewController animated:YES];
 }
 
 - (BOOL)createSetup { //does some basic checking
@@ -278,7 +267,7 @@
 	if (self.chessBoardViewController.inEditingMode) {
 		if ([self createSetup]) {
 			self.chessBoardViewController.inEditingMode = NO;
-			[self.nextButton setTitle:@"Submit" forState:UIControlStateNormal];
+			[self.nextButton setTitle:@"Test and Submit" forState:UIControlStateNormal];
 			self.moves = [NSMutableArray array];
 			
 			//hide editing pieces
@@ -288,6 +277,7 @@
 			
 			self.moveEnteringLabel.hidden = NO;
 			self.backToPlacePiecesButton.hidden = NO;
+			self.changeColorButton.hidden = YES;
 			
 			if (self.computerMoveFirst) {
 				[self setHelpMessageForLastPlayerColor:self.playerColor];
@@ -323,7 +313,8 @@
 	
 	self.moveEnteringLabel.hidden = YES;
 	self.backToPlacePiecesButton.hidden = YES;
-	[self.nextButton setTitle:@"Next" forState:UIControlStateNormal];
+	self.changeColorButton.hidden = YES;
+	[self.nextButton setTitle:@"Enter moves" forState:UIControlStateNormal];
 	
 	//show editing pieces
 	for (ChessPiece *piece in self.extraPieces) {
