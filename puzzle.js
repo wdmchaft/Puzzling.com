@@ -262,6 +262,9 @@ exports.suggest = function(req, res) {
 							weightedDocs.push(container);
 						}
 						var puzzle = pickRandomPuzzle(weightedDocs, weightedTotal);
+						puzzle.setupData = JSON.stringify(puzzle.setupData);
+						puzzle.solutionData = JSON.stringify(puzzle.solutionData);
+						console.log(puzzle);
 						res.send(JSON.stringify(puzzle));
 					}
 				});
