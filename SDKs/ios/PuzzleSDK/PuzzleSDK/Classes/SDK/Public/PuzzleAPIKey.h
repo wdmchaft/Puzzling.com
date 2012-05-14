@@ -6,4 +6,4 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#define API_KEY @"asdf"
+#define API_KEY @"4fb047047e94b047a9000002"

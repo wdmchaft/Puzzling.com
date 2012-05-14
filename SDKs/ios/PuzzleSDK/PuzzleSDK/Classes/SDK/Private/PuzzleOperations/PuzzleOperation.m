@@ -64,7 +64,7 @@
 - (NSMutableURLRequest *)httpRequest {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self url]];
     [request addValue:API_KEY forHTTPHeaderField:@"puzzle_api_key"];
-    [request addValue:@"petertest" forHTTPHeaderField:@"puzzle_auth_token"];
+    [request addValue:@"4eac796cfc631da25b257834bff1b9cc8d49ea8e" forHTTPHeaderField:@"puzzle_auth_token"];
 	[request addValue:@"application/json; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
     return request;
 }

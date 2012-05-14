@@ -192,8 +192,8 @@ exports.suggest = function(req, res) {
 		
 		var ScoreModel = pApp.scoreModel(req.apiKey);
 		
-		ScoreModel.find({user: req.user._id}, function(err, docs) {
-			if (err) {
+		ScoreModel.find({user: req.user._id}, function(e, docs) {
+			if (e) {
 				error.send_error(error.DB_ERROR, res, err.message);
 				return;
 			}
@@ -202,6 +202,7 @@ exports.suggest = function(req, res) {
 				takenPuzzles.push(docs[i].puzzle);
 			}
 			
+			console.log("APIKEY: " + req.apiKey);
 			var TargetModel = pApp.findPuzzleModel(req.apiKey);
 			
 			TargetModel
@@ -210,7 +211,7 @@ exports.suggest = function(req, res) {
 				.lte(userRating + minRatingDifference)
 				.where('_id').nin(takenPuzzles)
 				.run(function(e, docs) {
-					if (e || docs.length == 0 || docs == null) {
+					if (e) {
 						if(e) console.log("[puzzle] " + e);
 						err.sendError(err.transactionError, res);
 					} else if (docs.length == 0 || docs == null) { //return the closest puzzle

@@ -182,6 +182,10 @@ pApp.methods.scoreModel = function(apiKey) {
 		return mongoose.model('score' + apiKey, Score);
 };
 
+pApp.statics.scoreModel = function(apiKey) {
+    return mongoose.model('score' + apiKey, Score);
+};
+
 
 Comment = new Schema({
         user : ObjectID
