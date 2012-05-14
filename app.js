@@ -49,32 +49,44 @@ app.configure('production', function(){
 app.get('/', routes.index);
 app.get('/getApiToken/f843c91381ffab599b09957f7480d3e9', routes.getKey);
 
-// Login - Verbs handled internally
+//////////////
+// Login
+//////////////
 
 app.get('/login', auth.restrictByApi, login.get);
 app.post('/login', auth.restrictByApi, login.post);
 app.put('/login', auth.restrict, login.put);
 app.delete('/login', auth.restrict, login.delete);
-app.get('/user/:name', auth.restrict, login.getData);
+app.get('/user/:name', auth.restrict, user.getData);
+app.post('/user/:name', auth.restrict, user.postData);
 
+/////////////
 // Friends
+/////////////
 
 // app.get('/friend', friend.list);
 // app.post('/friend/:id/:id', friend.request);
 
+/////////////
 // Papp
+/////////////
 
 app.post('/papp', auth.restrict, papp.create);
 app.get('/papp/:name', auth.restrict, papp.getApp);
 app.delete('/papp/:name', auth.restrict, papp.delete);
 
+//////////////
 // Puzzle
+//////////////
 
+// creation + deletion
 app.get('/puzzle', auth.restrict, puzzle.suggest);
 app.post('/puzzle', auth.restrict, puzzle.create);
 app.del('/puzzle', auth.restrict, puzzle.delete);
+// getters
 app.get('/puzzle/:id', auth.restrict, puzzle.get);
 app.get('/puzzle/user/:id', auth.restrict, puzzle.getUserPuzzles);
+// take + update
 app.post('/puzzle/:id', auth.restrict, puzzle.take);
 app.put('/puzzle/update', auth.restrictByApi, puzzle.update);
 

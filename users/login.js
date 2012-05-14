@@ -19,7 +19,6 @@ exports.get = read;
 exports.post = create;
 exports.put = update;
 exports.delete = _delete; // delete is a js keyword
-exports.getData = getData;
 
 //
 // Success response: { <username>, <authtoken> }
@@ -41,23 +40,6 @@ function read(req, res) {
             err.sendError(err.noMatchingUser, res);
         }
     });
-}
-
-//
-// gets user data
-//
-function getData(req, res) {
-    // API rules specify username should
-    // be part of url, authToken a GET
-    // parameter
-    var targetName = req.params["username"]
-      , targetToken = req.query["authToken"];
-
-    userModule.findUserByName(targetName, res, function(foundUser, res) {
-        if(foundUser && foundUser.authToken === targetToken) {
-            res.send(JSON.stringify(foundUser.user_data));
-        } else err.sendError(err.notFound, res);
-    })
 }
 
 //
