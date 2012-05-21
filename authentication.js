@@ -36,8 +36,7 @@ function verifyRequestAPIKey(req, res, callback) { //callback returns bool succe
 function verifyRequestAuthTokenAndAPIKey(req, res, callback) {
 	verifyRequestAPIKey(req, res, function(success) {
 		if (!success) {
-            console.log("[auth] can't verify api key and auth token");
-            err.sendError(err.notAuthenticated, res);
+			console.log("[auth] can't verify api key and auth token");
 			callback(false);
 		} else {
 			var puzzleAuth = req.headers["puzzle_auth_token"];

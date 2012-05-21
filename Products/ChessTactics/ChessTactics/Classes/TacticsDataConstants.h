@@ -5,6 +5,7 @@
 #define BLACK @"black"
 #define PLAYER_COLOR @"player_color"
 #define PIECES_SETUP @"pieces_setup"
+#define TACTIC_EXPLANATION @"explanation"
 #define X_LOCATION @"x"
 #define Y_LOCATION @"y"
 #define START_X @"start_x"

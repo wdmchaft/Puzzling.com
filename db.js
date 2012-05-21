@@ -145,18 +145,18 @@ pApp.statics.findByKey = function (authToken, cb) {
 
 Puzzle = new Schema({
         puzzleID : ObjectID
-    ,   name : String               /* forgot to include in original specs */
+    , name : String               /* forgot to include in original specs */
     ,	creator: ObjectID
     ,	meta : String			    /* JSON; additional metadata */
     ,	setupData : String			/* JSON of puzzle’s main data */
     ,	solutionData: String		/* JSON of solution */
     ,	type : String		        /* user-defined enum */
     ,	likes : Number			    /* number of upvotes */
-    , 	dislikes : Number			/* number of downvotes */
+    , dislikes : Number			/* number of downvotes */
     ,	taken : Number			    /* rating == (likes / taken) */
-    , 	timestamp : Date			/* date created */
+    , timestamp : Date			/* date created */
     ,	rating : Number			    /* difficulty rating */
-    ,   rd : Number					/* Rating deviation */
+    , rd : Number					/* Rating deviation */
     });
 
 // Just in case

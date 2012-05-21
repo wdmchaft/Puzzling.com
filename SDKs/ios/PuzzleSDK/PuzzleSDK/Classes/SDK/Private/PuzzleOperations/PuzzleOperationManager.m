@@ -14,6 +14,7 @@
 #import "GetAuthTokenForUserOperation.h"
 #import "DeleteUserOperation.h"
 #import "CreateUserOperation.h"
+#import "GetPuzzlesMadeByUserOperation.h"
 
 
 @interface PuzzleOperationManager() <NSURLConnectionDelegate> {
@@ -44,8 +45,8 @@
 	[operation release];
 }
 
-- (void)createPuzzleWithType:(NSString *)type setupData:(NSDictionary *)setupData solutionData:(NSDictionary*)solutionData onCompletionBlock:(PuzzleOnCompletionBlock)block {
-	CreatePuzzleOperation *op = [[CreatePuzzleOperation alloc] initWithType:type setupData:setupData solutionData:solutionData puzzleType:type onCompletionBlock:block];
+- (void)createPuzzleWithType:(NSString *)type name:(NSString *)name setupData:(NSDictionary *)setupData solutionData:(NSDictionary*)solutionData onCompletionBlock:(PuzzleOnCompletionBlock)block {
+	CreatePuzzleOperation *op = [[CreatePuzzleOperation alloc] initWithType:type name:name setupData:setupData solutionData:solutionData puzzleType:type onCompletionBlock:block];
 	[self.queue addOperation:op];
 	[op release];
 }
@@ -78,6 +79,12 @@
 
 - (void)createUser:(NSString *)username password:(NSString *)password userData:(NSDictionary *)data onCompletion:(PuzzleOnCompletionBlock)onCompletion {
 	CreateUserOperation *op = [[CreateUserOperation alloc] initWithUserName:username password:password userData:data onCompletionBlock:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
+
+- (void)getPuzzlesMadeByUser:(PuzzleID *)userID onCompletion:(PuzzleOnCompletionBlock)onCompletion {
+	GetPuzzlesMadeByUserOperation *op = [[GetPuzzlesMadeByUserOperation alloc] initWithUserID:userID onCompletionBlock:onCompletion];
 	[self.queue addOperation:op];
 	[op release];
 }

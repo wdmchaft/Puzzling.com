@@ -195,6 +195,15 @@
 	[self movePiece:piece to:[[[Coordinate alloc] initWithX:finishX Y:finishY] autorelease]];
 }
 
+- (void)resetAllPiecesToHaveNotMoved {
+	for (int x = 0; x<8; x++) {
+		for (int y = 0; y<8; y++) {
+			ChessPiece *piece = [self.chessModel getPieceAtX:x Y:y];
+			piece.moved = NO;
+		}
+	}
+}
+
 #pragma mark - Private Methods
 
 - (void)movePiece:(ChessPiece*)piece to:(Coordinate*)finish {

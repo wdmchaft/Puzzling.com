@@ -11,6 +11,7 @@
 
 @interface PuzzleModel() {
     NSString* p_type; 
+	NSString* p_name; 
     NSDictionary* p_setupData;
     NSDictionary* p_solutionData;
     NSString* p_puzzleType;
@@ -27,7 +28,8 @@
 
 @implementation PuzzleModel
 
-@synthesize type = p_type; 
+@synthesize name = p_name;
+@synthesize type = p_type;
 @synthesize setupData = p_setupData;
 @synthesize solutionData = p_solutionData;
 @synthesize puzzleType = p_puzzleType;
@@ -41,10 +43,12 @@
 
 
 - (void)uploadPuzzleOnCompletion:(PuzzleOnCompletionBlock)onCompletion {
-	[[PuzzleSDK sharedInstance] createPuzzleWithType:self.puzzleType setupData:self.setupData solutionData:self.solutionData onCompletionBlock:onCompletion];
+	[[PuzzleSDK sharedInstance] createPuzzleWithType:self.puzzleType name:self.name setupData:self.setupData solutionData:self.solutionData onCompletionBlock:onCompletion];
 }
 
 - (void)dealloc {
+	[p_name release];
+	p_name = nil;
 	[p_type release];
 	p_type = nil;
 	[p_timeCreated release];

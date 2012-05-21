@@ -28,6 +28,7 @@
 - (void)addPiece:(Class)ChessPieceType withColor:(Color)color toCoordinate:(Coordinate *)coord;
 - (void)movePieceFromX:(int)startX Y:(int)startY toX:(int)finishX Y:(int)finishY promotion:(NSString *)promotionType;
 - (void)setupPieces:(NSArray *)pieces;
+- (void)resetAllPiecesToHaveNotMoved;
 
 @end
 

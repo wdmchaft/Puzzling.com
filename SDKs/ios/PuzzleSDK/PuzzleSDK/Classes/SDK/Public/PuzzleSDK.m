@@ -53,12 +53,16 @@ PuzzleSDK * sharedInstance = nil;
 	[self.operationManager getPuzzleForCurrentUserOnCompletion:onCompletion];
 }
 
-- (void)createPuzzleWithType:(NSString *)type setupData:(NSDictionary *)setupData solutionData:(NSDictionary *)solutionData onCompletionBlock:(PuzzleOnCompletionBlock)onCompletion {
-	[self.operationManager createPuzzleWithType:type setupData:setupData solutionData:solutionData onCompletionBlock:onCompletion];
+- (void)createPuzzleWithType:(NSString *)type name:(NSString *)name setupData:(NSDictionary *)setupData solutionData:(NSDictionary *)solutionData onCompletionBlock:(PuzzleOnCompletionBlock)onCompletion {
+	[self.operationManager createPuzzleWithType:type name:name setupData:setupData solutionData:solutionData onCompletionBlock:onCompletion];
 }
 
 - (void)takePuzzle:(PuzzleID *)puzzleID score:(float)score rated:(BOOL)rated onCompletion:(PuzzleOnCompletionBlock)onCompletion {
 	[self.operationManager takePuzzle:puzzleID score:score rated:rated onCompletion:onCompletion];
+}
+
+- (void)getPuzzlesMadeByUser:(PuzzleID *)userID onCompletion:(PuzzleOnCompletionBlock)onCompletion {
+	[self.operationManager getPuzzlesMadeByUser:userID onCompletion:onCompletion];
 }
 
 #pragma mark - Login

@@ -267,6 +267,8 @@
 	if (self.chessBoardViewController.inEditingMode) {
 		if ([self createSetup]) {
 			self.chessBoardViewController.inEditingMode = NO;
+			[self.chessBoardViewController resetAllPiecesToHaveNotMoved];
+			
 			[self.nextButton setTitle:@"Test and Submit" forState:UIControlStateNormal];
 			self.moves = [NSMutableArray array];
 			

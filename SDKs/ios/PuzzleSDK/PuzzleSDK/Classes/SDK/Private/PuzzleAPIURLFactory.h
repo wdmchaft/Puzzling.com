@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PuzzleSDK.h"
+
 
 @interface PuzzleAPIURLFactory : NSObject
 
@@ -16,7 +18,7 @@
 + (NSURL*)urlForDeleteUser;
 + (NSURL*)urlForCreatePuzzle;
 + (NSURL*)urlForGetPuzzleForUser;
-+ (NSURL*)urlForGetPuzzlesMadeByUser:(NSString*)username;
++ (NSURL*)urlForGetPuzzlesMadeByUser:(PuzzleID *)userID;
 + (NSURL*)urlForTakenPuzzle:(NSString*)puzzleID rated:(BOOL)rated;
 
 @end

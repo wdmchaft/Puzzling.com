@@ -10,7 +10,7 @@
 
 @interface CreatePuzzleOperation : PuzzleOperation
 
--(id)initWithType:(NSString*)type setupData:(NSDictionary*)setupData solutionData:(NSDictionary*)solutionData puzzleType:(NSString*)puzzleType onCompletionBlock:(PuzzleOnCompletionBlock)block;
+-(id)initWithType:(NSString*)type name:(NSString*)name setupData:(NSDictionary*)setupData solutionData:(NSDictionary*)solutionData puzzleType:(NSString*)puzzleType onCompletionBlock:(PuzzleOnCompletionBlock)block;
 
 
 @end

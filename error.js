@@ -86,7 +86,7 @@ exports.send_error = function send_error(errorType, res, dbMessage) { //last par
 			break;
 		case this.NO_PUZZLES:
 			res.statusCode = METHOD_NOT_ALLOWED;
-			res.send({"error": "no_puzzles_to_return", "message": "There arn't any puzzles in the database right now."});
+			res.send({"error": "no_puzzles_to_return", "message": "There arn't any puzzles that you haven't taken in the database right now."});
 			break;
 		case this.PUZZLE_DOESNT_EXIST:
 			res.statusCode = METHOD_NOT_ALLOWED;

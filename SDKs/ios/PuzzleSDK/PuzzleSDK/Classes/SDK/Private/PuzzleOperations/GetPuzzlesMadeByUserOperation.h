@@ -8,9 +8,9 @@
 
 #import "PuzzleOperation.h"
 
+
 @interface GetPuzzlesMadeByUserOperation : PuzzleOperation
 
--(id)initWithUsername:(NSString*)username onCompletionBlock:(PuzzleOnCompletionBlock)block;
-
+-(id)initWithUserID:(PuzzleID *)userID onCompletionBlock:(PuzzleOnCompletionBlock)block;
 
 @end

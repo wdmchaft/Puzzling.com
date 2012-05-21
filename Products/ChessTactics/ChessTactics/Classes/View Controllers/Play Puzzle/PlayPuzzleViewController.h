@@ -8,17 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class PuzzleModel;
+
 @interface PlayPuzzleViewController : UIViewController {
-	IBOutlet UILabel *__bottomLabel;
-	IBOutlet UIButton *__anaylsisButton;
-	IBOutlet UIButton *__showSolutionButton;
-	
 	NSDictionary *__setupData;
 	NSDictionary *__solutionData;
 }
 
 @property (nonatomic, readwrite, retain) NSDictionary *setupData; //for setting in subclasses nil is default
 @property (nonatomic, readwrite, retain) NSDictionary *solutionData; //for setting in subclasses nil is default
+@property (nonatomic, readwrite, retain) PuzzleModel *puzzleModel;
 
 - (id)initWithRated:(BOOL)rated;
 

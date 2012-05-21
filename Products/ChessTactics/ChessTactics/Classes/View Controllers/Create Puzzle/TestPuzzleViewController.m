@@ -8,21 +8,31 @@
 
 #import "TestPuzzleViewController.h"
 #import "PuzzleSDK.h"
+#import "EnterExplanationViewController.h"
+#import "TacticsDataConstants.h"
 
 
-@interface TestPuzzleViewController () <UIAlertViewDelegate> {
+#define SUBMIT_TACTIC @"Enter a Name for the Tactic"
+#define SUCCESS @"Success"
+#define SUBMIT @"Submit"
+
+@interface TestPuzzleViewController () <UIAlertViewDelegate, EnterExplanationViewControllerDelegate> {
 	IBOutlet UIActivityIndicatorView *__activityView;
+	NSString *__tacticExplanation;
 }
 
 @property (nonatomic, readonly, retain) UIActivityIndicatorView *activityView;
+@property (nonatomic, readwrite, retain) NSString *tacticExplanation;
 
-- (IBAction)submitTactic:(id)sender;
+- (void)submitTactic:(NSString *)name;
+- (IBAction)submitButtonPressed:(id)sender;
+- (IBAction)explanationButtonPressed:(id)sender;
 
 @end
 
 @implementation TestPuzzleViewController
 
-@synthesize activityView = __activityView;
+@synthesize activityView = __activityView, tacticExplanation = __tacticExplanation;
 
 - (id)initWithSetup:(NSDictionary *)setupData solutionData:(NSDictionary *)solutionData {
 	if (self = [super initWithRated:NO]) {
@@ -35,26 +45,45 @@
 - (void)dealloc {
 	[__activityView release];
 	__activityView = nil;
+	[__tacticExplanation release];
+	__tacticExplanation = nil;
 	
 	[super dealloc];
 }
 
-- (IBAction)submitTactic:(id)sender {
+- (IBAction)submitButtonPressed:(id)sender {
+	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:SUBMIT_TACTIC message:@"Note: This will not be visible to users while they attempt the tactic." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:SUBMIT, nil] autorelease];
+	alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+	[alert show];
+}
+
+- (void)submitTactic:(NSString *)name {
 	self.activityView.hidden = NO;
 	[self.view bringSubviewToFront:self.activityView];
 	[self.activityView startAnimating];
 	self.view.userInteractionEnabled = NO;	
 	
-	[[PuzzleSDK sharedInstance] createPuzzleWithType:@"tactic" setupData:self.setupData solutionData:self.solutionData onCompletionBlock:^(PuzzleAPIResponse status, id data) {
+	NSMutableDictionary *temp = [NSMutableDictionary dictionaryWithDictionary:self.solutionData];
+	[temp setValue:self.tacticExplanation forKey:TACTIC_EXPLANATION];
+	self.solutionData = temp;
+	
+	[[PuzzleSDK sharedInstance] createPuzzleWithType:@"tactic" name:name setupData:self.setupData solutionData:self.solutionData onCompletionBlock:^(PuzzleAPIResponse status, id data) {
 		self.activityView.hidden = YES;
 		[self.activityView stopAnimating];
 		self.view.userInteractionEnabled = YES;
 		if (status == PuzzleOperationSuccessful) {
-			[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"The tactic was successfully created." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			[[[[UIAlertView alloc] initWithTitle:SUCCESS message:@"The tactic was successfully created." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 		} else {
 			NSLog(@"aww crap");
 		}
 	}];
+}
+
+- (IBAction)explanationButtonPressed:(id)sender
+{
+	EnterExplanationViewController *vc = [[[EnterExplanationViewController alloc] init] autorelease];
+	vc.delegate = self;
+	[self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)endTactic:(double)score {
@@ -63,8 +92,20 @@
 	self.navigationItem.rightBarButtonItem = nil; //There is no next tactic so remove button
 }
 
+#pragma mark - Delegate Methods
+
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	[self.navigationController popToRootViewControllerAnimated:YES];
+	if ([alertView.title isEqualToString:SUBMIT_TACTIC]) {
+		if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:SUBMIT]) {
+			[self submitTactic:[alertView textFieldAtIndex:0].text];
+		}
+	} else if ([alertView.title isEqualToString:SUCCESS]) {
+		[self.navigationController popToRootViewControllerAnimated:YES];
+	}
+}
+
+- (void)enterExplanationViewController:(EnterExplanationViewController *)vc didEnterExplanation:(NSString *)explanation {
+	self.tacticExplanation = explanation;
 }
 
 @end

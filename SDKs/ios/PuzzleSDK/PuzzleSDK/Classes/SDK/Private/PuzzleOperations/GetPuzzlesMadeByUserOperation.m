@@ -13,19 +13,19 @@
 
 
 @interface GetPuzzlesMadeByUserOperation() {
-    NSString* p_username;
+    PuzzleID *p_userID;
 }
-@property (nonatomic,retain,readwrite) NSString* username;
+@property (nonatomic,retain,readwrite) PuzzleID *userID;
 @end
 
 @implementation GetPuzzlesMadeByUserOperation
 
-@synthesize username = p_username;
+@synthesize userID = p_userID;
 
--(id)initWithUsername:(NSString*)username onCompletionBlock:(PuzzleOnCompletionBlock)block{
+-(id)initWithUserID:(PuzzleID *)userID onCompletionBlock:(PuzzleOnCompletionBlock)block{
     self = [super initWithOnCompletionBlock:block];
     if(self){
-        self.username = username;
+        self.userID = userID;
     }
     return self;
 }
@@ -37,23 +37,34 @@
 }
 
 - (NSURL *)url {
-    return [PuzzleAPIURLFactory urlForGetPuzzlesMadeByUser:self.username];
+    return [PuzzleAPIURLFactory urlForGetPuzzlesMadeByUser:self.userID];
 }
 
 -(void) runCompletionBlock{
-    PuzzleModel* puzzle = [[PuzzleModel alloc] init];
+    NSArray *data = [self.data objectFromJSONData];
+	NSMutableArray *puzzles = [NSMutableArray arrayWithCapacity:[data count]];
+	for (NSDictionary *puzzleDic in data) {
+		PuzzleModel* puzzle = [[[PuzzleModel alloc] init] autorelease];
+		puzzle.type = [puzzleDic objectForKey:@"type"];
+		puzzle.puzzleID = [puzzleDic objectForKey:@"_id"];
+		puzzle.name = [puzzleDic objectForKey:@"name"];
+		puzzle.creatorID = [puzzleDic objectForKey:@"creator"];
+		puzzle.dislikes = [[puzzleDic objectForKey:@"dislikes"] intValue];
+		puzzle.likes = [[puzzleDic objectForKey:@"likes"] intValue];
+		puzzle.rating = [[puzzleDic objectForKey:@"rating"] doubleValue] + .5;
+		puzzle.taken = [[puzzleDic objectForKey:@"taken"] intValue];
+		puzzle.timeCreated = [puzzleDic objectForKey:@"timestamp"];
+		
+		[puzzles addObject:puzzle];
+	}
     
-    NSDictionary* data = [self.data objectFromJSONData];
-    puzzle.setupData = [data objectForKey:@"setupData"];
-    puzzle.solutionData = [data objectForKey:@"solutionData"];
-    puzzle.type = [data objectForKey:@"type"];
-    puzzle.puzzleID = [data objectForKey:@"puzzleID"];
-    
-    self.onCompletion(self.response, puzzle); 
+    self.onCompletion(self.response, puzzles); 
 }
 
 -(void) dealloc{
-    [p_username release]; 
+    [p_userID release]; 
+	p_userID = nil;
+	
     [super dealloc];
 }
 

@@ -103,15 +103,7 @@ exports.get = function(req, res) {
 		if(e) err.sendError(err.transactionError, res);
 		else if(!puzzleInstance) err.sendError(err.notFound, res);
 		else {
-			var returnData = {};
-			returnData["puzzle_id"] = puzzleInstance._id;
-			returnData["creator"] = puzzleInstance.creator;
-			returnData["likes"] = puzzleInstance.likes;
-			returnData["rating"] = puzzleInstance.rating;
-			returnData["dislikes"] = puzzleInstance.dislikes;
-			returnData["timestamp"] = puzzleInstance.timestamp;
-			returnData["success"] = true;
-			res.send(JSON.stringify(returnData));
+			res.send(JSON.stringify(puzzleInstance));
 		}
 	});
 };
@@ -203,6 +195,8 @@ exports.suggest = function(req, res) {
 				takenPuzzles.push(docs[i].puzzle);
 			}
 			
+			console.log(takenPuzzles);
+			
 			var TargetModel = pApp.findPuzzleModel(req.apiKey);
 			
 			TargetModel
@@ -215,18 +209,18 @@ exports.suggest = function(req, res) {
 						if(e) console.log("[puzzle] " + e);
 						err.sendError(err.transactionError, res);
 					} else if (docs.length == 0 || docs == null) { //return the closest puzzle
-						db.PuzzleModel.where('rating').gte(userRating).where('_id').nin(takenPuzzles).asc('rating').run(function(err, docs) {
-							if (err) {
-								error.send_error(error.DB_ERROR, res, err.message);
+						TargetModel.where('rating').gte(userRating).where('_id').nin(takenPuzzles).asc('rating').run(function(e, docs) {
+							if (e) {
+								err.send_error(err.DB_ERROR, res, e.message);
 								return;
 							}
 							var higher = null;
 							if (docs.length > 0) {
 								higher = docs[0];
 							}
-							db.PuzzleModel.where('rating').lte(userRating).where('_id').nin(takenPuzzles).desc('rating').run(function(err, docs) {
-								if (err) {
-									error.send_error(error.DB_ERROR, res, err.message);
+							TargetModel.where('rating').lte(userRating).where('_id').nin(takenPuzzles).desc('rating').run(function(e, docs) {
+								if (e) {
+									err.send_error(err.DB_ERROR, res, e.message);
 									return;
 								}
 								var lower = null;
@@ -234,7 +228,7 @@ exports.suggest = function(req, res) {
 									lower = docs[0];
 								}
 								if (lower == null && higher  == null) {
-									error.send_error(error.NO_PUZZLES, res);
+									err.send_error(err.NO_PUZZLES, res);
 								} else if (lower == null) {
 									res.send(JSON.stringify(higher));
 								} else if (higher == null) {
@@ -276,7 +270,9 @@ exports.getUserPuzzles = function(req, res) {
 	var user_id = req.params.id;
 	db.UserModel.findOne( { "_id": user_id }, function(err, userDoc) {
 		if (err) err.sendError(err.transactionError, res);
-		else if (!userDoc) err.sendError(err.notFound, res);
+		else if (!userDoc) {
+			err.sendError(err.notFound, res);
+		}
 		else {
 			
 			// query specific model by apiKey to find
@@ -287,8 +283,14 @@ exports.getUserPuzzles = function(req, res) {
 			var query = {"creator" : userDoc.id};
 			TargetModel.find(query, function(e, docs) {
 				if(e) err.sendError(err.transactionError, res);
-				else if(!docs) err.sendError(err.notFound, res);
+				else if(!docs) {
+					err.sendError(err.notFound, res);
+				}
 				else {
+					for (var i = 0; i<docs.length; i++) {
+						docs[i].setupData = undefined;
+						docs[i].solutionData = undefined;
+					}
 					res.send(JSON.stringify(docs));
 				}
 			});

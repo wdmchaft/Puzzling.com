@@ -9,6 +9,7 @@
 #import "MainMenuViewController.h"
 #import "CreatePuzzleSetupViewController.h"
 #import "PlayPuzzleViewController.h"
+#import "UserPuzzlesViewController.h"
 
 
 @interface MainMenuViewController ()
@@ -30,6 +31,11 @@
 
 - (IBAction)createPuzzlePressed:(id)sender {
 	CreatePuzzleSetupViewController *vc = [[[CreatePuzzleSetupViewController alloc] init] autorelease];
+	[self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)userPuzzlesPressed:(id)sender {
+	UserPuzzlesViewController *vc = [[[UserPuzzlesViewController alloc] init] autorelease];
 	[self.navigationController pushViewController:vc animated:YES];
 }
 

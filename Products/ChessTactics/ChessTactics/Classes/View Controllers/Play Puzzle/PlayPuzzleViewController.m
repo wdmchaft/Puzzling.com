@@ -27,6 +27,11 @@
 #define NEXT_TACTIC @"Next Tactic"
 
 @interface PlayPuzzleViewController () <ChessBoardViewControllerDelegate> {
+	IBOutlet UILabel *__bottomLabel;
+	IBOutlet UIButton *__anaylsisButton;
+	IBOutlet UIButton *__showSolutionButton;
+	IBOutlet UIButton *__showExplanationButton;
+	
 	ChessBoardViewController *__chessBoardViewController;
 	NSArray *__solutionMoves;
 	int __currentMove;
@@ -37,12 +42,10 @@
 	BOOL __showingSolution;
 	UIBarButtonItem *__nextTacticButton;
 	BOOL __rated;
-	
 }
 
 @property (nonatomic, readwrite, retain) ChessBoardViewController *chessBoardViewController;
 @property (nonatomic, readwrite, retain) NSArray *solutionMoves;
-@property (nonatomic, readwrite, retain) PuzzleModel *puzzleModel;
 @property (nonatomic, readwrite, assign) int currentMove;
 @property (nonatomic, readwrite, assign) Color playerColor;
 @property (nonatomic, readwrite, assign) BOOL tacticStarted;
@@ -54,6 +57,7 @@
 @property (nonatomic, readwrite, retain) UILabel *bottomLabel;
 @property (nonatomic, readwrite, retain) UIButton *analysisButton;
 @property (nonatomic, readwrite, retain) UIButton *showSolutionButton;
+@property (nonatomic, readwrite, retain) UIButton *showExplanationButton;
 
 - (void)setupPuzzle;
 - (void)startTactic:(NSNumber *)moveComputerFirst;
@@ -62,12 +66,13 @@
 - (void)newTactic:(UIBarButtonItem *)button;
 - (IBAction)showAnalysisBoard:(id)sender;
 - (void)modalViewCancelled;
+- (IBAction)showExplanationPressed:(id)sender;
 
 @end
 
 @implementation PlayPuzzleViewController
 
-@synthesize chessBoardViewController = __chessBoardViewController, solutionMoves = __solutionMoves, currentMove = __currentMove, playerColor = __playerColor, tacticStarted = __tacticStarted, dispatchQueue = __dispatchQueue, puzzleModel = __puzzleModel, showingSolution = __showingSolution, bottomLabel = __bottomLabel, nextTacticButton = __nextTacticButton, analysisButton = __anaylsisButton, showSolutionButton = __showSolutionButton, rated = __rated, setupData = __setupData, solutionData = __solutionData;
+@synthesize chessBoardViewController = __chessBoardViewController, solutionMoves = __solutionMoves, currentMove = __currentMove, playerColor = __playerColor, tacticStarted = __tacticStarted, dispatchQueue = __dispatchQueue, puzzleModel = __puzzleModel, showingSolution = __showingSolution, bottomLabel = __bottomLabel, nextTacticButton = __nextTacticButton, analysisButton = __anaylsisButton, showSolutionButton = __showSolutionButton, rated = __rated, setupData = __setupData, solutionData = __solutionData, showExplanationButton = __showExplanationButton;
 
 #pragma mark - View Life Cycle
 
@@ -92,21 +97,26 @@
 	self.dispatchQueue = dispatch_queue_create("playTacticsQueue", NULL);
 	self.analysisButton.hidden = YES;
 	self.showSolutionButton.hidden = YES;
+	self.showExplanationButton.hidden = YES;
 	
 	self.title = @"Tactic";
 	
 	self.nextTacticButton = [[[UIBarButtonItem alloc] initWithTitle:@"Give Up" style:UIBarButtonItemStyleBordered target:self action:@selector(newTactic:)] autorelease];
 	self.navigationItem.rightBarButtonItem = self.nextTacticButton;
 	
-	[[PuzzleDownloader sharedInstance] downloadPuzzleWithCallback:^(PuzzleAPIResponse response, PuzzleModel * puzzle) {
-		if (response == PuzzleOperationSuccessful) {
-			self.puzzleModel = puzzle;
-			[self setupPuzzle];
-		} else {
-			[[[[UIAlertView alloc] initWithTitle:@"Error" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
-			[self.navigationController popToRootViewControllerAnimated:YES];
-		}
-	}];
+	if (!(self.solutionData && self.setupData) && !self.puzzleModel) {
+		[[PuzzleDownloader sharedInstance] downloadPuzzleWithCallback:^(PuzzleAPIResponse response, PuzzleModel * puzzle) {
+			if (response == PuzzleOperationSuccessful) {
+				self.puzzleModel = puzzle;
+				[self setupPuzzle];
+			} else {
+				[[[[UIAlertView alloc] initWithTitle:@"Error" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+				//			[self.navigationController popToRootViewControllerAnimated:YES];
+			}
+		}];
+	} else { //already have what we need
+		[self setupPuzzle];
+	}
 }
 
 - (void)dealloc {
@@ -128,6 +138,8 @@
 	__setupData = nil;
 	[__solutionData release];
 	__solutionData = nil;
+	[__showExplanationButton release];
+	__showExplanationButton = nil;
 	
 	if (__dispatchQueue != nil) {
 		dispatch_release(__dispatchQueue);
@@ -161,6 +173,7 @@
 	
 	NSArray *piecesSetup = [setupData objectForKey:PIECES_SETUP];
 	[self.chessBoardViewController setupPieces:piecesSetup];
+	[self.chessBoardViewController resetAllPiecesToHaveNotMoved];
 	
 	NSArray *moves;
 	if (self.solutionData == nil) {
@@ -197,8 +210,10 @@
 		[self.chessBoardViewController movePieceFromX:move.start.x Y:move.start.y toX:move.finish.x Y:move.finish.y promotion:move.promotionType];
 		self.currentMove++;
 	}
-	self.chessBoardViewController.interactionAllowed = YES;
-	self.navigationItem.hidesBackButton = YES;
+	if (!self.showingSolution) {
+		self.chessBoardViewController.interactionAllowed = YES;
+		self.navigationItem.hidesBackButton = YES;
+	}
 }
 
 - (double)moveDelay {
@@ -214,6 +229,13 @@
 	self.navigationItem.hidesBackButton = NO;
 	self.showSolutionButton.hidden = NO;
 	self.analysisButton.hidden = NO;
+	self.showExplanationButton.hidden = NO;
+	
+	if (self.showingSolution)
+	{
+		self.showingSolution = NO;
+		return;
+	}
 	
 	self.nextTacticButton.title = NEXT_TACTIC;
 	
@@ -226,13 +248,15 @@
 	[[[[UIAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 	
 	self.bottomLabel.text = LOADING_RATINGS;
-	[[PuzzleSDK sharedInstance] takePuzzle:self.puzzleModel.puzzleID score:score rated:self.rated onCompletion:^(PuzzleAPIResponse response, TakePuzzleResults *results) {
-		if (response == PuzzleOperationSuccessful) {
-			self.bottomLabel.text = [NSString stringWithFormat:@"%@%d(%@%d)\n%@%d", YOUR_NEW_RATING, results.newUserRating, results.userRatingChange>=0?@"+":@"", results.userRatingChange, PUZZLE_RATING, results.newPuzzleRating-results.puzzleRatingChange];
-		} else {
-			self.bottomLabel.text = @"There was a problem getting rating changes. Sorry.";
-		}
-	}];
+	if (self.puzzleModel.puzzleID != nil) {
+		[[PuzzleSDK sharedInstance] takePuzzle:self.puzzleModel.puzzleID score:score rated:self.rated onCompletion:^(PuzzleAPIResponse response, TakePuzzleResults *results) {
+			if (response == PuzzleOperationSuccessful) {
+				self.bottomLabel.text = [NSString stringWithFormat:@"%@%d(%@%d)\n%@%d", YOUR_NEW_RATING, results.newUserRating, results.userRatingChange>=0?@"+":@"", results.userRatingChange, PUZZLE_RATING, results.newPuzzleRating-results.puzzleRatingChange];
+			} else {
+				self.bottomLabel.text = @"There was a problem getting rating changes. Sorry.";
+			}
+		}];
+	}
 }
 
 #pragma mark - ChessVC Delegate
@@ -240,7 +264,7 @@
 - (void)piece:(ChessPiece *)piece didMoveFromX:(int)x Y:(int)y pawnPromoted:(NSString *)aClass {
 	if ((piece.color == self.playerColor && self.tacticStarted) || self.showingSolution) { //do computer move
 		ChessMove *lastMove = [self.solutionMoves objectAtIndex:self.currentMove];
-		if (!self.showingSolution && !(x == lastMove.start.x && y == lastMove.start.y && piece.x == lastMove.finish.x && piece.y == lastMove.finish.y && (aClass == nil || [aClass isEqualToString:lastMove.promotionType]))) { //wrong move
+		if (!(x == lastMove.start.x && y == lastMove.start.y && piece.x == lastMove.finish.x && piece.y == lastMove.finish.y && (aClass == nil || [aClass isEqualToString:lastMove.promotionType]))) { //wrong move
 			[self endTactic:0]; //loss
 			return;
 		}
@@ -248,17 +272,14 @@
 			self.currentMove++;
 		}
 		if (self.currentMove >= [self.solutionMoves count]) {
-			if (!self.showingSolution) {
-				[self endTactic:1];
-			} else {
-				self.showingSolution = NO;
-			}
+			[self endTactic:1];
 		} else {
 			self.chessBoardViewController.view.userInteractionEnabled = NO;
 			dispatch_async(self.dispatchQueue, ^(void) {
 				usleep(1000000*[self moveDelay]);
 				dispatch_async(dispatch_get_main_queue(), ^(void) {
 					if (self.currentMove >= [self.solutionMoves count]) {
+						[self endTactic:1];
 						return;
 					}
 					ChessMove *move = [self.solutionMoves objectAtIndex:self.currentMove];
@@ -296,6 +317,21 @@
 	vc.navigationItem.leftBarButtonItem = cancelButton;
 	[self presentModalViewController:navController animated:YES];
 	
+}
+
+- (IBAction)showExplanationPressed:(id)sender
+{
+	NSString *explanation = nil;
+	if (self.puzzleModel) {
+		explanation = [self.puzzleModel.solutionData objectForKey:TACTIC_EXPLANATION];
+	} else {
+		explanation = [self.solutionData objectForKey:TACTIC_EXPLANATION];
+	}
+	if (explanation == nil || [explanation isEqualToString:@""]) 
+	{
+		explanation = @"Sorry, but no explanation was offered for this tactic. You may find some answers in the comments.";
+	}
+	[[[[UIAlertView alloc] initWithTitle:@"Explanation" message:explanation delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"View Comments", nil] autorelease] show];
 }
 
 - (void)modalViewCancelled {
