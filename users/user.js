@@ -25,16 +25,6 @@ var DEFAULTS = {
     DEFAULT_DEVIATION   : 150
 };
 
-// Map of possible user operations
-// to callback functions.
-
-var CRUD = {
-    "create"  : createCB,
-    // 'read' doesn't require a callback
-    "update"  : updateCB,
-    "delete"  : deleteCB
-};
-
 // Exports at top
 
 exports.handle = handle;
@@ -43,6 +33,8 @@ exports.list = list;
 exports.get = get;
 exports.generateHash = generateHash;
 exports.findUserByName = findUserByName;
+exports.getData = getData;
+exports.postData = postData;
 
 // Handle GET
 
@@ -72,9 +64,20 @@ function list(req, res){
     });
 }
 
-//
+/////////////////////////////
 // Handle CRUD actions
-//
+/////////////////////////////
+
+// Map of possible user operations
+// to callback functions.
+
+var CRUD = {
+    "create"  : createCB,
+    // 'read' doesn't require a callback
+    "update"  : updateCB,
+    "delete"  : deleteCB
+};
+
 function handle(action, params, res){
     if(CRUD.hasOwnProperty(action)) {
         console.log("[user] : Handling " + action + " request");
@@ -202,11 +205,9 @@ function updateCB(found, res) {
 
     // hash password in-place so we don't have to
     // compute afterwards. Should change the salt too...
-    if(params.hasOwnProperty(password) && user) {
-
+    if(params.hasOwnProperty("password")) {
         params.password = generateHash(params.password, found.salt);
     }
-
 
     // authToken in body should match
     // target user's token
@@ -234,3 +235,48 @@ function updateCB(found, res) {
         }
     });
 }
+
+///////////////////
+// User Data only
+///////////////////
+
+//
+// gets user data
+//
+function getData(req, res) {
+    // API rules specify username should
+    // be part of url, authToken a GET
+    // parameter
+    var targetName = req.params["name"]
+        , targetToken = req.query["authToken"];
+
+    findUserByName(targetName, res, function(foundUser, res) {
+        if(foundUser && foundUser.authToken === targetToken) {
+            res.send(JSON.stringify(foundUser.user_data));
+        } else err.sendError(err.notFound, res);
+    });
+}
+
+//
+//  posts user data
+//
+function postData(req,res) {
+    // API rules specify username should
+    // be part of url, authToken a GET
+    // parameter
+    var targetName = req.params["name"]
+        , targetToken = req.body["authToken"]
+        , userData = req.body["user_data"];
+
+    var conditions = {"username": targetName}
+        , updates = userData;
+
+    db.UserModel.update(conditions, updates, {}, function(e, numAffected) {
+        if(!e && numAffected > 0) res.send({"success": true});
+        else {
+            if(e) console.log(e);
+            err.sendError(err.transactionError, res);
+        }
+    });
+}
+

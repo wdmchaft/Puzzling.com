@@ -10,6 +10,8 @@ Thumbs.db
 *.xcuserdatad/
 *.orig
 *.pem
+__*
+_*
 .idea
 node_modules
 SDK/ios/PuzzlingSDK/PuzzlingSDK.xcodeproj/xcuserdata/*

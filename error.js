@@ -44,11 +44,9 @@ exports.transactionError = "transaction_could_not_be_processed";
 //exports.MISSING_INFO = "missing_parameters";
 
 //Codes
-AUTHENTICATION = 401;
-METHOD_NOT_ALLOWED = 405;
-INTERNAL_SERVER = 500;
-
-exports._500_Errors = [this.transactionError];
+var AUTHENTICATION = 401;
+var METHOD_NOT_ALLOWED = 405;
+var INTERNAL_SERVER = 500;
 
 /*
  * Sends JSON formatted error code back to the user.
