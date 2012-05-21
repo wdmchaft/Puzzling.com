@@ -20,6 +20,8 @@ exports.DB_ERROR = 6;
 exports.NO_PUZZLES = 7;
 exports.PUZZLE_DOESNT_EXIST = 8;
 exports.API_KEY = 9;
+exports.BAD_OPERATION = 10;
+exports.MISSING_INFO = 11;
 // users
 exports.noPassword= "no_password_exists";
 exports.noUser = "no_username_exists";
@@ -34,11 +36,9 @@ exports.noAPIKeyString = "api_key_required";
 // Generic errors
 exports.notFound = "not_found";
 exports.updateError = "error_updating";
-exports.badOperation = "no_such_operation";
 exports.transactionError = "transaction_could_not_be_processed";
 
 //Got bored…add these as needed
-//exports.BAD_OP = "no_such_operation";
 //exports.NOT_FOUND = "not_found";
 //exports.UPDATE_ERROR = "error_updating";
 //exports.NOT_AUTHENTICATED = "not_authenticated";
@@ -92,9 +92,16 @@ exports.send_error = function send_error(errorType, res, dbMessage) { //last par
 			res.send({"error": "puzzle_doesnt_exist", "message": "Sorry. The requested puzzle doesn't appear to exist."});
 			break;
 		case this.API_KEY:
-			console.log("sending api error");
 			res.statusCode = AUTHENTICATION;
 			res.send({"error": "api_key_error", "message": "Invalid API key."});
+			break;
+		case this.BAD_OPERATION:
+			res.statusCode = METHOD_NOT_ALLOWED;
+			res.send({"error": "no_such_operation", "message": "Sorry. The operation you are running doesn't exist."});
+			break;
+		case this.MISSING_INFO:
+			res.statusCode = METHOD_NOT_ALLOWED;
+			res.send({"error": "missing_info", "message": "Sorry. The operation is missing critical info."});
 			break;
 		default:
 			res.statusCode = INTERNAL_SERVER;

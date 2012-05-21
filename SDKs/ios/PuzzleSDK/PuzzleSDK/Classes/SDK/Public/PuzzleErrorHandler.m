@@ -30,6 +30,10 @@
 		return PuzzleErrorUnknown;
 	} else if ([error isEqualToString:@"api_key_error"]) {
 		return PuzzleErrorAPIKey;
+	} else if ([error isEqualToString:@"no_such_operation"]) {
+		return PuzzleErrorMalformedOperation;
+	} else if ([error isEqualToString:@"missing_info"]) {
+		return PuzzleErrorMalformedOperation;
 	} else {
 		return PuzzleErrorUnknown;
 	}
@@ -40,43 +44,36 @@
 	switch (error) {
 		case PuzzleErrorUnknown:
 			return @"Unknown error. Sorry.";
-			break;
 			
 		case PuzzleErrorInvalidPassword:
 			return @"Invalid password. Please try again.";
-			break;
 			
 		case PuzzleErrorUsernameNotFound:
 			return @"Username not found. Please check your spelling.";
-			break;
 			
 		case PuzzleErrorUsernameAlreadyExists:
 			return @"Username already exists. Please choose a different username.";
-			break;
 			
 		case PuzzleErrorCannotFindUser:
 			return @"Cannot find the username asked for. Please try the request again.";
-			break;
 			
 		case PuzzleErrorInvalidAuthtoken:
 			return @"Something went wrong with your login. Please logout and login again.";
-			break;
 			
 		case PuzzleErrorInternalServer:
 			return @"There was an internal server error. Sorry.";
-			break;
 			
 		case PuzzleErrorNoPuzzlesToSuggest:
 			return @"You've taken all the tactics we currently have. Why don't you make one of your own and check back later.";
-			break;
 			
 		case PuzzleErrorPuzzleDoesntExist:
 			return @"The puzzle your trying to view doens't exist in our database. Please try again.";
-			break;
 			
 		case PuzzleErrorAPIKey:
 			return @"Something is wrong with the way the app is communicating with the server. Please reinstall the app.";
-			break;
+			
+		case PuzzleErrorMalformedOperation:
+			return @"Sorry. You're getting this message because there is some bug in the app. Please contact the developer with the details of this error. Thank you.";
 			
 		default:
 			return @"Unknown error. Sorry.";

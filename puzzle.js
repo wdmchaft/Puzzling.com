@@ -33,8 +33,8 @@ exports.create = function(req, res) {
 		if(!e && doc) {
 			createPuzzle(req, res, doc);
 		}
-		else if (!doc) err.sendError(err.notFound, res);
-		else err.sendError(err.transactionError, res);
+		else if (!doc) err.send_error(err.API_KEY, res);
+		else err.send_error(err.DB_ERROR, res);
 	});
 };
 
@@ -70,7 +70,7 @@ name            : puzzleName
 	
 	puzzleInstance.save(function(err) {
 		if (err) {
-			err.sendError(err.transactionError, res);
+			err.send_error(err.DB_ERROR, res);
 		} else {
 			var returnData = req.body;
 			returnData["puzzle_id"] = puzzleInstance._id;
@@ -100,8 +100,8 @@ exports.get = function(req, res) {
 	
 	var TargetModel = pApp.findPuzzleModel(_u.stripNonAlphaNum(req.apiKey));
 	TargetModel.findById(puzzleID, function(e, puzzleInstance) {
-		if(e) err.sendError(err.transactionError, res);
-		else if(!puzzleInstance) err.sendError(err.notFound, res);
+		if(e) err.send_error(err.DB_ERROR, res);
+		else if(!puzzleInstance) err.send_error(err.PUZZLE_DOESNT_EXIST, res);
 		else {
 			res.send(JSON.stringify(puzzleInstance));
 		}
@@ -121,15 +121,15 @@ exports.delete = function(req, res) {
 		var TargetModel = pApp.findPuzzleModel(apiKey);
 		console.log("[puzzle] trying to delete puzzle w/ id " + puzzleId);
 		TargetModel.findById(puzzleId, function(e, puzzle) {
-			if(e) err.sendError(err.transactionError, res);
-			else if(!puzzle) err.sendError(err.notFound, res);
+			if(e) err.send_error(err.DB_ERROR, res);
+			else if(!puzzle) err.send_error(err.PUZZLE_DOESNT_EXIST, res);
 			else {
 				puzzle.remove();
 				console.log("[puzzle] successfully deleted puzzle w/ id " + puzzleId);
 				res.send({puzzle_id : puzzleId, success : true});
 			}
 		});
-	} else err.sendError(err.missingInfo, res);
+	} else err.send_error(err.MISSING_INFO, res);
 };
 
 //
@@ -149,13 +149,13 @@ exports.update = function(req, res) {
 		
 		var TargetModel = pApp.findPuzzleModel(apiKey);
 		TargetModel.update({_id: puzzleId}, data, function(e, puzzle) {
-			if(e) err.sendError(err.transactionError, res);
-			else if(!puzzle) err.sendError(err.notFound, res);
+			if(e) err.send_error(err.DB_ERROR, res);
+			else if(!puzzle) err.send_error(err.PUZZLE_DOESNT_EXIST, res);
 			else {
 				res.send({puzzle_id: puzzleId, success: true});
 			}
 		});
-	} else err.sendError(err.missingInfo, res);
+	} else err.send_error(err.MISSING_INFO, res);
 };
 
 //
@@ -180,7 +180,7 @@ var userLikesWeight = 10;
 //
 exports.suggest = function(req, res) {
 	var user = req.user;
-	if(!user) err.sendError(err.missingInfo, res);
+	if(!user) err.send_error(err.MISSING_INFO, res);
 	var userRating = req.user.rating;
 		
 		var ScoreModel = pApp.scoreModel(req.apiKey);
@@ -205,7 +205,7 @@ exports.suggest = function(req, res) {
 				.run(function(e, docs) {
 					if (e) {
 						if(e) console.log("[puzzle] " + e);
-						err.sendError(err.transactionError, res);
+						err.send_error(err.DB_ERROR, res);
 					} else if (docs.length == 0 || docs == null) { //return the closest puzzle
 						TargetModel.where('rating').gte(userRating).where('_id').nin(takenPuzzles).asc('rating').run(function(e, docs) {
 							if (e) {
@@ -267,9 +267,9 @@ exports.suggest = function(req, res) {
 exports.getUserPuzzles = function(req, res) {
 	var user_id = req.params.id;
 	db.UserModel.findOne( { "_id": user_id }, function(err, userDoc) {
-		if (err) err.sendError(err.transactionError, res);
+		if (err) err.send_error(err.DB_ERROR, res);
 		else if (!userDoc) {
-			err.sendError(err.notFound, res);
+			err.send_error(err.NO_MATCHING_USER, res);
 		}
 		else {
 			
@@ -280,9 +280,9 @@ exports.getUserPuzzles = function(req, res) {
 			var TargetModel = pApp.findPuzzleModel(apiKey);
 			var query = {"creator" : userDoc.id};
 			TargetModel.find(query, function(e, docs) {
-				if(e) err.sendError(err.transactionError, res);
+				if(e) err.send_error(err.DB_ERROR, res);
 				else if(!docs) {
-					err.sendError(err.notFound, res);
+					err.send_error(err.NO_PUZZLES, res);
 				}
 				else {
 					for (var i = 0; i<docs.length; i++) {
@@ -310,16 +310,16 @@ exports.take = function(req, res) {
 			else {
 				if(e) {
 					console.log(e);
-					err.sendError(err.transactionError, res);
+					err.send_error(err.DB_ERROR, res);
 				}
 				if(!doc) {
 					console.log("[DB] couldn't find user with authToken " + token);
-					err.sendError(err.notFound, res);
+					err.send_error(err.NO_MATCHING_USER, res);
 				}
 			}
 		});
 	} else {
-		err.sendError(err.missingInfo + " , missing puzzle_id", res);
+		err.send_error(err.MISSING_INFO, res);
 	}
 };
 
@@ -339,17 +339,17 @@ function takeCB(req, res, user) {
 	TargetModel.findById(puzzleID, function(e, puzzle) {
 		if (e) {
 			console.log("[DB] " + e);
-			err.sendError(err.transactionError, res);
+			err.send_error(err.DB_ERROR, res);
 		}
 		else if (!puzzle) {
 			console.log("[DB] didn't find puzzle with apikey" + puzzleID);
-			err.sendError(err.notFound, res);
+			err.send_error(err.PUZZLE_DOESNT_EXIST, res);
 		}
 		else {
 			puzzle.taken = puzzle.taken + 1;
 			puzzle.save(function(e) {
 				if(!e) adjustRating(req, res, user.rating, puzzle, !notRated);
-				else err.sendError(err.transactionError, res);
+				else err.send_error(err.DB_ERROR, res);
 			});
 		}
 	});
@@ -405,10 +405,10 @@ function adjustRating(req, res, playerRating, puzzle, isRated) {
 	});
 	
 	user.save(function(err) {
-		if (err) err.sendError(err.transactionError, res);
+		if (err) err.send_error(err., res);
 		else {
 			puzzle.save(function(err) {
-				if (err) err.sendError(err.transactionError, res);
+				if (err) err.send_error(err.DB_ERROR, res);
 				else {
 					var retVal = {success : true
 						, newPlayerRD: newPlayerRD

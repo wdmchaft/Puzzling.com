@@ -40,7 +40,7 @@ exports.postData = postData;
 
 function get(req, res) {
     findUserByName(req.params.username, res, function(found, res) {
-        if(!found) err.sendError(err.notFound, res);
+        if(!found) err.send_error(err.NO_USERNAME, res);
         else 
 				{
 					console.log(found);
@@ -90,7 +90,7 @@ function handle(action, params, res){
         // call the function callback
         this.findUserByName(params.username, res, CRUD[action]);
     } else {
-        err.sendError(err.badOperation, res);
+        err.send_error(err.BAD_OPERATION, res);
     }
 }
 
@@ -106,7 +106,9 @@ function findUserByName(name, res, fnCallback) {
     User.findOne(query, function(e, found) {
         if(!e) {
             fnCallback(found, res);
-        } else err.sendError(err.transactionError, res);
+        } else {
+					err.send_error(err.DB_ERROR, res);
+				}
     });
 }
 
@@ -132,9 +134,12 @@ function createCB(existingUser, res) {
     console.log('[create] trying to create user ' + res.reqBody["username"]);
     if(!existingUser) {
         var params = res.reqBody;
-        if(!(params.hasOwnProperty("username") &&
-            params.hasOwnProperty("password"))) {
-            err.sendError(err.missingInfo, res);
+        if(!params.hasOwnProperty("username")) {
+						err.send_error(err.NO_USERNAME, res);
+            return;
+				}
+				if (!params.hasOwnProperty("password") {
+            err.send_error(err.NO_PASSWORD, res);
             return;
         }
 
@@ -163,7 +168,7 @@ function createCB(existingUser, res) {
         // send notification and quit
 
         console.log("[CREATE] : User " + existingUser.username + " exists; stopping creation");
-        err.sendError(err.existsUser, res);
+        err.send_error(err.EXISTS_USER, res);
     }
 }
 
@@ -181,7 +186,7 @@ function deleteCB(found, res) {
         found.remove();
         res.send({"username" : name, "success":true});
     } else {
-        err.sendError(err.noMatchingUser, res);
+        err.send_error(err.NO_MATCHING_USER, res);
     }
 }
 
@@ -195,7 +200,7 @@ function deleteCB(found, res) {
 
 function updateCB(found, res) {
     if(!found) {
-        err.sendError(err.noUser, res);
+        err.send_error(err.NO_MATCHING_USER, res);
         console.log("[UPDATE] : Tried to update user info for username '" + res.reqBody.username + "' but user not found");
         return;
     }
@@ -203,7 +208,7 @@ function updateCB(found, res) {
     // saved copy of req data
     var params = res.reqBody;
     if(!(params.hasOwnProperty("username"))) {
-        err.sendError(err.missingInfo, res);
+        err.send_error(err.NO_USERNAME, res);
         return;
     }
 
@@ -257,7 +262,7 @@ function getData(req, res) {
     findUserByName(targetName, res, function(foundUser, res) {
         if(foundUser && foundUser.authToken === targetToken) {
             res.send(JSON.stringify(foundUser.user_data));
-        } else err.sendError(err.notFound, res);
+        } else err.send_error(err.NO_MATCHING_USER, res);
     });
 }
 
@@ -279,7 +284,7 @@ function postData(req,res) {
         if(!e && numAffected > 0) res.send({"success": true});
         else {
             if(e) console.log(e);
-            err.sendError(err.transactionError, res);
+            err.send_error(err.DB_ERROR, res);
         }
     });
 }
