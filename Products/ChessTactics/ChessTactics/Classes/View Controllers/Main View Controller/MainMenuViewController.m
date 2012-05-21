@@ -10,6 +10,8 @@
 #import "CreatePuzzleSetupViewController.h"
 #import "PlayPuzzleViewController.h"
 #import "UserPuzzlesViewController.h"
+#import "PuzzleCurrentUser.h"
+#import "LoginViewController.h"
 
 
 @interface MainMenuViewController ()
@@ -22,6 +24,14 @@
 	[super viewDidLoad];
 	
 	self.title = @"Tactics";
+	
+	if (![PuzzleCurrentUser currentUser].isLoggedIn)
+	{
+		LoginViewController *vc = [[[LoginViewController alloc] init] autorelease];
+		UINavigationController *navCon = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
+		navCon.navigationBar.tintColor = [UIColor blackColor];
+		[self presentModalViewController:navCon animated:NO];
+	}
 }
 
 - (IBAction)playPuzzlePressed:(id)sender {

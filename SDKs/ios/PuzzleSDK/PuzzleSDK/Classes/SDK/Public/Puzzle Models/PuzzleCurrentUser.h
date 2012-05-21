@@ -10,9 +10,10 @@
 
 @interface PuzzleCurrentUser : PuzzleUser
 
-@property (nonatomic, readonly, retain) NSString *authToken;
+@property (nonatomic, readwrite, retain) NSString *authToken;
+@property (nonatomic, readonly, assign) BOOL isLoggedIn;
 
-+ (PuzzleUser *)currentUser;
++ (PuzzleCurrentUser *)currentUser;
 + (void)logout;
 - (void)save;
 

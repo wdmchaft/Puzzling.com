@@ -41,7 +41,11 @@ exports.postData = postData;
 function get(req, res) {
     findUserByName(req.params.username, res, function(found, res) {
         if(!found) err.sendError(err.notFound, res);
-        else res.send(JSON.stringify(found));
+        else 
+				{
+					console.log(found);
+					res.send(JSON.stringify(found));
+				}
     });
 }
 

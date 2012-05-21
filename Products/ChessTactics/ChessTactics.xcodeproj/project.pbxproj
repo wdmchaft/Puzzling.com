@@ -83,6 +83,16 @@
 		3613550C154FA6B9004A056F /* PlayPuzzleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3613550A154FA6B9004A056F /* PlayPuzzleViewController.xib */; };
 		3613550F154FB5DA004A056F /* editingSquareHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 3613550D154FB5DA004A056F /* editingSquareHighlight.png */; };
 		36135510154FB5DA004A056F /* editingSquareHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3613550E154FB5DA004A056F /* editingSquareHighlight@2x.png */; };
+		364B97541569CB2B00B859D7 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364B97531569CB2B00B859D7 /* CoreText.framework */; };
+		364B97811569D2A900B859D7 /* CommentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364B97801569D2A900B859D7 /* CommentsTableViewController.m */; };
+		364B97841569D2B100B859D7 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 364B97821569D2B100B859D7 /* green.png */; };
+		364B97851569D2B100B859D7 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 364B97831569D2B100B859D7 /* grey.png */; };
+		364B97871569D2C300B859D7 /* CommentsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 364B97861569D2C300B859D7 /* CommentsTableViewController.xib */; };
+		364B978A1569D45100B859D7 /* PuzzleComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 364B97891569D45100B859D7 /* PuzzleComment.m */; };
+		364B979C1569F1FA00B859D7 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364B97971569F1FA00B859D7 /* LoginViewController.m */; };
+		364B979D1569F1FA00B859D7 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 364B97981569F1FA00B859D7 /* LoginViewController.xib */; };
+		364B979E1569F1FA00B859D7 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364B979A1569F1FA00B859D7 /* RegisterViewController.m */; };
+		364B979F1569F1FA00B859D7 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 364B979B1569F1FA00B859D7 /* RegisterViewController.xib */; };
 		365E580E1560992A00A9C752 /* TestPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E580C1560992900A9C752 /* TestPuzzleViewController.m */; };
 		365E580F1560992A00A9C752 /* TestPuzzleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 365E580D1560992900A9C752 /* TestPuzzleViewController.xib */; };
 		365E58401561828100A9C752 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E58361561828100A9C752 /* EGORefreshTableHeaderView.m */; };
@@ -224,6 +234,20 @@
 		3613550A154FA6B9004A056F /* PlayPuzzleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayPuzzleViewController.xib; path = "Classes/View Controllers/Play Puzzle/PlayPuzzleViewController.xib"; sourceTree = "<group>"; };
 		3613550D154FB5DA004A056F /* editingSquareHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = editingSquareHighlight.png; sourceTree = "<group>"; };
 		3613550E154FB5DA004A056F /* editingSquareHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "editingSquareHighlight@2x.png"; sourceTree = "<group>"; };
+		364B97531569CB2B00B859D7 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		364B977F1569D2A900B859D7 /* CommentsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsTableViewController.h; sourceTree = "<group>"; };
+		364B97801569D2A900B859D7 /* CommentsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsTableViewController.m; sourceTree = "<group>"; };
+		364B97821569D2B100B859D7 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
+		364B97831569D2B100B859D7 /* grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey.png; sourceTree = "<group>"; };
+		364B97861569D2C300B859D7 /* CommentsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsTableViewController.xib; sourceTree = "<group>"; };
+		364B97881569D45100B859D7 /* PuzzleComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleComment.h; sourceTree = "<group>"; };
+		364B97891569D45100B859D7 /* PuzzleComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleComment.m; sourceTree = "<group>"; };
+		364B97961569F1FA00B859D7 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = "Classes/View Controllers/Login/LoginViewController.h"; sourceTree = "<group>"; };
+		364B97971569F1FA00B859D7 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = "Classes/View Controllers/Login/LoginViewController.m"; sourceTree = "<group>"; };
+		364B97981569F1FA00B859D7 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = "Classes/View Controllers/Login/LoginViewController.xib"; sourceTree = "<group>"; };
+		364B97991569F1FA00B859D7 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = "Classes/View Controllers/Login/RegisterViewController.h"; sourceTree = "<group>"; };
+		364B979A1569F1FA00B859D7 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = "Classes/View Controllers/Login/RegisterViewController.m"; sourceTree = "<group>"; };
+		364B979B1569F1FA00B859D7 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RegisterViewController.xib; path = "Classes/View Controllers/Login/RegisterViewController.xib"; sourceTree = "<group>"; };
 		365E580B1560992900A9C752 /* TestPuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestPuzzleViewController.h; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.h"; sourceTree = "<group>"; };
 		365E580C1560992900A9C752 /* TestPuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestPuzzleViewController.m; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.m"; sourceTree = "<group>"; };
 		365E580D1560992900A9C752 /* TestPuzzleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestPuzzleViewController.xib; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.xib"; sourceTree = "<group>"; };
@@ -258,6 +282,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				364B97541569CB2B00B859D7 /* CoreText.framework in Frameworks */,
 				365E585915621D5200A9C752 /* QuartzCore.framework in Frameworks */,
 				3612F977155715F7000F761B /* Security.framework in Frameworks */,
 				36099943154B9B120006A5F5 /* UIKit.framework in Frameworks */,
@@ -289,6 +314,7 @@
 		36099941154B9B120006A5F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				364B97531569CB2B00B859D7 /* CoreText.framework */,
 				365E585815621D5200A9C752 /* QuartzCore.framework */,
 				3612F976155715F7000F761B /* Security.framework */,
 				36099942154B9B120006A5F5 /* UIKit.framework */,
@@ -336,6 +362,7 @@
 		360999FA154C6FC60006A5F5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				364B978B1569EE6100B859D7 /* Login */,
 				365E5849156182D000A9C752 /* User Puzzles */,
 				36099A2F154C762F0006A5F5 /* Chess Board */,
 				36099A02154C709C0006A5F5 /* Create Puzzle */,
@@ -358,6 +385,7 @@
 		36099A01154C70940006A5F5 /* Play Puzzle */ = {
 			isa = PBXGroup;
 			children = (
+				364B97451569C99600B859D7 /* Comments */,
 				36135508154FA6B9004A056F /* PlayPuzzleViewController.h */,
 				36135509154FA6B9004A056F /* PlayPuzzleViewController.m */,
 				3613550A154FA6B9004A056F /* PlayPuzzleViewController.xib */,
@@ -581,8 +609,43 @@
 				3612F95B155714E2000F761B /* PuzzleUser.m */,
 				3612F95C155714E2000F761B /* TakePuzzleResults.h */,
 				3612F95D155714E2000F761B /* TakePuzzleResults.m */,
+				364B97881569D45100B859D7 /* PuzzleComment.h */,
+				364B97891569D45100B859D7 /* PuzzleComment.m */,
 			);
 			path = "Puzzle Models";
+			sourceTree = "<group>";
+		};
+		364B97451569C99600B859D7 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				364B977F1569D2A900B859D7 /* CommentsTableViewController.h */,
+				364B97801569D2A900B859D7 /* CommentsTableViewController.m */,
+				364B97861569D2C300B859D7 /* CommentsTableViewController.xib */,
+				364B97551569CB9E00B859D7 /* Resources */,
+			);
+			name = Comments;
+			sourceTree = "<group>";
+		};
+		364B97551569CB9E00B859D7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				364B97821569D2B100B859D7 /* green.png */,
+				364B97831569D2B100B859D7 /* grey.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		364B978B1569EE6100B859D7 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				364B97961569F1FA00B859D7 /* LoginViewController.h */,
+				364B97971569F1FA00B859D7 /* LoginViewController.m */,
+				364B97981569F1FA00B859D7 /* LoginViewController.xib */,
+				364B97991569F1FA00B859D7 /* RegisterViewController.h */,
+				364B979A1569F1FA00B859D7 /* RegisterViewController.m */,
+				364B979B1569F1FA00B859D7 /* RegisterViewController.xib */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 		365E58191561825900A9C752 /* Vendor */ = {
@@ -744,6 +807,11 @@
 				365E58481561828100A9C752 /* whiteArrow@2x.png in Resources */,
 				365E585715621C3100A9C752 /* UserPuzzleCell.xib in Resources */,
 				36649DB01566CAC2001B00F0 /* EnterExplanationViewController.xib in Resources */,
+				364B97841569D2B100B859D7 /* green.png in Resources */,
+				364B97851569D2B100B859D7 /* grey.png in Resources */,
+				364B97871569D2C300B859D7 /* CommentsTableViewController.xib in Resources */,
+				364B979D1569F1FA00B859D7 /* LoginViewController.xib in Resources */,
+				364B979F1569F1FA00B859D7 /* RegisterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,6 +868,10 @@
 				365E585315621BDB00A9C752 /* UserPuzzleCell.m in Sources */,
 				36649DAA1566C997001B00F0 /* PlayOwnPuzzleViewControllerViewController.m in Sources */,
 				36649DAF1566CAC2001B00F0 /* EnterExplanationViewController.m in Sources */,
+				364B97811569D2A900B859D7 /* CommentsTableViewController.m in Sources */,
+				364B978A1569D45100B859D7 /* PuzzleComment.m in Sources */,
+				364B979C1569F1FA00B859D7 /* LoginViewController.m in Sources */,
+				364B979E1569F1FA00B859D7 /* RegisterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,7 +26,7 @@ function verifyRequestAPIKey(req, res, callback) { //callback returns bool succe
     APIkeyModel.findById(puzzleKey.toString(), function (e, doc) {
         if (e || !doc) {
             if(e) console.log(e);
-            err.sendError(err.notFound, res);
+            err.send_error(err.API_KEY, res);
             callback(false);
         } else callback(true);
     });
@@ -36,13 +36,14 @@ function verifyRequestAPIKey(req, res, callback) { //callback returns bool succe
 function verifyRequestAuthTokenAndAPIKey(req, res, callback) {
 	verifyRequestAPIKey(req, res, function(success) {
 		if (!success) {
+			console.log("got here");
 			console.log("[auth] can't verify api key and auth token");
 			callback(false);
 		} else {
 			var puzzleAuth = req.headers["puzzle_auth_token"];
 			if (puzzleAuth == null) {
-                console.log("[auth] can't verify api key and auth token");
-				err.sendError(err.noAuthenticationString, res);
+				console.log("[auth] can't verify api key and auth token");
+				err.send_error(err.API_KEY, res);
 				callback(false);
 			} else {
 				db.UserModel.findOne({"authToken": puzzleAuth}, function(e, doc) {

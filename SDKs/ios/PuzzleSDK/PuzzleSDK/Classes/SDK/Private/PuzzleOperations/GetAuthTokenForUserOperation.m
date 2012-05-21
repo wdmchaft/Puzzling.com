@@ -7,7 +7,7 @@
 //
 
 #import "GetAuthTokenForUserOperation.h"
-
+#import "PuzzleCurrentUser.h"
 #import "PuzzleAPIURLFactory.h"
 #import "JSONKit.h"
 
@@ -42,15 +42,24 @@
 - (NSMutableURLRequest *)httpRequest {
     NSMutableURLRequest* request = [super httpRequest];
 	[request setHTTPMethod:@"GET"];
-    NSData* jsonData = [[NSDictionary dictionaryWithObjectsAndKeys:self.userName, USER_NAME, self.password, PASSWORD, nil] JSONData];
-    [request setHTTPBody: jsonData];
     return request;
 }
 
 - (NSURL *)url {
-    return [PuzzleAPIURLFactory urlForGetAuthTokenForUser];
+    return [PuzzleAPIURLFactory urlForGetAuthTokenForUser:self.userName password:self.password];
 }
 
+- (void)runCompletionBlock{
+	NSDictionary *userData = [self.data objectFromJSONData];
+	[PuzzleCurrentUser logout];
+	PuzzleCurrentUser *currentUser = [[[PuzzleCurrentUser alloc] init] autorelease];
+	currentUser.username = [userData objectForKey:@"username"];
+	currentUser.userID = [userData objectForKey:@"user_id"];
+	currentUser.authToken = [userData objectForKey:@"authToken"];
+	[currentUser save];
+	
+    self.onCompletion(self.response, [PuzzleCurrentUser currentUser]);
+}
 
 -(void) dealloc{
     [user_name release];

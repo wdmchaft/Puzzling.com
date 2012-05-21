@@ -17,8 +17,9 @@
 + (NSURL*)urlForCreateUser{
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@/login",ROOT_API_URL]];
 }
-+ (NSURL*)urlForGetAuthTokenForUser{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/login",ROOT_API_URL]];
++ (NSURL*)urlForGetAuthTokenForUser:(NSString *)username password:(NSString *)password
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/login?username=%@&password=%@",ROOT_API_URL, username, password]];
 }
 
 + (NSURL*)urlForDeleteUser{

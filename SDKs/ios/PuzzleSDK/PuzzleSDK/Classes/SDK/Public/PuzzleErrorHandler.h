@@ -9,10 +9,23 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-	PuzzleUnknownError = 0,
-	PuzzleOperationSuccessful = 1
+	PuzzleErrorUnknown = 0,
+	PuzzleOperationSuccessful = 1,
+	PuzzleErrorInvalidPassword,
+	PuzzleErrorUsernameNotFound,
+	PuzzleErrorUsernameAlreadyExists,
+	PuzzleErrorCannotFindUser,
+	PuzzleErrorInvalidAuthtoken,
+	PuzzleErrorInternalServer,
+	PuzzleErrorNoPuzzlesToSuggest,
+	PuzzleErrorPuzzleDoesntExist,
+	PuzzleErrorAPIKey
 } PuzzleAPIResponse;
 
 @interface PuzzleErrorHandler : NSObject
+
++ (PuzzleAPIResponse)errorForString:(NSString *)error;
++ (NSString *)messageForError:(PuzzleAPIResponse)error;
++ (void)presentErrorForResponse:(PuzzleAPIResponse)error;
 
 @end

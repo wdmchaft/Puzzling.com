@@ -80,6 +80,32 @@
 	self.chessModel = [[[ChessModel alloc] init] autorelease];
 	self.chessModel.delegate = self;
 	
+	//Add 1-8, a-h labels
+	for (int i = 0; i<8; i++) {
+		int y = i * self.squareSize;
+		UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, y, 12, 12)] autorelease];
+		label.text = [NSString stringWithFormat:@"%d", 8-i];
+		if (self.shouldRotatePieces) {
+			label.transform = CGAffineTransformMakeRotation(M_PI);
+		}
+		label.backgroundColor = [UIColor clearColor];
+		label.font = [UIFont systemFontOfSize:11];
+		label.textColor = [UIColor darkGrayColor];
+		[self.view addSubview:label];
+	}
+	for (int i = 0; i<8; i++) {
+		int x = i * self.squareSize + self.squareSize - 10;
+		UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(x, 8*self.squareSize-12, 10, 12)] autorelease];
+		label.text = [NSString stringWithFormat:@"%c", 'a'+i];
+		if (self.shouldRotatePieces) {
+			label.transform = CGAffineTransformMakeRotation(M_PI);
+		}
+		label.backgroundColor = [UIColor clearColor];
+		label.font = [UIFont systemFontOfSize:11];
+		label.textColor = [UIColor grayColor];
+		[self.view addSubview:label];
+	}
+	
 	UITapGestureRecognizer * tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(boardTapped:)];
 	[self.view addGestureRecognizer:tapGR];
 	[tapGR release];
@@ -438,7 +464,6 @@
 	[self.chessModel movePiece:piece toX:piece.x Y:piece.y withDelay:0];
 	[self.promotedPiece.view removeFromSuperview];
 	piece.view.frame = self.promotedPiece.view.frame;
-	NSLog(@"%@", NSStringFromCGRect(piece.view.frame));
 	if (self.shouldRotatePieces) {
 		piece.view.transform = CGAffineTransformMakeRotation(M_PI);
 	}

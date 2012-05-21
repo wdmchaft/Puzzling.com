@@ -20,8 +20,6 @@
 	NSString *puzzle_authToken;
 }
 
-@property (nonatomic, readwrite, retain) NSString *authToken;
-
 @end
 
 @implementation PuzzleCurrentUser
@@ -33,12 +31,20 @@ PuzzleCurrentUser * currentUser = nil;
 + (PuzzleCurrentUser *)currentUser {
 	if (!currentUser) {
 		NSData *currentUserData = [[NSUserDefaults standardUserDefaults] objectForKey:PUZZLE_CURRENT_USER];
+		if (!currentUserData)
+		{
+			return nil;
+		}
 		PuzzleCurrentUser *savedCurrentUser = [NSKeyedUnarchiver unarchiveObjectWithData:currentUserData];
 		if (savedCurrentUser) {
-			NSString *authToken = (NSString *)[UIApplication searchKeychainCopyMatching:PUZZLE_CURRENT_USER_AUTHTOKEN];
+			NSString *authToken = [[[NSString alloc] initWithData:[UIApplication searchKeychainCopyMatching:PUZZLE_CURRENT_USER_AUTHTOKEN] encoding:NSUTF8StringEncoding] autorelease];
 			if (authToken) {
 				savedCurrentUser.authToken = authToken;
-				currentUser = savedCurrentUser;
+				currentUser = [savedCurrentUser retain];
+			}
+			else 
+			{
+				return nil;
 			}
 		}
 	}
@@ -48,10 +54,14 @@ PuzzleCurrentUser * currentUser = nil;
 - (void)save {
 	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
 	[[NSUserDefaults standardUserDefaults] setObject:data forKey:PUZZLE_CURRENT_USER];
-	currentUser = self;
+	
+	[currentUser autorelease];
+	currentUser = [self retain];
 	
 	[UIApplication deleteKeychainValue:PUZZLE_CURRENT_USER_AUTHTOKEN];
-	[UIApplication createKeychainValue:self.authToken forIdentifier:PUZZLE_CURRENT_USER_AUTHTOKEN];
+	if (self.authToken != nil) {
+		[UIApplication createKeychainValue:self.authToken forIdentifier:PUZZLE_CURRENT_USER_AUTHTOKEN];
+	}
 }
 
 + (void)logout {
@@ -59,6 +69,11 @@ PuzzleCurrentUser * currentUser = nil;
 	currentUser = nil;
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:PUZZLE_CURRENT_USER];
 	[UIApplication deleteKeychainValue:PUZZLE_CURRENT_USER_AUTHTOKEN];
+}
+
+- (BOOL)isLoggedIn
+{
+	return self.authToken != nil;
 }
 
 #pragma mark - NSCoding Protocol

@@ -39,6 +39,8 @@ static PuzzleDownloader *sharedInstance;
 			if (response == PuzzleOperationSuccessful) {
 				[self.puzzles addObject:data];
 				[self downloadMorePuzzles];
+			} else {
+				[PuzzleErrorHandler presentErrorForResponse:response];
 			}
 		}];
 	}
@@ -52,7 +54,11 @@ static PuzzleDownloader *sharedInstance;
 //		[self.puzzles removeObjectAtIndex:0];
 //	}
 	[[PuzzleSDK sharedInstance] getPuzzleForCurrentUserOnCompletion:^(PuzzleAPIResponse response, id data) {
-		block(response, data);
+		if (response == PuzzleOperationSuccessful) {
+			block(response, data);
+		} else {
+			[PuzzleErrorHandler presentErrorForResponse:response];
+		}
 	}];
 //	[self downloadMorePuzzles];
 }

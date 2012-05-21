@@ -12,7 +12,7 @@
 
 @interface AnalysisBoardViewController : UIViewController
 
-@property (nonatomic, readwrite, retain) PuzzleModel *puzzleModel;
+@property (nonatomic, readwrite, retain) NSDictionary *setupData;
 @property (nonatomic, readwrite, assign) BOOL computerMoveFirst; 
 
 @end

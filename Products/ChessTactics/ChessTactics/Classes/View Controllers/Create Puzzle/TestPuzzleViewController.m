@@ -74,7 +74,7 @@
 		if (status == PuzzleOperationSuccessful) {
 			[[[[UIAlertView alloc] initWithTitle:SUCCESS message:@"The tactic was successfully created." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 		} else {
-			NSLog(@"aww crap");
+			[PuzzleErrorHandler presentErrorForResponse:status];
 		}
 	}];
 }

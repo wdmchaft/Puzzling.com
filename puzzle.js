@@ -195,8 +195,6 @@ exports.suggest = function(req, res) {
 				takenPuzzles.push(docs[i].puzzle);
 			}
 			
-			console.log(takenPuzzles);
-			
 			var TargetModel = pApp.findPuzzleModel(req.apiKey);
 			
 			TargetModel

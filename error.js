@@ -19,6 +19,7 @@ exports.INVALID_AUTHTOKEN = 5;
 exports.DB_ERROR = 6;
 exports.NO_PUZZLES = 7;
 exports.PUZZLE_DOESNT_EXIST = 8;
+exports.API_KEY = 9;
 // users
 exports.noPassword= "no_password_exists";
 exports.noUser = "no_username_exists";
@@ -89,6 +90,11 @@ exports.send_error = function send_error(errorType, res, dbMessage) { //last par
 		case this.PUZZLE_DOESNT_EXIST:
 			res.statusCode = METHOD_NOT_ALLOWED;
 			res.send({"error": "puzzle_doesnt_exist", "message": "Sorry. The requested puzzle doesn't appear to exist."});
+			break;
+		case this.API_KEY:
+			console.log("sending api error");
+			res.statusCode = AUTHENTICATION;
+			res.send({"error": "api_key_error", "message": "Invalid API key."});
 			break;
 		default:
 			res.statusCode = INTERNAL_SERVER;

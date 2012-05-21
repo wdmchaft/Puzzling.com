@@ -7,11 +7,14 @@
 //
 
 #import "PuzzleOperation.h"
-#import "PuzzleUser.h"
 #import "PuzzleAPIKey.h"
 #import "PuzzleAPIURLFactory.h"
 #import "JSONKit.h"
+#import "PuzzleErrorHandler.h"
+#import "PuzzleCurrentUser.h"
 
+
+#define ERROR_CODE @"error"
 
 @interface PuzzleOperation() {
     NSURLConnection* puzzle_connection;
@@ -20,20 +23,23 @@
 	NSMutableData *puzzle_data;
 	BOOL puzzle_isFinished;
 	BOOL puzzle_isExecuting;
+	int puzzle_statusCode;
 }
 
 @property (nonatomic, readwrite, retain) NSURLConnection* connection;
 @property (nonatomic, readwrite, assign) BOOL isFinished;
 @property (nonatomic, readwrite, assign) BOOL isExecuting;
 @property (nonatomic, readwrite, assign) PuzzleAPIResponse response;
+@property (nonatomic, readwrite, assign) int statusCode;
 
 - (void)closeConnectionAndFinish;
+- (void)handleError;
 
 @end
 
 @implementation PuzzleOperation
 
-@synthesize connection = puzzle_connection, onCompletion = puzzle_onCompletion, data = puzzle_data, isFinished = puzzle_isFinished, isExecuting = puzzle_isExecuting, response = puzzle_response;
+@synthesize connection = puzzle_connection, onCompletion = puzzle_onCompletion, data = puzzle_data, isFinished = puzzle_isFinished, isExecuting = puzzle_isExecuting, response = puzzle_response, statusCode = puzzle_statusCode;
 
 - (id)initWithOnCompletionBlock:(PuzzleOnCompletionBlock)onCompletionBlock {
 	self = [super init];
@@ -64,7 +70,7 @@
 - (NSMutableURLRequest *)httpRequest {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self url]];
     [request addValue:API_KEY forHTTPHeaderField:@"puzzle_api_key"];
-    [request addValue:@"4eac796cfc631da25b257834bff1b9cc8d49ea8e" forHTTPHeaderField:@"puzzle_auth_token"];
+    [request addValue:[PuzzleCurrentUser currentUser].authToken forHTTPHeaderField:@"puzzle_auth_token"];
 	[request addValue:@"application/json; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
     return request;
 }
@@ -109,15 +115,28 @@
 	
 	NSLog(@"%@", [[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding] autorelease]);
 	dispatch_async(dispatch_get_main_queue(), ^(void) {
-		[self runCompletionBlock];
+		if (self.response == PuzzleOperationSuccessful)
+		{
+			[self runCompletionBlock];
+		}
+		else
+		{
+			self.onCompletion(self.response, [self.data objectFromJSONData]); //error so don't run operation
+		}
 	});
 	
 	CFRunLoopStop(CFRunLoopGetCurrent());
 }
 
 - (void)runCompletionBlock{
-	NSLog(@"%@", [[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding] autorelease]);
     self.onCompletion(self.response, [self.data objectFromJSONData]);  //Override with actual objects being passed to completion block
+}
+
+- (void)handleError 
+{
+	NSDictionary *errorDictionary = [self.data objectFromJSONData];
+	NSString *error = [errorDictionary objectForKey:ERROR_CODE];
+	self.response = [PuzzleErrorHandler errorForString:error];
 }
 
 #pragma mark - NSConnectionDelegate Methods
@@ -129,18 +148,28 @@
     [self.data appendData:incrementalData];
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection*)theConnection {
-	self.response = PuzzleOperationSuccessful;
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+	NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+	self.statusCode = [httpResponse statusCode];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection 
+{
+	if (self.statusCode >= 200 && self.statusCode <= 204)
+	{
+		self.response = PuzzleOperationSuccessful;
+	}
+	else
+	{
+		[self handleError];
+	}
 	[self closeConnectionAndFinish];
 }
 
 - (void)connection:(NSURLConnection *)theConnection didFailWithError:(NSError *)error 
 {
 	[self closeConnectionAndFinish];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	
 }
 
 @end

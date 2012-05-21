@@ -41,7 +41,7 @@
 			self.tactics = puzzles;
 			[self.tableView reloadData];
 		} else {
-			NSLog(@"crap");
+			[PuzzleErrorHandler presentErrorForResponse:response];
 		}
 	}];
 }
@@ -154,7 +154,7 @@
 			vc.puzzleModel = puzzle;
 			[self.navigationController pushViewController:vc animated:YES];
 		} else {
-			NSLog(@"crap");
+			[PuzzleErrorHandler presentErrorForResponse:response];
 		}
 		[self.activityView stopAnimating];
 		[self.activityView removeFromSuperview];

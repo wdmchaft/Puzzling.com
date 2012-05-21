@@ -13,7 +13,7 @@
 
 
 @interface AnalysisBoardViewController () <ChessBoardViewControllerDelegate> {
-	PuzzleModel *__puzzleModel;
+	NSDictionary *__setupData;
 	ChessBoardViewController *__chessBoardViewController;
 	BOOL __computerMoveFirst;
 	BOOL __piecesSetup;
@@ -28,7 +28,7 @@
 
 @implementation AnalysisBoardViewController
 
-@synthesize puzzleModel = __puzzleModel, chessBoardViewController = __chessBoardViewController, computerMoveFirst = __computerMoveFirst, piecesSetup = __piecesSetup;
+@synthesize setupData = __setupData, chessBoardViewController = __chessBoardViewController, computerMoveFirst = __computerMoveFirst, piecesSetup = __piecesSetup;
 
 #pragma mark - View Life Cycle
 
@@ -41,8 +41,8 @@
 }
 
 - (void)dealloc {
-	[__puzzleModel release];
-	__puzzleModel = nil;
+	[__setupData release];
+	__setupData = nil;
 	[__chessBoardViewController release];
 	__chessBoardViewController = nil;
 	
@@ -53,7 +53,7 @@
 
 - (void)setupPuzzle {
 	self.piecesSetup = NO;
-	NSDictionary *setupData = self.puzzleModel.setupData;
+	NSDictionary *setupData = self.setupData;
 	
 	Color playerColor = -1;
 	if ([[setupData objectForKey:PLAYER_COLOR] isEqualToString:WHITE]) {
@@ -70,6 +70,7 @@
 	
 	NSArray *piecesSetup = [setupData objectForKey:PIECES_SETUP];
 	[self.chessBoardViewController setupPieces:piecesSetup];
+	[self.chessBoardViewController resetAllPiecesToHaveNotMoved];
 	
 	if (self.computerMoveFirst) {
 		if (playerColor == kWhite) {
