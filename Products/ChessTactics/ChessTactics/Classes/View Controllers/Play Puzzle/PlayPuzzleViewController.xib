@@ -151,7 +151,6 @@
 								<string key="NSFrame">{{218, 62}, {82, 44}}</string>
 								<reference key="NSSuperview" ref="306366290"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -292,6 +291,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">menuPressed:</string>
+						<reference key="source" ref="850362862"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">33</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">showAnalysisBoard:</string>
 						<reference key="source" ref="114896361"/>
 						<reference key="destination" ref="372490531"/>
@@ -390,7 +398,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">32</int>
+			<int key="maxID">33</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -398,12 +406,17 @@
 					<string key="className">PlayPuzzleViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="menuPressed:">id</string>
 						<string key="showAnalysisBoard:">id</string>
 						<string key="showCommentPressed:">id</string>
 						<string key="showExplanationPressed:">id</string>
 						<string key="showSolution:">UIButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="menuPressed:">
+							<string key="name">menuPressed:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="showAnalysisBoard:">
 							<string key="name">showAnalysisBoard:</string>
 							<string key="candidateClassName">id</string>

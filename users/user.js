@@ -138,7 +138,7 @@ function createCB(existingUser, res) {
 						err.send_error(err.NO_USERNAME, res);
             return;
 				}
-				if (!params.hasOwnProperty("password") {
+				if (!params.hasOwnProperty("password")) {
             err.send_error(err.NO_PASSWORD, res);
             return;
         }

@@ -30,8 +30,11 @@
 #define SHOW_SOLUTION @"Show Solution"
 #define EXPLANATION @"Explanation"
 #define VIEW_COMMENTS @"View Comments"
+#define LIKE @"Like"
+#define DISLIKE @"Dislike"
+#define FLAG_FOR_REMOVAL @"Flag for Removal"
 
-@interface PlayPuzzleViewController () <ChessBoardViewControllerDelegate, UIAlertViewDelegate> {
+@interface PlayPuzzleViewController () <ChessBoardViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
 	IBOutlet UILabel *__bottomLabel;
 	IBOutlet UIView *__hiddenButtonsView;
 	
@@ -69,6 +72,7 @@
 - (void)modalViewCancelled;
 - (IBAction)showExplanationPressed:(id)sender;
 - (IBAction)showCommentPressed:(id)sender;
+- (IBAction)menuPressed:(id)sender;
 
 @end
 
@@ -350,6 +354,28 @@
 {
 	CommentsTableViewController *vc = [[[CommentsTableViewController alloc] init] autorelease];
 	[self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)menuPressed:(id)sender
+{
+	UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:@"Menu" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:LIKE, DISLIKE, FLAG_FOR_REMOVAL, nil] autorelease];
+	[actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+	if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:LIKE])
+	{
+		//Put like code here
+	}
+	else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:DISLIKE])
+	{
+		//Dislike code
+	}
+	else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:FLAG_FOR_REMOVAL])
+	{
+		//Flag for removal code
+	}
 }
 
 #pragma mark - UIAlertViewDelegate

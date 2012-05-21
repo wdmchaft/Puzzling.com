@@ -405,7 +405,7 @@ function adjustRating(req, res, playerRating, puzzle, isRated) {
 	});
 	
 	user.save(function(err) {
-		if (err) err.send_error(err., res);
+		if (err) err.send_error(err.DB_ERROR, res);
 		else {
 			puzzle.save(function(err) {
 				if (err) err.send_error(err.DB_ERROR, res);
