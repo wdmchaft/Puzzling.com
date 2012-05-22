@@ -92,6 +92,11 @@
 	self.navigationItem.rightBarButtonItem = nil; //There is no next tactic so remove button
 }
 
+- (void)showAlertViewForSuccess
+{
+	[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Well done. Correct solution." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+}
+
 #pragma mark - Delegate Methods
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {

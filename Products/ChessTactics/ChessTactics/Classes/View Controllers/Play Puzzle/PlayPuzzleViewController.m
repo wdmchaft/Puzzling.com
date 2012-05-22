@@ -57,7 +57,6 @@
 @property (nonatomic, readwrite, assign) BOOL tacticStarted;
 @property (nonatomic, readwrite, assign) BOOL showingSolution;
 @property (nonatomic, readwrite, assign) dispatch_queue_t dispatchQueue;
-@property (nonatomic, readwrite, assign) BOOL rated;
 @property (nonatomic, readwrite, retain) UIBarButtonItem *nextTacticButton;
 
 @property (nonatomic, readwrite, retain) UILabel *bottomLabel;
@@ -73,6 +72,7 @@
 - (IBAction)showExplanationPressed:(id)sender;
 - (IBAction)showCommentPressed:(id)sender;
 - (IBAction)menuPressed:(id)sender;
+- (void)showAlertViewForSuccess;
 
 @end
 
@@ -237,7 +237,7 @@
 	self.nextTacticButton.title = NEXT_TACTIC;
 	
 	if (score == 1) {
-		[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Well done. Correct solution." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:NEXT_TACTIC, nil] autorelease] show];
+		[self showAlertViewForSuccess];
 	} else {
 		[[[[UIAlertView alloc] initWithTitle:@"Incorrect" message:@"Sorry, that's not the correct solution." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:EXPLANATION, SHOW_SOLUTION, nil] autorelease] show];
 	}
@@ -252,6 +252,12 @@
 			}
 		}];
 	}
+}
+
+
+- (void)showAlertViewForSuccess
+{
+	[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Well done. Correct solution." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:NEXT_TACTIC, nil] autorelease] show];
 }
 
 #pragma mark - ChessVC Delegate
@@ -374,7 +380,7 @@
 	}
 	else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:FLAG_FOR_REMOVAL])
 	{
-		//Flag for removal code
+		[[[[UIAlertView alloc] initWithTitle:FLAG_FOR_REMOVAL message:@"You should only flag a puzzle for removal if it violates a rule of chess or has problem which makes it unsolvable (more than one potential best move). Make sure you check the comments and explanation before you submit." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:FLAG_FOR_REMOVAL, nil] autorelease] show];
 	}
 }
 
@@ -402,6 +408,10 @@
 	else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:VIEW_COMMENTS]) 
 	{
 		[self showCommentPressed:nil];
+	}
+	else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:FLAG_FOR_REMOVAL]) 
+	{
+		//Flag for removal code
 	}
 }
 

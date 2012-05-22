@@ -18,6 +18,7 @@
 @property (nonatomic, readwrite, retain) NSDictionary *setupData; //for setting in subclasses nil is default
 @property (nonatomic, readwrite, retain) NSDictionary *solutionData; //for setting in subclasses nil is default
 @property (nonatomic, readwrite, retain) PuzzleModel *puzzleModel;
+@property (nonatomic, readwrite, assign) BOOL rated;
 
 - (id)initWithRated:(BOOL)rated;
 

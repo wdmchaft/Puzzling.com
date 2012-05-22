@@ -169,6 +169,13 @@
 
 - (void)connection:(NSURLConnection *)theConnection didFailWithError:(NSError *)error 
 {
+	if ([error code] == NSURLErrorBadURL) {
+		self.response = PuzzleErrorMalformedOperation;
+	} else if ([error code] == NSURLErrorNetworkConnectionLost || [error code] == NSURLErrorNotConnectedToInternet || [error code] == NSURLErrorInternationalRoamingOff) {
+		self.response = PuzzleErrorInternetProblem;
+	} else if ([error code] == NSURLErrorCannotFindHost || [error code] == NSURLErrorCannotConnectToHost || [error code] == NSURLErrorTimedOut) {
+		self.response = PuzzleErrorConnectionProblem;
+	} 
 	[self closeConnectionAndFinish];
 }
 

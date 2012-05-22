@@ -75,6 +75,12 @@
 		case PuzzleErrorMalformedOperation:
 			return @"Sorry. You're getting this message because there is some bug in the app. Please contact the developer with the details of this error. Thank you.";
 			
+		case PuzzleErrorConnectionProblem:
+			return @"Sorry. We're having problems connecting to the server. Please check your internet connection and try again. If the problem persists, please contact the developer as the server may be down.";
+			
+		case PuzzleErrorInternetProblem:
+			return @"Sorry, we're having trouble connecting to the internet. Please check your internet connection and try again.";
+		
 		default:
 			return @"Unknown error. Sorry.";
 			break;

@@ -112,6 +112,7 @@
 		36649DAF1566CAC2001B00F0 /* EnterExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36649DAD1566CAC1001B00F0 /* EnterExplanationViewController.m */; };
 		36649DB01566CAC2001B00F0 /* EnterExplanationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36649DAE1566CAC1001B00F0 /* EnterExplanationViewController.xib */; };
 		3688269E1555E38700801441 /* PuzzleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3688269D1555E38700801441 /* PuzzleDownloader.m */; };
+		36D481B6156B027300687544 /* grandmaster_chess_setl600.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 36D481B5156B027300687544 /* grandmaster_chess_setl600.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -275,6 +276,7 @@
 		3688269C1555E38700801441 /* PuzzleDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleDownloader.h; path = "Classes/View Controllers/Play Puzzle/PuzzleDownloader.h"; sourceTree = "<group>"; };
 		3688269D1555E38700801441 /* PuzzleDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleDownloader.m; path = "Classes/View Controllers/Play Puzzle/PuzzleDownloader.m"; sourceTree = "<group>"; };
 		368826A01555EB4C00801441 /* TacticsDataConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TacticsDataConstants.h; path = Classes/TacticsDataConstants.h; sourceTree = "<group>"; };
+		36D481B5156B027300687544 /* grandmaster_chess_setl600.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grandmaster_chess_setl600.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,6 +380,7 @@
 				360999FC154C70010006A5F5 /* MainMenuViewController.h */,
 				360999FD154C70010006A5F5 /* MainMenuViewController.m */,
 				360999FE154C70010006A5F5 /* MainMenuViewController.xib */,
+				36D481B5156B027300687544 /* grandmaster_chess_setl600.jpg */,
 			);
 			name = "Main View Controller";
 			sourceTree = "<group>";
@@ -812,6 +815,7 @@
 				364B97871569D2C300B859D7 /* CommentsTableViewController.xib in Resources */,
 				364B979D1569F1FA00B859D7 /* LoginViewController.xib in Resources */,
 				364B979F1569F1FA00B859D7 /* RegisterViewController.xib in Resources */,
+				36D481B6156B027300687544 /* grandmaster_chess_setl600.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -35,9 +35,11 @@
 	
 	self.title = @"My Puzzles";
 
-	//FIXME: should be [PuzzleCurrentUser currentUser].userID
-    [[PuzzleSDK sharedInstance] getPuzzlesMadeByUser:@"4fb047e77e94b047a900000a" onCompletion:^(PuzzleAPIResponse response, NSArray *puzzles) {
+    [[PuzzleSDK sharedInstance] getPuzzlesMadeByUser:[PuzzleCurrentUser currentUser].userID onCompletion:^(PuzzleAPIResponse response, NSArray *puzzles) {
 		if (response == PuzzleOperationSuccessful) {
+			if ([puzzles count] == 0) {
+				[[[[UIAlertView alloc] initWithTitle:@"No Puzzles" message:@"You don't have any tactics live on the server. It is possible one of your tactics was removed because it had a problem." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			}
 			self.tactics = puzzles;
 			[self.tableView reloadData];
 		} else {
@@ -150,7 +152,7 @@
 	[self.view addSubview:self.activityView];
     [[PuzzleSDK sharedInstance] getPuzzle:((PuzzleModel *)[self.tactics objectAtIndex:indexPath.row]).puzzleID onCompletion:^(PuzzleAPIResponse response, PuzzleModel *puzzle) {
 		if (response == PuzzleOperationSuccessful) {
-			PlayOwnPuzzleViewControllerViewController *vc = [[[PlayOwnPuzzleViewControllerViewController alloc] initWithRated:NO] autorelease];
+			PlayOwnPuzzleViewControllerViewController *vc = [[[PlayOwnPuzzleViewControllerViewController alloc] init] autorelease];
 			vc.puzzleModel = puzzle;
 			[self.navigationController pushViewController:vc animated:YES];
 		} else {

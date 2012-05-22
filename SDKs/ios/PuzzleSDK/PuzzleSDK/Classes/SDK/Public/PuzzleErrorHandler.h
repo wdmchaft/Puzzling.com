@@ -20,7 +20,9 @@ typedef enum {
 	PuzzleErrorNoPuzzlesToSuggest,
 	PuzzleErrorPuzzleDoesntExist,
 	PuzzleErrorAPIKey,
-	PuzzleErrorMalformedOperation
+	PuzzleErrorMalformedOperation,
+	PuzzleErrorInternetProblem,
+	PuzzleErrorConnectionProblem
 } PuzzleAPIResponse;
 
 @interface PuzzleErrorHandler : NSObject
