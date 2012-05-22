@@ -19,8 +19,9 @@ var pApp = db.pAppModel
     , User = db.UserModel;
 
 exports.get = function (req, res) {
-    User.find().sort("rating", -1).all(function(users) {
-        res.send(JSON.stringify(users));
+    User.find({}).sort("rating", -1).execFind(function(err, users) {
+        if(!err) res.send(JSON.stringify(users));
+        else _e.send_error(_e.DB_ERROR, res);
     });
 };
 
@@ -38,8 +39,9 @@ exports.filter = function (req, res) {
         , TargetModel = pApp.findPuzzleModel(apiKey);
 
     if(filter in FILTERS) {
-        TargetModel.find().sort(filter, -1).all(function(docs) {
-            res.send(JSON.stringify(docs));
+        TargetModel.find().sort(filter, -1).execFind(function(err, docs) {
+            if(!err) res.send(JSON.stringify(docs));
+            else _e.send_error(_e.DB_ERROR, res);
         });
-    } else _e.sendError(_e.BAD_OPERATION, res);
+    } else _e.send_error(_e.BAD_OPERATION, res);
 };

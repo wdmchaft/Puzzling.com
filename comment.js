@@ -18,9 +18,9 @@ exports.get = function get(req, res) {
 
     Comment.find({puzzle: puzzleId}, function(err, docs) {
         if(err)
-            _e.sendError(err, res);
+            _e.send_error(err, res);
         else if(docs.length == 0)
-            _e.sendError(_e.notFound, res);
+            _e.send_error(_e.notFound, res);
         else {
             // success
             res.send(JSON.stringify(docs));
@@ -54,7 +54,7 @@ exports.post = function post(req, res) {
             };
             var newC = new Comment(specs);
             newC.save(function(err) {
-                if(err) _e.sendError(err, res);
+                if(err) _e.send_error(err, res);
                 else res.send({success:true});
             });
         }
