@@ -189,6 +189,7 @@ pApp.statics.scoreModel = function(apiKey) {
 
 Comment = new Schema({
         user : ObjectID
+     ,  username : String
      ,	puzzle : ObjectID
      ,	value : String
      ,	timestamp : Date
