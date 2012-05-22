@@ -50,7 +50,7 @@ function createPuzzle(req, res, papp) {
 	var puzzleName = req.body["puzzleName"];
 	
 	var specs = {
-name            : puzzleName
+            name            : puzzleName
 		,   setupData       : JSON.stringify(setupData)
 		,   solutionData    : JSON.stringify(solutionData)
 		,   type            : puzzleType
@@ -139,7 +139,7 @@ exports.delete = function(req, res) {
 exports.update = function(req, res) {
 	var data = {}
 	, body = req.body
-	, puzzleId = _.u.stripNonAlphaNum(req.body.puzzle_id)
+	, puzzleId = _u.stripNonAlphaNum(req.body.puzzle_id)
 	, apiKey = _u.stripNonAlphaNum(req.apiKey);
 	
 	if(puzzleId) {
@@ -332,11 +332,7 @@ function takeCB(req, res, user) {
 	var apiKey = _u.stripNonAlphaNum(req.apiKey);
 	var TargetModel = pApp.findPuzzleModel(apiKey);
 	
-	var url_parts = url.parse(req.url, true);
-	var notRated = url_parts.query.notRated == 'true';
-	var playerRating = user.rating;
-	
-	TargetModel.findById(puzzleID, function(e, puzzle) {
+	/*TargetModel.findById(puzzleID, function(e, puzzle) {
 		if (e) {
 			console.log("[DB] " + e);
 			err.send_error(err.DB_ERROR, res);
@@ -352,9 +348,37 @@ function takeCB(req, res, user) {
 				else err.send_error(err.DB_ERROR, res);
 			});
 		}
-	});
+	});*/
+    TargetModel.update({_id: puzzleID}, {$inc: {taken: 1}}, function(e, numAffected) {
+        if (e) {
+            console.log("[DB] " + e);
+            err.send_error(err.DB_ERROR, res);
+        }
+        else if (numAffected == 0) {
+            console.log("[DB] didn't find puzzle with apikey" + puzzleID);
+            err.send_error(err.PUZZLE_DOESNT_EXIST, res);
+        }
+        else {
+            req.user = user; // save the user object before continuing
+            adjust(req, res, TargetModel);
+        }
+    });
 }
 
+//
+// finds and adjusts ratings of user and puzzle
+// accordingly
+//
+function adjust(req, res, TargetModel) {
+    var user = req.user
+        , puzzleID = _u.stripNonAlphaNum(req.params.id)
+        , url_parts = url.parse(req.url, true)
+        , notRated = url_parts.query.notRated == 'true';
+
+    TargetModel.findById(puzzleID, function(_e, puzzle) {
+        adjustRating(req, res, user.rating, puzzle, !notRated);
+    });
+}
 
 //
 // adjusts player rating based on new data.

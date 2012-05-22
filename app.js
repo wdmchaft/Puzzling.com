@@ -10,6 +10,8 @@ var express = require('express')
   , papp = require('./papp/papp')
   , user = require('./users/user')
   , auth = require('./authentication')
+  , comment = require('./comment')
+  , leaderboard = require('./leaderboard')
   , db = require('./db');
 
 // Creates an HTTP Server as our app variable.
@@ -89,6 +91,21 @@ app.get('/puzzle/user/:id', auth.restrict, puzzle.getUserPuzzles);
 // take + update
 app.post('/puzzle/:id', auth.restrict, puzzle.take);
 app.put('/puzzle/update', auth.restrictByApi, puzzle.update);
+
+////////////
+// Comments
+////////////
+
+// get all comments for a puzzle id
+app.get('/comment/:id', auth.restrict, comment.get);
+// post a comment
+app.post('/comment/:id', auth.restrict, comment.post);
+
+///////////////
+// Leaderboard
+///////////////
+app.get('/leaderboard/user', auth.restrict, leaderboard.get);
+app.get('/leaderboard/:filter/:id', auth.restrict, leaderboard.filter);
 
 // Start up our server
 app.listen(3000, function(){
