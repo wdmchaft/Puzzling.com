@@ -34,7 +34,10 @@ function read(req, res) {
             // only give back auth token and
             // username; in the future, we may
             // want to give back the whole username
-            var info = {'username' : foundUser.username, 'authToken' : foundUser.authToken };
+            var info = {'username'  : foundUser.username,
+                        'authToken' : foundUser.authToken,
+                        'user_id'   : foundUser.id,
+                        'user_data' : foundUser.user_data};
             res.send(JSON.stringify(info));
         } else {
             err.sendError(err.noMatchingUser, res);
