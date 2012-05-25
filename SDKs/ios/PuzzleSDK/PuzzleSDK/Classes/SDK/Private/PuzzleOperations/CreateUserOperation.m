@@ -64,6 +64,8 @@
 	currentUser.username = [userData objectForKey:@"username"];
 	currentUser.userID = [userData objectForKey:@"user_id"];
 	currentUser.authToken = [userData objectForKey:@"authToken"];
+	currentUser.rating = [[userData objectForKey:@"rating"] doubleValue] + .5;
+	currentUser.userData = [userData objectForKey:@"userData"];
 	[currentUser save];
 	
     self.onCompletion(self.response, [PuzzleCurrentUser currentUser]);

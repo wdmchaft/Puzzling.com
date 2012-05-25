@@ -79,4 +79,22 @@ PuzzleSDK * sharedInstance = nil;
 	[self.operationManager deleteUser:username onCompletion:onCompletion];
 }
 
+#pragma mark - Leaderboards
+
+- (void)getLeaderboardForUsersOnCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	[self.operationManager getLeaderboardForUsersOnCompletion:onCompletion];
+}
+
+- (void)addComment:(NSString *)comment toPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	[self.operationManager addComment:comment toPuzzle:puzzleID onCompletion:onCompletion];
+}
+
+- (void)getCommentsForPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	[self.operationManager getCommentsForPuzzle:puzzleID onCompletion:onCompletion];
+}
+
+
 @end

@@ -19,7 +19,7 @@ var pApp = db.pAppModel
     , User = db.UserModel;
 
 exports.get = function (req, res) {
-    User.find({}).sort("rating", -1).execFind(function(err, users) {
+    User.find({}).sort("rating", -1).limit(20).execFind(function(err, users) {
         if(!err) res.send(JSON.stringify(users));
         else _e.send_error(_e.DB_ERROR, res);
     });

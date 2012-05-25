@@ -36,4 +36,12 @@ typedef void(^PuzzleOnCompletionBlock)(PuzzleAPIResponse, id);
 
 - (void)deleteUser:(NSString *)username onCompletion:(PuzzleOnCompletionBlock)onCompletion;
 
+//Leaderboard
+- (void)getLeaderboardForUsersOnCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
+//Comments
+- (void)addComment:(NSString *)comment toPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
+- (void)getCommentsForPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
 @end

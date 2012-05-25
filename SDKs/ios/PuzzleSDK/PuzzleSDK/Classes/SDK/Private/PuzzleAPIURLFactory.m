@@ -37,4 +37,12 @@
 + (NSURL*)urlForTakenPuzzle:(NSString*)puzzleID rated:(BOOL)rated {
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle/%@?notRated=%@",ROOT_API_URL,puzzleID, rated?@"false":@"true"]];
 }
++ (NSURL*)urlForUserLeaderboard
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/leaderboard/user",ROOT_API_URL]];
+}
++ (NSURL*)urlForComment:(PuzzleID *)puzzleID
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/comment/%@",ROOT_API_URL,puzzleID]];
+}
 @end

@@ -15,6 +15,9 @@
 #import "DeleteUserOperation.h"
 #import "CreateUserOperation.h"
 #import "GetPuzzlesMadeByUserOperation.h"
+#import "LeaderboardUsersOperation.h"
+#import "AddCommentOperation.h"
+#import "GetCommentsOperation.h"
 
 
 @interface PuzzleOperationManager() <NSURLConnectionDelegate> {
@@ -88,5 +91,30 @@
 	[self.queue addOperation:op];
 	[op release];
 }
+
+#pragma mark - Leaderboard
+- (void)getLeaderboardForUsersOnCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	LeaderboardUsersOperation *op = [[LeaderboardUsersOperation alloc] initWithOnCompletionBlock:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
+
+#pragma mark - Comments
+
+- (void)addComment:(NSString *)comment toPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	AddCommentOperation *op = [[AddCommentOperation alloc] initWithPuzzleID:puzzleID comment:comment onCompletion:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
+
+- (void)getCommentsForPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	GetCommentsOperation *op = [[GetCommentsOperation alloc] initWithPuzzleID:puzzleID onCompletion:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
+
 
 @end

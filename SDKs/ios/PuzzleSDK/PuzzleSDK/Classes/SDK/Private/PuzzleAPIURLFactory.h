@@ -20,5 +20,7 @@
 + (NSURL*)urlForGetPuzzleForUser;
 + (NSURL*)urlForGetPuzzlesMadeByUser:(PuzzleID *)userID;
 + (NSURL*)urlForTakenPuzzle:(NSString*)puzzleID rated:(BOOL)rated;
++ (NSURL*)urlForUserLeaderboard;
++ (NSURL*)urlForComment:(PuzzleID *)puzzleID;
 
 @end
