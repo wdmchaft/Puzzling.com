@@ -112,6 +112,12 @@
 		36649DAF1566CAC2001B00F0 /* EnterExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36649DAD1566CAC1001B00F0 /* EnterExplanationViewController.m */; };
 		36649DB01566CAC2001B00F0 /* EnterExplanationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36649DAE1566CAC1001B00F0 /* EnterExplanationViewController.xib */; };
 		3688269E1555E38700801441 /* PuzzleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3688269D1555E38700801441 /* PuzzleDownloader.m */; };
+		36D037DD156D8FA100A7C252 /* LeaderboardUsersOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D037DC156D8FA100A7C252 /* LeaderboardUsersOperation.m */; };
+		36D037F0156D949900A7C252 /* LeaderboardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D037EB156D949900A7C252 /* LeaderboardsViewController.m */; };
+		36D037F1156D949900A7C252 /* LeaderboardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36D037EC156D949900A7C252 /* LeaderboardsViewController.xib */; };
+		36D037F6156D94BE00A7C252 /* UsersRatingLeaderboardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D037F5156D94BE00A7C252 /* UsersRatingLeaderboardTableViewController.m */; };
+		36D037F9156DA2D300A7C252 /* AddCommentOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D037F8156DA2D200A7C252 /* AddCommentOperation.m */; };
+		36D037FC156DA2E700A7C252 /* GetCommentsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D037FB156DA2E600A7C252 /* GetCommentsOperation.m */; };
 		36D481B6156B027300687544 /* grandmaster_chess_setl600.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 36D481B5156B027300687544 /* grandmaster_chess_setl600.jpg */; };
 /* End PBXBuildFile section */
 
@@ -276,6 +282,17 @@
 		3688269C1555E38700801441 /* PuzzleDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleDownloader.h; path = "Classes/View Controllers/Play Puzzle/PuzzleDownloader.h"; sourceTree = "<group>"; };
 		3688269D1555E38700801441 /* PuzzleDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleDownloader.m; path = "Classes/View Controllers/Play Puzzle/PuzzleDownloader.m"; sourceTree = "<group>"; };
 		368826A01555EB4C00801441 /* TacticsDataConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TacticsDataConstants.h; path = Classes/TacticsDataConstants.h; sourceTree = "<group>"; };
+		36D037DB156D8FA100A7C252 /* LeaderboardUsersOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardUsersOperation.h; sourceTree = "<group>"; };
+		36D037DC156D8FA100A7C252 /* LeaderboardUsersOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardUsersOperation.m; sourceTree = "<group>"; };
+		36D037EA156D949900A7C252 /* LeaderboardsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaderboardsViewController.h; path = "Classes/View Controllers/Leaderboards/LeaderboardsViewController.h"; sourceTree = "<group>"; };
+		36D037EB156D949900A7C252 /* LeaderboardsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaderboardsViewController.m; path = "Classes/View Controllers/Leaderboards/LeaderboardsViewController.m"; sourceTree = "<group>"; };
+		36D037EC156D949900A7C252 /* LeaderboardsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeaderboardsViewController.xib; path = "Classes/View Controllers/Leaderboards/LeaderboardsViewController.xib"; sourceTree = "<group>"; };
+		36D037F4156D94BE00A7C252 /* UsersRatingLeaderboardTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsersRatingLeaderboardTableViewController.h; path = "Classes/View Controllers/Leaderboards/UsersRatingLeaderboardTableViewController.h"; sourceTree = "<group>"; };
+		36D037F5156D94BE00A7C252 /* UsersRatingLeaderboardTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsersRatingLeaderboardTableViewController.m; path = "Classes/View Controllers/Leaderboards/UsersRatingLeaderboardTableViewController.m"; sourceTree = "<group>"; };
+		36D037F7156DA2D200A7C252 /* AddCommentOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCommentOperation.h; sourceTree = "<group>"; };
+		36D037F8156DA2D200A7C252 /* AddCommentOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCommentOperation.m; sourceTree = "<group>"; };
+		36D037FA156DA2E600A7C252 /* GetCommentsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCommentsOperation.h; sourceTree = "<group>"; };
+		36D037FB156DA2E600A7C252 /* GetCommentsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCommentsOperation.m; sourceTree = "<group>"; };
 		36D481B5156B027300687544 /* grandmaster_chess_setl600.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grandmaster_chess_setl600.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -364,6 +381,7 @@
 		360999FA154C6FC60006A5F5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				36D037DF156D934800A7C252 /* Leaderboards */,
 				364B978B1569EE6100B859D7 /* Login */,
 				365E5849156182D000A9C752 /* User Puzzles */,
 				36099A2F154C762F0006A5F5 /* Chess Board */,
@@ -573,6 +591,12 @@
 				3612F94C155714E2000F761B /* PuzzleOperationManager.m */,
 				3612F94D155714E2000F761B /* TakePuzzleOperation.h */,
 				3612F94E155714E2000F761B /* TakePuzzleOperation.m */,
+				36D037DB156D8FA100A7C252 /* LeaderboardUsersOperation.h */,
+				36D037DC156D8FA100A7C252 /* LeaderboardUsersOperation.m */,
+				36D037F7156DA2D200A7C252 /* AddCommentOperation.h */,
+				36D037F8156DA2D200A7C252 /* AddCommentOperation.m */,
+				36D037FA156DA2E600A7C252 /* GetCommentsOperation.h */,
+				36D037FB156DA2E600A7C252 /* GetCommentsOperation.m */,
 			);
 			path = PuzzleOperations;
 			sourceTree = "<group>";
@@ -715,6 +739,18 @@
 			name = "User Puzzles";
 			sourceTree = "<group>";
 		};
+		36D037DF156D934800A7C252 /* Leaderboards */ = {
+			isa = PBXGroup;
+			children = (
+				36D037EA156D949900A7C252 /* LeaderboardsViewController.h */,
+				36D037EB156D949900A7C252 /* LeaderboardsViewController.m */,
+				36D037EC156D949900A7C252 /* LeaderboardsViewController.xib */,
+				36D037F4156D94BE00A7C252 /* UsersRatingLeaderboardTableViewController.h */,
+				36D037F5156D94BE00A7C252 /* UsersRatingLeaderboardTableViewController.m */,
+			);
+			name = Leaderboards;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -816,6 +852,7 @@
 				364B979D1569F1FA00B859D7 /* LoginViewController.xib in Resources */,
 				364B979F1569F1FA00B859D7 /* RegisterViewController.xib in Resources */,
 				36D481B6156B027300687544 /* grandmaster_chess_setl600.jpg in Resources */,
+				36D037F1156D949900A7C252 /* LeaderboardsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,6 +913,11 @@
 				364B978A1569D45100B859D7 /* PuzzleComment.m in Sources */,
 				364B979C1569F1FA00B859D7 /* LoginViewController.m in Sources */,
 				364B979E1569F1FA00B859D7 /* RegisterViewController.m in Sources */,
+				36D037DD156D8FA100A7C252 /* LeaderboardUsersOperation.m in Sources */,
+				36D037F0156D949900A7C252 /* LeaderboardsViewController.m in Sources */,
+				36D037F6156D94BE00A7C252 /* UsersRatingLeaderboardTableViewController.m in Sources */,
+				36D037F9156DA2D300A7C252 /* AddCommentOperation.m in Sources */,
+				36D037FC156DA2E700A7C252 /* GetCommentsOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

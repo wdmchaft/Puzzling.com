@@ -19,8 +19,6 @@ exports.get = function get(req, res) {
     Comment.find({puzzle: puzzleId}, function(err, docs) {
         if(err)
             _e.send_error(err, res);
-        else if(docs.length == 0)
-            _e.send_error(_e.notFound, res);
         else {
             // success
             res.send(JSON.stringify(docs));
@@ -33,6 +31,12 @@ exports.post = function post(req, res) {
         , TargetModel = pApp.findPuzzleModel(apiKey)
         , puzzleId = _u.stripNonAlphaNum(req.params["id"])
         , comment = req.body["comment"];
+		
+		if (comment == undefined)
+		{
+			_e.send_error(_e.MISSING_INFO, res);
+			return;
+		}
 
     TargetModel.findById(puzzleId, function(e, puzzle) {
         if (e) {

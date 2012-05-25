@@ -30,5 +30,12 @@
 
 - (void)deleteUser:(NSString *)username onCompletion:(PuzzleOnCompletionBlock)onCompletion;
 
+#pragma mark - Leaderboard
+- (void)getLeaderboardForUsersOnCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
+#pragma mark - Comments
+- (void)addComment:(NSString *)comment toPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
+- (void)getCommentsForPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
 
 @end

@@ -359,6 +359,7 @@
 - (IBAction)showCommentPressed:(id)sender 
 {
 	CommentsTableViewController *vc = [[[CommentsTableViewController alloc] init] autorelease];
+	vc.puzzleID = self.puzzleModel.puzzleID;
 	[self.navigationController pushViewController:vc animated:YES];
 }
 

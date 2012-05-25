@@ -12,6 +12,7 @@
 #import "UserPuzzlesViewController.h"
 #import "PuzzleCurrentUser.h"
 #import "LoginViewController.h"
+#import "LeaderboardsViewController.h"
 
 
 @interface MainMenuViewController ()
@@ -46,6 +47,12 @@
 
 - (IBAction)userPuzzlesPressed:(id)sender {
 	UserPuzzlesViewController *vc = [[[UserPuzzlesViewController alloc] init] autorelease];
+	[self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)leaderboardsPressed:(id)sender
+{
+	LeaderboardsViewController *vc = [[[LeaderboardsViewController alloc] init] autorelease];
 	[self.navigationController pushViewController:vc animated:YES];
 }
 

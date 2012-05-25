@@ -159,9 +159,7 @@ function createCB(existingUser, res) {
         newUser.save(function(e) {
             if(!e) console.log("[CREATE] : Created user " + newUser.username);
         });
-        res.send(JSON.stringify({user_id : newUser._id
-                                , username : newUser.username
-                                , authToken : newUser.authToken }));
+        res.send(JSON.stringify(newUser));
     } else {
 
         // user already exists;

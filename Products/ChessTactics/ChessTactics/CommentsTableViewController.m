@@ -9,39 +9,63 @@
 #import "CommentsTableViewController.h"
 #import "PuzzleComment.h"
 #import "PuzzleCurrentUser.h"
+#import "PuzzleErrorHandler.h"
 
+@interface CommentsTableViewController() {
+	PuzzleID *__puzzleID;
+}
+
+- (void)reloadData;
+- (void)closeKeyboard;
+
+@end
 
 @implementation CommentsTableViewController
 
 @synthesize tbl, field, toolbar, messages;
+@synthesize puzzleID = __puzzleID;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = @"Comments";
 	
-	/*
-	 The conversation
-	 */
-	self.messages = [[[NSMutableArray alloc] init] autorelease];
+	[self reloadData];
 	
-	PuzzleComment *comment = [[[PuzzleComment alloc] init] autorelease];
-	comment.message = @"I think this puzzle is great";
-	comment.poster = @"jzheng";
-	[self.messages addObject:comment];
-	comment = [[[PuzzleComment alloc] init] autorelease];
-	comment.message = @"Same";
-	comment.poster = @"tilley";
-	[self.messages addObject:comment];
-	comment = [[[PuzzleComment alloc] init] autorelease];
-	comment.message = @"Best app ever!";
-	comment.poster = @"jzheng";
-	[self.messages addObject:comment];
+	UITapGestureRecognizer *tapGR = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)] autorelease];
+	[self.tbl addGestureRecognizer:tapGR];
 	
 	/*
 	 Set the background color
 	 */
 	self.tbl.backgroundColor = [UIColor colorWithRed:219.0/255.0 green:226.0/255.0 blue:237.0/255.0 alpha:1.0];
 	self.toolbar.tintColor = [UIColor blackColor];
+}
+
+- (void)closeKeyboard
+{
+	[self textFieldShouldReturn:self.field];
+}
+
+- (void)reloadData
+{
+	[[PuzzleSDK sharedInstance] getCommentsForPuzzle:self.puzzleID onCompletion:^(PuzzleAPIResponse response, NSArray *comments) {
+		if (response == PuzzleOperationSuccessful)
+		{
+			if ([comments count] == 0)
+			{
+				[[[[UIAlertView alloc] initWithTitle:@"No Comments" message:@"There are no comments for the tactic yet. Be the first!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			} else {
+				self.messages = comments;
+				[self.tbl reloadData];
+				NSUInteger index = [messages count] - 1;
+				[tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+			}
+		}
+		else
+		{
+			[PuzzleErrorHandler presentErrorForResponse:response];
+		}
+	}];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,12 +80,24 @@
 - (void)add {
 	if(![field.text isEqualToString:@""])
 	{
-		[messages addObject:field.text];
-		[tbl reloadData];
-		NSUInteger index = [messages count] - 1;
-		[tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+		UIActivityIndicatorView *spinner = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
+		[spinner startAnimating];
+		spinner.center = self.view.center;
+		[self.view addSubview:spinner];
 		
-		field.text = @"";
+		[[PuzzleSDK sharedInstance] addComment:self.field.text toPuzzle:self.puzzleID onCompletion:^(PuzzleAPIResponse response, NSArray *comments) {
+			if (response == PuzzleOperationSuccessful)
+			{
+				[self reloadData];
+				field.text = @"";
+			}
+			else
+			{
+				[PuzzleErrorHandler presentErrorForResponse:response];
+			}
+			[spinner removeFromSuperview];
+			[spinner stopAnimating];
+		}];
 	}
 }
 
@@ -185,6 +221,10 @@
 	[field release];
 	[toolbar release];
 	[messages release];
+	
+	[__puzzleID release];
+	__puzzleID = nil;
+	
     [super dealloc];
 }
 
