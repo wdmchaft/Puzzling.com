@@ -38,7 +38,7 @@ exports.filter = function (req, res) {
         , apiKey = _u.stripNonAlphaNum(req.apiKey)
         , TargetModel = pApp.findPuzzleModel(apiKey);
 
-    if(filter in FILTERS) {
+    if(FILTERS.indexOf(filter) != -1) {
         TargetModel.find().sort(filter, -1).execFind(function(err, docs) {
             if(!err) res.send(JSON.stringify(docs));
             else _e.send_error(_e.DB_ERROR, res);
