@@ -18,13 +18,9 @@ var db = require('./db')
 var pApp = db.pAppModel
 , UserModel = db.UserModel;
 
-//
-// Crud
-// create:
-// For now, users have one app per apiKey.
-// TODO: have the user pass in name
-// of app as a uid for the puzzle.
-//
+///////////////////////
+//		create 		//
+/////////////////////
 
 exports.create = function(req, res) {
 	var apiKey = _u.stripNonAlphaNum(req.apiKey);
@@ -38,10 +34,7 @@ exports.create = function(req, res) {
 	});
 };
 
-//
-// helper; creates the puzzle
-//
-
+// actually creates the puzzle
 function createPuzzle(req, res, papp) {
 	var setupData = req.body.setupData;
 	var solutionData = req.body.solutionData;
@@ -73,7 +66,7 @@ function createPuzzle(req, res, papp) {
 			err.send_error(err.DB_ERROR, res);
 		} else {
 			var returnData = req.body;
-			returnData["puzzle_id"] = puzzleInstance._id;
+			returnData["_id"] = puzzleInstance._id;
 			returnData["creator"] = puzzleInstance.creator;
 			returnData["likes"] = puzzleInstance.likes;
 			returnData["rating"] = puzzleInstance.rating;
@@ -85,10 +78,9 @@ function createPuzzle(req, res, papp) {
 	});
 }
 
-// cRud
-// simply gets the puzzle by id.
-// returns all puzzle info.
-//
+///////////////////////
+//		Read		//
+/////////////////////
 
 exports.get = function(req, res) {
 	
@@ -108,9 +100,10 @@ exports.get = function(req, res) {
 	});
 };
 
-// cruD
-// finding and deleting the id from the right collection
-//
+//////////////////////////
+//		Delete			//
+//////////////////////////
+
 exports.delete = function(req, res) {
 	var puzzleId = _u.stripNonAlphaNum(req.body.puzzle_id);
 	if(puzzleId) {
@@ -132,10 +125,10 @@ exports.delete = function(req, res) {
 	} else err.send_error(err.MISSING_INFO, res);
 };
 
-//
-// updates assume that the user will have
-// all fields they want updated fully specified
-//
+///////////////////////////
+// 		Update			//
+/////////////////////////
+
 exports.update = function(req, res) {
 	var data = {}
 	, body = req.body
@@ -332,23 +325,6 @@ function takeCB(req, res, user) {
 	var apiKey = _u.stripNonAlphaNum(req.apiKey);
 	var TargetModel = pApp.findPuzzleModel(apiKey);
 	
-	/*TargetModel.findById(puzzleID, function(e, puzzle) {
-		if (e) {
-			console.log("[DB] " + e);
-			err.send_error(err.DB_ERROR, res);
-		}
-		else if (!puzzle) {
-			console.log("[DB] didn't find puzzle with apikey" + puzzleID);
-			err.send_error(err.PUZZLE_DOESNT_EXIST, res);
-		}
-		else {
-			puzzle.taken = puzzle.taken + 1;
-			puzzle.save(function(e) {
-				if(!e) adjustRating(req, res, user.rating, puzzle, !notRated);
-				else err.send_error(err.DB_ERROR, res);
-			});
-		}
-	});*/
     TargetModel.update({_id: puzzleID}, {$inc: {taken: 1}}, function(e, numAffected) {
         if (e) {
             console.log("[DB] " + e);
@@ -447,3 +423,33 @@ function adjustRating(req, res, playerRating, puzzle, isRated) {
 		}
 	});
 }
+
+///////////////////////////////
+// 		Likes / Dislikes 	//
+/////////////////////////////
+
+exports.like = function (req, res) {
+	var puzzle_id = _u.stripNonAlphaNum(req.body['puzzle_id'])
+		, apiKey = _u.stripNonAlphaNum(req.apiKey)
+		, TargetModel = pApp.findPuzzleModel(apiKey);
+
+	console.log("[puzzle] : liking puzzle with id " + puzzle_id);
+	TargetModel.update({id:puzzle_id}, {$inc : {likes: 1}}, {}, callback);
+	function callback(e, numAffected) {
+		if(!e) res.send({"success":true, "numAffected": numAffected});
+		else err.send_error(err.PUZZLE_DOESNT_EXIST, res);
+    }
+};
+
+exports.dislike = function (req, res) {
+	var puzzle_id = _u.stripNonAlphaNum(req.body['puzzle_id'])
+		, api_key = _u.stripNonAlphaNum(req.apiKey)
+		, TargetModel = pApp.findPuzzleModel(api_key);
+		
+	console.log("[puzzle] : disliking puzzle with id " + puzzle_id);
+	TargetModel.update({id:puzzle_id}, {$inc : {dislikes: 1}}, {}, callback);
+	function callback(e, numAffected) {
+		if(!e) res.send({"success":true, "numAffected": numAffected});
+		else err.send_error(err.PUZZLE_DOESNT_EXIST, res);
+	}
+};

@@ -40,11 +40,11 @@ exports.post = function post(req, res) {
 
     TargetModel.findById(puzzleId, function(e, puzzle) {
         if (e) {
-            console.log("[DB] " + e);
+            console.log("[comment] " + e);
             _e.send_error(_e.DB_ERROR, res);
         }
         else if (!puzzle) {
-            console.log("[DB] didn't find puzzle with apikey" + puzzleId);
+            console.log("[comment] didn't find puzzle with apikey" + puzzleId);
             _e.send_error(_e.PUZZLE_DOESNT_EXIST, res);
         }
         else {

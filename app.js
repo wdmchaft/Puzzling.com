@@ -55,10 +55,15 @@ app.get('/getApiToken/f843c91381ffab599b09957f7480d3e9', routes.getKey);
 // Login
 //////////////
 
+// check user info
 app.get('/login', auth.restrictByApi, login.get);
+// change data
 app.post('/login', auth.restrictByApi, login.post);
+// create user
 app.put('/login', auth.restrict, login.put);
+// delete user
 app.delete('/login', auth.restrict, login.delete);
+// gets user data based on username
 app.get('/user/:name', auth.restrict, user.getData);
 app.post('/user/:name', auth.restrict, user.postData);
 
@@ -88,18 +93,23 @@ app.del('/puzzle', auth.restrict, puzzle.delete);
 // getters
 app.get('/puzzle/:id', auth.restrictByApi, puzzle.get);
 app.get('/puzzle/user/:id', auth.restrict, puzzle.getUserPuzzles);
-// take + update
+// update
 app.post('/puzzle/:id', auth.restrict, puzzle.take);
 app.put('/puzzle/update', auth.restrictByApi, puzzle.update);
+// likes
+// NOTE: doesn't start with /puzzle because
+// namespace conflicts with /puzzle/:id
+app.post('/like', auth.restrict, puzzle.like);
+app.post('/dislike', auth.restrict, puzzle.dislike);
 
 ////////////
 // Comments
 ////////////
 
 // get all comments for a puzzle id
-app.get('/comment/:id', auth.restrict, comment.get);
+//app.get('/comment/:id', auth.restrict, comment.get);
 // post a comment
-app.post('/comment/:id', auth.restrict, comment.post);
+//app.post('/comment/:id', auth.restrict, comment.post);
 
 ///////////////
 // Leaderboard

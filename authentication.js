@@ -14,8 +14,7 @@ var db = require('./db')
   , err = require('./error.js')
   , _u = require('./utils.js');
 
-var APIkeyModel = db.APIkeyModel
-    , ObjectID = db.ObjectID;
+var APIkeyModel = db.APIkeyModel;
 
 // Verify only API key and not the auth token.
 // Necessary for some operations for developers
@@ -23,6 +22,7 @@ var APIkeyModel = db.APIkeyModel
 
 function verifyRequestAPIKey(req, res, callback) { //callback returns bool success
     var puzzleKey = _u.stripNonAlphaNum(req.headers["puzzle_api_key"]);
+    console.log("Verifying API key " + puzzleKey);
     APIkeyModel.findById(puzzleKey.toString(), function (e, doc) {
         if (e || !doc) {
             if(e) console.log(e);
@@ -36,11 +36,11 @@ function verifyRequestAPIKey(req, res, callback) { //callback returns bool succe
 function verifyRequestAuthTokenAndAPIKey(req, res, callback) {
 	verifyRequestAPIKey(req, res, function(success) {
 		if (!success) {
-			console.log("got here");
 			console.log("[auth] can't verify api key and auth token");
 			callback(false);
 		} else {
-			var puzzleAuth = req.headers["puzzle_auth_token"];
+			var puzzleAuth = _u.stripNonAlphaNum(req.headers["puzzle_auth_token"]);
+			console.log("Verifying auth token " + puzzleAuth);
 			if (puzzleAuth == null) {
 				console.log("[auth] can't verify api key and auth token");
 				err.send_error(err.API_KEY, res);
@@ -70,7 +70,7 @@ function restrictByApi (req, res, next) {
         // case !success is taken care of for us by
         // the authentication class
         if(success) {
-            req.apiKey = req.headers["puzzle_api_key"];
+            req.apiKey = _u.stripNonAlphaNum(req.headers["puzzle_api_key"]);
             req.user = user;
             next();
         } else console.log("[auth] couldn't find api key " + req.headers["puzzle_api_key"]);
@@ -89,8 +89,8 @@ function restrict (req, res, next) {
         // case !success is taken care of for us by
         // the authentication class
         if(success) {
-            req.apiKey = req.headers["puzzle_api_key"];
-            req.authToken = req.headers["puzzle_auth_token"];
+            req.apiKey = _u.stripNonAlphaNum(req.headers["puzzle_api_key"]);
+            req.authToken = _u.stripNonAlphaNum(req.headers["puzzle_auth_token"]);
             req.user = user;
             next();
         } else console.log("[auth] couldn't find api key " + req.headers["puzzle_api_key"]

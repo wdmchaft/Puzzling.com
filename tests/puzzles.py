@@ -6,6 +6,7 @@ from user import *
 
 puzzlePath = "http://localhost:3000/puzzle"
 appPath = "http://localhost:3000/papp"
+rootPath = "http://localhost:3000"
 
 # Univeral header for all 
 # Puzzling.com requests
@@ -69,7 +70,9 @@ def deletePuzzle(puzzle_id):
   r = requests.delete(puzzlePath, headers=header, data=body)
   return json.loads(r.content)
 
-""" pApps """
+##############
+#	Papps	 #
+##############
 
 # POST
 def createApp(name):
@@ -92,16 +95,38 @@ def getAppIDs(name):
   global header
   r = requests.get(appPath + '/%s' % name, headers=header)
   print r.content
-  json.loads(r.content)
+  return json.loads(r.content)
+  
+#########################
+# 	Likes and Dislikes  #
+#########################
 
-########### Testing ############
+def likePuzzle(token, puzzle_id):
+	global header
+	body = {"puzzle_id" : puzzle_id}
+	r = requests.post(rootPath + '/like', headers=header, data=body)
+	print r.content
+	return json.loads(r.content)
+
+def dislikePuzzle(token, puzzle_id):
+	global header
+	body = {"puzzle_id" : puzzle_id}
+	r = requests.post(rootPath + '/dislike', headers=header, data=body)
+	print r.content
+	return json.loads(r.content)
+
+
+#################
+#	Testing 	#
+#################
 
 # dpes basic setup; must be called before doing any testing
 def setup():
   global header, user2_token, user1_id
   obj = create_user('Jim', 'password', header)
   assert "username" in obj and obj["username"] == 'Jim', "Couldn't create user with valid username"
-  user1_id = obj["user_id"]
+  print str(obj)
+  user1_id = obj["_id"]
 
   obj = get_auth_token('Jim', 'password', header)
   assert "authToken" in obj, "Auth token wasn't returned after trying to create user"
@@ -127,11 +152,17 @@ def basicTest():
   assert "success" in res, "Couldn't create application"
   res = createPuzzle(name="easySudoku", type='brainteaser', solutionData='{}', setupData='{}')
   assert "success" in res, "Couldn't create puzzle"
-  puzzle_id = res["puzzle_id"]
+  puzzle_id = res["_id"]
   res = getPuzzle(puzzle_id)
-  assert "puzzle_id" in res and res["puzzle_id"] == puzzle_id, "Couldn't retrieve puzzle"
+  assert "_id" in res and res["_id"] == puzzle_id, "Couldn't retrieve puzzle"
   res = takePuzzle(user2_token, puzzle_id)
   assert "newPlayerRating" in res, "Couldn't take puzzle"
+  
+  res = likePuzzle(user2_token, puzzle_id)
+  assert "success" in res, "Couldn't like puzzle"
+  
+  res = dislikePuzzle(user2_token, puzzle_id)
+  assert "success" in res, "Couldn't dislike puzzle"
   
   res = getUsersPuzzles(user1_id)
   assert len(res) == 1, "Couldn't get puzzles for user"
