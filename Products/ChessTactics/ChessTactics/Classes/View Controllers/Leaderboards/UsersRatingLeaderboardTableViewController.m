@@ -10,6 +10,7 @@
 #import "PuzzleUser.h"
 #import "PuzzleSDK.h"
 #import "PuzzleErrorHandler.h"
+#import "ConstantsForUI.h"
 
 
 @interface UsersRatingLeaderboardTableViewController ()
@@ -30,6 +31,7 @@
     [super viewDidLoad];
 	
 	self.title = @"Top 20 Rated Users";
+	self.view.backgroundColor = BACKGROUND_COLOR;
 	
 	[[PuzzleSDK sharedInstance] getLeaderboardForUsersOnCompletion:^(PuzzleAPIResponse response, NSArray *users) {
 		if (response == PuzzleOperationSuccessful)
@@ -75,9 +77,15 @@
 	
 	PuzzleUser *user = [self.users objectAtIndex:indexPath.row];
 	cell.textLabel.text = user.username;
+	cell.textLabel.backgroundColor = [UIColor clearColor];
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"Rating: %d", user.rating];
+	cell.detailTextLabel.backgroundColor = [UIColor clearColor];
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+	
+	UIView *backgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
+	backgroundView.backgroundColor = BACKGROUND_COLOR;
+	cell.backgroundView = backgroundView;
+	
     return cell;
 }
 

@@ -10,6 +10,8 @@
 #import "RegisterViewController.h"
 #import "PuzzleSDK.h"
 #import "PuzzleErrorHandler.h"
+#import "ConstantsForUI.h"
+#import "PlayGuestPuzzleViewController.h"
 
 
 @interface LoginViewController () {
@@ -34,6 +36,7 @@
     [super viewDidLoad];
     
 	self.title = @"Chess Tactics";
+	self.view.backgroundColor = BACKGROUND_COLOR;
 	
 	UIBarButtonItem *registerButton = [[[UIBarButtonItem alloc] initWithTitle:@"Register" style:UIBarButtonItemStyleBordered target:self action:@selector(registerButtonPressed)] autorelease];
 	self.navigationItem.rightBarButtonItem = registerButton;
@@ -67,6 +70,12 @@
 			[PuzzleErrorHandler presentErrorForResponse:response];
 		}
 	}];
+}
+
+- (IBAction)playAsGuestPressed:(id)sender
+{
+	PlayGuestPuzzleViewController *vc = [[[PlayGuestPuzzleViewController alloc] init] autorelease];
+	[self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

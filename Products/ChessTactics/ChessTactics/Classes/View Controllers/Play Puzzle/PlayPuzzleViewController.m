@@ -17,6 +17,7 @@
 #import "AnalysisBoardViewController.h"
 #import "CommentsTableViewController.h"
 #import "PuzzleErrorHandler.h"
+#import "ConstantsForUI.h"
 
 
 #define MOVE_DELAY 0.5
@@ -48,6 +49,7 @@
 	BOOL __showingSolution;
 	UIBarButtonItem *__nextTacticButton;
 	BOOL __rated;
+	PuzzleID *__puzzleID;
 }
 
 @property (nonatomic, readwrite, retain) ChessBoardViewController *chessBoardViewController;
@@ -59,7 +61,6 @@
 @property (nonatomic, readwrite, assign) dispatch_queue_t dispatchQueue;
 @property (nonatomic, readwrite, retain) UIBarButtonItem *nextTacticButton;
 
-@property (nonatomic, readwrite, retain) UILabel *bottomLabel;
 @property (nonatomic, readwrite, retain) UIView *hiddenButtonsView;
 
 - (void)setupPuzzle;
@@ -78,7 +79,7 @@
 
 @implementation PlayPuzzleViewController
 
-@synthesize chessBoardViewController = __chessBoardViewController, solutionMoves = __solutionMoves, currentMove = __currentMove, playerColor = __playerColor, tacticStarted = __tacticStarted, dispatchQueue = __dispatchQueue, puzzleModel = __puzzleModel, showingSolution = __showingSolution, bottomLabel = __bottomLabel, nextTacticButton = __nextTacticButton, rated = __rated, setupData = __setupData, solutionData = __solutionData, hiddenButtonsView = __hiddenButtonsView;
+@synthesize chessBoardViewController = __chessBoardViewController, solutionMoves = __solutionMoves, currentMove = __currentMove, playerColor = __playerColor, tacticStarted = __tacticStarted, dispatchQueue = __dispatchQueue, puzzleModel = __puzzleModel, showingSolution = __showingSolution, bottomLabel = __bottomLabel, nextTacticButton = __nextTacticButton, rated = __rated, setupData = __setupData, solutionData = __solutionData, hiddenButtonsView = __hiddenButtonsView, puzzleID = __puzzleID;
 
 #pragma mark - View Life Cycle
 
@@ -104,11 +105,14 @@
 	self.hiddenButtonsView.hidden = YES;
 	
 	self.title = @"Tactic";
+	self.view.backgroundColor = BACKGROUND_COLOR;
+	self.hiddenButtonsView.backgroundColor = [UIColor clearColor];
 	
 	self.nextTacticButton = [[[UIBarButtonItem alloc] initWithTitle:@"Give Up" style:UIBarButtonItemStyleBordered target:self action:@selector(newTactic:)] autorelease];
 	self.navigationItem.rightBarButtonItem = self.nextTacticButton;
 	
-	if (!(self.solutionData && self.setupData) && !self.puzzleModel) {
+	if (!(self.solutionData && self.setupData) && !self.puzzleModel && !self.puzzleID)
+	{
 		[[PuzzleDownloader sharedInstance] downloadPuzzleWithCallback:^(PuzzleAPIResponse response, PuzzleModel * puzzle) {
 			if (response == PuzzleOperationSuccessful) {
 				self.puzzleModel = puzzle;
@@ -117,7 +121,21 @@
 				[PuzzleErrorHandler presentErrorForResponse:response];
 			}
 		}];
-	} else { //already have what we need
+	} 
+	else if (self.puzzleID) 
+	{
+		[[PuzzleSDK sharedInstance] getPuzzle:self.puzzleID onCompletion:^(PuzzleAPIResponse response, PuzzleModel * puzzle)
+		 {
+			 if (response == PuzzleOperationSuccessful) {
+				 self.puzzleModel = puzzle;
+				 [self setupPuzzle];
+			 } else {
+				 [PuzzleErrorHandler presentErrorForResponse:response];
+			 }
+		 }];
+	} 
+	else
+	{ //already have what we need
 		[self setupPuzzle];
 	}
 }
@@ -260,9 +278,26 @@
 	[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Well done. Correct solution." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:NEXT_TACTIC, nil] autorelease] show];
 }
 
+- (void)setHelpMessageForLastPlayerColor:(Color)color {
+	NSString *helpMessage;
+	if (color == self.playerColor)
+	{
+		helpMessage = [NSString stringWithFormat:@"Waiting for computer move... (%@)", color==kWhite?@"Black":@"White"];
+	}
+	else
+	{
+		helpMessage = [NSString stringWithFormat:@"Your move. (%@)", color==kWhite?@"Black":@"White"];
+	}
+	self.bottomLabel.text = helpMessage;
+}
+
 #pragma mark - ChessVC Delegate
 
 - (void)piece:(ChessPiece *)piece didMoveFromX:(int)x Y:(int)y pawnPromoted:(NSString *)aClass {
+	if (!self.showingSolution && self.tacticStarted)
+	{
+		[self setHelpMessageForLastPlayerColor:piece.color];
+	}
 	if ((piece.color == self.playerColor && self.tacticStarted) || self.showingSolution) { //do computer move
 		ChessMove *lastMove = [self.solutionMoves objectAtIndex:self.currentMove];
 		if (!(x == lastMove.start.x && y == lastMove.start.y && piece.x == lastMove.finish.x && piece.y == lastMove.finish.y && (aClass == nil || [aClass isEqualToString:lastMove.promotionType]))) { //wrong move
@@ -318,8 +353,10 @@
 		vc.computerMoveFirst = [[self.setupData objectForKey:COMPUTER_MOVE_FIRST] boolValue];
 	}
 	UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
-	navController.navigationBar.tintColor = [UIColor blackColor];
+	navController.navigationBar.tintColor = [UIColor brownColor];
 	UIBarButtonItem *cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(modalViewCancelled)] autorelease];
+	UIImage *navBarImage = [UIImage imageNamed: @"NavBar-Wood"];
+	[navController.navigationBar setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
 	vc.navigationItem.leftBarButtonItem = cancelButton;
 	[self presentModalViewController:navController animated:YES];
 	
@@ -328,9 +365,12 @@
 - (IBAction)showExplanationPressed:(id)sender
 {
 	NSString *explanation = nil;
-	if (self.puzzleModel) {
+	if (self.puzzleModel)
+	{
 		explanation = [self.puzzleModel.solutionData objectForKey:TACTIC_EXPLANATION];
-	} else {
+	} 
+	else
+	{
 		explanation = [self.solutionData objectForKey:TACTIC_EXPLANATION];
 	}
 	if (explanation == nil || [explanation isEqualToString:@""]) 
@@ -344,13 +384,18 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
+- (void)presentNextTactic
+{
+	PlayPuzzleViewController *newTacticVC = [[[PlayPuzzleViewController alloc] init] autorelease];
+	UINavigationController *tempController = self.navigationController;
+	[[self retain] autorelease]; //so that this vc doesn't get dealloced
+	[self.navigationController popViewControllerAnimated:NO];
+	[tempController pushViewController:newTacticVC animated:YES];
+}
+
 - (void)newTactic:(UIBarButtonItem *)button {
 	if ([button.title isEqualToString:NEXT_TACTIC]) {
-		PlayPuzzleViewController *newTacticVC = [[[PlayPuzzleViewController alloc] init] autorelease];
-		UINavigationController *tempController = self.navigationController;
-		[[self retain] autorelease]; //so that this vc doesn't get dealloced
-		[self.navigationController popViewControllerAnimated:NO];
-		[tempController pushViewController:newTacticVC animated:YES];
+		[self presentNextTactic];
 	} else if ([button.title isEqualToString:GIVE_UP]) {
 		[self endTactic:0];
 	}
@@ -391,11 +436,7 @@
 {
 	if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:NEXT_TACTIC])
 	{
-		PlayPuzzleViewController *newTacticVC = [[[PlayPuzzleViewController alloc] init] autorelease];
-		UINavigationController *tempController = self.navigationController;
-		[[self retain] autorelease]; //so that this vc doesn't get dealloced
-		[self.navigationController popViewControllerAnimated:NO];
-		[tempController pushViewController:newTacticVC animated:YES];
+		[self presentNextTactic];
 	}
 	else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:SHOW_SOLUTION]) 
 	{

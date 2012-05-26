@@ -9,6 +9,7 @@
 #import "RegisterViewController.h"
 #import "PuzzleSDK.h"
 #import "PuzzleErrorHandler.h"
+#import "ConstantsForUI.h"
 
 
 @interface RegisterViewController () 
@@ -33,6 +34,7 @@
 	[super viewDidLoad];
 	
 	self.title = @"Register";
+	self.view.backgroundColor = BACKGROUND_COLOR;
 }
 
 - (IBAction)submitButtonPressed:(id)sender

@@ -86,7 +86,7 @@ app.get('/puzzle', auth.restrict, puzzle.suggest);
 app.post('/puzzle', auth.restrict, puzzle.create);
 app.del('/puzzle', auth.restrict, puzzle.delete);
 // getters
-app.get('/puzzle/:id', auth.restrict, puzzle.get);
+app.get('/puzzle/:id', auth.restrictByApi, puzzle.get);
 app.get('/puzzle/user/:id', auth.restrict, puzzle.getUserPuzzles);
 // take + update
 app.post('/puzzle/:id', auth.restrict, puzzle.take);

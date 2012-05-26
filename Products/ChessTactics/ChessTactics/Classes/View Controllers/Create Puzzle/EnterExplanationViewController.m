@@ -8,14 +8,17 @@
 
 #import "EnterExplanationViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ConstantsForUI.h"
 
 
 @interface EnterExplanationViewController () {
 	IBOutlet UITextView *__textView;
 	id<EnterExplanationViewControllerDelegate> __delegate;
+	IBOutlet UIButton *__submitButton;
 }
 
 @property (nonatomic, readonly, retain) UITextView *textView;
+@property (nonatomic, readonly, retain) UIButton *submitButton;
 
 - (IBAction)submitPressed:(id)sender;
 
@@ -23,6 +26,7 @@
 
 @implementation EnterExplanationViewController
 
+@synthesize submitButton = __submitButton;
 @synthesize textView = __textView;
 @synthesize delegate = __delegate;
 
@@ -31,6 +35,9 @@
     [super viewDidLoad];
     
 	self.title = @"Enter Explanation";
+	self.view.backgroundColor = BACKGROUND_COLOR;
+	
+	[self.submitButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 	
 	self.textView.editable = YES;
 	[self.textView becomeFirstResponder];
@@ -54,6 +61,8 @@
 {
 	[__textView release];
 	__textView = nil;
+	[__submitButton release];
+	__submitButton = nil;
 	
 	[super dealloc];
 }

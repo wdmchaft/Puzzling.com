@@ -7,6 +7,7 @@
 //
 
 #import "UserPuzzleCell.h"
+#import "ConstantsForUI.h"
 
 
 #define RATING @"Rating: "
@@ -35,6 +36,7 @@
 @synthesize nameLabel = __nameLabel, ratingLabel = __ratingLabel, takenLabel = __takenLabel, likesLabel = __likesLabel, dislikesLabel = __dislikesLabel;
 
 - (void)setName:(NSString *)name {
+	self.backgroundColor = BACKGROUND_COLOR;
 	self.nameLabel.text = name;
 }
 

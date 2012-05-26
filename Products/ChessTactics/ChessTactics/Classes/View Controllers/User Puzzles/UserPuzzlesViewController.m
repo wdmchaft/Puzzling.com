@@ -13,6 +13,7 @@
 #import "PuzzleCurrentUser.h"
 #import "PlayOwnPuzzleViewControllerViewController.h"
 #import "PuzzleModel.h"
+#import "ConstantsForUI.h"
 
 
 @interface UserPuzzlesViewController () {
@@ -34,8 +35,9 @@
     [super viewDidLoad];
 	
 	self.title = @"My Puzzles";
-
-    [[PuzzleSDK sharedInstance] getPuzzlesMadeByUser:[PuzzleCurrentUser currentUser].userID onCompletion:^(PuzzleAPIResponse response, NSArray *puzzles) {
+	self.view.backgroundColor = BACKGROUND_COLOR;
+	
+	[[PuzzleSDK sharedInstance] getPuzzlesMadeByUser:[PuzzleCurrentUser currentUser].userID onCompletion:^(PuzzleAPIResponse response, NSArray *puzzles) {
 		if (response == PuzzleOperationSuccessful) {
 			if ([puzzles count] == 0) {
 				[[[[UIAlertView alloc] initWithTitle:@"No Puzzles" message:@"You don't have any tactics live on the server. It is possible one of your tactics was removed because it had a problem." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];

@@ -36,7 +36,10 @@
 	
 	MainMenuViewController *vc = [[[MainMenuViewController alloc] init] autorelease];
 	self.rootViewController = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
-	self.rootViewController.navigationBar.tintColor = [UIColor blackColor];
+	UIImage *navBarImage = [UIImage imageNamed: @"NavBar-Wood"];
+	[self.rootViewController.navigationBar setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
+	self.rootViewController.navigationBar.tintColor = [UIColor brownColor];
+	
 	[self.window addSubview:self.rootViewController.view];
 	
     self.window.backgroundColor = [UIColor whiteColor];

@@ -8,8 +8,8 @@
 
 // Taken from Github.
 
-var MAX_PUZZLE_RD = 350;
-var MAX_PLAYER_RD = 350;
+var MAX_PUZZLE_RD = 250;
+var MAX_PLAYER_RD = 120;
 var MIN_PUZZLE_RD = 30;
 var MIN_PLAYER_RD = 60;
 
@@ -55,6 +55,7 @@ exports.newRD = function(playerRating, oppontentRating, playerRD, opponentRD, sc
 	var inside = 1/Math.pow(playerRD, 2) + 1/d2(playerRating, oppontentRating, playerRD, opponentRD, score);
 	var next = 1/inside;
 	var newRD = Math.sqrt(next);
+	console.log("Old RD: " + playerRD + " New RD: " + newRD);
 	if (isPuzzle) {
 		return Math.max(MIN_PUZZLE_RD, Math.min(MAX_PUZZLE_RD, newRD));
 	} else {

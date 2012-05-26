@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PuzzleSDK.h"
 
 @class PuzzleModel;
 
@@ -18,11 +19,14 @@
 @property (nonatomic, readwrite, retain) NSDictionary *setupData; //for setting in subclasses nil is default
 @property (nonatomic, readwrite, retain) NSDictionary *solutionData; //for setting in subclasses nil is default
 @property (nonatomic, readwrite, retain) PuzzleModel *puzzleModel;
+@property (nonatomic, readwrite, retain) PuzzleID *puzzleID; //If set, will get specific puzzle
 @property (nonatomic, readwrite, assign) BOOL rated;
+@property (nonatomic, readwrite, retain) UILabel *bottomLabel; //for use by guest subclass
 
 - (id)initWithRated:(BOOL)rated;
 
 //For subclass override
 - (void)endTactic:(double)score;
+- (void)presentNextTactic;
 
 @end

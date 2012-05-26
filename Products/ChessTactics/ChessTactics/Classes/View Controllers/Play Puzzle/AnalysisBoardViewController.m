@@ -10,6 +10,7 @@
 #import "ChessBoardViewController.h"
 #import "TacticsDataConstants.h"
 #import "Coordinate.h"
+#import "ConstantsForUI.h"
 
 
 @interface AnalysisBoardViewController () <ChessBoardViewControllerDelegate> {
@@ -17,10 +18,15 @@
 	ChessBoardViewController *__chessBoardViewController;
 	BOOL __computerMoveFirst;
 	BOOL __piecesSetup;
+	
+	IBOutlet UIButton *__resetButton;
+	IBOutlet UILabel *__bottomLabel;
 }
 
 @property (nonatomic, readwrite, retain) ChessBoardViewController *chessBoardViewController;
 @property (nonatomic, readwrite, assign) BOOL piecesSetup;
+@property (nonatomic, readwrite, retain) UIButton *resetButton;
+@property (nonatomic, readwrite, retain) UILabel *bottomLabel;
 
 - (IBAction)resetBoard:(id)sender;
 
@@ -28,7 +34,7 @@
 
 @implementation AnalysisBoardViewController
 
-@synthesize setupData = __setupData, chessBoardViewController = __chessBoardViewController, computerMoveFirst = __computerMoveFirst, piecesSetup = __piecesSetup;
+@synthesize setupData = __setupData, chessBoardViewController = __chessBoardViewController, computerMoveFirst = __computerMoveFirst, piecesSetup = __piecesSetup, resetButton = __resetButton, bottomLabel = __bottomLabel;
 
 #pragma mark - View Life Cycle
 
@@ -36,6 +42,10 @@
 	[super viewDidLoad];
 	
 	self.title = @"Analysis Board";
+	self.view.backgroundColor = BACKGROUND_COLOR;
+	self.bottomLabel.backgroundColor = [UIColor clearColor];
+	
+	[self.resetButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 	
 	[self setupPuzzle];
 }
@@ -45,6 +55,10 @@
 	__setupData = nil;
 	[__chessBoardViewController release];
 	__chessBoardViewController = nil;
+	[__resetButton release];
+	__resetButton = nil;
+	[__bottomLabel release];
+	__bottomLabel = nil;
 	
 	[super dealloc];
 }
@@ -79,6 +93,16 @@
 			self.chessBoardViewController.playerColor = kWhite;
 		}
 	}
+	
+	if (self.chessBoardViewController.playerColor == kWhite)
+	{
+		self.bottomLabel.text = @"White to move.";
+	}
+	else
+	{
+		self.bottomLabel.text = @"Black to move.";
+	}
+	
 	self.piecesSetup = YES;
 }
 
@@ -94,8 +118,10 @@
 	if (self.piecesSetup) {
 		if (self.chessBoardViewController.playerColor == kWhite) {
 			self.chessBoardViewController.playerColor = kBlack;
+			self.bottomLabel.text = @"Black to move.";
 		} else {
 			self.chessBoardViewController.playerColor = kWhite;
+			self.bottomLabel.text = @"White to move.";
 		}
 	}
 }

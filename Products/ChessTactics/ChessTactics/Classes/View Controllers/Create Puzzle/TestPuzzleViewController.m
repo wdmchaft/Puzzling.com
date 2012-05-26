@@ -10,6 +10,7 @@
 #import "PuzzleSDK.h"
 #import "EnterExplanationViewController.h"
 #import "TacticsDataConstants.h"
+#import "ConstantsForUI.h"
 
 
 #define SUBMIT_TACTIC @"Enter a Name for the Tactic"
@@ -19,10 +20,15 @@
 @interface TestPuzzleViewController () <UIAlertViewDelegate, EnterExplanationViewControllerDelegate> {
 	IBOutlet UIActivityIndicatorView *__activityView;
 	NSString *__tacticExplanation;
+	
+	IBOutlet UIButton *__submitButton;
+	IBOutlet UIButton *__explanationButton;
 }
 
 @property (nonatomic, readonly, retain) UIActivityIndicatorView *activityView;
 @property (nonatomic, readwrite, retain) NSString *tacticExplanation;
+@property (nonatomic, readonly, retain) UIButton *submitButton;
+@property (nonatomic, readonly, retain) UIButton *explanationButton;
 
 - (void)submitTactic:(NSString *)name;
 - (IBAction)submitButtonPressed:(id)sender;
@@ -32,7 +38,7 @@
 
 @implementation TestPuzzleViewController
 
-@synthesize activityView = __activityView, tacticExplanation = __tacticExplanation;
+@synthesize activityView = __activityView, tacticExplanation = __tacticExplanation, submitButton = __submitButton, explanationButton = __explanationButton;
 
 - (id)initWithSetup:(NSDictionary *)setupData solutionData:(NSDictionary *)solutionData {
 	if (self = [super initWithRated:NO]) {
@@ -42,11 +48,26 @@
 	return self;
 }
 
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	
+	self.title = @"Test Tactic";
+	self.view.backgroundColor = BACKGROUND_COLOR;
+	
+	[self.submitButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+	[self.explanationButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+}
+
 - (void)dealloc {
 	[__activityView release];
 	__activityView = nil;
 	[__tacticExplanation release];
 	__tacticExplanation = nil;
+	[__submitButton release];
+	__submitButton = nil;
+	[__explanationButton release];
+	__explanationButton = nil;
 	
 	[super dealloc];
 }
@@ -94,7 +115,7 @@
 
 - (void)showAlertViewForSuccess
 {
-	[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Well done. Correct solution." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+	[[[[UIAlertView alloc] initWithTitle:@"Correct" message:@"Well done. Correct solution." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 }
 
 #pragma mark - Delegate Methods

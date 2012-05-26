@@ -22,7 +22,7 @@ var User = db.UserModel;
 
 var DEFAULTS = {
     DEFAULT_RATING      : 1500,
-    DEFAULT_DEVIATION   : 150
+    DEFAULT_DEVIATION   : 120
 };
 
 // Exports at top
