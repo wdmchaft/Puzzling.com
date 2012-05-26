@@ -222,6 +222,14 @@
 
 - (void)startTactic:(NSNumber *)moveComputerFirst {
 	self.tacticStarted = YES;
+	if ([moveComputerFirst boolValue] && !self.showingSolution)
+	{
+		[self setHelpMessageForLastPlayerColor:self.playerColor];
+	}
+	else
+	{
+		[self setHelpMessageForLastPlayerColor:self.playerColor==kWhite?kBlack:kWhite];
+	}
 	if ([moveComputerFirst boolValue]) {
 		ChessMove *move = [self.solutionMoves objectAtIndex:self.currentMove];
 		[self.chessBoardViewController movePieceFromX:move.start.x Y:move.start.y toX:move.finish.x Y:move.finish.y promotion:move.promotionType];

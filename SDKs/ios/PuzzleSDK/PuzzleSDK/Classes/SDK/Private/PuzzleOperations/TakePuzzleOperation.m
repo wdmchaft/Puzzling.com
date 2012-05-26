@@ -54,7 +54,7 @@
 }
 
 - (void)runCompletionBlock{
-    TakePuzzleResults* results = [[TakePuzzleResults alloc] init];
+    TakePuzzleResults* results = [[[TakePuzzleResults alloc] init] autorelease];
     
     NSDictionary* data = [self.data objectFromJSONData];
     results.userRatingChange = [[data objectForKey:@"playerRatingChange"] doubleValue] + .5;

@@ -77,7 +77,7 @@
 }
 
 -(void) runCompletionBlock{
-    PuzzleModel* puzzle = [[PuzzleModel alloc] init];
+    PuzzleModel* puzzle = [[[PuzzleModel alloc] init] autorelease];
     
     NSDictionary* data = [self.data objectFromJSONData];
     puzzle.setupData = [data objectForKey:@"setupData"];

@@ -15,6 +15,7 @@
 #import "LeaderboardsViewController.h"
 #import "PuzzleCurrentUser.h"
 #import "ConstantsForUI.h"
+#import "InfoViewController.h"
 
 
 #define LOGOUT @"Logout"
@@ -120,7 +121,12 @@
 	}
 	else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:INFO])
 	{
-		
+		InfoViewController *vc = [[[InfoViewController alloc] init] autorelease];
+		UINavigationController *navCon = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
+		UIImage *navBarImage = [UIImage imageNamed: @"NavBar-Wood"];
+		[navCon.navigationBar setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
+		navCon.navigationBar.tintColor = [UIColor brownColor];
+		[self presentModalViewController:navCon animated:YES];
 	}
 	else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:CONTACT])
 	{

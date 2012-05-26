@@ -30,7 +30,7 @@
 }
 
 -(void) runCompletionBlock{
-    PuzzleModel* puzzle = [[PuzzleModel alloc] init];
+    PuzzleModel* puzzle = [[[PuzzleModel alloc] init] autorelease];
     
     NSDictionary* data = [self.data objectFromJSONData];
 	puzzle.creatorID = [data objectForKey:@"creator"];

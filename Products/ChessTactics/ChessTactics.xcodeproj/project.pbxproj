@@ -83,6 +83,15 @@
 		3613550C154FA6B9004A056F /* PlayPuzzleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3613550A154FA6B9004A056F /* PlayPuzzleViewController.xib */; };
 		3613550F154FB5DA004A056F /* editingSquareHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 3613550D154FB5DA004A056F /* editingSquareHighlight.png */; };
 		36135510154FB5DA004A056F /* editingSquareHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3613550E154FB5DA004A056F /* editingSquareHighlight@2x.png */; };
+		362D61E715709F520096EF40 /* dark_wood.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 362D61E615709F520096EF40 /* dark_wood.jpg */; };
+		362D61EC1570A0440096EF40 /* elm-wood-grain.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 362D61EB1570A0440096EF40 /* elm-wood-grain.jpg */; };
+		362D61F11570A6CE0096EF40 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362D61EF1570A6CE0096EF40 /* InfoViewController.m */; };
+		362D61F21570A6CE0096EF40 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 362D61F01570A6CE0096EF40 /* InfoViewController.xib */; };
+		362D61F91570A72A0096EF40 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D61F71570A72A0096EF40 /* Default.png */; };
+		362D61FA1570A72A0096EF40 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D61F81570A72A0096EF40 /* Default@2x.png */; };
+		362D61FD1570A7FD0096EF40 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D61FB1570A7FD0096EF40 /* icon.png */; };
+		362D61FE1570A7FD0096EF40 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D61FC1570A7FD0096EF40 /* icon@2x.png */; };
+		362D62041570AAB70096EF40 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 362D62031570AAB70096EF40 /* MessageUI.framework */; };
 		364B97541569CB2B00B859D7 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364B97531569CB2B00B859D7 /* CoreText.framework */; };
 		364B97811569D2A900B859D7 /* CommentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364B97801569D2A900B859D7 /* CommentsTableViewController.m */; };
 		364B97841569D2B100B859D7 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 364B97821569D2B100B859D7 /* green.png */; };
@@ -122,7 +131,6 @@
 		36D0381515702A7E00A7C252 /* boardButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D0380F15702A7E00A7C252 /* boardButtonPressed@2x.png */; };
 		36D0381615702A7E00A7C252 /* commentButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D0381015702A7E00A7C252 /* commentButton@2x.png */; };
 		36D0381715702A7E00A7C252 /* commentButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D0381115702A7E00A7C252 /* commentButtonPressed@2x.png */; };
-		36D0381815702A7E00A7C252 /* plainButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D0381215702A7E00A7C252 /* plainButton@2x.png */; };
 		36D0381915702A7E00A7C252 /* working.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 36D0381315702A7E00A7C252 /* working.xcf */; };
 		36D0381E15702F2D00A7C252 /* NavBar-Wood.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D0381C15702F2C00A7C252 /* NavBar-Wood.png */; };
 		36D0381F15702F2D00A7C252 /* NavBar-Wood@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D0381D15702F2C00A7C252 /* NavBar-Wood@2x.png */; };
@@ -254,6 +262,16 @@
 		3613550A154FA6B9004A056F /* PlayPuzzleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayPuzzleViewController.xib; path = "Classes/View Controllers/Play Puzzle/PlayPuzzleViewController.xib"; sourceTree = "<group>"; };
 		3613550D154FB5DA004A056F /* editingSquareHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = editingSquareHighlight.png; sourceTree = "<group>"; };
 		3613550E154FB5DA004A056F /* editingSquareHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "editingSquareHighlight@2x.png"; sourceTree = "<group>"; };
+		362D61E615709F520096EF40 /* dark_wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dark_wood.jpg; sourceTree = "<group>"; };
+		362D61EB1570A0440096EF40 /* elm-wood-grain.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "elm-wood-grain.jpg"; sourceTree = "<group>"; };
+		362D61EE1570A6CE0096EF40 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoViewController.h; path = "Classes/View Controllers/Info/InfoViewController.h"; sourceTree = "<group>"; };
+		362D61EF1570A6CE0096EF40 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoViewController.m; path = "Classes/View Controllers/Info/InfoViewController.m"; sourceTree = "<group>"; };
+		362D61F01570A6CE0096EF40 /* InfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InfoViewController.xib; path = "Classes/View Controllers/Info/InfoViewController.xib"; sourceTree = "<group>"; };
+		362D61F71570A72A0096EF40 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Assets/Default.png; sourceTree = "<group>"; };
+		362D61F81570A72A0096EF40 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Assets/Default@2x.png"; sourceTree = "<group>"; };
+		362D61FB1570A7FD0096EF40 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Assets/icon.png; sourceTree = "<group>"; };
+		362D61FC1570A7FD0096EF40 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "Assets/icon@2x.png"; sourceTree = "<group>"; };
+		362D62031570AAB70096EF40 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		364B97531569CB2B00B859D7 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		364B977F1569D2A900B859D7 /* CommentsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsTableViewController.h; sourceTree = "<group>"; };
 		364B97801569D2A900B859D7 /* CommentsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsTableViewController.m; sourceTree = "<group>"; };
@@ -330,6 +348,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				362D62041570AAB70096EF40 /* MessageUI.framework in Frameworks */,
 				364B97541569CB2B00B859D7 /* CoreText.framework in Frameworks */,
 				365E585915621D5200A9C752 /* QuartzCore.framework in Frameworks */,
 				3612F977155715F7000F761B /* Security.framework in Frameworks */,
@@ -362,6 +381,7 @@
 		36099941154B9B120006A5F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				362D62031570AAB70096EF40 /* MessageUI.framework */,
 				364B97531569CB2B00B859D7 /* CoreText.framework */,
 				365E585815621D5200A9C752 /* QuartzCore.framework */,
 				3612F976155715F7000F761B /* Security.framework */,
@@ -380,6 +400,8 @@
 				36099A36154C7CF90006A5F5 /* Assets */,
 				36099951154B9B120006A5F5 /* AppDelegate.h */,
 				36099952154B9B120006A5F5 /* AppDelegate.m */,
+				362D61E615709F520096EF40 /* dark_wood.jpg */,
+				362D61EB1570A0440096EF40 /* elm-wood-grain.jpg */,
 				36099949154B9B120006A5F5 /* Supporting Files */,
 			);
 			path = ChessTactics;
@@ -411,6 +433,7 @@
 		360999FA154C6FC60006A5F5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				362D61ED1570A6BD0096EF40 /* Info */,
 				36D037DF156D934800A7C252 /* Leaderboards */,
 				364B978B1569EE6100B859D7 /* Login */,
 				365E5849156182D000A9C752 /* User Puzzles */,
@@ -534,6 +557,10 @@
 		36099A36154C7CF90006A5F5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				362D61FB1570A7FD0096EF40 /* icon.png */,
+				362D61FC1570A7FD0096EF40 /* icon@2x.png */,
+				362D61F71570A72A0096EF40 /* Default.png */,
+				362D61F81570A72A0096EF40 /* Default@2x.png */,
 				36D038201570306400A7C252 /* MainBackground.png */,
 				36D038211570306400A7C252 /* MainBackground@2x.png */,
 				36D0381B15702F2C00A7C252 /* NavBar */,
@@ -679,6 +706,16 @@
 				364B97891569D45100B859D7 /* PuzzleComment.m */,
 			);
 			path = "Puzzle Models";
+			sourceTree = "<group>";
+		};
+		362D61ED1570A6BD0096EF40 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				362D61EE1570A6CE0096EF40 /* InfoViewController.h */,
+				362D61EF1570A6CE0096EF40 /* InfoViewController.m */,
+				362D61F01570A6CE0096EF40 /* InfoViewController.xib */,
+			);
+			name = Info;
 			sourceTree = "<group>";
 		};
 		364B97451569C99600B859D7 /* Comments */ = {
@@ -919,7 +956,6 @@
 				36D0381515702A7E00A7C252 /* boardButtonPressed@2x.png in Resources */,
 				36D0381615702A7E00A7C252 /* commentButton@2x.png in Resources */,
 				36D0381715702A7E00A7C252 /* commentButtonPressed@2x.png in Resources */,
-				36D0381815702A7E00A7C252 /* plainButton@2x.png in Resources */,
 				36D0381915702A7E00A7C252 /* working.xcf in Resources */,
 				36D0381E15702F2D00A7C252 /* NavBar-Wood.png in Resources */,
 				36D0381F15702F2D00A7C252 /* NavBar-Wood@2x.png in Resources */,
@@ -927,6 +963,13 @@
 				36D038231570306500A7C252 /* MainBackground@2x.png in Resources */,
 				36D0382915708B6A00A7C252 /* PlayGuestPuzzleViewController.xib in Resources */,
 				36D0382E1570931D00A7C252 /* TacticGuidelinesViewController.xib in Resources */,
+				362D61E715709F520096EF40 /* dark_wood.jpg in Resources */,
+				362D61EC1570A0440096EF40 /* elm-wood-grain.jpg in Resources */,
+				362D61F21570A6CE0096EF40 /* InfoViewController.xib in Resources */,
+				362D61F91570A72A0096EF40 /* Default.png in Resources */,
+				362D61FA1570A72A0096EF40 /* Default@2x.png in Resources */,
+				362D61FD1570A7FD0096EF40 /* icon.png in Resources */,
+				362D61FE1570A7FD0096EF40 /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -994,6 +1037,7 @@
 				36D037FC156DA2E700A7C252 /* GetCommentsOperation.m in Sources */,
 				36D0382815708B6A00A7C252 /* PlayGuestPuzzleViewController.m in Sources */,
 				36D0382D1570931D00A7C252 /* TacticGuidelinesViewController.m in Sources */,
+				362D61F11570A6CE0096EF40 /* InfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
