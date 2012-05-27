@@ -16,11 +16,17 @@ var db = require('./db')
 
 var APIkeyModel = db.APIkeyModel;
 
+// kept here for historic reasons
+// try to remove these if possible
+
+exports.verifyApi = verifyApi;
+exports.verifyRequestApiAUth = verifyRequestApiAuth;
+
 // Verify only API key and not the auth token.
 // Necessary for some operations for developers
 // when they don't yet have tokens
 
-function verifyRequestAPIKey(req, res, callback) { //callback returns bool success
+function verifyApi (req, res, callback) { //callback returns bool success
     var puzzleKey = _u.stripNonAlphaNum(req.headers["puzzle_api_key"]);
     console.log("Verifying API key " + puzzleKey);
     APIkeyModel.findById(puzzleKey.toString(), function (e, doc) {
@@ -33,8 +39,8 @@ function verifyRequestAPIKey(req, res, callback) { //callback returns bool succe
 }
 
 // Verifies auth token + API.
-function verifyRequestAuthTokenAndAPIKey(req, res, callback) {
-	verifyRequestAPIKey(req, res, function(success) {
+function verifyRequestApiAuth (req, res, callback) {
+	verifyApi(req, res, function(success) {
 		if (!success) {
 			console.log("[auth] can't verify api key and auth token");
 			callback(false);
@@ -64,9 +70,13 @@ function verifyRequestAuthTokenAndAPIKey(req, res, callback) {
 	});
 }
 
+///////////////////////////
+//      Middleware      //
+/////////////////////////
+
 // limited restriction function
-function restrictByApi (req, res, next) {
-    verifyRequestAPIKey(req, res, function(success, user) {
+exports.restrictByApi =  function (req, res, next) {
+    verifyApi(req, res, function(success, user) {
         // case !success is taken care of for us by
         // the authentication class
         if(success) {
@@ -75,7 +85,7 @@ function restrictByApi (req, res, next) {
             next();
         } else console.log("[auth] couldn't find api key " + req.headers["puzzle_api_key"]);
     });
-}
+};
 
 //
 // restrict user access
@@ -84,8 +94,8 @@ function restrictByApi (req, res, next) {
 // fields into the request obj
 //
 
-function restrict (req, res, next) {
-    verifyRequestAuthTokenAndAPIKey(req, res, function(success, user) {
+exports.restrict = function (req, res, next) {
+    verifyRequestApiAuth(req, res, function(success, user) {
         // case !success is taken care of for us by
         // the authentication class
         if(success) {
@@ -96,13 +106,4 @@ function restrict (req, res, next) {
         } else console.log("[auth] couldn't find api key " + req.headers["puzzle_api_key"]
                             + " and matching auth token " + req.headers["puzzle_auth_token"]);
     });
-}
-
-
-/**
- * Exports
- */
-exports.restrictByApi = restrictByApi;
-exports.restrict = restrict;
-exports.verifyApi = verifyRequestAPIKey;
-exports.verifyRequestApiAuth = verifyRequestAuthTokenAndAPIKey;
+};

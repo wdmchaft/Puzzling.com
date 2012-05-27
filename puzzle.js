@@ -6,8 +6,6 @@
  * To change this template use File | Settings | File Templates.
  */
 
-// Taken from Github.
-
 var db = require('./db')
 , err = require('./error.js')
 , glicko = require('./glicko')
@@ -168,6 +166,10 @@ var pickRandomPuzzle = function(weightedDocs, weightedTotal) {
 var minRatingDifference = 300;
 var userLikesWeight = 10;
 
+///////////////////////////
+//      Suggestion      //
+/////////////////////////
+
 //
 // suggestions based on ratings
 //
@@ -288,6 +290,10 @@ exports.getUserPuzzles = function(req, res) {
 		}
 	});
 };
+
+///////////////////////
+//      Take        //
+/////////////////////
 
 //
 // "takes" a puzzle + adjusts rating

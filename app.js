@@ -102,9 +102,9 @@ app.put('/puzzle/update', auth.restrictByApi, puzzle.update);
 app.post('/like', auth.restrict, puzzle.like);
 app.post('/dislike', auth.restrict, puzzle.dislike);
 
-////////////
+//////////////
 // Comments
-////////////
+//////////////
 
 // get all comments for a puzzle id
 //app.get('/comment/:id', auth.restrict, comment.get);

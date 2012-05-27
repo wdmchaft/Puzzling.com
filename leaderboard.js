@@ -13,6 +13,7 @@
 
 var db = require('./db')
     , _e = require('./error.js')
+    , _d = require('./defaults.js')
     , _u = require('./utils.js');
 
 var pApp = db.pAppModel
