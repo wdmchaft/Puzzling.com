@@ -1,0 +1,9 @@
+nvm:
+> . ~/.nvm/nvm.sh
+
+forever:
+installation:
+(using node v0.6.10)
+> npm install forever -g
+> forever start app.js
+

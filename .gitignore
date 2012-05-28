@@ -16,3 +16,5 @@ _*
 node_modules
 SDK/ios/PuzzlingSDK/PuzzlingSDK.xcodeproj/xcuserdata/*
 SDK/ios/PuzzlingSDK/PuzzlingSDK.xcodeproj/project.xcworkspace
+*.log
+mongodb-osx-x86_64-2.0.4/
