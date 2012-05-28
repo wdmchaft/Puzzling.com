@@ -13,6 +13,7 @@
 
 var db = require('./db')
     , _e = require('./error.js')
+    , _d = require('./defaults.js')
     , _u = require('./utils.js');
 
 var pApp = db.pAppModel
@@ -20,8 +21,12 @@ var pApp = db.pAppModel
 
 exports.get = function (req, res) {
     User.find({}).sort("rating", -1).limit(20).execFind(function(err, users) {
-        if(!err) res.send(JSON.stringify(users));
-        else _e.send_error(_e.DB_ERROR, res);
+        if(!err) { 
+        	Array.prototype.forEach.call(users, function(el) {
+        		delete el.authToken;
+        	});
+        	res.send(JSON.stringify(users));
+        } else _e.send_error(_e.DB_ERROR, res);
     });
 };
 
@@ -39,9 +44,10 @@ exports.filter = function (req, res) {
         , TargetModel = pApp.findPuzzleModel(apiKey);
 
     if(FILTERS.indexOf(filter) != -1) {
-        TargetModel.find().sort(filter, -1).execFind(function(err, docs) {
-            if(!err) res.send(JSON.stringify(docs));
-            else _e.send_error(_e.DB_ERROR, res);
+        TargetModel.find().sort(filter, -1).execFind(function(err, puzzles) {
+            if(!err) {
+	            res.send(JSON.stringify(puzzles));
+            } else _e.send_error(_e.DB_ERROR, res);
         });
     } else _e.send_error(_e.BAD_OPERATION, res);
 };

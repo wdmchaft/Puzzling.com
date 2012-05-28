@@ -176,16 +176,18 @@ Score = new Schema({
 				   ,	value: Number
 				   ,	timestamp : Date
 				   ,	timeTaken : Date			/* time difference */
-					 ,  puzzleRating : Number
-					 ,  userRating : Number
+				   ,  puzzleRating : Number
+				   ,  userRating : Number
 				   });
 					 
 pApp.methods.scoreModel = function(apiKey) {
-		return mongoose.model('score' + apiKey, Score);
+	apiKey = _u.stripNonAlphaNum(apiKey);
+	return mongoose.model('score' + apiKey, Score);
 };
 
 pApp.statics.scoreModel = function(apiKey) {
-    return mongoose.model('score' + apiKey, Score);
+	apiKey = _u.stripNonAlphaNum(apiKey);
+	return mongoose.model('score' + apiKey, Score);
 };
 
 
