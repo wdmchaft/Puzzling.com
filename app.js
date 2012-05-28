@@ -91,6 +91,9 @@ app.get('/puzzle/user/:id', auth.restrict, puzzle.getUserPuzzles);
 // take + update
 app.post('/puzzle/:id', auth.restrict, puzzle.take);
 app.put('/puzzle/update', auth.restrictByApi, puzzle.update);
+app.post('/puzzle/flag/:id', auth.restrict, puzzle.flagForRemoval);
+app.get('/flag', auth.restrict, puzzle.getFlaggedPuzzles);
+app.post('/puzzle/deflag/:id', auth.restrict, puzzle.removeFlag);
 
 ////////////
 // Comments

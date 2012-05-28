@@ -151,7 +151,7 @@ function createCB(existingUser, res) {
                    , authToken  : generateToken(params.username, params.password)
                    , rating     : DEFAULTS.DEFAULT_RATING
                    , rd         : DEFAULTS.DEFAULT_DEVIATION
-                   , user_data  : params.user_data || "{}"
+                   , user_data  : JSON.stringify(params.user_data) || "{}"
             };
         var newUser = new User(specs);
 

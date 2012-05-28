@@ -54,6 +54,8 @@
 
 -(void) dealloc{
     [user_name release];
+	user_name = nil;
+	
     [super dealloc];
 }
 

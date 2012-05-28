@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 Stanford. All rights reserved.
 //
 
-#import "PlayOwnPuzzleViewControllerViewController.h"
+#import "PlayOwnPuzzleViewController.h"
 
-@interface PlayOwnPuzzleViewControllerViewController ()
+@interface PlayOwnPuzzleViewController ()
 
 @end
 
-@implementation PlayOwnPuzzleViewControllerViewController
+@implementation PlayOwnPuzzleViewController
 
 - (id)init
 {

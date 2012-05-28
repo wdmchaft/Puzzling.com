@@ -28,5 +28,6 @@
 //For subclass override
 - (void)endTactic:(double)score;
 - (void)presentNextTactic;
+- (IBAction)menuPressed:(id)sender;
 
 @end

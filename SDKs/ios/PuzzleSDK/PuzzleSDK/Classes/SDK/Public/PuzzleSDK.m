@@ -53,8 +53,8 @@ PuzzleSDK * sharedInstance = nil;
 	[self.operationManager getPuzzleForCurrentUserOnCompletion:onCompletion];
 }
 
-- (void)createPuzzleWithType:(NSString *)type name:(NSString *)name setupData:(NSDictionary *)setupData solutionData:(NSDictionary *)solutionData onCompletionBlock:(PuzzleOnCompletionBlock)onCompletion {
-	[self.operationManager createPuzzleWithType:type name:name setupData:setupData solutionData:solutionData onCompletionBlock:onCompletion];
+- (void)createPuzzleWithType:(NSString *)type name:(NSString *)name setupData:(NSDictionary *)setupData solutionData:(NSDictionary *)solutionData isUpdate:(PuzzleID *)puzzleID onCompletionBlock:(PuzzleOnCompletionBlock)onCompletion {
+	[self.operationManager createPuzzleWithType:type name:name setupData:setupData solutionData:solutionData isUpdate:puzzleID onCompletionBlock:onCompletion];
 }
 
 - (void)takePuzzle:(PuzzleID *)puzzleID score:(float)score rated:(BOOL)rated onCompletion:(PuzzleOnCompletionBlock)onCompletion {
@@ -63,6 +63,11 @@ PuzzleSDK * sharedInstance = nil;
 
 - (void)getPuzzlesMadeByUser:(PuzzleID *)userID onCompletion:(PuzzleOnCompletionBlock)onCompletion {
 	[self.operationManager getPuzzlesMadeByUser:userID onCompletion:onCompletion];
+}
+
+- (void)deletePuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	[self.operationManager deletePuzzle:puzzleID onCompletion:onCompletion];
 }
 
 #pragma mark - Login
@@ -96,5 +101,21 @@ PuzzleSDK * sharedInstance = nil;
 	[self.operationManager getCommentsForPuzzle:puzzleID onCompletion:onCompletion];
 }
 
+#pragma mark - Flagging
+
+- (void)getFlaggedPuzzlesOnCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	[self.operationManager getFlaggedPuzzlesOnCompletion:onCompletion];
+}
+
+- (void)flagPuzzleForRemoval:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	[self.operationManager flagPuzzleForRemoval:puzzleID onCompletion:onCompletion];
+}
+
+- (void)deflagPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	[self.operationManager deflagPuzzle:puzzleID onCompletion:onCompletion];
+}
 
 @end

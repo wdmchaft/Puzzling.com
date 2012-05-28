@@ -7,7 +7,8 @@
 //
 
 #import "PuzzleAPIURLFactory.h"
-#define ROOT_API_URL @"http://localhost:3000"
+//#define ROOT_API_URL @"http://localhost:3000"
+#define ROOT_API_URL @"http://ec2-184-169-151-249.us-west-1.compute.amazonaws.com"
 
 @implementation PuzzleAPIURLFactory
 
@@ -45,4 +46,25 @@
 {
 	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/comment/%@",ROOT_API_URL,puzzleID]];
 }
++ (NSURL*)urlForFlagForRemoval:(PuzzleID *)puzzleID
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle/flag/%@",ROOT_API_URL,puzzleID]];
+}
++ (NSURL*)urlForGetFlagged
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/flag",ROOT_API_URL]];
+}
++ (NSURL*)urlForDeletePuzzle
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle",ROOT_API_URL]];
+}
++ (NSURL*)urlForDeflagPuzzle:(PuzzleID *)puzzleID
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle/deflag/%@",ROOT_API_URL,puzzleID]];
+}
++ (NSURL*)urlForUpdatePuzzle
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle/update",ROOT_API_URL]];
+}
+
 @end

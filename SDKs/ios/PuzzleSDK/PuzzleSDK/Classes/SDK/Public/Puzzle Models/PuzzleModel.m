@@ -22,6 +22,8 @@
 	int p_rating;
 	int p_taken;
 	NSString *p_timeCreated;
+	BOOL p_removed;
+	BOOL p_flagged;
 }
 
 @end
@@ -40,10 +42,12 @@
 @synthesize rating = p_rating;
 @synthesize taken = p_taken;
 @synthesize timeCreated = p_timeCreated;
+@synthesize removed = p_removed;
+@synthesize flagged = p_flagged;
 
 
 - (void)uploadPuzzleOnCompletion:(PuzzleOnCompletionBlock)onCompletion {
-	[[PuzzleSDK sharedInstance] createPuzzleWithType:self.puzzleType name:self.name setupData:self.setupData solutionData:self.solutionData onCompletionBlock:onCompletion];
+	[[PuzzleSDK sharedInstance] createPuzzleWithType:self.puzzleType name:self.name setupData:self.setupData solutionData:self.solutionData isUpdate:nil onCompletionBlock:onCompletion];
 }
 
 - (void)dealloc {

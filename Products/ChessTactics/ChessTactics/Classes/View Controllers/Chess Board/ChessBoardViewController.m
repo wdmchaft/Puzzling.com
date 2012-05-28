@@ -225,7 +225,35 @@
 	for (int x = 0; x<8; x++) {
 		for (int y = 0; y<8; y++) {
 			ChessPiece *piece = [self.chessModel getPieceAtX:x Y:y];
-			piece.moved = NO;
+			if ([piece isKindOfClass:[Pawn class]])
+			{
+				if (piece.color == kWhite)
+				{
+					if (piece.y == 1)
+					{
+						piece.moved = NO;
+					}
+					else
+					{
+						piece.moved = YES;
+					}
+				}
+				else
+				{
+					if (piece.y == 6)
+					{
+						piece.moved = NO;
+					}
+					else
+					{
+						piece.moved = YES;
+					}
+				}
+			}
+			else
+			{
+				piece.moved = YES;
+			}
 		}
 	}
 }

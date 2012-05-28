@@ -17,17 +17,19 @@
 	IBOutlet UITextField *__usernameTextField;
 	IBOutlet UITextField *__passwordTextField;
 	IBOutlet UITextField *__confirmPasswordTextField;
+	IBOutlet UITextField *__emailTextField;
 }
 
 @property (nonatomic, readonly, retain) UITextField *usernameTextField;
 @property (nonatomic, readonly, retain) UITextField *passwordTextField;
 @property (nonatomic, readonly, retain) UITextField *confirmPasswordTextField;
+@property (nonatomic, readonly, retain) UITextField *emailTextField;
 
 @end
 
 @implementation RegisterViewController
 
-@synthesize usernameTextField = __usernameTextField, passwordTextField = __passwordTextField, confirmPasswordTextField = __confirmPasswordTextField;
+@synthesize usernameTextField = __usernameTextField, passwordTextField = __passwordTextField, confirmPasswordTextField = __confirmPasswordTextField, emailTextField = __emailTextField;
 
 - (void)viewDidLoad
 {
@@ -58,8 +60,12 @@
 		[[[[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter a password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 		return;
 	}
-	
-	[[PuzzleSDK sharedInstance] createUser:username password:password userData:nil onCompletion:^(PuzzleAPIResponse response, id data) {
+	NSDictionary *userData = nil;
+	if (self.emailTextField.text)
+	{
+		userData = [NSDictionary dictionaryWithObject:self.emailTextField.text forKey:@"email"];
+	}
+	[[PuzzleSDK sharedInstance] createUser:username password:password userData:userData onCompletion:^(PuzzleAPIResponse response, id data) {
 		if (response == PuzzleOperationSuccessful)
 		{
 			[self dismissModalViewControllerAnimated:YES];
@@ -79,6 +85,8 @@
 	__passwordTextField = nil;
 	[__confirmPasswordTextField release];
 	__confirmPasswordTextField = nil;
+	[__emailTextField release];
+	__emailTextField = nil;
 	
 	[super dealloc];
 }

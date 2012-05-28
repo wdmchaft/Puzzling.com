@@ -8,6 +8,6 @@
 
 #import "PlayPuzzleViewController.h"
 
-@interface PlayOwnPuzzleViewControllerViewController : PlayPuzzleViewController
+@interface PlayOwnPuzzleViewController : PlayPuzzleViewController
 
 @end

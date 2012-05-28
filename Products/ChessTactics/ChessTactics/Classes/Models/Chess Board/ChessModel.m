@@ -197,8 +197,28 @@
 
 - (void)movePiece:(ChessPiece *)piece toX:(int)x Y:(int)y withDelay:(NSTimeInterval)seconds {
 	if ([piece isKindOfClass:[Pawn class]]) {
-		((Pawn*)piece).enPassentEnabledLeft = NO;
-		((Pawn*)piece).enPassentEnabledRight = NO;
+		if (((Pawn*)piece).enPassentEnabledLeft = YES && piece.x != x)
+		{
+			ChessPiece *taken = [self getPieceAtX:x Y:piece.y];
+			[self removePiece:taken];
+		}
+		else if (((Pawn*)piece).enPassentEnabledRight = YES && piece.x != x)
+		{
+			ChessPiece *taken = [self getPieceAtX:x Y:piece.y];
+			[self removePiece:taken];
+		}
+		for (int i = 0; i<7; i++)
+		{
+			for (int j =  0; j<7; j++)
+			{
+				ChessPiece *piece = [self getPieceAtX:i Y:j];
+				if ([piece isKindOfClass:[Pawn class]])
+				{
+					((Pawn*)piece).enPassentEnabledLeft = NO;
+					((Pawn*)piece).enPassentEnabledRight = NO;
+				}
+			}
+		}
 		if (abs(piece.y - y) == 2) {
 			if (x != 0) {
 				if ([[self getPieceAtX:x-1 Y:y] isKindOfClass:[Pawn class]] && [self getPieceAtX:x-1 Y:y].color != piece.color) {
@@ -242,10 +262,10 @@
 }
 
 - (void)removePiece:(ChessPiece *)piece {
-	[[self.board objectAtIndex:piece.x] replaceObjectAtIndex:piece.y withObject:[NSNull null]];
 	if ([self.delegate respondsToSelector:@selector(pieceRemoved:)]) {
 		[self.delegate pieceRemoved:piece];
 	}
+	[[self.board objectAtIndex:piece.x] replaceObjectAtIndex:piece.y withObject:[NSNull null]];
 }
 
 - (void)finishPieceMovement:(ChessPiece*)piece withDelay:(NSTimeInterval)seconds {

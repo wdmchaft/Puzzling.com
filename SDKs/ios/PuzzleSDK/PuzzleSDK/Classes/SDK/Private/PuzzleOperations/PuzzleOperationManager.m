@@ -18,6 +18,10 @@
 #import "LeaderboardUsersOperation.h"
 #import "AddCommentOperation.h"
 #import "GetCommentsOperation.h"
+#import "GetFlaggedPuzzlesOperation.h"
+#import "FlagForRemovalOperation.h"
+#import "DeletePuzzleOperation.h"
+#import "DeflagPuzzleOperation.h"
 
 
 @interface PuzzleOperationManager() <NSURLConnectionDelegate> {
@@ -48,8 +52,8 @@
 	[operation release];
 }
 
-- (void)createPuzzleWithType:(NSString *)type name:(NSString *)name setupData:(NSDictionary *)setupData solutionData:(NSDictionary*)solutionData onCompletionBlock:(PuzzleOnCompletionBlock)block {
-	CreatePuzzleOperation *op = [[CreatePuzzleOperation alloc] initWithType:type name:name setupData:setupData solutionData:solutionData puzzleType:type onCompletionBlock:block];
+- (void)createPuzzleWithType:(NSString *)type name:(NSString *)name setupData:(NSDictionary *)setupData solutionData:(NSDictionary*)solutionData isUpdate:(PuzzleID *)puzzleID onCompletionBlock:(PuzzleOnCompletionBlock)block {
+	CreatePuzzleOperation *op = [[CreatePuzzleOperation alloc] initWithType:type name:name setupData:setupData solutionData:solutionData puzzleType:type isUpdate:puzzleID onCompletionBlock:block];
 	[self.queue addOperation:op];
 	[op release];
 }
@@ -62,6 +66,13 @@
 
 - (void)takePuzzle:(PuzzleID *)puzzleID score:(float)score rated:(BOOL)rated onCompletion:(PuzzleOnCompletionBlock)onCompletion {
 	TakePuzzleOperation *op = [[TakePuzzleOperation alloc] initWithPuzzleID:puzzleID score:score rated:rated onCompletionBlock:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
+
+- (void)deletePuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	DeletePuzzleOperation *op = [[DeletePuzzleOperation alloc] initWithPuzzleID:puzzleID onCompletion:onCompletion];
 	[self.queue addOperation:op];
 	[op release];
 }
@@ -116,5 +127,27 @@
 	[op release];
 }
 
+#pragma mark - Flag
+
+- (void)getFlaggedPuzzlesOnCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	GetFlaggedPuzzlesOperation *op = [[GetFlaggedPuzzlesOperation alloc] initWithOnCompletionBlock:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
+
+- (void)flagPuzzleForRemoval:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	FlagForRemovalOperation *op = [[FlagForRemovalOperation alloc] initWithPuzzleID:puzzleID onCompletion:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
+
+- (void)deflagPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	DeflagPuzzleOperation *op = [[DeflagPuzzleOperation alloc] initWithPuzzleID:puzzleID onCompletion:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
 
 @end

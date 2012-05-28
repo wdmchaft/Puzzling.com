@@ -10,6 +10,7 @@
 #import "PuzzleAPIURLFactory.h"
 #import "JSONKit.h"
 #import "PuzzleModel.h"
+#import "PuzzleParsingHelpers.h"
 
 
 @interface GetPuzzleOperation() {
@@ -41,22 +42,8 @@
 }
 
 -(void) runCompletionBlock{
-    PuzzleModel* puzzle = [[[PuzzleModel alloc] init] autorelease];
-    
     NSDictionary* data = [self.data objectFromJSONData];
-    puzzle.setupData = [[data objectForKey:@"setupData"] objectFromJSONString];
-    puzzle.solutionData = [[data objectForKey:@"solutionData"] objectFromJSONString];
-    puzzle.type = [data objectForKey:@"type"];
-	puzzle.puzzleID = [data objectForKey:@"_id"];
-	puzzle.name = [data objectForKey:@"name"];
-	puzzle.creatorID = [data objectForKey:@"creator"];
-	puzzle.dislikes = [[data objectForKey:@"dislikes"] intValue];
-	puzzle.likes = [[data objectForKey:@"likes"] intValue];
-	puzzle.rating = [[data objectForKey:@"rating"] doubleValue] + .5;
-	puzzle.taken = [[data objectForKey:@"taken"] intValue];
-	puzzle.timeCreated = [data objectForKey:@"timestamp"];
-
-    self.onCompletion(self.response, puzzle); 
+    self.onCompletion(self.response, [PuzzleParsingHelpers parseDictionary:data]); 
 }
 
 -(void) dealloc{

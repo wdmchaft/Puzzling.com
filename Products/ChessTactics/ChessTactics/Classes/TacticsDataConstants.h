@@ -15,3 +15,5 @@
 #define PROMOTION_TYPE @"promotion_type"
 #define MOVES @"moves"
 #define COMPUTER_MOVE_FIRST @"computer_move_first"
+#define REMOVED_EXPLANATION @"removed_explanation"
+#define MODERATOR @"moderator"

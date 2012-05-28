@@ -157,6 +157,8 @@ Puzzle = new Schema({
     ,   timestamp : Date			/* date created */
     ,	rating : Number			    /* difficulty rating */
     ,   rd : Number					/* Rating deviation */
+		, flaggedForRemoval : Boolean
+		, removed : Boolean			/* Will not be presented in suggestions */
     });
 
 // Just in case

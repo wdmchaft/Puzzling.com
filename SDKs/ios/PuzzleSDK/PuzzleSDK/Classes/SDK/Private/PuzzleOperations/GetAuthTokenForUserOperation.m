@@ -56,6 +56,8 @@
 	currentUser.username = [userData objectForKey:@"username"];
 	currentUser.userID = [userData objectForKey:@"user_id"];
 	currentUser.authToken = [userData objectForKey:@"authToken"];
+	currentUser.userData = [((NSString *)[userData objectForKey:@"user_data"]) objectFromJSONString];
+	NSLog(@"%@", currentUser.userData);
 	[currentUser save];
 	
     self.onCompletion(self.response, [PuzzleCurrentUser currentUser]);

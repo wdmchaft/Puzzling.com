@@ -73,7 +73,7 @@ PuzzleCurrentUser * currentUser = nil;
 
 - (BOOL)isLoggedIn
 {
-	return self.authToken != nil;
+	return self.authToken != nil && ![self.authToken isEqualToString:@""];
 }
 
 #pragma mark - NSCoding Protocol

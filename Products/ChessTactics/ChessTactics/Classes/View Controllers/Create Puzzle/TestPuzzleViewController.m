@@ -88,7 +88,7 @@
 	[temp setValue:self.tacticExplanation forKey:TACTIC_EXPLANATION];
 	self.solutionData = temp;
 	
-	[[PuzzleSDK sharedInstance] createPuzzleWithType:@"tactic" name:name setupData:self.setupData solutionData:self.solutionData onCompletionBlock:^(PuzzleAPIResponse status, id data) {
+	[[PuzzleSDK sharedInstance] createPuzzleWithType:@"tactic" name:name setupData:self.setupData solutionData:self.solutionData isUpdate:nil onCompletionBlock:^(PuzzleAPIResponse status, id data) {
 		self.activityView.hidden = YES;
 		[self.activityView stopAnimating];
 		self.view.userInteractionEnabled = YES;
@@ -111,6 +111,7 @@
 	[super endTactic:score];
 	
 	self.navigationItem.rightBarButtonItem = nil; //There is no next tactic so remove button
+	self.bottomLabel.hidden = YES; //Don't want to see rating changes cause there are none
 }
 
 - (void)showAlertViewForSuccess

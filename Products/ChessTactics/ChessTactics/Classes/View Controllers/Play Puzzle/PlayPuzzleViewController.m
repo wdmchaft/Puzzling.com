@@ -226,7 +226,7 @@
 	{
 		[self setHelpMessageForLastPlayerColor:self.playerColor];
 	}
-	else
+	else if (!self.showingSolution)
 	{
 		[self setHelpMessageForLastPlayerColor:self.playerColor==kWhite?kBlack:kWhite];
 	}
@@ -461,7 +461,24 @@
 	}
 	else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:FLAG_FOR_REMOVAL]) 
 	{
-		//Flag for removal code
+		if (self.puzzleModel)
+		{
+			[[PuzzleSDK sharedInstance] flagPuzzleForRemoval:self.puzzleModel.puzzleID onCompletion:^(PuzzleAPIResponse response, id data)
+			 {
+				 if (response == PuzzleOperationSuccessful)
+				 {
+					 [[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle flagged for removal." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+				 }
+				 else
+				 {
+					 [PuzzleErrorHandler presentErrorForResponse:response];
+				 }
+			 }];
+		}
+		else
+		{
+			[[[[UIAlertView alloc] initWithTitle:@"Unable to flag this puzzle" message:@"Unable to flag this puzzle for removal. Perhaps it hasn't been uploaded to the server yet?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		}
 	}
 }
 

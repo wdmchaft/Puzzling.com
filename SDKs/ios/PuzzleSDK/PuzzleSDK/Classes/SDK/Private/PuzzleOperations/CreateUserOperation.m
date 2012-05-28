@@ -13,7 +13,7 @@
 
 
 #define USER_NAME @"username"
-#define USER_DATA @"userData"
+#define USER_DATA @"user_data"
 
 #define PASSWORD @"password"
 
@@ -65,7 +65,7 @@
 	currentUser.userID = [userData objectForKey:@"user_id"];
 	currentUser.authToken = [userData objectForKey:@"authToken"];
 	currentUser.rating = [[userData objectForKey:@"rating"] doubleValue] + .5;
-	currentUser.userData = [userData objectForKey:@"userData"];
+	currentUser.userData = [((NSString *)[userData objectForKey:@"user_data"]) objectFromJSONString];
 	[currentUser save];
 	
     self.onCompletion(self.response, [PuzzleCurrentUser currentUser]);

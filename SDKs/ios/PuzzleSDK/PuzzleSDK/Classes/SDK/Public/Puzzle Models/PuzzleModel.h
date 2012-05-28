@@ -23,6 +23,8 @@
 @property (nonatomic, readwrite, assign) int rating;
 @property (nonatomic, readwrite, assign) int taken;
 @property (nonatomic, readwrite, retain) NSString *timeCreated;
+@property (nonatomic, readwrite, assign) BOOL flagged;
+@property (nonatomic, readwrite, assign) BOOL removed;
 
 
 - (void)uploadPuzzleOnCompletion:(PuzzleOnCompletionBlock)onCompletion;

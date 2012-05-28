@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
 	self.title = @"Comments";
 	
 	[self reloadData];
@@ -38,7 +39,9 @@
 	 Set the background color
 	 */
 	self.tbl.backgroundColor = [UIColor colorWithRed:219.0/255.0 green:226.0/255.0 blue:237.0/255.0 alpha:1.0];
-	self.toolbar.tintColor = [UIColor blackColor];
+	self.toolbar.tintColor = [UIColor brownColor];
+	UIImage *navBarImage = [UIImage imageNamed: @"NavBar-Wood"];
+	[self.toolbar setBackgroundImage:navBarImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 }
 
 - (void)closeKeyboard

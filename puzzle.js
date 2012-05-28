@@ -61,6 +61,8 @@ function createPuzzle(req, res, papp) {
 		,   rating          : 1500
 		,   rd              : 250
 		,   creator         : req.user._id
+		,		flaggedForRemoval	: false
+		,		removed					: false
 	};
 	
 	// creates a puzzling application based on
@@ -124,13 +126,113 @@ exports.delete = function(req, res) {
 			if(e) err.send_error(err.DB_ERROR, res);
 			else if(!puzzle) err.send_error(err.PUZZLE_DOESNT_EXIST, res);
 			else {
-				puzzle.remove();
-				console.log("[puzzle] successfully deleted puzzle w/ id " + puzzleId);
-				res.send({puzzle_id : puzzleId, success : true});
+				puzzle.removed = true;
+				puzzle.save(function(e) {
+					if (e)
+					{
+						err.send_error(err.DB_ERROR, res);
+					}
+					else
+					{
+						console.log("[puzzle] successfully deleted puzzle w/ id " + puzzleId);
+						res.send({puzzle_id : puzzleId, success : true});
+					}
+				});
 			}
 		});
 	} else err.send_error(err.MISSING_INFO, res);
 };
+
+exports.getFlaggedPuzzles = function(req, res)
+{
+	var apiKey = _u.stripNonAlphaNum(req.apiKey);
+	var TargetModel = pApp.findPuzzleModel(apiKey);
+	console.log("[puzzle] trying to find flagged puzzles");
+	
+	TargetModel
+				.where('removed', false)
+				.where('flaggedForRemoval', true)
+				.run(function(e, docs) {
+					if(e) err.send_error(err.DB_ERROR, res);
+					else
+					{
+						for (var i = 0; i<docs.length; i++) {
+							docs[i].setupData = undefined;
+							docs[i].solutionData = undefined;
+						}
+						console.log("[puzzle] successfully found flagged puzzles");
+						res.send(docs);
+					}
+	});
+}
+
+exports.flagForRemoval = function(req, res)
+{
+	var puzzle_id = req.params.id;
+	if (puzzle_id)
+	{
+		var apiKey = _u.stripNonAlphaNum(req.apiKey);
+		var TargetModel = pApp.findPuzzleModel(apiKey);
+		console.log("[puzzle] trying to flag puzzle for removal w/ id " + puzzle_id);
+		TargetModel.findById(puzzle_id, function(e, puzzle) {
+			if(e) err.send_error(err.DB_ERROR, res);
+			else if(!puzzle) err.send_error(err.PUZZLE_DOESNT_EXIST, res);
+			else
+			{
+				puzzle.flaggedForRemoval = true;
+				puzzle.save(function(e) {
+					if (e)
+					{
+						err.send_error(err.DB_ERROR, res);
+					}
+					else
+					{
+						console.log("[puzzle] successfully flagged puzzle w/ id " + puzzle_id);
+						res.send({puzzle_id : puzzle_id, success : true});
+					}
+				});
+			}
+		});
+	}
+	else
+	{
+		err.send_error(err.MISSING_INFO, res);
+	}
+}
+
+exports.removeFlag = function(req, res)
+{
+	var puzzle_id = req.params.id;
+	if (puzzle_id)
+	{
+		var apiKey = _u.stripNonAlphaNum(req.apiKey);
+		var TargetModel = pApp.findPuzzleModel(apiKey);
+		console.log("[puzzle] trying to deflag puzzle for removal w/ id " + puzzle_id);
+		TargetModel.findById(puzzle_id, function(e, puzzle) {
+			if(e) err.send_error(err.DB_ERROR, res);
+			else if(!puzzle) err.send_error(err.PUZZLE_DOESNT_EXIST, res);
+			else
+			{
+				puzzle.flaggedForRemoval = false;
+				puzzle.save(function(e) {
+					if (e)
+					{
+						err.send_error(err.DB_ERROR, res);
+					}
+					else
+					{
+						console.log("[puzzle] successfully deflagged puzzle w/ id " + puzzle_id);
+						res.send({puzzle_id : puzzle_id, success : true});
+					}
+				});
+			}
+		});
+	}
+	else
+	{
+		err.send_error(err.MISSING_INFO, res);
+	}
+}
 
 //
 // updates assume that the user will have
@@ -143,9 +245,9 @@ exports.update = function(req, res) {
 	, apiKey = _u.stripNonAlphaNum(req.apiKey);
 	
 	if(puzzleId) {
-		if (body["additionalData"]) data["additionalData"] = body["additionalData"];
-		if (body["solutionData"]) data["solutionData"] = body["solutionData"];
-		if (body["setupData"]) data["setupData"] = body["setupData"];
+		if (body["additionalData"]) data["additionalData"] = JSON.stringify(body["additionalData"]);
+		if (body["solutionData"]) data["solutionData"] = JSON.stringify(body["solutionData"]);
+		if (body["setupData"]) data["setupData"] = JSON.stringify(body["setupData"]);
 		
 		var TargetModel = pApp.findPuzzleModel(apiKey);
 		TargetModel.update({_id: puzzleId}, data, function(e, puzzle) {
@@ -202,12 +304,13 @@ exports.suggest = function(req, res) {
 				.gte(userRating - minRatingDifference)
 				.lte(userRating + minRatingDifference)
 				.where('_id').nin(takenPuzzles)
+				.where('removed', false)
 				.run(function(e, docs) {
 					if (e) {
 						if(e) console.log("[puzzle] " + e);
 						err.send_error(err.DB_ERROR, res);
 					} else if (docs.length == 0 || docs == null) { //return the closest puzzle
-						TargetModel.where('rating').gte(userRating).where('_id').nin(takenPuzzles).asc('rating').run(function(e, docs) {
+						TargetModel.where('rating').gte(userRating).where('_id').nin(takenPuzzles).where('removed', false).asc('rating').run(function(e, docs) {
 							if (e) {
 								err.send_error(err.DB_ERROR, res, e.message);
 								return;
@@ -216,7 +319,7 @@ exports.suggest = function(req, res) {
 							if (docs.length > 0) {
 								higher = docs[0];
 							}
-							TargetModel.where('rating').lte(userRating).where('_id').nin(takenPuzzles).desc('rating').run(function(e, docs) {
+							TargetModel.where('rating').lte(userRating).where('_id').nin(takenPuzzles).where('removed', false).desc('rating').run(function(e, docs) {
 								if (e) {
 									err.send_error(err.DB_ERROR, res, e.message);
 									return;

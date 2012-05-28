@@ -24,12 +24,14 @@
     NSString* p_name; 
     NSDictionary* p_setupData;
     NSDictionary* p_solutionData;
+	PuzzleID *p_puzzleID;
 }
 @property (nonatomic, retain, readwrite) NSString* type;
 @property (nonatomic, retain, readwrite) NSString* name;
 @property (nonatomic, retain, readwrite) NSDictionary* setupData;
 @property (nonatomic, retain, readwrite) NSDictionary* solutionData;
 
+@property (nonatomic, retain, readwrite) PuzzleID *puzzleID;
 
 @end
 
@@ -39,21 +41,31 @@
 @synthesize type = p_type, name = p_name;
 @synthesize setupData = p_setupData;
 @synthesize solutionData = p_solutionData;
+@synthesize puzzleID = p_puzzleID;
 
-- (id)initWithType:(NSString*)type name:(NSString*)name setupData:(NSDictionary*)setupData solutionData:(NSDictionary*)solutionData puzzleType:(NSString*)puzzleType onCompletionBlock:(PuzzleOnCompletionBlock)block{
+- (id)initWithType:(NSString*)type name:(NSString*)name setupData:(NSDictionary*)setupData solutionData:(NSDictionary*)solutionData puzzleType:(NSString*)puzzleType isUpdate:(PuzzleID *)puzzleID onCompletionBlock:(PuzzleOnCompletionBlock)block{
     self = [super initWithOnCompletionBlock:block];
     if(self){
         self.type = type;
         self.setupData = setupData;
         self.solutionData = solutionData;
 		self.name = name;
+		self.puzzleID = puzzleID;
     }
     return self;
 }
 
 - (NSMutableURLRequest *)httpRequest {
     NSMutableURLRequest* request = [super httpRequest];
-	[request setHTTPMethod:@"POST"];
+	if (self.puzzleID)
+	{
+		[request setHTTPMethod:@"PUT"];
+	}
+	else
+	{
+		[request setHTTPMethod:@"POST"];
+	}
+	
 	NSMutableDictionary *data = [NSMutableDictionary dictionaryWithCapacity:4];
 	if (self.type) {
 		[data setValue:self.type forKey:TYPE];
@@ -67,13 +79,23 @@
 	if (self.solutionData) {
 		[data setValue:self.solutionData forKey:SOLUTION_DATA];
 	}
+	if (self.puzzleID) {
+		[data setValue:self.puzzleID forKey:@"puzzle_id"];
+	}
     NSData* jsonData = [data JSONData];
     [request setHTTPBody: jsonData];
     return request;
 }
 
 - (NSURL *)url {
-    return [PuzzleAPIURLFactory urlForCreatePuzzle];
+	if (self.puzzleID)
+	{
+		return [PuzzleAPIURLFactory urlForUpdatePuzzle];
+	}
+	else
+	{
+		return [PuzzleAPIURLFactory urlForCreatePuzzle];
+	}
 }
 
 -(void) runCompletionBlock{

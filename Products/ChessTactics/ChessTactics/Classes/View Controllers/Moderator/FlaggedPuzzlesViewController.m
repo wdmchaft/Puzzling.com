@@ -1,23 +1,22 @@
 //
-//  UserPuzzlesViewController.m
+//  FlaggedPuzzlesViewController.m
 //  ChessTactics
 //
-//  Created by Peter Livesey on 5/14/12.
+//  Created by Peter Livesey on 5/26/12.
 //  Copyright (c) 2012 Stanford. All rights reserved.
 //
 
-#import "UserPuzzlesViewController.h"
+#import "FlaggedPuzzlesViewController.h"
 #import "UserPuzzleCell.h"
 #import "PuzzleSDK.h"
 #import "PuzzleModel.h"
 #import "PuzzleCurrentUser.h"
-#import "PlayOwnPuzzleViewController.h"
+#import "PlayPuzzleModerateViewController.h"
 #import "PuzzleModel.h"
 #import "ConstantsForUI.h"
-#import "TacticsDataConstants.h"
 
 
-@interface UserPuzzlesViewController () {
+@interface FlaggedPuzzlesViewController (){
 	NSArray *__tactics;
 	UIActivityIndicatorView *__activityView;
 }
@@ -27,7 +26,7 @@
 
 @end
 
-@implementation UserPuzzlesViewController
+@implementation FlaggedPuzzlesViewController
 
 @synthesize tactics = __tactics, activityView = __activityView;
 
@@ -37,11 +36,16 @@
 	
 	self.title = @"My Puzzles";
 	self.view.backgroundColor = BACKGROUND_COLOR;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
 	
-	[[PuzzleSDK sharedInstance] getPuzzlesMadeByUser:[PuzzleCurrentUser currentUser].userID onCompletion:^(PuzzleAPIResponse response, NSArray *puzzles) {
+	[[PuzzleSDK sharedInstance] getFlaggedPuzzlesOnCompletion:^(PuzzleAPIResponse response, NSArray *puzzles) {
 		if (response == PuzzleOperationSuccessful) {
 			if ([puzzles count] == 0) {
-				[[[[UIAlertView alloc] initWithTitle:@"No Puzzles" message:@"You don't have any tactics. If you feel like you received this in error, please contact the developer." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+				[[[[UIAlertView alloc] initWithTitle:@"No Puzzles" message:@"There are no puzzles currently flagged for removal." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 			}
 			self.tactics = puzzles;
 			[self.tableView reloadData];
@@ -102,57 +106,8 @@
 	[cell setLikes:tactic.likes];
 	[cell setDislikes:tactic.dislikes];
 	
-	if (tactic.removed)
-	{
-		UILabel *removedLabel = [[[UILabel alloc] initWithFrame:CGRectMake(170, 15, 130, 30)] autorelease];
-		removedLabel.textColor = [UIColor redColor];
-		removedLabel.text = @"REMOVED";
-		removedLabel.font = [UIFont systemFontOfSize:24];
-		removedLabel.backgroundColor = [UIColor clearColor];
-		[cell addSubview:removedLabel];
-	}
-	
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
@@ -165,22 +120,9 @@
 	[self.view addSubview:self.activityView];
     [[PuzzleSDK sharedInstance] getPuzzle:((PuzzleModel *)[self.tactics objectAtIndex:indexPath.row]).puzzleID onCompletion:^(PuzzleAPIResponse response, PuzzleModel *puzzle) {
 		if (response == PuzzleOperationSuccessful) {
-			PlayOwnPuzzleViewController *vc = [[[PlayOwnPuzzleViewController alloc] init] autorelease];
+			PlayPuzzleModerateViewController *vc = [[[PlayPuzzleModerateViewController alloc] init] autorelease];
 			vc.puzzleModel = puzzle;
 			[self.navigationController pushViewController:vc animated:YES];
-			if (puzzle.removed)
-			{
-				NSString *message = nil;
-				if ([puzzle.solutionData objectForKey:REMOVED_EXPLANATION])
-				{
-					message = [puzzle.solutionData objectForKey:REMOVED_EXPLANATION];
-				}
-				else
-				{
-					message = @"Sorry, but the moderator who removed this puzzle did not provide an explanation. Maybe you could find an answer in the comments.";
-				}
-				[[[[UIAlertView alloc] initWithTitle:@"Reason for Removal" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
-			}
 		} else {
 			[PuzzleErrorHandler presentErrorForResponse:response];
 		}

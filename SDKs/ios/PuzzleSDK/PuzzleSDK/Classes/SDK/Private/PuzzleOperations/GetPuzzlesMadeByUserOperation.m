@@ -10,7 +10,7 @@
 #import "PuzzleAPIURLFactory.h"
 #import "JSONKit.h"
 #import "PuzzleModel.h"
-
+#import "PuzzleParsingHelpers.h"
 
 @interface GetPuzzlesMadeByUserOperation() {
     PuzzleID *p_userID;
@@ -44,16 +44,7 @@
     NSArray *data = [self.data objectFromJSONData];
 	NSMutableArray *puzzles = [NSMutableArray arrayWithCapacity:[data count]];
 	for (NSDictionary *puzzleDic in data) {
-		PuzzleModel* puzzle = [[[PuzzleModel alloc] init] autorelease];
-		puzzle.type = [puzzleDic objectForKey:@"type"];
-		puzzle.puzzleID = [puzzleDic objectForKey:@"_id"];
-		puzzle.name = [puzzleDic objectForKey:@"name"];
-		puzzle.creatorID = [puzzleDic objectForKey:@"creator"];
-		puzzle.dislikes = [[puzzleDic objectForKey:@"dislikes"] intValue];
-		puzzle.likes = [[puzzleDic objectForKey:@"likes"] intValue];
-		puzzle.rating = [[puzzleDic objectForKey:@"rating"] doubleValue] + .5;
-		puzzle.taken = [[puzzleDic objectForKey:@"taken"] intValue];
-		puzzle.timeCreated = [puzzleDic objectForKey:@"timestamp"];
+		PuzzleModel* puzzle = [PuzzleParsingHelpers parseDictionary:puzzleDic];
 		
 		[puzzles addObject:puzzle];
 	}

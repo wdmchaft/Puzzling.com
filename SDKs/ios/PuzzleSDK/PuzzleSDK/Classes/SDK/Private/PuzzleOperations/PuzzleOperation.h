@@ -21,6 +21,6 @@
 - (id)initWithOnCompletionBlock:(PuzzleOnCompletionBlock)onCompletionBlock;
 - (NSMutableURLRequest *)httpRequest;
 - (NSURL *)url;
--(void) runCompletionBlock;
+- (void)runCompletionBlock;
 
 @end

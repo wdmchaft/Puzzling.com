@@ -22,5 +22,9 @@
 + (NSURL*)urlForTakenPuzzle:(NSString*)puzzleID rated:(BOOL)rated;
 + (NSURL*)urlForUserLeaderboard;
 + (NSURL*)urlForComment:(PuzzleID *)puzzleID;
-
++ (NSURL*)urlForFlagForRemoval:(PuzzleID *)puzzleID;
++ (NSURL*)urlForGetFlagged;
++ (NSURL*)urlForDeletePuzzle;
++ (NSURL*)urlForDeflagPuzzle:(PuzzleID *)puzzleID;
++ (NSURL*)urlForUpdatePuzzle;
 @end
