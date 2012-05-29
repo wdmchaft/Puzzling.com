@@ -114,7 +114,7 @@ exports.restrict = function (req, res, next) {
         // case !success is taken care of for us by
         // the authentication class
         if(success) {
-            var authHeader = req.headers["Authorization"];
+            var authHeader = req.headers["authorization"];
 						var keys = authHeader.split(" ");
             req.apiKey = keys[0];
 						if (keys.length == 2) {
