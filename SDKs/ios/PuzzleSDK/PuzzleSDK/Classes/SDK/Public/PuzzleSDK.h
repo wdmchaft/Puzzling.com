@@ -53,4 +53,8 @@ typedef void(^PuzzleOnCompletionBlock)(PuzzleAPIResponse, id);
 
 - (void)deflagPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
 
+//Like
+- (void)dislikePuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+- (void)likePuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
 @end

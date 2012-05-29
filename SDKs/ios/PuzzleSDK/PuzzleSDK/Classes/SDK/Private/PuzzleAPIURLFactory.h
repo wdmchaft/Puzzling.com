@@ -27,4 +27,6 @@
 + (NSURL*)urlForDeletePuzzle;
 + (NSURL*)urlForDeflagPuzzle:(PuzzleID *)puzzleID;
 + (NSURL*)urlForUpdatePuzzle;
++ (NSURL*)urlForLikePuzzle;
++ (NSURL*)urlForDislikePuzzle;
 @end

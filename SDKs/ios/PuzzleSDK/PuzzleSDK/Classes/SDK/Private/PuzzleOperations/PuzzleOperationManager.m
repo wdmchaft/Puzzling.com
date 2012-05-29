@@ -22,6 +22,7 @@
 #import "FlagForRemovalOperation.h"
 #import "DeletePuzzleOperation.h"
 #import "DeflagPuzzleOperation.h"
+#import "LikeDislikeOperation.h"
 
 
 @interface PuzzleOperationManager() <NSURLConnectionDelegate> {
@@ -146,6 +147,13 @@
 - (void)deflagPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
 {
 	DeflagPuzzleOperation *op = [[DeflagPuzzleOperation alloc] initWithPuzzleID:puzzleID onCompletion:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
+
+- (void)likeDislikePuzzle:(PuzzleID *)puzzleID like:(BOOL)like onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	LikeDislikeOperation *op = [[LikeDislikeOperation alloc] initWithPuzzleID:puzzleID isLike:like onCompletion:onCompletion];
 	[self.queue addOperation:op];
 	[op release];
 }

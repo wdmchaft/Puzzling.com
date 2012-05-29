@@ -112,6 +112,7 @@
 		364B979D1569F1FA00B859D7 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 364B97981569F1FA00B859D7 /* LoginViewController.xib */; };
 		364B979E1569F1FA00B859D7 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364B979A1569F1FA00B859D7 /* RegisterViewController.m */; };
 		364B979F1569F1FA00B859D7 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 364B979B1569F1FA00B859D7 /* RegisterViewController.xib */; };
+		364C309115744E8300FEDEB8 /* LikeDislikeOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 364C309015744E8300FEDEB8 /* LikeDislikeOperation.m */; };
 		365E580E1560992A00A9C752 /* TestPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E580C1560992900A9C752 /* TestPuzzleViewController.m */; };
 		365E580F1560992A00A9C752 /* TestPuzzleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 365E580D1560992900A9C752 /* TestPuzzleViewController.xib */; };
 		365E58401561828100A9C752 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E58361561828100A9C752 /* EGORefreshTableHeaderView.m */; };
@@ -312,6 +313,8 @@
 		364B97991569F1FA00B859D7 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = "Classes/View Controllers/Login/RegisterViewController.h"; sourceTree = "<group>"; };
 		364B979A1569F1FA00B859D7 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = "Classes/View Controllers/Login/RegisterViewController.m"; sourceTree = "<group>"; };
 		364B979B1569F1FA00B859D7 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RegisterViewController.xib; path = "Classes/View Controllers/Login/RegisterViewController.xib"; sourceTree = "<group>"; };
+		364C308F15744E8300FEDEB8 /* LikeDislikeOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikeDislikeOperation.h; sourceTree = "<group>"; };
+		364C309015744E8300FEDEB8 /* LikeDislikeOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikeDislikeOperation.m; sourceTree = "<group>"; };
 		365E580B1560992900A9C752 /* TestPuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestPuzzleViewController.h; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.h"; sourceTree = "<group>"; };
 		365E580C1560992900A9C752 /* TestPuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestPuzzleViewController.m; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.m"; sourceTree = "<group>"; };
 		365E580D1560992900A9C752 /* TestPuzzleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestPuzzleViewController.xib; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.xib"; sourceTree = "<group>"; };
@@ -699,6 +702,8 @@
 				362D621A157165540096EF40 /* DeflagPuzzleOperation.m */,
 				362D621C157165670096EF40 /* DeletePuzzleOperation.h */,
 				362D621D157165690096EF40 /* DeletePuzzleOperation.m */,
+				364C308F15744E8300FEDEB8 /* LikeDislikeOperation.h */,
+				364C309015744E8300FEDEB8 /* LikeDislikeOperation.m */,
 			);
 			path = PuzzleOperations;
 			sourceTree = "<group>";
@@ -1096,6 +1101,7 @@
 				362D6218157161120096EF40 /* PlayPuzzleModerateViewController.m in Sources */,
 				362D621B157165570096EF40 /* DeflagPuzzleOperation.m in Sources */,
 				362D621E1571656A0096EF40 /* DeletePuzzleOperation.m in Sources */,
+				364C309115744E8300FEDEB8 /* LikeDislikeOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

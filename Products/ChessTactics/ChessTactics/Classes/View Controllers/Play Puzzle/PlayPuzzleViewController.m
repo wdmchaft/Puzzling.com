@@ -426,11 +426,41 @@
 {
 	if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:LIKE])
 	{
-		//Put like code here
+		PuzzleID *puzzleID = nil;
+		if (self.puzzleID)
+		{
+			puzzleID = self.puzzleID;
+		}
+		else
+		{
+			puzzleID = self.puzzleModel.puzzleID;
+		}
+		[[PuzzleSDK sharedInstance] likePuzzle:puzzleID onCompletion:^(PuzzleAPIResponse response, id data) {
+			if (response == PuzzleOperationSuccessful) {
+				[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle was liked." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			} else {
+				[PuzzleErrorHandler presentErrorForResponse:response];
+			}
+		}];
 	}
 	else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:DISLIKE])
 	{
-		//Dislike code
+		PuzzleID *puzzleID = nil;
+		if (self.puzzleID)
+		{
+			puzzleID = self.puzzleID;
+		}
+		else
+		{
+			puzzleID = self.puzzleModel.puzzleID;
+		}
+		[[PuzzleSDK sharedInstance] dislikePuzzle:puzzleID onCompletion:^(PuzzleAPIResponse response, id data) {
+			if (response == PuzzleOperationSuccessful) {
+				[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle was disliked." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			} else {
+				[PuzzleErrorHandler presentErrorForResponse:response];
+			}
+		}];
 	}
 	else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:FLAG_FOR_REMOVAL])
 	{

@@ -49,6 +49,7 @@ function read(req, res) {
 // Success response: { <username>, <authtoken>, <userdata> }
 //
 function create(req, res) {
+	console.log("got here");
     userModule.handle("create", req.body, res);
 }
 

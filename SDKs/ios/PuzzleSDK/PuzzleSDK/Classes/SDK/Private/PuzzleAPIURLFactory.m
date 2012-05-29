@@ -7,8 +7,8 @@
 //
 
 #import "PuzzleAPIURLFactory.h"
-//#define ROOT_API_URL @"http://localhost:3000"
-#define ROOT_API_URL @"http://ec2-184-169-151-249.us-west-1.compute.amazonaws.com"
+#define ROOT_API_URL @"http://localhost:3000"
+//#define ROOT_API_URL @"http://ec2-184-169-151-249.us-west-1.compute.amazonaws.com"
 
 @implementation PuzzleAPIURLFactory
 
@@ -65,6 +65,14 @@
 + (NSURL*)urlForUpdatePuzzle
 {
 	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle/update",ROOT_API_URL]];
+}
++ (NSURL*)urlForLikePuzzle
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/like",ROOT_API_URL]];
+}
++ (NSURL*)urlForDislikePuzzle
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/dislike",ROOT_API_URL]];
 }
 
 @end

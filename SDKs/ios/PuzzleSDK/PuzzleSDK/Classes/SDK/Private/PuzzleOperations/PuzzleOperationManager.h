@@ -48,4 +48,8 @@
 
 - (void)deflagPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
 
+#pragma mark - Like/Dislike
+
+- (void)likeDislikePuzzle:(PuzzleID *)puzzleID like:(BOOL)like onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
 @end
