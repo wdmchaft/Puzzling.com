@@ -29,9 +29,8 @@ exports.verifyRequestApiAUth = verifyRequestApiAuth;
 function verifyApi (req, res, callback) { //callback returns bool success
 		var authHeader = req.headers["authorization"];
 		var keys = authHeader.split(" ");
-		console.log(authHeader);
-		console.log(keys);
 		var puzzleKey = keys[0];
+		req.apiKey = puzzleKey;
 		
     console.log("Verifying API key " + puzzleKey);
     APIkeyModel.findById(puzzleKey.toString(), function (e, doc) {
@@ -56,9 +55,11 @@ function verifyRequestApiAuth (req, res, callback) {
 			var puzzleAuth;
 			if (keys.length == 2) {
 				puzzleAuth = keys[1];
+				req.authToken = keys[1];
 			} else {
 				err.send_error(err.INVALID_AUTHTOKEN, res);
 				callback(false);
+				return;
 			}
 			
 			console.log("Verifying auth token " + puzzleAuth);
@@ -95,7 +96,6 @@ exports.restrictByApi =  function (req, res, next) {
         // case !success is taken care of for us by
         // the authentication class
         if(success) {
-            req.apiKey = _u.stripNonAlphaNum(req.headers["puzzle_api_key"]);
             req.user = user;
             next();
         } else console.log("[auth] couldn't find api key " + req.headers["puzzle_api_key"]);
@@ -114,12 +114,6 @@ exports.restrict = function (req, res, next) {
         // case !success is taken care of for us by
         // the authentication class
         if(success) {
-            var authHeader = req.headers["authorization"];
-						var keys = authHeader.split(" ");
-            req.apiKey = keys[0];
-						if (keys.length == 2) {
-							req.authToken = keys[1];
-						}
             req.user = user;
             next();
         } else console.log("[auth] couldn't find api key " + req.headers["puzzle_api_key"]

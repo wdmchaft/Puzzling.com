@@ -110,9 +110,9 @@ app.post('/puzzle/deflag/:id', auth.restrict, puzzle.removeFlag);
 //////////////
 
 // get all comments for a puzzle id
-//app.get('/comment/:id', auth.restrict, comment.get);
+app.get('/comment/:id', auth.restrict, comment.get);
 // post a comment
-//app.post('/comment/:id', auth.restrict, comment.post);
+app.post('/comment/:id', auth.restrict, comment.post);
 
 ///////////////
 // Leaderboard
