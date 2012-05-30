@@ -14,7 +14,7 @@
 #import "PlayGuestPuzzleViewController.h"
 
 
-@interface LoginViewController () {
+@interface LoginViewController () <UITextFieldDelegate> {
 	IBOutlet UITextField *__usernameTextField;
 	IBOutlet UITextField *__passwordTextField;
 }
@@ -37,6 +37,9 @@
     
 	self.title = @"Chess Tactics";
 	self.view.backgroundColor = BACKGROUND_COLOR;
+	
+	self.usernameTextField.delegate = self;
+	self.passwordTextField.delegate = self;
 }
 
 - (void)dealloc
@@ -73,6 +76,21 @@
 {
 	PlayGuestPuzzleViewController *vc = [[[PlayGuestPuzzleViewController alloc] init] autorelease];
 	[self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - TextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+	if (textField == self.usernameTextField)
+	{
+		[self.passwordTextField becomeFirstResponder];
+	}
+	else if (textField == self.passwordTextField)
+	{
+		[self loginButtonPressed:nil];
+	}
+	return YES;
 }
 
 @end

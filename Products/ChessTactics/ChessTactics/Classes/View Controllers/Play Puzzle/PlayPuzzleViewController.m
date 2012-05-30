@@ -18,6 +18,7 @@
 #import "CommentsTableViewController.h"
 #import "PuzzleErrorHandler.h"
 #import "ConstantsForUI.h"
+#import "PuzzleCurrentUser.h"
 
 
 #define MOVE_DELAY 0.5
@@ -28,7 +29,6 @@
 #define LOADING_RATINGS @"Loading rating changes..."
 #define GIVE_UP @"Give Up"
 #define NEXT_TACTIC @"Next Tactic"
-#define SHOW_SOLUTION @"Show Solution"
 #define EXPLANATION @"Explanation"
 #define VIEW_COMMENTS @"View Comments"
 #define LIKE @"Like"
@@ -50,6 +50,8 @@
 	UIBarButtonItem *__nextTacticButton;
 	BOOL __rated;
 	PuzzleID *__puzzleID;
+	
+	UIAlertView *__alertView;
 }
 
 @property (nonatomic, readwrite, retain) ChessBoardViewController *chessBoardViewController;
@@ -62,6 +64,7 @@
 @property (nonatomic, readwrite, retain) UIBarButtonItem *nextTacticButton;
 
 @property (nonatomic, readwrite, retain) UIView *hiddenButtonsView;
+@property (nonatomic, readwrite, retain) UIAlertView *alertView;
 
 - (void)setupPuzzle;
 - (void)startTactic:(NSNumber *)moveComputerFirst;
@@ -79,7 +82,7 @@
 
 @implementation PlayPuzzleViewController
 
-@synthesize chessBoardViewController = __chessBoardViewController, solutionMoves = __solutionMoves, currentMove = __currentMove, playerColor = __playerColor, tacticStarted = __tacticStarted, dispatchQueue = __dispatchQueue, puzzleModel = __puzzleModel, showingSolution = __showingSolution, bottomLabel = __bottomLabel, nextTacticButton = __nextTacticButton, rated = __rated, setupData = __setupData, solutionData = __solutionData, hiddenButtonsView = __hiddenButtonsView, puzzleID = __puzzleID;
+@synthesize chessBoardViewController = __chessBoardViewController, solutionMoves = __solutionMoves, currentMove = __currentMove, playerColor = __playerColor, tacticStarted = __tacticStarted, dispatchQueue = __dispatchQueue, puzzleModel = __puzzleModel, showingSolution = __showingSolution, bottomLabel = __bottomLabel, nextTacticButton = __nextTacticButton, rated = __rated, setupData = __setupData, solutionData = __solutionData, hiddenButtonsView = __hiddenButtonsView, puzzleID = __puzzleID, alertView = __alertView;
 
 #pragma mark - View Life Cycle
 
@@ -157,6 +160,9 @@
 	__solutionData = nil;
 	[__hiddenButtonsView release];
 	__hiddenButtonsView = nil;
+	__alertView.delegate = nil;
+	[__alertView release];
+	__alertView = nil;
 	
 	if (__dispatchQueue != nil) {
 		dispatch_release(__dispatchQueue);
@@ -249,6 +255,13 @@
 	}
 }
 
+- (void)showPuzzleFailMessage:(double)score
+{
+	int scoreInt = score * 100 + .5;
+	self.alertView = [[[UIAlertView alloc] initWithTitle:@"Incorrect" message:[NSString stringWithFormat:@"Sorry, that's not the correct solution.\nScore: %d%%", scoreInt] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:EXPLANATION, SHOW_SOLUTION, nil] autorelease];
+	[self.alertView show];
+}
+
 - (void)endTactic:(double)score {
 	self.chessBoardViewController.view.userInteractionEnabled = NO;
 	self.navigationItem.hidesBackButton = NO;
@@ -265,7 +278,7 @@
 	if (score == 1) {
 		[self showAlertViewForSuccess];
 	} else {
-		[[[[UIAlertView alloc] initWithTitle:@"Incorrect" message:@"Sorry, that's not the correct solution." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:EXPLANATION, SHOW_SOLUTION, nil] autorelease] show];
+		[self showPuzzleFailMessage:score];
 	}
 	
 	self.bottomLabel.text = LOADING_RATINGS;
@@ -283,7 +296,8 @@
 
 - (void)showAlertViewForSuccess
 {
-	[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Well done. Correct solution." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:NEXT_TACTIC, nil] autorelease] show];
+	self.alertView = [[[UIAlertView alloc] initWithTitle:@"Success" message:@"Well done. Correct solution." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:NEXT_TACTIC, nil] autorelease];
+	[self.alertView show];
 }
 
 - (void)setHelpMessageForLastPlayerColor:(Color)color {
@@ -309,7 +323,9 @@
 	if ((piece.color == self.playerColor && self.tacticStarted) || self.showingSolution) { //do computer move
 		ChessMove *lastMove = [self.solutionMoves objectAtIndex:self.currentMove];
 		if (!(x == lastMove.start.x && y == lastMove.start.y && piece.x == lastMove.finish.x && piece.y == lastMove.finish.y && (aClass == nil || [aClass isEqualToString:lastMove.promotionType]))) { //wrong move
-			[self endTactic:0]; //loss
+			int numberOfMoves = [self.solutionMoves count] / 2;
+			double score = (self.currentMove/2) / (double)numberOfMoves;
+			[self endTactic:score]; //loss
 			return;
 		}
 		if (!self.showingSolution) {
@@ -385,7 +401,8 @@
 	{
 		explanation = @"Sorry, but no explanation was offered for this tactic. You may find some answers in the comments.";
 	}
-	[[[[UIAlertView alloc] initWithTitle:@"Explanation" message:explanation delegate:self cancelButtonTitle:@"OK" otherButtonTitles:VIEW_COMMENTS, nil] autorelease] show];
+	self.alertView = [[[UIAlertView alloc] initWithTitle:@"Explanation" message:explanation delegate:self cancelButtonTitle:@"OK" otherButtonTitles:VIEW_COMMENTS, nil] autorelease];
+	[self.alertView show];
 }
 
 - (void)modalViewCancelled {
@@ -435,13 +452,26 @@
 		{
 			puzzleID = self.puzzleModel.puzzleID;
 		}
-		[[PuzzleSDK sharedInstance] likePuzzle:puzzleID onCompletion:^(PuzzleAPIResponse response, id data) {
-			if (response == PuzzleOperationSuccessful) {
-				[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle was liked." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
-			} else {
-				[PuzzleErrorHandler presentErrorForResponse:response];
-			}
-		}];
+		if (!self.puzzleModel.creatorID)
+		{
+			self.alertView = [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Looks like this tactic hasn't been uploaded to the server yet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+			[self.alertView show];
+		}
+		else if ([self.puzzleModel.creatorID isEqualToString:[PuzzleCurrentUser currentUser].userID])
+		{
+			self.alertView = [[[UIAlertView alloc] initWithTitle:@"This is your tactic" message:@"You can't like your own tactic." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+			[self.alertView show];
+		} 
+		else
+		{
+			[[PuzzleSDK sharedInstance] likePuzzle:puzzleID onCompletion:^(PuzzleAPIResponse response, id data) {
+				if (response == PuzzleOperationSuccessful) {
+					[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle was liked." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+				} else {
+					[PuzzleErrorHandler presentErrorForResponse:response];
+				}
+			}];
+		}
 	}
 	else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:DISLIKE])
 	{
@@ -454,17 +484,31 @@
 		{
 			puzzleID = self.puzzleModel.puzzleID;
 		}
-		[[PuzzleSDK sharedInstance] dislikePuzzle:puzzleID onCompletion:^(PuzzleAPIResponse response, id data) {
-			if (response == PuzzleOperationSuccessful) {
-				[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle was disliked." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
-			} else {
-				[PuzzleErrorHandler presentErrorForResponse:response];
-			}
-		}];
+		if (!self.puzzleModel.creatorID)
+		{
+			self.alertView = [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Looks like this tactic hasn't been uploaded to the server yet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+			[self.alertView show];
+		}
+		else if ([self.puzzleModel.creatorID isEqualToString:[PuzzleCurrentUser currentUser].userID])
+		{
+			self.alertView = [[[UIAlertView alloc] initWithTitle:@"This is your tactic" message:@"You can't dislike your own tactic." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+			[self.alertView show];
+		} 
+		else
+		{
+			[[PuzzleSDK sharedInstance] dislikePuzzle:puzzleID onCompletion:^(PuzzleAPIResponse response, id data) {
+				if (response == PuzzleOperationSuccessful) {
+					[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle was disliked." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+				} else {
+					[PuzzleErrorHandler presentErrorForResponse:response];
+				}
+			}];
+		}
 	}
 	else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:FLAG_FOR_REMOVAL])
 	{
-		[[[[UIAlertView alloc] initWithTitle:FLAG_FOR_REMOVAL message:@"You should only flag a puzzle for removal if it violates a rule of chess or has problem which makes it unsolvable (more than one potential best move). Make sure you check the comments and explanation before you submit." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:FLAG_FOR_REMOVAL, nil] autorelease] show];
+		self.alertView = [[[UIAlertView alloc] initWithTitle:FLAG_FOR_REMOVAL message:@"You should only flag a puzzle for removal if it violates a rule of chess or has problem which makes it unsolvable (more than one potential best move). Make sure you check the comments and explanation before you submit." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:FLAG_FOR_REMOVAL, nil] autorelease];
+		[self.alertView show];
 	}
 }
 

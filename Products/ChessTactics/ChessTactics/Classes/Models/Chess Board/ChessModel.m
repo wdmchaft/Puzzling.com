@@ -197,12 +197,12 @@
 
 - (void)movePiece:(ChessPiece *)piece toX:(int)x Y:(int)y withDelay:(NSTimeInterval)seconds {
 	if ([piece isKindOfClass:[Pawn class]]) {
-		if (((Pawn*)piece).enPassentEnabledLeft = YES && piece.x != x)
+		if (((Pawn*)piece).enPassentEnabledLeft == YES && piece.x != x)
 		{
 			ChessPiece *taken = [self getPieceAtX:x Y:piece.y];
 			[self removePiece:taken];
 		}
-		else if (((Pawn*)piece).enPassentEnabledRight = YES && piece.x != x)
+		else if (((Pawn*)piece).enPassentEnabledRight == YES && piece.x != x)
 		{
 			ChessPiece *taken = [self getPieceAtX:x Y:piece.y];
 			[self removePiece:taken];
