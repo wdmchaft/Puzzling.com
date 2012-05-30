@@ -57,7 +57,7 @@
 		[self showLoginViewController:NO];
 	}
 	
-	[self.tacticsButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+//	[self.tacticsButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 //	[self.createButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 //	[self.userButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 //	[self.leaderBoardButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
@@ -73,10 +73,12 @@
 	if ([[[PuzzleCurrentUser currentUser].userData objectForKey:MODERATOR] boolValue])
 	{
 		self.moderatorButton = [UIButton buttonWithType:UIButtonTypeCustom];
-		[self.moderatorButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+		[self.moderatorButton setBackgroundImage:[UIImage imageNamed:@"plainButtonWide"] forState:UIControlStateNormal];
+		[self.moderatorButton setTitleColor:[UIColor colorWithRed:100.0/255.0 green:42.0/255.0 blue:0 alpha:1] forState:UIControlStateNormal];
+		self.moderatorButton.titleLabel.font = [UIFont boldSystemFontOfSize:15];
 		[self.moderatorButton setTitle:@"Moderate Flagged Tactics" forState:UIControlStateNormal];
 		[self.moderatorButton addTarget:self action:@selector(flaggedPressed:) forControlEvents:UIControlEventTouchUpInside];
-		self.moderatorButton.frame = CGRectMake(20, self.view.frame.size.height-44-20, self.view.frame.size.width-40, 44);
+		self.moderatorButton.frame = CGRectMake(40, self.view.frame.size.height-44-20, self.view.frame.size.width-80, 44);
 		[self.view addSubview:self.moderatorButton];
 	}
 	else

@@ -119,6 +119,8 @@
 	p_setupData = nil;
     [p_solutionData release];
 	p_solutionData = nil;
+	[p_puzzleID release];
+	p_puzzleID = nil;
 	
     [super dealloc];
 }

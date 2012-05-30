@@ -83,9 +83,9 @@
 	self.view.backgroundColor = BACKGROUND_COLOR;
 	
 	self.moveEnteringLabel.backgroundColor = [UIColor clearColor];
-	[self.nextButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
-	[self.backToPlacePiecesButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
-	[self.changeColorButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+//	[self.nextButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+//	[self.backToPlacePiecesButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+//	[self.changeColorButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 	
 	self.chessBoardViewController = [[[ChessBoardViewController alloc] initWithColor:self.playerColor] autorelease];
 	self.chessBoardViewController.inEditingMode = YES;

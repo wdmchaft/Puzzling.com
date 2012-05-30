@@ -38,7 +38,7 @@
 					<object class="IBUIButton" id="463776610">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{55, 72}, {210, 44}}</string>
+						<string key="NSFrame">{{40, 72}, {240, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1055979020"/>
@@ -53,14 +53,17 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
-						<reference key="IBUINormalTitleColor" ref="345639764"/>
+						<object class="NSColor" key="IBUINormalTitleColor" id="504738519">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4zOTAyODYxOTI2IDAuMTY1MjcxMzU5NCAwAA</bytes>
+						</object>
 						<object class="NSColor" key="IBUINormalTitleShadowColor" id="944885896">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="358622867">
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="642011318">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">elm-wood-grain.jpg</string>
+							<string key="NSResourceName">plainButtonWide.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="137392959">
 							<int key="type">2</int>
@@ -75,7 +78,7 @@
 					<object class="IBUIButton" id="428345379">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{55, 20}, {210, 44}}</string>
+						<string key="NSFrame">{{40, 20}, {240, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="463776610"/>
@@ -87,19 +90,18 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Users - Rating</string>
 						<reference key="IBUIHighlightedTitleColor" ref="345639764"/>
-						<reference key="IBUINormalTitleColor" ref="345639764"/>
+						<reference key="IBUINormalTitleColor" ref="504738519"/>
 						<reference key="IBUINormalTitleShadowColor" ref="944885896"/>
-						<reference key="IBUINormalBackgroundImage" ref="358622867"/>
+						<reference key="IBUINormalBackgroundImage" ref="642011318"/>
 						<reference key="IBUIFontDescription" ref="137392959"/>
 						<reference key="IBUIFont" ref="910665103"/>
 					</object>
 					<object class="IBUIButton" id="1055979020">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{55, 124}, {210, 44}}</string>
+						<string key="NSFrame">{{40, 124}, {240, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -108,12 +110,9 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Tactics - Most Liked</string>
 						<reference key="IBUIHighlightedTitleColor" ref="345639764"/>
-						<reference key="IBUINormalTitleColor" ref="345639764"/>
+						<reference key="IBUINormalTitleColor" ref="504738519"/>
 						<reference key="IBUINormalTitleShadowColor" ref="944885896"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">dark_wood.jpg</string>
-						</object>
+						<reference key="IBUINormalBackgroundImage" ref="642011318"/>
 						<reference key="IBUIFontDescription" ref="137392959"/>
 						<reference key="IBUIFont" ref="910665103"/>
 					</object>
@@ -188,9 +187,9 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="1055979020"/>
 							<reference ref="463776610"/>
 							<reference ref="428345379"/>
+							<reference ref="1055979020"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -288,10 +287,10 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="dark_wood.jpg">{1024, 768}</string>
-			<string key="elm-wood-grain.jpg">{239, 81}</string>
-		</dictionary>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NS.key.0">plainButtonWide.png</string>
+			<string key="NS.object.0">{240, 44}</string>
+		</object>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>
 </archive>

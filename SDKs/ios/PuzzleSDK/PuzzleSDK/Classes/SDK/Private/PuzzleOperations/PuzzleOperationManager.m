@@ -45,6 +45,14 @@
     return self;
 }
 
+- (void)dealloc
+{
+	[puzzle_queue release];
+	puzzle_queue = nil;
+	
+	[super dealloc];
+}
+
 #pragma mark - Puzzles
 
 - (void)getPuzzleForID:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion {

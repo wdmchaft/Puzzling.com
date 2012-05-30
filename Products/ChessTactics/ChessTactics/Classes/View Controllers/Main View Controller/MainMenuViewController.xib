@@ -68,7 +68,7 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleColor">
+						<object class="NSColor" key="IBUINormalTitleColor" id="37749216">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4zOTAyODYxOTI2IDAuMTY1MjcxMzU5NCAwAA</bytes>
 						</object>
@@ -76,9 +76,9 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="970889678">
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="1058759443">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">plainbutton.png</string>
+							<string key="NSResourceName">plainButtonWide.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="719395134">
 							<int key="type">2</int>
@@ -104,12 +104,9 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUINormalTitle">Create Tactic</string>
 						<reference key="IBUIHighlightedTitleColor" ref="293063095"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC41OTE4MTY4MDQ4IDAuNDY4MTc4MzY1MiAwLjAwNjQxNjA2ODQ0MgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="37749216"/>
 						<reference key="IBUINormalTitleShadowColor" ref="90979336"/>
-						<reference key="IBUINormalBackgroundImage" ref="970889678"/>
+						<reference key="IBUINormalBackgroundImage" ref="1058759443"/>
 						<reference key="IBUIFontDescription" ref="719395134"/>
 						<reference key="IBUIFont" ref="582854045"/>
 					</object>
@@ -127,12 +124,9 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUINormalTitle">My Tactics</string>
 						<reference key="IBUIHighlightedTitleColor" ref="293063095"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC42MjE2NzE3MTU2IDAuMjQ3NzM1MjMwNCAwLjAwNDc5NTAyNDcwOAA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="37749216"/>
 						<reference key="IBUINormalTitleShadowColor" ref="90979336"/>
-						<reference key="IBUINormalBackgroundImage" ref="970889678"/>
+						<reference key="IBUINormalBackgroundImage" ref="1058759443"/>
 						<reference key="IBUIFontDescription" ref="719395134"/>
 						<reference key="IBUIFont" ref="582854045"/>
 					</object>
@@ -150,12 +144,9 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUINormalTitle">Leaderboards</string>
 						<reference key="IBUIHighlightedTitleColor" ref="293063095"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC41Mjk3NTUyNjE1IDAuMzc3MDkyMDY3NCAwAA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="37749216"/>
 						<reference key="IBUINormalTitleShadowColor" ref="90979336"/>
-						<reference key="IBUINormalBackgroundImage" ref="970889678"/>
+						<reference key="IBUINormalBackgroundImage" ref="1058759443"/>
 						<reference key="IBUIFontDescription" ref="719395134"/>
 						<reference key="IBUIFont" ref="582854045"/>
 					</object>
@@ -377,7 +368,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="MainBackground.png">{320, 436}</string>
-			<string key="plainbutton.png">{280, 44}</string>
+			<string key="plainButtonWide.png">{240, 44}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>

@@ -45,7 +45,7 @@
 	self.view.backgroundColor = BACKGROUND_COLOR;
 	self.bottomLabel.backgroundColor = [UIColor clearColor];
 	
-	[self.resetButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+//	[self.resetButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 	
 	[self setupPuzzle];
 }

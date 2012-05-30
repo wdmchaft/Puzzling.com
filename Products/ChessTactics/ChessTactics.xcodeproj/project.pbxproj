@@ -83,8 +83,6 @@
 		3613550C154FA6B9004A056F /* PlayPuzzleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3613550A154FA6B9004A056F /* PlayPuzzleViewController.xib */; };
 		3613550F154FB5DA004A056F /* editingSquareHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 3613550D154FB5DA004A056F /* editingSquareHighlight.png */; };
 		36135510154FB5DA004A056F /* editingSquareHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3613550E154FB5DA004A056F /* editingSquareHighlight@2x.png */; };
-		362D61E715709F520096EF40 /* dark_wood.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 362D61E615709F520096EF40 /* dark_wood.jpg */; };
-		362D61EC1570A0440096EF40 /* elm-wood-grain.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 362D61EB1570A0440096EF40 /* elm-wood-grain.jpg */; };
 		362D61F11570A6CE0096EF40 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362D61EF1570A6CE0096EF40 /* InfoViewController.m */; };
 		362D61F21570A6CE0096EF40 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 362D61F01570A6CE0096EF40 /* InfoViewController.xib */; };
 		362D61F91570A72A0096EF40 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D61F71570A72A0096EF40 /* Default.png */; };
@@ -101,7 +99,6 @@
 		362D6218157161120096EF40 /* PlayPuzzleModerateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362D6217157161110096EF40 /* PlayPuzzleModerateViewController.m */; };
 		362D621B157165570096EF40 /* DeflagPuzzleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 362D621A157165540096EF40 /* DeflagPuzzleOperation.m */; };
 		362D621E1571656A0096EF40 /* DeletePuzzleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 362D621D157165690096EF40 /* DeletePuzzleOperation.m */; };
-		362D6222157197890096EF40 /* plainbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D6221157197890096EF40 /* plainbutton.png */; };
 		364B97541569CB2B00B859D7 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364B97531569CB2B00B859D7 /* CoreText.framework */; };
 		364B97811569D2A900B859D7 /* CommentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364B97801569D2A900B859D7 /* CommentsTableViewController.m */; };
 		364B97841569D2B100B859D7 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 364B97821569D2B100B859D7 /* green.png */; };
@@ -113,6 +110,24 @@
 		364B979E1569F1FA00B859D7 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364B979A1569F1FA00B859D7 /* RegisterViewController.m */; };
 		364B979F1569F1FA00B859D7 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 364B979B1569F1FA00B859D7 /* RegisterViewController.xib */; };
 		364C309115744E8300FEDEB8 /* LikeDislikeOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 364C309015744E8300FEDEB8 /* LikeDislikeOperation.m */; };
+		364C30B31574BBDA00FEDEB8 /* plainButtonLg.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30AB1574BBDA00FEDEB8 /* plainButtonLg.png */; };
+		364C30B41574BBDA00FEDEB8 /* plainButtonLg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30AC1574BBDA00FEDEB8 /* plainButtonLg@2x.png */; };
+		364C30B51574BBDA00FEDEB8 /* plainButtonMd.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30AD1574BBDA00FEDEB8 /* plainButtonMd.png */; };
+		364C30B61574BBDA00FEDEB8 /* plainButtonMd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30AE1574BBDA00FEDEB8 /* plainButtonMd@2x.png */; };
+		364C30B71574BBDA00FEDEB8 /* plainButtonSm.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30AF1574BBDA00FEDEB8 /* plainButtonSm.png */; };
+		364C30B81574BBDA00FEDEB8 /* plainButtonSm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30B01574BBDA00FEDEB8 /* plainButtonSm@2x.png */; };
+		364C30B91574BBDA00FEDEB8 /* plainButtonWide.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30B11574BBDA00FEDEB8 /* plainButtonWide.png */; };
+		364C30BA1574BBDA00FEDEB8 /* plainButtonWide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30B21574BBDA00FEDEB8 /* plainButtonWide@2x.png */; };
+		364C30BD1574C21800FEDEB8 /* plainButtonTiny.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30BB1574C21800FEDEB8 /* plainButtonTiny.png */; };
+		364C30BE1574C21800FEDEB8 /* plainButtonTiny@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30BC1574C21800FEDEB8 /* plainButtonTiny@2x.png */; };
+		364C30C51574C74500FEDEB8 /* darkWoodSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30C31574C74400FEDEB8 /* darkWoodSquare.png */; };
+		364C30C61574C74500FEDEB8 /* darkWoodSquare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30C41574C74400FEDEB8 /* darkWoodSquare@2x.png */; };
+		364C30C91574C7F400FEDEB8 /* lightWoodSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30C71574C7F300FEDEB8 /* lightWoodSquare.png */; };
+		364C30CA1574C7F400FEDEB8 /* lightWoodSquare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30C81574C7F400FEDEB8 /* lightWoodSquare@2x.png */; };
+		364C30CC1574CDB300FEDEB8 /* wr@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30CB1574CDB300FEDEB8 /* wr@2x.png */; };
+		364C30CF1574CF4B00FEDEB8 /* previousSquareHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30CD1574CF4A00FEDEB8 /* previousSquareHighlight.png */; };
+		364C30D01574CF4B00FEDEB8 /* previousSquareHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30CE1574CF4A00FEDEB8 /* previousSquareHighlight@2x.png */; };
+		364C30D31575C94F00FEDEB8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364C30D21575C94F00FEDEB8 /* Crashlytics.framework */; };
 		365E580E1560992A00A9C752 /* TestPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E580C1560992900A9C752 /* TestPuzzleViewController.m */; };
 		365E580F1560992A00A9C752 /* TestPuzzleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 365E580D1560992900A9C752 /* TestPuzzleViewController.xib */; };
 		365E58401561828100A9C752 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E58361561828100A9C752 /* EGORefreshTableHeaderView.m */; };
@@ -272,8 +287,6 @@
 		3613550A154FA6B9004A056F /* PlayPuzzleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayPuzzleViewController.xib; path = "Classes/View Controllers/Play Puzzle/PlayPuzzleViewController.xib"; sourceTree = "<group>"; };
 		3613550D154FB5DA004A056F /* editingSquareHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = editingSquareHighlight.png; sourceTree = "<group>"; };
 		3613550E154FB5DA004A056F /* editingSquareHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "editingSquareHighlight@2x.png"; sourceTree = "<group>"; };
-		362D61E615709F520096EF40 /* dark_wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dark_wood.jpg; sourceTree = "<group>"; };
-		362D61EB1570A0440096EF40 /* elm-wood-grain.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "elm-wood-grain.jpg"; sourceTree = "<group>"; };
 		362D61EE1570A6CE0096EF40 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoViewController.h; path = "Classes/View Controllers/Info/InfoViewController.h"; sourceTree = "<group>"; };
 		362D61EF1570A6CE0096EF40 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoViewController.m; path = "Classes/View Controllers/Info/InfoViewController.m"; sourceTree = "<group>"; };
 		362D61F01570A6CE0096EF40 /* InfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InfoViewController.xib; path = "Classes/View Controllers/Info/InfoViewController.xib"; sourceTree = "<group>"; };
@@ -298,7 +311,6 @@
 		362D621A157165540096EF40 /* DeflagPuzzleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeflagPuzzleOperation.m; sourceTree = "<group>"; };
 		362D621C157165670096EF40 /* DeletePuzzleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeletePuzzleOperation.h; sourceTree = "<group>"; };
 		362D621D157165690096EF40 /* DeletePuzzleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeletePuzzleOperation.m; sourceTree = "<group>"; };
-		362D6221157197890096EF40 /* plainbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plainbutton.png; sourceTree = "<group>"; };
 		364B97531569CB2B00B859D7 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		364B977F1569D2A900B859D7 /* CommentsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsTableViewController.h; sourceTree = "<group>"; };
 		364B97801569D2A900B859D7 /* CommentsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsTableViewController.m; sourceTree = "<group>"; };
@@ -315,6 +327,24 @@
 		364B979B1569F1FA00B859D7 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RegisterViewController.xib; path = "Classes/View Controllers/Login/RegisterViewController.xib"; sourceTree = "<group>"; };
 		364C308F15744E8300FEDEB8 /* LikeDislikeOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikeDislikeOperation.h; sourceTree = "<group>"; };
 		364C309015744E8300FEDEB8 /* LikeDislikeOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikeDislikeOperation.m; sourceTree = "<group>"; };
+		364C30AB1574BBDA00FEDEB8 /* plainButtonLg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plainButtonLg.png; sourceTree = "<group>"; };
+		364C30AC1574BBDA00FEDEB8 /* plainButtonLg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plainButtonLg@2x.png"; sourceTree = "<group>"; };
+		364C30AD1574BBDA00FEDEB8 /* plainButtonMd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plainButtonMd.png; sourceTree = "<group>"; };
+		364C30AE1574BBDA00FEDEB8 /* plainButtonMd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plainButtonMd@2x.png"; sourceTree = "<group>"; };
+		364C30AF1574BBDA00FEDEB8 /* plainButtonSm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plainButtonSm.png; sourceTree = "<group>"; };
+		364C30B01574BBDA00FEDEB8 /* plainButtonSm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plainButtonSm@2x.png"; sourceTree = "<group>"; };
+		364C30B11574BBDA00FEDEB8 /* plainButtonWide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plainButtonWide.png; sourceTree = "<group>"; };
+		364C30B21574BBDA00FEDEB8 /* plainButtonWide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plainButtonWide@2x.png"; sourceTree = "<group>"; };
+		364C30BB1574C21800FEDEB8 /* plainButtonTiny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plainButtonTiny.png; sourceTree = "<group>"; };
+		364C30BC1574C21800FEDEB8 /* plainButtonTiny@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plainButtonTiny@2x.png"; sourceTree = "<group>"; };
+		364C30C31574C74400FEDEB8 /* darkWoodSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkWoodSquare.png; sourceTree = "<group>"; };
+		364C30C41574C74400FEDEB8 /* darkWoodSquare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkWoodSquare@2x.png"; sourceTree = "<group>"; };
+		364C30C71574C7F300FEDEB8 /* lightWoodSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightWoodSquare.png; sourceTree = "<group>"; };
+		364C30C81574C7F400FEDEB8 /* lightWoodSquare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightWoodSquare@2x.png"; sourceTree = "<group>"; };
+		364C30CB1574CDB300FEDEB8 /* wr@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wr@2x.png"; sourceTree = "<group>"; };
+		364C30CD1574CF4A00FEDEB8 /* previousSquareHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = previousSquareHighlight.png; sourceTree = "<group>"; };
+		364C30CE1574CF4A00FEDEB8 /* previousSquareHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "previousSquareHighlight@2x.png"; sourceTree = "<group>"; };
+		364C30D21575C94F00FEDEB8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		365E580B1560992900A9C752 /* TestPuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestPuzzleViewController.h; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.h"; sourceTree = "<group>"; };
 		365E580C1560992900A9C752 /* TestPuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestPuzzleViewController.m; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.m"; sourceTree = "<group>"; };
 		365E580D1560992900A9C752 /* TestPuzzleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestPuzzleViewController.xib; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.xib"; sourceTree = "<group>"; };
@@ -357,7 +387,6 @@
 		36D0380F15702A7E00A7C252 /* boardButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "boardButtonPressed@2x.png"; sourceTree = "<group>"; };
 		36D0381015702A7E00A7C252 /* commentButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "commentButton@2x.png"; sourceTree = "<group>"; };
 		36D0381115702A7E00A7C252 /* commentButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "commentButtonPressed@2x.png"; sourceTree = "<group>"; };
-		36D0381215702A7E00A7C252 /* plainButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plainButton@2x.png"; sourceTree = "<group>"; };
 		36D0381C15702F2C00A7C252 /* NavBar-Wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavBar-Wood.png"; sourceTree = "<group>"; };
 		36D0381D15702F2C00A7C252 /* NavBar-Wood@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavBar-Wood@2x.png"; sourceTree = "<group>"; };
 		36D038201570306400A7C252 /* MainBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MainBackground.png; path = Assets/MainBackground.png; sourceTree = "<group>"; };
@@ -383,6 +412,7 @@
 				36099943154B9B120006A5F5 /* UIKit.framework in Frameworks */,
 				36099945154B9B120006A5F5 /* Foundation.framework in Frameworks */,
 				36099947154B9B120006A5F5 /* CoreGraphics.framework in Frameworks */,
+				364C30D31575C94F00FEDEB8 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +439,7 @@
 		36099941154B9B120006A5F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				364C30D21575C94F00FEDEB8 /* Crashlytics.framework */,
 				362D62031570AAB70096EF40 /* MessageUI.framework */,
 				364B97531569CB2B00B859D7 /* CoreText.framework */,
 				365E585815621D5200A9C752 /* QuartzCore.framework */,
@@ -428,8 +459,6 @@
 				36099A36154C7CF90006A5F5 /* Assets */,
 				36099951154B9B120006A5F5 /* AppDelegate.h */,
 				36099952154B9B120006A5F5 /* AppDelegate.m */,
-				362D61E615709F520096EF40 /* dark_wood.jpg */,
-				362D61EB1570A0440096EF40 /* elm-wood-grain.jpg */,
 				36099949154B9B120006A5F5 /* Supporting Files */,
 			);
 			path = ChessTactics;
@@ -603,10 +632,16 @@
 			isa = PBXGroup;
 			children = (
 				36099A38154C7D4E0006A5F5 /* Chess Pieces */,
+				364C30C71574C7F300FEDEB8 /* lightWoodSquare.png */,
+				364C30C81574C7F400FEDEB8 /* lightWoodSquare@2x.png */,
+				364C30C31574C74400FEDEB8 /* darkWoodSquare.png */,
+				364C30C41574C74400FEDEB8 /* darkWoodSquare@2x.png */,
 				36099A50154C7D4E0006A5F5 /* squareHighlight.png */,
 				36099A51154C7D4E0006A5F5 /* squareHighlight@2x.png */,
 				3613550D154FB5DA004A056F /* editingSquareHighlight.png */,
 				3613550E154FB5DA004A056F /* editingSquareHighlight@2x.png */,
+				364C30CD1574CF4A00FEDEB8 /* previousSquareHighlight.png */,
+				364C30CE1574CF4A00FEDEB8 /* previousSquareHighlight@2x.png */,
 			);
 			name = "Chess Board";
 			path = "Assets/Chess Board";
@@ -638,6 +673,7 @@
 				36099A4D154C7D4E0006A5F5 /* wq.png */,
 				36099A4E154C7D4E0006A5F5 /* wq@2x.png */,
 				36099A4F154C7D4E0006A5F5 /* wr.png */,
+				364C30CB1574CDB300FEDEB8 /* wr@2x.png */,
 			);
 			path = "Chess Pieces";
 			sourceTree = "<group>";
@@ -882,14 +918,22 @@
 		36D0380D15702A7E00A7C252 /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				364C30BB1574C21800FEDEB8 /* plainButtonTiny.png */,
+				364C30BC1574C21800FEDEB8 /* plainButtonTiny@2x.png */,
+				364C30AB1574BBDA00FEDEB8 /* plainButtonLg.png */,
+				364C30AC1574BBDA00FEDEB8 /* plainButtonLg@2x.png */,
+				364C30AD1574BBDA00FEDEB8 /* plainButtonMd.png */,
+				364C30AE1574BBDA00FEDEB8 /* plainButtonMd@2x.png */,
+				364C30AF1574BBDA00FEDEB8 /* plainButtonSm.png */,
+				364C30B01574BBDA00FEDEB8 /* plainButtonSm@2x.png */,
+				364C30B11574BBDA00FEDEB8 /* plainButtonWide.png */,
+				364C30B21574BBDA00FEDEB8 /* plainButtonWide@2x.png */,
 				362D62051570CD300096EF40 /* bulbButton@2x.png */,
 				362D62061570CD300096EF40 /* bulbButtonPressed@2x.png */,
 				36D0380E15702A7E00A7C252 /* boardButton@2x.png */,
 				36D0380F15702A7E00A7C252 /* boardButtonPressed@2x.png */,
 				36D0381015702A7E00A7C252 /* commentButton@2x.png */,
 				36D0381115702A7E00A7C252 /* commentButtonPressed@2x.png */,
-				362D6221157197890096EF40 /* plainbutton.png */,
-				36D0381215702A7E00A7C252 /* plainButton@2x.png */,
 			);
 			name = buttons;
 			path = Assets/buttons;
@@ -915,6 +959,7 @@
 				3609993A154B9B120006A5F5 /* Sources */,
 				3609993B154B9B120006A5F5 /* Frameworks */,
 				3609993C154B9B120006A5F5 /* Resources */,
+				364C30D11575C91000FEDEB8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1016,8 +1061,6 @@
 				36D038231570306500A7C252 /* MainBackground@2x.png in Resources */,
 				36D0382915708B6A00A7C252 /* PlayGuestPuzzleViewController.xib in Resources */,
 				36D0382E1570931D00A7C252 /* TacticGuidelinesViewController.xib in Resources */,
-				362D61E715709F520096EF40 /* dark_wood.jpg in Resources */,
-				362D61EC1570A0440096EF40 /* elm-wood-grain.jpg in Resources */,
 				362D61F21570A6CE0096EF40 /* InfoViewController.xib in Resources */,
 				362D61F91570A72A0096EF40 /* Default.png in Resources */,
 				362D61FA1570A72A0096EF40 /* Default@2x.png in Resources */,
@@ -1025,11 +1068,43 @@
 				362D61FE1570A7FD0096EF40 /* icon@2x.png in Resources */,
 				362D62071570CD300096EF40 /* bulbButton@2x.png in Resources */,
 				362D62081570CD300096EF40 /* bulbButtonPressed@2x.png in Resources */,
-				362D6222157197890096EF40 /* plainbutton.png in Resources */,
+				364C30B31574BBDA00FEDEB8 /* plainButtonLg.png in Resources */,
+				364C30B41574BBDA00FEDEB8 /* plainButtonLg@2x.png in Resources */,
+				364C30B51574BBDA00FEDEB8 /* plainButtonMd.png in Resources */,
+				364C30B61574BBDA00FEDEB8 /* plainButtonMd@2x.png in Resources */,
+				364C30B71574BBDA00FEDEB8 /* plainButtonSm.png in Resources */,
+				364C30B81574BBDA00FEDEB8 /* plainButtonSm@2x.png in Resources */,
+				364C30B91574BBDA00FEDEB8 /* plainButtonWide.png in Resources */,
+				364C30BA1574BBDA00FEDEB8 /* plainButtonWide@2x.png in Resources */,
+				364C30BD1574C21800FEDEB8 /* plainButtonTiny.png in Resources */,
+				364C30BE1574C21800FEDEB8 /* plainButtonTiny@2x.png in Resources */,
+				364C30C51574C74500FEDEB8 /* darkWoodSquare.png in Resources */,
+				364C30C61574C74500FEDEB8 /* darkWoodSquare@2x.png in Resources */,
+				364C30C91574C7F400FEDEB8 /* lightWoodSquare.png in Resources */,
+				364C30CA1574C7F400FEDEB8 /* lightWoodSquare@2x.png in Resources */,
+				364C30CC1574CDB300FEDEB8 /* wr@2x.png in Resources */,
+				364C30CF1574CF4B00FEDEB8 /* previousSquareHighlight.png in Resources */,
+				364C30D01574CF4B00FEDEB8 /* previousSquareHighlight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		364C30D11575C91000FEDEB8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run a2525f75879917ec4cffeeb16345f5aa9bbbeaeb";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3609993A154B9B120006A5F5 /* Sources */ = {
@@ -1166,6 +1241,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ChessTactics/ChessTactics-Prefix.pch";
 				INFOPLIST_FILE = "ChessTactics/ChessTactics-Info.plist";
@@ -1180,6 +1259,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ChessTactics/ChessTactics-Prefix.pch";
 				INFOPLIST_FILE = "ChessTactics/ChessTactics-Info.plist";

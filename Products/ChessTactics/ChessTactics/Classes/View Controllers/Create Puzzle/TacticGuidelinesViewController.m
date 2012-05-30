@@ -32,7 +32,7 @@
 	
 	self.title = @"Guidelines";
     
-	[self.stockfishButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+//	[self.stockfishButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 	self.view.backgroundColor = BACKGROUND_COLOR;
 	UIScrollView *scrollView = [[[UIScrollView alloc] initWithFrame:self.view.frame] autorelease];
 	scrollView.contentSize = self.contentView.frame.size;

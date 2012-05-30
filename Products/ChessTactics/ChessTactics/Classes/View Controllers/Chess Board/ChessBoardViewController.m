@@ -279,12 +279,12 @@
 	}
 	[self.recentMoveSquares removeAllObjects];
 	
-	UIImageView * highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"squareHighlight"]];
+	UIImageView * highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"previousSquareHighlight"]];
 	highlight.frame = CGRectMake(startX*self.squareSize, (7-startY)*self.squareSize, self.squareSize, self.squareSize);
 	[self.view addSubview:highlight];
 	[self.recentMoveSquares addObject:highlight];
 	[highlight release];
-	highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"squareHighlight"]];
+	highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"previousSquareHighlight"]];
 	highlight.frame = CGRectMake(finish.x*self.squareSize, (7-finish.y)*self.squareSize, self.squareSize, self.squareSize);
 	[self.view addSubview:highlight];
 	[self.recentMoveSquares addObject:highlight];

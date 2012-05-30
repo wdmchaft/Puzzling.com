@@ -22,7 +22,7 @@
 @property (nonatomic, readonly, retain) UITextField *usernameTextField;
 @property (nonatomic, readonly, retain) UITextField *passwordTextField;
 
-- (void)registerButtonPressed;
+- (IBAction)registerButtonPressed:(id)sender;
 - (IBAction)loginButtonPressed:(id)sender;
 
 @end
@@ -37,9 +37,6 @@
     
 	self.title = @"Chess Tactics";
 	self.view.backgroundColor = BACKGROUND_COLOR;
-	
-	UIBarButtonItem *registerButton = [[[UIBarButtonItem alloc] initWithTitle:@"Register" style:UIBarButtonItemStyleBordered target:self action:@selector(registerButtonPressed)] autorelease];
-	self.navigationItem.rightBarButtonItem = registerButton;
 }
 
 - (void)dealloc
@@ -52,7 +49,7 @@
 	[super dealloc];
 }
 
-- (void)registerButtonPressed
+- (IBAction)registerButtonPressed:(id)sender
 {
 	RegisterViewController *vc = [[[RegisterViewController alloc] init] autorelease];
 	[self.navigationController pushViewController:vc animated:YES];

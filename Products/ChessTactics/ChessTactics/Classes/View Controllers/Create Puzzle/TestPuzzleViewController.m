@@ -55,8 +55,8 @@
 	self.title = @"Test Tactic";
 	self.view.backgroundColor = BACKGROUND_COLOR;
 	
-	[self.submitButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
-	[self.explanationButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+//	[self.submitButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+//	[self.explanationButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 }
 
 - (void)dealloc {

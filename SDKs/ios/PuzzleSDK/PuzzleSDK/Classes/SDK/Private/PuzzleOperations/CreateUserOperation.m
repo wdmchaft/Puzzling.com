@@ -73,8 +73,12 @@
 
 -(void) dealloc{
     [user_name release];
+	user_name = nil;
     [user_password release];
+	user_password = nil;
     [user_data release];
+	user_data = nil;
+	
     [super dealloc];
 }
 

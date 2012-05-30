@@ -68,6 +68,7 @@
 -(void) dealloc{
     [p_puzzleID release];
 	p_puzzleID = nil;
+	
     [super dealloc];
 }
 
