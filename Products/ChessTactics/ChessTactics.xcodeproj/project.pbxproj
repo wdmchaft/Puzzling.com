@@ -101,8 +101,6 @@
 		362D621E1571656A0096EF40 /* DeletePuzzleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 362D621D157165690096EF40 /* DeletePuzzleOperation.m */; };
 		364B97541569CB2B00B859D7 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364B97531569CB2B00B859D7 /* CoreText.framework */; };
 		364B97811569D2A900B859D7 /* CommentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364B97801569D2A900B859D7 /* CommentsTableViewController.m */; };
-		364B97841569D2B100B859D7 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 364B97821569D2B100B859D7 /* green.png */; };
-		364B97851569D2B100B859D7 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 364B97831569D2B100B859D7 /* grey.png */; };
 		364B97871569D2C300B859D7 /* CommentsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 364B97861569D2C300B859D7 /* CommentsTableViewController.xib */; };
 		364B978A1569D45100B859D7 /* PuzzleComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 364B97891569D45100B859D7 /* PuzzleComment.m */; };
 		364B979C1569F1FA00B859D7 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364B97971569F1FA00B859D7 /* LoginViewController.m */; };
@@ -128,8 +126,10 @@
 		364C30CF1574CF4B00FEDEB8 /* previousSquareHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30CD1574CF4A00FEDEB8 /* previousSquareHighlight.png */; };
 		364C30D01574CF4B00FEDEB8 /* previousSquareHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30CE1574CF4A00FEDEB8 /* previousSquareHighlight@2x.png */; };
 		364C30D31575C94F00FEDEB8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364C30D21575C94F00FEDEB8 /* Crashlytics.framework */; };
-		364C30DE1575E3DD00FEDEB8 /* green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30DC1575E3DD00FEDEB8 /* green@2x.png */; };
-		364C30DF1575E3DD00FEDEB8 /* grey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30DD1575E3DD00FEDEB8 /* grey@2x.png */; };
+		364C30EF1576C76200FEDEB8 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30EB1576C76200FEDEB8 /* green.png */; };
+		364C30F01576C76200FEDEB8 /* green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30EC1576C76200FEDEB8 /* green@2x.png */; };
+		364C30F11576C76200FEDEB8 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30ED1576C76200FEDEB8 /* grey.png */; };
+		364C30F21576C76200FEDEB8 /* grey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30EE1576C76200FEDEB8 /* grey@2x.png */; };
 		365E580E1560992A00A9C752 /* TestPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E580C1560992900A9C752 /* TestPuzzleViewController.m */; };
 		365E580F1560992A00A9C752 /* TestPuzzleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 365E580D1560992900A9C752 /* TestPuzzleViewController.xib */; };
 		365E58401561828100A9C752 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E58361561828100A9C752 /* EGORefreshTableHeaderView.m */; };
@@ -316,8 +316,6 @@
 		364B97531569CB2B00B859D7 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		364B977F1569D2A900B859D7 /* CommentsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsTableViewController.h; sourceTree = "<group>"; };
 		364B97801569D2A900B859D7 /* CommentsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsTableViewController.m; sourceTree = "<group>"; };
-		364B97821569D2B100B859D7 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
-		364B97831569D2B100B859D7 /* grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey.png; sourceTree = "<group>"; };
 		364B97861569D2C300B859D7 /* CommentsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsTableViewController.xib; sourceTree = "<group>"; };
 		364B97881569D45100B859D7 /* PuzzleComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleComment.h; sourceTree = "<group>"; };
 		364B97891569D45100B859D7 /* PuzzleComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleComment.m; sourceTree = "<group>"; };
@@ -347,8 +345,10 @@
 		364C30CD1574CF4A00FEDEB8 /* previousSquareHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = previousSquareHighlight.png; sourceTree = "<group>"; };
 		364C30CE1574CF4A00FEDEB8 /* previousSquareHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "previousSquareHighlight@2x.png"; sourceTree = "<group>"; };
 		364C30D21575C94F00FEDEB8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		364C30DC1575E3DD00FEDEB8 /* green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green@2x.png"; sourceTree = "<group>"; };
-		364C30DD1575E3DD00FEDEB8 /* grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grey@2x.png"; sourceTree = "<group>"; };
+		364C30EB1576C76200FEDEB8 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
+		364C30EC1576C76200FEDEB8 /* green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green@2x.png"; sourceTree = "<group>"; };
+		364C30ED1576C76200FEDEB8 /* grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey.png; sourceTree = "<group>"; };
+		364C30EE1576C76200FEDEB8 /* grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grey@2x.png"; sourceTree = "<group>"; };
 		365E580B1560992900A9C752 /* TestPuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestPuzzleViewController.h; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.h"; sourceTree = "<group>"; };
 		365E580C1560992900A9C752 /* TestPuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestPuzzleViewController.m; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.m"; sourceTree = "<group>"; };
 		365E580D1560992900A9C752 /* TestPuzzleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestPuzzleViewController.xib; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.xib"; sourceTree = "<group>"; };
@@ -625,6 +625,7 @@
 				362D61F81570A72A0096EF40 /* Default@2x.png */,
 				36D038201570306400A7C252 /* MainBackground.png */,
 				36D038211570306400A7C252 /* MainBackground@2x.png */,
+				364C30EA1576C76200FEDEB8 /* Comments */,
 				36D0381B15702F2C00A7C252 /* NavBar */,
 				36D0380D15702A7E00A7C252 /* buttons */,
 				36099A37154C7D4E0006A5F5 /* Chess Board */,
@@ -816,20 +817,8 @@
 				364B977F1569D2A900B859D7 /* CommentsTableViewController.h */,
 				364B97801569D2A900B859D7 /* CommentsTableViewController.m */,
 				364B97861569D2C300B859D7 /* CommentsTableViewController.xib */,
-				364B97551569CB9E00B859D7 /* Resources */,
 			);
 			name = Comments;
-			sourceTree = "<group>";
-		};
-		364B97551569CB9E00B859D7 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				364B97821569D2B100B859D7 /* green.png */,
-				364B97831569D2B100B859D7 /* grey.png */,
-				364C30DC1575E3DD00FEDEB8 /* green@2x.png */,
-				364C30DD1575E3DD00FEDEB8 /* grey@2x.png */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		364B978B1569EE6100B859D7 /* Login */ = {
@@ -843,6 +832,18 @@
 				364B979B1569F1FA00B859D7 /* RegisterViewController.xib */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		364C30EA1576C76200FEDEB8 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				364C30EB1576C76200FEDEB8 /* green.png */,
+				364C30EC1576C76200FEDEB8 /* green@2x.png */,
+				364C30ED1576C76200FEDEB8 /* grey.png */,
+				364C30EE1576C76200FEDEB8 /* grey@2x.png */,
+			);
+			name = Comments;
+			path = Assets/Comments;
 			sourceTree = "<group>";
 		};
 		365E58191561825900A9C752 /* Vendor */ = {
@@ -1051,8 +1052,6 @@
 				365E58481561828100A9C752 /* whiteArrow@2x.png in Resources */,
 				365E585715621C3100A9C752 /* UserPuzzleCell.xib in Resources */,
 				36649DB01566CAC2001B00F0 /* EnterExplanationViewController.xib in Resources */,
-				364B97841569D2B100B859D7 /* green.png in Resources */,
-				364B97851569D2B100B859D7 /* grey.png in Resources */,
 				364B97871569D2C300B859D7 /* CommentsTableViewController.xib in Resources */,
 				364B979D1569F1FA00B859D7 /* LoginViewController.xib in Resources */,
 				364B979F1569F1FA00B859D7 /* RegisterViewController.xib in Resources */,
@@ -1091,8 +1090,10 @@
 				364C30CC1574CDB300FEDEB8 /* wr@2x.png in Resources */,
 				364C30CF1574CF4B00FEDEB8 /* previousSquareHighlight.png in Resources */,
 				364C30D01574CF4B00FEDEB8 /* previousSquareHighlight@2x.png in Resources */,
-				364C30DE1575E3DD00FEDEB8 /* green@2x.png in Resources */,
-				364C30DF1575E3DD00FEDEB8 /* grey@2x.png in Resources */,
+				364C30EF1576C76200FEDEB8 /* green.png in Resources */,
+				364C30F01576C76200FEDEB8 /* green@2x.png in Resources */,
+				364C30F11576C76200FEDEB8 /* grey.png in Resources */,
+				364C30F21576C76200FEDEB8 /* grey@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
