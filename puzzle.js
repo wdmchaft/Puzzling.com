@@ -547,7 +547,7 @@ exports.like = function (req, res) {
 		, TargetModel = pApp.findPuzzleModel(apiKey);
 
 	console.log("[puzzle] : liking puzzle with id " + puzzle_id);
-	TargetModel.update({id:puzzle_id}, {$inc : {likes: 1}}, {}, callback);
+	TargetModel.update({_id:puzzle_id}, {$inc : {likes: 1}}, {}, callback);
 	function callback(e, numAffected) {
 		if(!e) res.send({"success":true, "numAffected": numAffected});
 		else err.send_error(err.PUZZLE_DOESNT_EXIST, res);
@@ -560,7 +560,7 @@ exports.dislike = function (req, res) {
 		, TargetModel = pApp.findPuzzleModel(api_key);
 		
 	console.log("[puzzle] : disliking puzzle with id " + puzzle_id);
-	TargetModel.update({id:puzzle_id}, {$inc : {dislikes: 1}}, {}, callback);
+	TargetModel.update({_id:puzzle_id}, {$inc : {dislikes: 1}}, {}, callback);
 	function callback(e, numAffected) {
 		if(!e) res.send({"success":true, "numAffected": numAffected});
 		else err.send_error(err.PUZZLE_DOESNT_EXIST, res);

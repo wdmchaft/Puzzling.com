@@ -118,4 +118,16 @@ PuzzleSDK * sharedInstance = nil;
 	[self.operationManager deflagPuzzle:puzzleID onCompletion:onCompletion];
 }
 
+#pragma mark - Likes
+
+- (void)dislikePuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	[self.operationManager likeDislikePuzzle:puzzleID like:NO onCompletion:onCompletion];
+}
+
+- (void)likePuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	[self.operationManager likeDislikePuzzle:puzzleID like:YES onCompletion:onCompletion];
+}
+
 @end

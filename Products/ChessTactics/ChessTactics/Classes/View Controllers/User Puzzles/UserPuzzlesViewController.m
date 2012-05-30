@@ -37,6 +37,11 @@
 	
 	self.title = @"My Puzzles";
 	self.view.backgroundColor = BACKGROUND_COLOR;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
 	
 	[[PuzzleSDK sharedInstance] getPuzzlesMadeByUser:[PuzzleCurrentUser currentUser].userID onCompletion:^(PuzzleAPIResponse response, NSArray *puzzles) {
 		if (response == PuzzleOperationSuccessful) {

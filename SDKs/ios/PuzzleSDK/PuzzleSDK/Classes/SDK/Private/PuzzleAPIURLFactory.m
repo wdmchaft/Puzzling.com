@@ -66,5 +66,13 @@
 {
 	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/puzzle/update",ROOT_API_URL]];
 }
++ (NSURL*)urlForLikePuzzle
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/like",ROOT_API_URL]];
+}
++ (NSURL*)urlForDislikePuzzle
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/dislike",ROOT_API_URL]];
+}
 
 @end
