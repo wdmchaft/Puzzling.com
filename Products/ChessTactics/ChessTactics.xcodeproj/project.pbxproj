@@ -91,7 +91,6 @@
 		362D61FE1570A7FD0096EF40 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D61FC1570A7FD0096EF40 /* icon@2x.png */; };
 		362D62041570AAB70096EF40 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 362D62031570AAB70096EF40 /* MessageUI.framework */; };
 		362D62071570CD300096EF40 /* bulbButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D62051570CD300096EF40 /* bulbButton@2x.png */; };
-		362D62081570CD300096EF40 /* bulbButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D62061570CD300096EF40 /* bulbButtonPressed@2x.png */; };
 		362D620B157159A50096EF40 /* FlagForRemovalOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 362D620A157159A50096EF40 /* FlagForRemovalOperation.m */; };
 		362D620E15715B050096EF40 /* GetFlaggedPuzzlesOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 362D620D15715B050096EF40 /* GetFlaggedPuzzlesOperation.m */; };
 		362D621215715DC40096EF40 /* FlaggedPuzzlesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362D621115715DC40096EF40 /* FlaggedPuzzlesViewController.m */; };
@@ -130,6 +129,9 @@
 		364C30F01576C76200FEDEB8 /* green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30EC1576C76200FEDEB8 /* green@2x.png */; };
 		364C30F11576C76200FEDEB8 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30ED1576C76200FEDEB8 /* grey.png */; };
 		364C30F21576C76200FEDEB8 /* grey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30EE1576C76200FEDEB8 /* grey@2x.png */; };
+		364C30FF1576C82100FEDEB8 /* boardButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30FC1576C82100FEDEB8 /* boardButton.png */; };
+		364C31001576C82100FEDEB8 /* bulbButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30FD1576C82100FEDEB8 /* bulbButton.png */; };
+		364C31011576C82100FEDEB8 /* commentButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C30FE1576C82100FEDEB8 /* commentButton.png */; };
 		365E580E1560992A00A9C752 /* TestPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E580C1560992900A9C752 /* TestPuzzleViewController.m */; };
 		365E580F1560992A00A9C752 /* TestPuzzleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 365E580D1560992900A9C752 /* TestPuzzleViewController.xib */; };
 		365E58401561828100A9C752 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E58361561828100A9C752 /* EGORefreshTableHeaderView.m */; };
@@ -156,9 +158,7 @@
 		36D037F9156DA2D300A7C252 /* AddCommentOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D037F8156DA2D200A7C252 /* AddCommentOperation.m */; };
 		36D037FC156DA2E700A7C252 /* GetCommentsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D037FB156DA2E600A7C252 /* GetCommentsOperation.m */; };
 		36D0381415702A7E00A7C252 /* boardButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D0380E15702A7E00A7C252 /* boardButton@2x.png */; };
-		36D0381515702A7E00A7C252 /* boardButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D0380F15702A7E00A7C252 /* boardButtonPressed@2x.png */; };
 		36D0381615702A7E00A7C252 /* commentButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D0381015702A7E00A7C252 /* commentButton@2x.png */; };
-		36D0381715702A7E00A7C252 /* commentButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D0381115702A7E00A7C252 /* commentButtonPressed@2x.png */; };
 		36D0381E15702F2D00A7C252 /* NavBar-Wood.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D0381C15702F2C00A7C252 /* NavBar-Wood.png */; };
 		36D0381F15702F2D00A7C252 /* NavBar-Wood@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D0381D15702F2C00A7C252 /* NavBar-Wood@2x.png */; };
 		36D038221570306500A7C252 /* MainBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D038201570306400A7C252 /* MainBackground.png */; };
@@ -298,7 +298,6 @@
 		362D61FC1570A7FD0096EF40 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "Assets/icon@2x.png"; sourceTree = "<group>"; };
 		362D62031570AAB70096EF40 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		362D62051570CD300096EF40 /* bulbButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bulbButton@2x.png"; sourceTree = "<group>"; };
-		362D62061570CD300096EF40 /* bulbButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bulbButtonPressed@2x.png"; sourceTree = "<group>"; };
 		362D6209157159A50096EF40 /* FlagForRemovalOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlagForRemovalOperation.h; sourceTree = "<group>"; };
 		362D620A157159A50096EF40 /* FlagForRemovalOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlagForRemovalOperation.m; sourceTree = "<group>"; };
 		362D620C15715B040096EF40 /* GetFlaggedPuzzlesOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFlaggedPuzzlesOperation.h; sourceTree = "<group>"; };
@@ -349,6 +348,9 @@
 		364C30EC1576C76200FEDEB8 /* green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green@2x.png"; sourceTree = "<group>"; };
 		364C30ED1576C76200FEDEB8 /* grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey.png; sourceTree = "<group>"; };
 		364C30EE1576C76200FEDEB8 /* grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grey@2x.png"; sourceTree = "<group>"; };
+		364C30FC1576C82100FEDEB8 /* boardButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boardButton.png; sourceTree = "<group>"; };
+		364C30FD1576C82100FEDEB8 /* bulbButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bulbButton.png; sourceTree = "<group>"; };
+		364C30FE1576C82100FEDEB8 /* commentButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = commentButton.png; sourceTree = "<group>"; };
 		365E580B1560992900A9C752 /* TestPuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestPuzzleViewController.h; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.h"; sourceTree = "<group>"; };
 		365E580C1560992900A9C752 /* TestPuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestPuzzleViewController.m; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.m"; sourceTree = "<group>"; };
 		365E580D1560992900A9C752 /* TestPuzzleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestPuzzleViewController.xib; path = "Classes/View Controllers/Create Puzzle/TestPuzzleViewController.xib"; sourceTree = "<group>"; };
@@ -388,9 +390,7 @@
 		36D037FA156DA2E600A7C252 /* GetCommentsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCommentsOperation.h; sourceTree = "<group>"; };
 		36D037FB156DA2E600A7C252 /* GetCommentsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCommentsOperation.m; sourceTree = "<group>"; };
 		36D0380E15702A7E00A7C252 /* boardButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "boardButton@2x.png"; sourceTree = "<group>"; };
-		36D0380F15702A7E00A7C252 /* boardButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "boardButtonPressed@2x.png"; sourceTree = "<group>"; };
 		36D0381015702A7E00A7C252 /* commentButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "commentButton@2x.png"; sourceTree = "<group>"; };
-		36D0381115702A7E00A7C252 /* commentButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "commentButtonPressed@2x.png"; sourceTree = "<group>"; };
 		36D0381C15702F2C00A7C252 /* NavBar-Wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavBar-Wood.png"; sourceTree = "<group>"; };
 		36D0381D15702F2C00A7C252 /* NavBar-Wood@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavBar-Wood@2x.png"; sourceTree = "<group>"; };
 		36D038201570306400A7C252 /* MainBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MainBackground.png; path = Assets/MainBackground.png; sourceTree = "<group>"; };
@@ -936,11 +936,11 @@
 				364C30B11574BBDA00FEDEB8 /* plainButtonWide.png */,
 				364C30B21574BBDA00FEDEB8 /* plainButtonWide@2x.png */,
 				362D62051570CD300096EF40 /* bulbButton@2x.png */,
-				362D62061570CD300096EF40 /* bulbButtonPressed@2x.png */,
 				36D0380E15702A7E00A7C252 /* boardButton@2x.png */,
-				36D0380F15702A7E00A7C252 /* boardButtonPressed@2x.png */,
 				36D0381015702A7E00A7C252 /* commentButton@2x.png */,
-				36D0381115702A7E00A7C252 /* commentButtonPressed@2x.png */,
+				364C30FC1576C82100FEDEB8 /* boardButton.png */,
+				364C30FD1576C82100FEDEB8 /* bulbButton.png */,
+				364C30FE1576C82100FEDEB8 /* commentButton.png */,
 			);
 			name = buttons;
 			path = Assets/buttons;
@@ -1057,9 +1057,7 @@
 				364B979F1569F1FA00B859D7 /* RegisterViewController.xib in Resources */,
 				36D037F1156D949900A7C252 /* LeaderboardsViewController.xib in Resources */,
 				36D0381415702A7E00A7C252 /* boardButton@2x.png in Resources */,
-				36D0381515702A7E00A7C252 /* boardButtonPressed@2x.png in Resources */,
 				36D0381615702A7E00A7C252 /* commentButton@2x.png in Resources */,
-				36D0381715702A7E00A7C252 /* commentButtonPressed@2x.png in Resources */,
 				36D0381E15702F2D00A7C252 /* NavBar-Wood.png in Resources */,
 				36D0381F15702F2D00A7C252 /* NavBar-Wood@2x.png in Resources */,
 				36D038221570306500A7C252 /* MainBackground.png in Resources */,
@@ -1072,7 +1070,6 @@
 				362D61FD1570A7FD0096EF40 /* icon.png in Resources */,
 				362D61FE1570A7FD0096EF40 /* icon@2x.png in Resources */,
 				362D62071570CD300096EF40 /* bulbButton@2x.png in Resources */,
-				362D62081570CD300096EF40 /* bulbButtonPressed@2x.png in Resources */,
 				364C30B31574BBDA00FEDEB8 /* plainButtonLg.png in Resources */,
 				364C30B41574BBDA00FEDEB8 /* plainButtonLg@2x.png in Resources */,
 				364C30B51574BBDA00FEDEB8 /* plainButtonMd.png in Resources */,
@@ -1094,6 +1091,9 @@
 				364C30F01576C76200FEDEB8 /* green@2x.png in Resources */,
 				364C30F11576C76200FEDEB8 /* grey.png in Resources */,
 				364C30F21576C76200FEDEB8 /* grey@2x.png in Resources */,
+				364C30FF1576C82100FEDEB8 /* boardButton.png in Resources */,
+				364C31001576C82100FEDEB8 /* bulbButton.png in Resources */,
+				364C31011576C82100FEDEB8 /* commentButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
