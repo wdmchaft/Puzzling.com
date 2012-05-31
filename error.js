@@ -22,6 +22,8 @@ exports.PUZZLE_DOESNT_EXIST = 8;
 exports.API_KEY = 9;
 exports.BAD_OPERATION = 10;
 exports.MISSING_INFO = 11;
+exports.ALREADY_LIKED = 12;
+exports.ALREADY_DISLIKED = 13;
 // users
 exports.noPassword= "no_password_exists";
 exports.noUser = "no_username_exists";
@@ -103,6 +105,14 @@ exports.send_error = function send_error(errorType, res, dbMessage) { //last par
 			res.statusCode = METHOD_NOT_ALLOWED;
 			res.send({"error": "missing_info", "message": "Sorry. The operation is missing critical info."});
 			break;
+		case this.ALREADY_LIKED:
+		  res.statusCode = INTERNAL_SERVER;
+		  res.send({"error": "already_liked", "message": "User has already liked this puzzle"});
+		  break;
+	  case this.ALREADY_DISLIKED:
+      res.statusCode = INTERNAL_SERVER;
+      res.send({"error": "already_disliked", "message": "User has already disliked this puzzle"});
+      break;
 		default:
 			res.statusCode = INTERNAL_SERVER;
 			res.send({"error": "unknown_error", "message": "Unknown error."});

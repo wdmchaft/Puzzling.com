@@ -29,7 +29,7 @@ exports.verifyRequestApiAUth = verifyRequestApiAuth;
 function verifyApi (req, res, callback) { //callback returns bool success
 		var authHeader = req.headers["authorization"];
 		var keys = authHeader.split(" ");
-		var puzzleKey = keys[0];
+		var puzzleKey = _u.stripNonAlphaNum(keys[0]);
 		req.apiKey = puzzleKey;
 		
     console.log("Verifying API key " + puzzleKey);
@@ -49,20 +49,21 @@ function verifyRequestApiAuth (req, res, callback) {
 			console.log("[auth] can't verify api key and auth token");
 			callback(false);
 		} else {
-
 			var authHeader = req.headers["authorization"];
 			var keys = authHeader.split(" ");
 			var puzzleAuth;
+			
 			if (keys.length == 2) {
-				puzzleAuth = keys[1];
-				req.authToken = keys[1];
+				puzzleAuth = _u.stripNonAlphaNum(keys[1]);
+				req.authToken = puzzleAuth;
 			} else {
 				err.send_error(err.INVALID_AUTHTOKEN, res);
 				callback(false);
 				return;
 			}
 			
-			console.log("Verifying auth token " + puzzleAuth);
+			console.log("Verifying authtoken " + puzzleAuth);
+			
 			if (puzzleAuth == null) {
 				console.log("[auth] can't verify api key and auth token");
 				err.send_error(err.INVALID_AUTHTOKEN, res);
@@ -70,7 +71,7 @@ function verifyRequestApiAuth (req, res, callback) {
 			} else {
 				db.UserModel.findOne({"authToken": puzzleAuth}, function(e, doc) {
 					if (e) {
-                        console.log("[auth] can't verify api key and auth token");
+            console.log("[auth] can't verify api key and auth token");
 						err.send_error(err.DB_ERROR, res);
 						callback(false);
 					} else if (doc == null) {

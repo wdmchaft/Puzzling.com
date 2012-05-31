@@ -20,7 +20,8 @@ var pApp = db.pAppModel
     , User = db.UserModel;
 
 exports.get = function (req, res) {
-    User.find({}).sort("rating", -1).limit(20).execFind(function(err, users) {
+    var fields = ['username', 'friends', 'rating', 'rd', 'user_data'];
+    User.find({}, fields).sort("rating", -1).limit(20).execFind(function(err, users) {
         if(!err) { 
         	Array.prototype.forEach.call(users, function(el) {
         		delete el.authToken;
@@ -39,12 +40,17 @@ var FILTERS = ["rating", "likes", "dislikes", "rd"];
 
 exports.filter = function (req, res) {
     var filter = req.params.filter
-        , puzzleId = req.params.id
         , apiKey = _u.stripNonAlphaNum(req.apiKey)
-        , TargetModel = pApp.findPuzzleModel(apiKey);
+        , TargetModel = pApp.findPuzzleModel(apiKey)
+        , fields = ['creator', 'meta', 'setupData', 
+                    'solutionData', 'type', 'likes', 
+                    'dislikes', 'taken', 'timestamp', 
+                    'rating', 'rd', 'flaggedForRemoval', 
+                    'removed'];
 
+    console.log("[leaderboard] Filtering by " + filter);
     if(FILTERS.indexOf(filter) != -1) {
-        TargetModel.find().sort(filter, -1).execFind(function(err, puzzles) {
+        TargetModel.find({}, fields).sort(filter, -1).execFind(function(err, puzzles) {
             if(!err) {
 	            res.send(JSON.stringify(puzzles));
             } else _e.send_error(_e.DB_ERROR, res);

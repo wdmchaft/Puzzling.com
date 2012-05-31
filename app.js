@@ -118,7 +118,7 @@ app.post('/comment/:id', auth.restrict, comment.post);
 // Leaderboard
 ///////////////
 app.get('/leaderboard/user', auth.restrict, leaderboard.get);
-app.get('/leaderboard/:filter/:id', auth.restrict, leaderboard.filter);
+app.get('/leaderboard/filter/:filter', auth.restrict, leaderboard.filter);
 
 // Start up our server
 app.listen(3000, function(){

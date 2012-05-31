@@ -49,7 +49,7 @@ function createApp(req, res) {
     nApp.name = req.query.name || req.params.name || req.body.name;
     console.log('[papp] creating new application ' + nApp.name);
     nApp.save(function(e) {
-        if (!e) res.send(JSON.stringify({puzzle_id: nApp._id, success:true}));
+        if (!e) res.send(JSON.stringify({app_id: nApp._id, success:true}));
         else {
            console.log('[papp] ' + e.toString());
            err.sendError(err.transactionError, res);
