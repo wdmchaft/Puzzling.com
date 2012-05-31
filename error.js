@@ -119,8 +119,3 @@ exports.send_error = function send_error(errorType, res, dbMessage) { //last par
 			break;
 		}
 }
-
-exports.sendError = function sendError(message, res) {
-    res.statusCode = (this._500_Errors.indexOf(message) != -1) ? 500 : 400;
-    res.send( {error: message} );
-};

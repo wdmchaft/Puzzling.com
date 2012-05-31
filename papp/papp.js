@@ -31,7 +31,7 @@ function getApp(req, res) {
             res.send(JSON.stringify(apps));
         } else {
             console.log('[papp] ' + e.toString());
-            err.sendError(err.transactionError, res);
+            err.send_error(err.DB_ERROR, res);
         }
     });
 }
@@ -52,7 +52,7 @@ function createApp(req, res) {
         if (!e) res.send(JSON.stringify({app_id: nApp._id, success:true}));
         else {
            console.log('[papp] ' + e.toString());
-           err.sendError(err.transactionError, res);
+           err.send_error(err.DB_ERROR, res);
         }
     });
 }
@@ -84,6 +84,6 @@ function deleteApp(req, res) {
             });
             res.send({"success": true});
         }
-        else err.sendError(err.transactionError, res);
+        else err.send_error(err.DB_ERROR, res);
     });
 }
