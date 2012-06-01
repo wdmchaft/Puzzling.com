@@ -178,4 +178,11 @@
 	[self closeConnectionAndFinish];
 }
 
+#pragma mark - NSConnectionDelegate Security Methods
+
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge{
+    //ignore ssl for now
+    [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
+}
+
 @end
