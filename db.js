@@ -147,18 +147,20 @@ Puzzle = new Schema({
         puzzleID : ObjectID
     ,   name : String               /* forgot to include in original specs */
     ,	creator: ObjectID
-    ,	meta : String			    /* JSON; additional metadata */
-    ,	setupData : String			/* JSON of puzzle’s main data */
-    ,	solutionData: String		/* JSON of solution */
-    ,	type : String		        /* user-defined enum */
-    ,	likes : Number			    /* number of upvotes */
-    ,   dislikes : Number			/* number of downvotes */
-    ,	taken : Number			    /* rating == (likes / taken) */
-    ,   timestamp : Date			/* date created */
-    ,	rating : Number			    /* difficulty rating */
-    ,   rd : Number					/* Rating deviation */
-		, flaggedForRemoval : Boolean
-		, removed : Boolean			/* Will not be presented in suggestions */
+    ,	meta : String			            /* JSON; additional metadata */
+    ,	setupData : String			      /* JSON of puzzle’s main data */
+    ,	solutionData: String		      /* JSON of solution */
+    ,	type : String		              /* user-defined enum */
+    ,	likes : Number                /* number of upvotes */
+    , dislikes : Number             /* number of downvotes */
+    ,	taken : Number			          /* rating == (likes / taken) */
+    , timestamp : Date			        /* date created */
+    ,	rating : Number			          /* difficulty rating */
+    , rd : Number					          /* Rating deviation */
+    , previously_liked : [User]     /* list of previous likes / dislike */
+    , previously_disliked : [User]
+		, flaggedForRemoval : Boolean 
+		, removed : Boolean			        /* Will not be presented in suggestions */
     });
 
 // Just in case

@@ -17,7 +17,7 @@ var pApp = db.pAppModel
 , UserModel = db.UserModel;
 
 ///////////////////////
-//		create 		//
+//		create 		    //
 /////////////////////
 
 exports.create = function(req, res) {
@@ -538,31 +538,66 @@ function adjustRating(req, res, playerRating, puzzle, isRated) {
 }
 
 ///////////////////////////////
-// 		Likes / Dislikes 	//
+// 		Likes / Dislikes 	    //
 /////////////////////////////
+
+function likePuzzle(puzzle_id, user, TargetModel, res) {
+  var query = {_id:puzzle_id} 
+    , updates = {$inc : {likes: 1}, $push : {previously_liked : user}}
+    , options = {}
+    , callback = function (e, numAffected) {
+          if(!e) {
+            res.send({"success":true, "numAffected": numAffected});
+          } else err.send_error(err.PUZZLE_DOESNT_EXIST, res);
+        };
+    
+  TargetModel.update(query, updates, options, callback); 
+}
+
+function dislikePuzzle(puzzle_id, user, TargetModel, res) {
+  var query = {_id:puzzle_id} 
+    , updates = {$inc : {dislikes: 1}, $push : {previously_disliked : user}}
+    , options = {}
+    , callback = function (e, numAffected) {
+          if(!e) {
+            res.send({"success":true, "numAffected": numAffected});
+          } else err.send_error(err.PUZZLE_DOESNT_EXIST, res);
+        };
+    
+  TargetModel.update(query, updates, options, callback); 
+}
 
 exports.like = function (req, res) {
 	var puzzle_id = _u.stripNonAlphaNum(req.body['puzzle_id'])
 		, apiKey = _u.stripNonAlphaNum(req.apiKey)
-		, TargetModel = pApp.findPuzzleModel(apiKey);
+		, TargetModel = pApp.findPuzzleModel(apiKey)
+		, user = req.user;
 
 	console.log("[puzzle] : liking puzzle with id " + puzzle_id);
-	TargetModel.update({_id:puzzle_id}, {$inc : {likes: 1}}, {}, callback);
-	function callback(e, numAffected) {
-		if(!e) res.send({"success":true, "numAffected": numAffected});
-		else err.send_error(err.PUZZLE_DOESNT_EXIST, res);
-    }
+	
+	TargetModel.findById(puzzle_id, function(e, puzzle) {
+	   if(!e) {
+	     if(!puzzle.previously_liked.id(user.id)) {
+	       likePuzzle(puzzle_id, user, TargetModel, res);
+       } else err.send_error(err.ALREADY_LIKED, res);
+	   } else err.send_error(err.PUZZLE_DOESNT_EXIST, res);
+	});
 };
 
 exports.dislike = function (req, res) {
 	var puzzle_id = _u.stripNonAlphaNum(req.body['puzzle_id'])
 		, api_key = _u.stripNonAlphaNum(req.apiKey)
-		, TargetModel = pApp.findPuzzleModel(api_key);
+		, TargetModel = pApp.findPuzzleModel(api_key)
+		, user = req.user;
 		
 	console.log("[puzzle] : disliking puzzle with id " + puzzle_id);
-	TargetModel.update({_id:puzzle_id}, {$inc : {dislikes: 1}}, {}, callback);
-	function callback(e, numAffected) {
-		if(!e) res.send({"success":true, "numAffected": numAffected});
-		else err.send_error(err.PUZZLE_DOESNT_EXIST, res);
-	}
+	
+	TargetModel.findById(puzzle_id, function(e, puzzle) {
+     if(!e) {
+       if(!puzzle.previously_disliked.id(user.id))
+         dislikePuzzle(puzzle_id, user , TargetModel, res);
+       else 
+        err.send_error(err.ALREADY_DISLIKED, res);
+     } else err.send_error(err.PUZZLE_DOESNT_EXIST, res);
+  });
 };

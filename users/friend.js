@@ -12,6 +12,7 @@ var db = require('./../db')
     , hash = require('./../hash')
     , user = require('./user')
     , auth = require('./../authentication.js')
+    , error = require('./../error')
     , mongoose = require('mongoose')
 
     , Friend = db.FriendRequestModel;
@@ -39,7 +40,7 @@ exports.request = function(req, res) {
         return;
     }
     if(!(req.params.to && req.params.from)) {
-        sendError(msg.MISSING_INFO, res);
+        error.send_error(err.MISSING_INFO, res);
         return;
     }
 
