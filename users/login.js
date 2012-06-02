@@ -40,7 +40,7 @@ function read(req, res) {
                         'user_data' : foundUser.user_data};
             res.send(JSON.stringify(info));
         } else {
-            err.sendError(err.noMatchingUser, res);
+            err.send_error(err.NO_USER, res);
         }
     });
 }

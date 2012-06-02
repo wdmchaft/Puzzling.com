@@ -8,7 +8,7 @@
 
 #import "PuzzleAPIURLFactory.h"
 //#define ROOT_API_URL @"http://localhost:3000"
-#define ROOT_API_URL @"http://ec2-184-169-151-249.us-west-1.compute.amazonaws.com"
+#define ROOT_API_URL @"https://ec2-184-169-151-249.us-west-1.compute.amazonaws.com"
 
 @implementation PuzzleAPIURLFactory
 
