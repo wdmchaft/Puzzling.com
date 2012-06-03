@@ -102,7 +102,7 @@
 		}
 		label.backgroundColor = [UIColor clearColor];
 		label.font = [UIFont systemFontOfSize:11];
-		label.textColor = [UIColor grayColor];
+		label.textColor = [UIColor darkGrayColor];
 		[self.view addSubview:label];
 	}
 	
@@ -379,7 +379,7 @@
 	
 	if (gr.state == UIGestureRecognizerStateBegan) {
 		ChessPiece *piece = [self.chessModel getPieceAtX:x Y:y];
-		if (piece == nil) {
+		if (piece == nil || (self.playerColor != piece.color && !self.inEditingMode)) {
 			return;
 		}
 		self.pannedPiece = piece;

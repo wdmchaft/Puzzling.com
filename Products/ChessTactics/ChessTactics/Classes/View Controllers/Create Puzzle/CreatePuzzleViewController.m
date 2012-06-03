@@ -19,6 +19,8 @@
 #define EXTRA_PIECE_X 14
 #define EXTRA_PIECE_DIFFERENCE 50
 #define EXTRA_PIECE_Y 331
+#define IMPORT_FEN @"Import FEN"
+#define SUBMIT @"Submit"
 
 @interface CreatePuzzleViewController () <ChessBoardViewControllerDelegate, UIAlertViewDelegate> {
 	ChessBoardViewController *__chessBoardViewController;
@@ -67,6 +69,8 @@
 - (void)addPiecesToView;
 - (void)submitTactic;
 - (void)setHelpMessageForLastPlayerColor:(Color)color;
+- (NSDictionary *)importFen:(NSString *)fen;
+- (void)fenButtonPressed:(id)sender;
 
 @end
 
@@ -97,6 +101,90 @@
 	[self.view addGestureRecognizer:gr];
 	
 	[self setupExtraPieces];
+	
+	[self importFen:@"5k2/5p2/2p2n1N/4q3/2Qp1r2/1r4PK/7P/1B1R4"]; //Fixme: remove
+	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Import FEN" style:UIBarButtonItemStyleBordered target:self action:@selector(fenButtonPressed:)] autorelease];
+}
+
+- (NSDictionary *)importFen:(NSString *)fen
+{
+	int x = 0;
+	int y = 7;
+	int loc = 0;
+	while (loc < fen.length)
+	{
+		char c = [fen characterAtIndex:loc];
+		loc++;
+		Class piece = nil;
+		Color color = -1;
+		switch (c) {
+			case 'p':
+				piece = [Pawn class];
+				color = kBlack;
+				break;
+			case 'r':
+				piece = [Rook class];
+				color = kBlack;
+				break;
+			case 'n':
+				piece = [Knight class];
+				color = kBlack;
+				break;
+			case 'b':
+				piece = [Bishop class];
+				color = kBlack;
+				break;
+			case 'q':
+				piece = [Queen class];
+				color = kBlack;
+				break;
+			case 'k':
+				piece = [King class];
+				color = kBlack;
+				break;
+			case 'P':
+				piece = [Pawn class];
+				color = kWhite;
+				break;
+			case 'R':
+				piece = [Rook class];
+				color = kWhite;
+				break;
+			case 'N':
+				piece = [Knight class];
+				color = kWhite;
+				break;
+			case 'B':
+				piece = [Bishop class];
+				color = kWhite;
+				break;
+			case 'Q':
+				piece = [Queen class];
+				color = kWhite;
+				break;
+			case 'K':
+				piece = [King class];
+				color = kWhite;
+				break;
+			case '/':
+				x = 0;
+				y--;
+				continue;
+				break;
+			case ' ':
+				return nil;
+			default: //its a number
+			{
+				int num = (int)(c - '0');
+				x+=num;
+				continue;
+				break;
+			}
+		}
+		[self.chessBoardViewController addPiece:piece withColor:color toCoordinate:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
+		x++;
+	}
+	return nil;
 }
 
 - (void)dealloc {
@@ -322,13 +410,21 @@
 	
 	self.moveEnteringLabel.hidden = YES;
 	self.backToPlacePiecesButton.hidden = YES;
-	self.changeColorButton.hidden = YES;
+	self.changeColorButton.hidden = NO;
 	[self.nextButton setTitle:@"Enter moves" forState:UIControlStateNormal];
 	
 	//show editing pieces
 	for (ChessPiece *piece in self.extraPieces) {
 		piece.view.hidden = NO;
 	}
+}
+
+- (void)fenButtonPressed:(id)sender
+{
+	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:IMPORT_FEN message:@"Make sure that the board is blank before importing a FEN." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:SUBMIT, nil] autorelease];
+	alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+	[alert show];
+	
 }
 
 #pragma mark - Gesture Recognizers
@@ -379,9 +475,10 @@
 
 #pragma mark - UIAlertViewDelegate
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (self.tacticSubmitted) {
-		[self.navigationController popViewControllerAnimated:YES];
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex 
+{
+	if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:SUBMIT]) {
+		[self importFen:[alertView textFieldAtIndex:0].text];
 	}
 }
 

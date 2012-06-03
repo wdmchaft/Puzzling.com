@@ -34,6 +34,7 @@
 #define LIKE @"Like"
 #define DISLIKE @"Dislike"
 #define FLAG_FOR_REMOVAL @"Flag for Removal"
+#define SET_LIKED_PUZZLES @"set_liked_puzzles"
 
 @interface PlayPuzzleViewController () <ChessBoardViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
 	IBOutlet UILabel *__bottomLabel;
@@ -452,18 +453,33 @@
 		{
 			puzzleID = self.puzzleModel.puzzleID;
 		}
-		if (!self.puzzleModel.creatorID)
+		
+		NSMutableSet *likedPuzzles = [[NSUserDefaults standardUserDefaults] objectForKey:SET_LIKED_PUZZLES];
+		if (likedPuzzles == nil)
+		{
+			[[NSUserDefaults standardUserDefaults] setObject:[NSMutableSet set] forKey:SET_LIKED_PUZZLES];
+			likedPuzzles = [[NSUserDefaults standardUserDefaults] objectForKey:SET_LIKED_PUZZLES];
+		}
+		if ([likedPuzzles containsObject:puzzleID])
+		{
+			[[[[UIAlertView alloc] initWithTitle:@"Can't Like" message:@"You've already liked/disliked this puzzle before." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		}
+		else if (!self.puzzleModel.creatorID)
 		{
 			self.alertView = [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Looks like this tactic hasn't been uploaded to the server yet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
 			[self.alertView show];
-		}
+		}/*
 		else if ([self.puzzleModel.creatorID isEqualToString:[PuzzleCurrentUser currentUser].userID])
 		{
 			self.alertView = [[[UIAlertView alloc] initWithTitle:@"This is your tactic" message:@"You can't like your own tactic." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
 			[self.alertView show];
-		} 
+		} */
 		else
 		{
+			[likedPuzzles addObject:puzzleID];
+			[[NSUserDefaults standardUserDefaults] setObject:likedPuzzles forKey:SET_LIKED_PUZZLES];
+			[[NSUserDefaults standardUserDefaults] synchronize];
+			
 			[[PuzzleSDK sharedInstance] likePuzzle:puzzleID onCompletion:^(PuzzleAPIResponse response, id data) {
 				if (response == PuzzleOperationSuccessful) {
 					[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle was liked." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
