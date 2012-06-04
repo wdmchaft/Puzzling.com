@@ -7,6 +7,7 @@
 //
 
 #import "PuzzleOperationManager.h"
+#import "CreateAppOperation.h"
 #import "GetPuzzleOperation.h"
 #import "CreatePuzzleOperation.h"
 #import "GetPuzzleForUserOperation.h"
@@ -43,6 +44,13 @@
         self.queue = [[[NSOperationQueue alloc] init] autorelease];
     }
     return self;
+}
+
+#pragma mark - App
+-(void) createApp:(NSString *)name onCompletion:(PuzzleOnCompletionBlock)onCompletion{
+    CreateAppOperation * operation = [[CreateAppOperation alloc] initWithName:name onCompletionBlock:onCompletion];
+	[self.queue addOperation:operation];
+	[operation release];
 }
 
 #pragma mark - Puzzles

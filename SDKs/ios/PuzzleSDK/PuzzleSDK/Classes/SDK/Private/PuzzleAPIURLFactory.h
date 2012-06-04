@@ -14,6 +14,7 @@
 
 + (NSURL*)urlForGetPuzzle:(NSString*)puzzleID;
 + (NSURL*)urlForCreateUser;
++ (NSURL*)urlForCreateApp;
 + (NSURL*)urlForGetAuthTokenForUser:(NSString *)username password:(NSString *)password;
 + (NSURL*)urlForDeleteUser;
 + (NSURL*)urlForCreatePuzzle;

@@ -18,6 +18,10 @@ typedef void(^PuzzleOnCompletionBlock)(PuzzleAPIResponse, id);
 
 + (PuzzleSDK *)sharedInstance;
 
+//App
+
+- (void)createApp:(NSString *)name onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
 //Puzzles
 - (void)getPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
 

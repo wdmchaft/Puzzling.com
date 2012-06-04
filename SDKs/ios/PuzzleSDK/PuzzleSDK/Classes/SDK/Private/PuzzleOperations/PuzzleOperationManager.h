@@ -12,6 +12,10 @@
 
 @interface PuzzleOperationManager : NSObject
 
+
+//App
+-(void) createApp:(NSString *)name onCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
 //Puzzles
 - (void)getPuzzleForID:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
 

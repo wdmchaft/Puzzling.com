@@ -43,6 +43,12 @@ PuzzleSDK * sharedInstance = nil;
 }
 
 #pragma mark - Public Methods
+
+#pragma mark - App
+- (void)createApp:(NSString *)name onCompletion:(PuzzleOnCompletionBlock)onCompletion{
+    [self.operationManager createApp:name onCompletion:onCompletion];
+}
+
 #pragma mark - Puzzles
 
 - (void)getPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion {
