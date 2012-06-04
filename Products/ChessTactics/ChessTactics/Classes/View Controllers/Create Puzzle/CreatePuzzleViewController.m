@@ -102,7 +102,7 @@
 	
 	[self setupExtraPieces];
 	
-	[self importFen:@"5k2/5p2/2p2n1N/4q3/2Qp1r2/1r4PK/7P/1B1R4"]; //Fixme: remove
+//	[self importFen:@"5k2/5p2/2p2n1N/4q3/2Qp1r2/1r4PK/7P/1B1R4"]; //Fixme: remove
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Import FEN" style:UIBarButtonItemStyleBordered target:self action:@selector(fenButtonPressed:)] autorelease];
 }
 
@@ -216,6 +216,8 @@
 	__nextButton = nil;
 	[__changeColorButton release];
 	__changeColorButton = nil;
+	[__extraPieces release];
+	__extraPieces = nil;
 	
 	[super dealloc];
 }

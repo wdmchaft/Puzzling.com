@@ -31,6 +31,8 @@ static NSString *serviceName = @"com.puzzle.puzzleSDK";
     SecItemCopyMatching((CFDictionaryRef)searchDictionary,
                                           (CFTypeRef *)&result);
 	
+	[result autorelease];
+	
     [searchDictionary release];
     return result;
 }

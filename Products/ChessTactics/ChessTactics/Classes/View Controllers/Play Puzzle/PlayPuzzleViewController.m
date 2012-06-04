@@ -468,12 +468,12 @@
 		{
 			self.alertView = [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Looks like this tactic hasn't been uploaded to the server yet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
 			[self.alertView show];
-		}/*
+		}
 		else if ([self.puzzleModel.creatorID isEqualToString:[PuzzleCurrentUser currentUser].userID])
 		{
 			self.alertView = [[[UIAlertView alloc] initWithTitle:@"This is your tactic" message:@"You can't like your own tactic." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
 			[self.alertView show];
-		} */
+		}
 		else
 		{
 			[likedPuzzles addObject:puzzleID];

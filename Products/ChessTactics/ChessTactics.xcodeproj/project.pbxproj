@@ -83,12 +83,14 @@
 		3613550C154FA6B9004A056F /* PlayPuzzleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3613550A154FA6B9004A056F /* PlayPuzzleViewController.xib */; };
 		3613550F154FB5DA004A056F /* editingSquareHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 3613550D154FB5DA004A056F /* editingSquareHighlight.png */; };
 		36135510154FB5DA004A056F /* editingSquareHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3613550E154FB5DA004A056F /* editingSquareHighlight@2x.png */; };
+		362B8F52157C4A06001A4C18 /* PuzzlesRatingLeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362B8F51157C4A06001A4C18 /* PuzzlesRatingLeaderboardViewController.m */; };
+		362B8F56157C4C02001A4C18 /* PuzzlesLikesLeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362B8F55157C4C02001A4C18 /* PuzzlesLikesLeaderboardViewController.m */; };
+		362B8F58157C6927001A4C18 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 362B8F57157C6926001A4C18 /* Icon.png */; };
+		362B8F5A157C692C001A4C18 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 362B8F59157C692C001A4C18 /* Icon@2x.png */; };
 		362D61F11570A6CE0096EF40 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362D61EF1570A6CE0096EF40 /* InfoViewController.m */; };
 		362D61F21570A6CE0096EF40 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 362D61F01570A6CE0096EF40 /* InfoViewController.xib */; };
 		362D61F91570A72A0096EF40 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D61F71570A72A0096EF40 /* Default.png */; };
 		362D61FA1570A72A0096EF40 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D61F81570A72A0096EF40 /* Default@2x.png */; };
-		362D61FD1570A7FD0096EF40 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D61FB1570A7FD0096EF40 /* icon.png */; };
-		362D61FE1570A7FD0096EF40 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D61FC1570A7FD0096EF40 /* icon@2x.png */; };
 		362D62041570AAB70096EF40 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 362D62031570AAB70096EF40 /* MessageUI.framework */; };
 		362D62071570CD300096EF40 /* bulbButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D62051570CD300096EF40 /* bulbButton@2x.png */; };
 		362D620B157159A50096EF40 /* FlagForRemovalOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 362D620A157159A50096EF40 /* FlagForRemovalOperation.m */; };
@@ -151,6 +153,7 @@
 		36649DAF1566CAC2001B00F0 /* EnterExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36649DAD1566CAC1001B00F0 /* EnterExplanationViewController.m */; };
 		36649DB01566CAC2001B00F0 /* EnterExplanationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36649DAE1566CAC1001B00F0 /* EnterExplanationViewController.xib */; };
 		3688269E1555E38700801441 /* PuzzleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3688269D1555E38700801441 /* PuzzleDownloader.m */; };
+		36A69E5A157C461000DD5C93 /* LeaderboardPuzzlesOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A69E59157C461000DD5C93 /* LeaderboardPuzzlesOperation.m */; };
 		36D037DD156D8FA100A7C252 /* LeaderboardUsersOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D037DC156D8FA100A7C252 /* LeaderboardUsersOperation.m */; };
 		36D037F0156D949900A7C252 /* LeaderboardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D037EB156D949900A7C252 /* LeaderboardsViewController.m */; };
 		36D037F1156D949900A7C252 /* LeaderboardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36D037EC156D949900A7C252 /* LeaderboardsViewController.xib */; };
@@ -289,13 +292,17 @@
 		3613550A154FA6B9004A056F /* PlayPuzzleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayPuzzleViewController.xib; path = "Classes/View Controllers/Play Puzzle/PlayPuzzleViewController.xib"; sourceTree = "<group>"; };
 		3613550D154FB5DA004A056F /* editingSquareHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = editingSquareHighlight.png; sourceTree = "<group>"; };
 		3613550E154FB5DA004A056F /* editingSquareHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "editingSquareHighlight@2x.png"; sourceTree = "<group>"; };
+		362B8F50157C4A06001A4C18 /* PuzzlesRatingLeaderboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzlesRatingLeaderboardViewController.h; path = "Classes/View Controllers/Leaderboards/PuzzlesRatingLeaderboardViewController.h"; sourceTree = "<group>"; };
+		362B8F51157C4A06001A4C18 /* PuzzlesRatingLeaderboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzlesRatingLeaderboardViewController.m; path = "Classes/View Controllers/Leaderboards/PuzzlesRatingLeaderboardViewController.m"; sourceTree = "<group>"; };
+		362B8F54157C4C02001A4C18 /* PuzzlesLikesLeaderboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzlesLikesLeaderboardViewController.h; path = "Classes/View Controllers/Leaderboards/PuzzlesLikesLeaderboardViewController.h"; sourceTree = "<group>"; };
+		362B8F55157C4C02001A4C18 /* PuzzlesLikesLeaderboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzlesLikesLeaderboardViewController.m; path = "Classes/View Controllers/Leaderboards/PuzzlesLikesLeaderboardViewController.m"; sourceTree = "<group>"; };
+		362B8F57157C6926001A4C18 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
+		362B8F59157C692C001A4C18 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		362D61EE1570A6CE0096EF40 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoViewController.h; path = "Classes/View Controllers/Info/InfoViewController.h"; sourceTree = "<group>"; };
 		362D61EF1570A6CE0096EF40 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoViewController.m; path = "Classes/View Controllers/Info/InfoViewController.m"; sourceTree = "<group>"; };
 		362D61F01570A6CE0096EF40 /* InfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InfoViewController.xib; path = "Classes/View Controllers/Info/InfoViewController.xib"; sourceTree = "<group>"; };
 		362D61F71570A72A0096EF40 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Assets/Default.png; sourceTree = "<group>"; };
 		362D61F81570A72A0096EF40 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Assets/Default@2x.png"; sourceTree = "<group>"; };
-		362D61FB1570A7FD0096EF40 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Assets/icon.png; sourceTree = "<group>"; };
-		362D61FC1570A7FD0096EF40 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "Assets/icon@2x.png"; sourceTree = "<group>"; };
 		362D62031570AAB70096EF40 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		362D62051570CD300096EF40 /* bulbButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bulbButton@2x.png"; sourceTree = "<group>"; };
 		362D6209157159A50096EF40 /* FlagForRemovalOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlagForRemovalOperation.h; sourceTree = "<group>"; };
@@ -378,6 +385,8 @@
 		3688269C1555E38700801441 /* PuzzleDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleDownloader.h; path = "Classes/View Controllers/Play Puzzle/PuzzleDownloader.h"; sourceTree = "<group>"; };
 		3688269D1555E38700801441 /* PuzzleDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleDownloader.m; path = "Classes/View Controllers/Play Puzzle/PuzzleDownloader.m"; sourceTree = "<group>"; };
 		368826A01555EB4C00801441 /* TacticsDataConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TacticsDataConstants.h; path = Classes/TacticsDataConstants.h; sourceTree = "<group>"; };
+		36A69E58157C461000DD5C93 /* LeaderboardPuzzlesOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardPuzzlesOperation.h; sourceTree = "<group>"; };
+		36A69E59157C461000DD5C93 /* LeaderboardPuzzlesOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardPuzzlesOperation.m; sourceTree = "<group>"; };
 		36D037DB156D8FA100A7C252 /* LeaderboardUsersOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardUsersOperation.h; sourceTree = "<group>"; };
 		36D037DC156D8FA100A7C252 /* LeaderboardUsersOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardUsersOperation.m; sourceTree = "<group>"; };
 		36D037EA156D949900A7C252 /* LeaderboardsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaderboardsViewController.h; path = "Classes/View Controllers/Leaderboards/LeaderboardsViewController.h"; sourceTree = "<group>"; };
@@ -619,8 +628,8 @@
 		36099A36154C7CF90006A5F5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				362D61FB1570A7FD0096EF40 /* icon.png */,
-				362D61FC1570A7FD0096EF40 /* icon@2x.png */,
+				362B8F59157C692C001A4C18 /* Icon@2x.png */,
+				362B8F57157C6926001A4C18 /* Icon.png */,
 				362D61F71570A72A0096EF40 /* Default.png */,
 				362D61F81570A72A0096EF40 /* Default@2x.png */,
 				36D038201570306400A7C252 /* MainBackground.png */,
@@ -731,6 +740,8 @@
 				3612F94E155714E2000F761B /* TakePuzzleOperation.m */,
 				36D037DB156D8FA100A7C252 /* LeaderboardUsersOperation.h */,
 				36D037DC156D8FA100A7C252 /* LeaderboardUsersOperation.m */,
+				36A69E58157C461000DD5C93 /* LeaderboardPuzzlesOperation.h */,
+				36A69E59157C461000DD5C93 /* LeaderboardPuzzlesOperation.m */,
 				36D037F7156DA2D200A7C252 /* AddCommentOperation.h */,
 				36D037F8156DA2D200A7C252 /* AddCommentOperation.m */,
 				36D037FA156DA2E600A7C252 /* GetCommentsOperation.h */,
@@ -918,6 +929,10 @@
 				36D037EC156D949900A7C252 /* LeaderboardsViewController.xib */,
 				36D037F4156D94BE00A7C252 /* UsersRatingLeaderboardTableViewController.h */,
 				36D037F5156D94BE00A7C252 /* UsersRatingLeaderboardTableViewController.m */,
+				362B8F50157C4A06001A4C18 /* PuzzlesRatingLeaderboardViewController.h */,
+				362B8F51157C4A06001A4C18 /* PuzzlesRatingLeaderboardViewController.m */,
+				362B8F54157C4C02001A4C18 /* PuzzlesLikesLeaderboardViewController.h */,
+				362B8F55157C4C02001A4C18 /* PuzzlesLikesLeaderboardViewController.m */,
 			);
 			name = Leaderboards;
 			sourceTree = "<group>";
@@ -1067,8 +1082,6 @@
 				362D61F21570A6CE0096EF40 /* InfoViewController.xib in Resources */,
 				362D61F91570A72A0096EF40 /* Default.png in Resources */,
 				362D61FA1570A72A0096EF40 /* Default@2x.png in Resources */,
-				362D61FD1570A7FD0096EF40 /* icon.png in Resources */,
-				362D61FE1570A7FD0096EF40 /* icon@2x.png in Resources */,
 				362D62071570CD300096EF40 /* bulbButton@2x.png in Resources */,
 				364C30B31574BBDA00FEDEB8 /* plainButtonLg.png in Resources */,
 				364C30B41574BBDA00FEDEB8 /* plainButtonLg@2x.png in Resources */,
@@ -1094,6 +1107,8 @@
 				364C30FF1576C82100FEDEB8 /* boardButton.png in Resources */,
 				364C31001576C82100FEDEB8 /* bulbButton.png in Resources */,
 				364C31011576C82100FEDEB8 /* commentButton.png in Resources */,
+				362B8F58157C6927001A4C18 /* Icon.png in Resources */,
+				362B8F5A157C692C001A4C18 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1186,6 +1201,9 @@
 				362D621B157165570096EF40 /* DeflagPuzzleOperation.m in Sources */,
 				362D621E1571656A0096EF40 /* DeletePuzzleOperation.m in Sources */,
 				364C309115744E8300FEDEB8 /* LikeDislikeOperation.m in Sources */,
+				36A69E5A157C461000DD5C93 /* LeaderboardPuzzlesOperation.m in Sources */,
+				362B8F52157C4A06001A4C18 /* PuzzlesRatingLeaderboardViewController.m in Sources */,
+				362B8F56157C4C02001A4C18 /* PuzzlesLikesLeaderboardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

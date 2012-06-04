@@ -23,6 +23,7 @@
 #import "DeletePuzzleOperation.h"
 #import "DeflagPuzzleOperation.h"
 #import "LikeDislikeOperation.h"
+#import "LeaderboardPuzzlesOperation.h"
 
 
 @interface PuzzleOperationManager() <NSURLConnectionDelegate> {
@@ -116,6 +117,20 @@
 - (void)getLeaderboardForUsersOnCompletion:(PuzzleOnCompletionBlock)onCompletion
 {
 	LeaderboardUsersOperation *op = [[LeaderboardUsersOperation alloc] initWithOnCompletionBlock:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
+
+- (void)getLeaderboardForPuzzlesRatingOnCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	LeaderboardPuzzlesOperation *op = [[LeaderboardPuzzlesOperation alloc] initWithRating:YES onCompletionBlock:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
+
+- (void)getLeaderboardForPuzzlesLikesOnCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	LeaderboardPuzzlesOperation *op = [[LeaderboardPuzzlesOperation alloc] initWithRating:NO onCompletionBlock:onCompletion];
 	[self.queue addOperation:op];
 	[op release];
 }

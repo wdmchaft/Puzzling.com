@@ -74,5 +74,12 @@
 {
 	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/dislike",ROOT_API_URL]];
 }
-
++ (NSURL*)urlForLeaderboardPuzzleRating
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/leaderboard/filter/rating",ROOT_API_URL]];
+}
++ (NSURL*)urlForLeaderboardPuzzleLikes
+{
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@/leaderboard/filter/likes",ROOT_API_URL]];
+}
 @end

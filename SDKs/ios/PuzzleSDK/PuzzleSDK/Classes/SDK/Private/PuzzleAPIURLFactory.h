@@ -29,4 +29,6 @@
 + (NSURL*)urlForUpdatePuzzle;
 + (NSURL*)urlForLikePuzzle;
 + (NSURL*)urlForDislikePuzzle;
++ (NSURL*)urlForLeaderboardPuzzleRating;
++ (NSURL*)urlForLeaderboardPuzzleLikes;
 @end

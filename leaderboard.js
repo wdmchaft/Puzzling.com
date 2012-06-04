@@ -42,8 +42,7 @@ exports.filter = function (req, res) {
     var filter = req.params.filter
         , apiKey = _u.stripNonAlphaNum(req.apiKey)
         , TargetModel = pApp.findPuzzleModel(apiKey)
-        , fields = ['creator', 'meta', 'setupData', 
-                    'solutionData', 'type', 'likes', 
+        , fields = ['name', 'creator', 'meta', 'type', 'likes', 
                     'dislikes', 'taken', 'timestamp', 
                     'rating', 'rd', 'flaggedForRemoval', 
                     'removed'];

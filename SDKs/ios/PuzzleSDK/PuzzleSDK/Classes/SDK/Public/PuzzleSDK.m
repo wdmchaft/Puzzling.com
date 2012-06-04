@@ -91,6 +91,18 @@ PuzzleSDK * sharedInstance = nil;
 	[self.operationManager getLeaderboardForUsersOnCompletion:onCompletion];
 }
 
+- (void)getLeaderboardForPuzzlesRatingOnCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	[self.operationManager getLeaderboardForPuzzlesRatingOnCompletion:onCompletion];
+}
+
+- (void)getLeaderboardForPuzzlesLikesOnCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	[self.operationManager getLeaderboardForPuzzlesLikesOnCompletion:onCompletion];
+}
+
+#pragma mark - Comments
+
 - (void)addComment:(NSString *)comment toPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
 {
 	[self.operationManager addComment:comment toPuzzle:puzzleID onCompletion:onCompletion];

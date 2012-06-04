@@ -40,6 +40,8 @@ typedef void(^PuzzleOnCompletionBlock)(PuzzleAPIResponse, id);
 
 //Leaderboard
 - (void)getLeaderboardForUsersOnCompletion:(PuzzleOnCompletionBlock)onCompletion;
+- (void)getLeaderboardForPuzzlesRatingOnCompletion:(PuzzleOnCompletionBlock)onCompletion;
+- (void)getLeaderboardForPuzzlesLikesOnCompletion:(PuzzleOnCompletionBlock)onCompletion;
 
 //Comments
 - (void)addComment:(NSString *)comment toPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
