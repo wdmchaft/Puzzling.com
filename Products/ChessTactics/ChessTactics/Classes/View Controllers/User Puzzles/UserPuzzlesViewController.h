@@ -10,4 +10,8 @@
 
 @interface UserPuzzlesViewController : UITableViewController
 
+@property (nonatomic, readwrite, retain) NSArray *tactics;
+
+- (void)downloadPuzzles;
+
 @end

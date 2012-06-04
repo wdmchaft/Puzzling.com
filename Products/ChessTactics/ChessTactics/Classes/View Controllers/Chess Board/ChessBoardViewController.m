@@ -102,7 +102,7 @@
 		}
 		label.backgroundColor = [UIColor clearColor];
 		label.font = [UIFont systemFontOfSize:11];
-		label.textColor = [UIColor grayColor];
+		label.textColor = [UIColor darkGrayColor];
 		[self.view addSubview:label];
 	}
 	
@@ -227,6 +227,8 @@
 			ChessPiece *piece = [self.chessModel getPieceAtX:x Y:y];
 			if ([piece isKindOfClass:[Pawn class]])
 			{
+				((Pawn *)piece).enPassentEnabledLeft = NO;
+				((Pawn *)piece).enPassentEnabledRight = NO;
 				if (piece.color == kWhite)
 				{
 					if (piece.y == 1)
@@ -279,23 +281,23 @@
 	}
 	[self.recentMoveSquares removeAllObjects];
 	
-	UIImageView * highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"squareHighlight"]];
+	UIImageView * highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"previousSquareHighlight"]];
 	highlight.frame = CGRectMake(startX*self.squareSize, (7-startY)*self.squareSize, self.squareSize, self.squareSize);
 	[self.view addSubview:highlight];
 	[self.recentMoveSquares addObject:highlight];
 	[highlight release];
-	highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"squareHighlight"]];
+	highlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"previousSquareHighlight"]];
 	highlight.frame = CGRectMake(finish.x*self.squareSize, (7-finish.y)*self.squareSize, self.squareSize, self.squareSize);
 	[self.view addSubview:highlight];
 	[self.recentMoveSquares addObject:highlight];
 	[highlight release];
 	
+	self.startPromotionCoord = [[[Coordinate alloc] initWithX:startX Y:startY] autorelease]; //if necessicary
+	
 	[self.chessModel movePiece:piece toX:finish.x Y:finish.y withDelay:[self timeForMoveFrom:[[[Coordinate alloc] initWithX:piece.x Y:piece.y] autorelease] to:[[[Coordinate alloc] initWithX:finish.x Y:finish.y] autorelease]]];
 	
 	if (!self.promotionInProgress && [self.delegate respondsToSelector:@selector(piece:didMoveFromX:Y:pawnPromoted:)]) {
 		[self.delegate piece:piece didMoveFromX:startX Y:startY pawnPromoted:nil];
-	} else if (self.promotionInProgress) {
-		self.startPromotionCoord = [[[Coordinate alloc] initWithX:startX Y:startY] autorelease];
 	}
 }
 
@@ -377,7 +379,7 @@
 	
 	if (gr.state == UIGestureRecognizerStateBegan) {
 		ChessPiece *piece = [self.chessModel getPieceAtX:x Y:y];
-		if (piece == nil) {
+		if (piece == nil || (self.playerColor != piece.color && !self.inEditingMode)) {
 			return;
 		}
 		self.pannedPiece = piece;

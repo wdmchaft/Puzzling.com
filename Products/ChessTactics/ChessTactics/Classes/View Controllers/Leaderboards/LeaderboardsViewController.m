@@ -9,6 +9,8 @@
 #import "LeaderboardsViewController.h"
 #import "UsersRatingLeaderboardTableViewController.h"
 #import "ConstantsForUI.h"
+#import "PuzzlesRatingLeaderboardViewController.h"
+#import "PuzzlesLikesLeaderboardViewController.h"
 
 
 @interface LeaderboardsViewController () {
@@ -56,6 +58,18 @@
 - (IBAction)usersPressed:(id)sender
 {
 	UsersRatingLeaderboardTableViewController *vc = [[[UsersRatingLeaderboardTableViewController alloc] init] autorelease];
+	[self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)puzzlesRatingPressed:(id)sender
+{
+	PuzzlesRatingLeaderboardViewController *vc = [[[PuzzlesRatingLeaderboardViewController alloc] init] autorelease];
+	[self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)puzzlesMostLikedPressed:(id)sender
+{
+	PuzzlesLikesLeaderboardViewController *vc = [[[PuzzlesLikesLeaderboardViewController alloc] init] autorelease];
 	[self.navigationController pushViewController:vc animated:YES];
 }
 

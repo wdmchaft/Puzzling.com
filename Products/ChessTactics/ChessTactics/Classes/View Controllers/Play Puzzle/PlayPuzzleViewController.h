@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "PuzzleSDK.h"
 
+
+#define SHOW_SOLUTION @"Show Solution"
+
 @class PuzzleModel;
 
 @interface PlayPuzzleViewController : UIViewController {
@@ -29,5 +32,7 @@
 - (void)endTactic:(double)score;
 - (void)presentNextTactic;
 - (IBAction)menuPressed:(id)sender;
+- (void)showPuzzleFailMessage:(double)score;
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex;
 
 @end

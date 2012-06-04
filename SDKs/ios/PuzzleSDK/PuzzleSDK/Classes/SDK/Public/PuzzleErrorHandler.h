@@ -21,6 +21,8 @@ typedef enum {
 	PuzzleErrorPuzzleDoesntExist,
 	PuzzleErrorAPIKey,
 	PuzzleErrorMalformedOperation,
+	PuzzleErrorAlreadyLiked,
+	PuzzleErrorAlreadyDisliked,
 	PuzzleErrorInternetProblem,
 	PuzzleErrorConnectionProblem
 } PuzzleAPIResponse;

@@ -37,7 +37,7 @@
 	self.title = @"Enter Explanation";
 	self.view.backgroundColor = BACKGROUND_COLOR;
 	
-	[self.submitButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+//	[self.submitButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 	
 	self.textView.editable = YES;
 	[self.textView becomeFirstResponder];

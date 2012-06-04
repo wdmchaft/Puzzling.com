@@ -55,8 +55,8 @@
 	self.title = @"Test Tactic";
 	self.view.backgroundColor = BACKGROUND_COLOR;
 	
-	[self.submitButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
-	[self.explanationButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+//	[self.submitButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
+//	[self.explanationButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 }
 
 - (void)dealloc {
@@ -119,9 +119,16 @@
 	[[[[UIAlertView alloc] initWithTitle:@"Correct" message:@"Well done. Correct solution." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 }
 
+- (void)showPuzzleFailMessage:(double)score
+{
+	int scoreInt = score * 100 + .5;
+	[[[[UIAlertView alloc] initWithTitle:@"Incorrect" message:[NSString stringWithFormat:@"Sorry, that's not the correct solution.\nScore: %d%", scoreInt] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:SHOW_SOLUTION, nil] autorelease] show];
+}
+
 #pragma mark - Delegate Methods
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	[super alertView:alertView didDismissWithButtonIndex:buttonIndex];
 	if ([alertView.title isEqualToString:SUBMIT_TACTIC]) {
 		if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:SUBMIT]) {
 			[self submitTactic:[alertView textFieldAtIndex:0].text];

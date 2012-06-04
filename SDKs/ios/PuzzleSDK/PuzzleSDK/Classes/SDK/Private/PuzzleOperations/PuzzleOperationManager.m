@@ -24,6 +24,7 @@
 #import "DeletePuzzleOperation.h"
 #import "DeflagPuzzleOperation.h"
 #import "LikeDislikeOperation.h"
+#import "LeaderboardPuzzlesOperation.h"
 
 
 @interface PuzzleOperationManager() <NSURLConnectionDelegate> {
@@ -120,6 +121,20 @@
 	[op release];
 }
 
+- (void)getLeaderboardForPuzzlesRatingOnCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	LeaderboardPuzzlesOperation *op = [[LeaderboardPuzzlesOperation alloc] initWithRating:YES onCompletionBlock:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
+
+- (void)getLeaderboardForPuzzlesLikesOnCompletion:(PuzzleOnCompletionBlock)onCompletion
+{
+	LeaderboardPuzzlesOperation *op = [[LeaderboardPuzzlesOperation alloc] initWithRating:NO onCompletionBlock:onCompletion];
+	[self.queue addOperation:op];
+	[op release];
+}
+
 #pragma mark - Comments
 
 - (void)addComment:(NSString *)comment toPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion
@@ -166,4 +181,11 @@
 	[op release];
 }
 
+- (void)dealloc
+{
+    [puzzle_queue release];
+    puzzle_queue = nil;
+    
+    [super dealloc];
+}
 @end

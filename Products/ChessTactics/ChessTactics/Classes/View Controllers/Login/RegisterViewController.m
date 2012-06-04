@@ -12,7 +12,7 @@
 #import "ConstantsForUI.h"
 
 
-@interface RegisterViewController () 
+@interface RegisterViewController () <UITextFieldDelegate>
 {
 	IBOutlet UITextField *__usernameTextField;
 	IBOutlet UITextField *__passwordTextField;
@@ -37,6 +37,11 @@
 	
 	self.title = @"Register";
 	self.view.backgroundColor = BACKGROUND_COLOR;
+	
+	self.usernameTextField.delegate = self;
+	self.passwordTextField.delegate = self;
+	self.confirmPasswordTextField.delegate = self;
+	self.emailTextField.delegate = self;
 }
 
 - (IBAction)submitButtonPressed:(id)sender
@@ -89,6 +94,29 @@
 	__emailTextField = nil;
 	
 	[super dealloc];
+}
+
+#pragma mark - TextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+	if (textField == self.usernameTextField)
+	{
+		[self.passwordTextField becomeFirstResponder];
+	}
+	if (textField == self.passwordTextField)
+	{
+		[self.confirmPasswordTextField becomeFirstResponder];
+	}
+	if (textField == self.confirmPasswordTextField)
+	{
+		[self.emailTextField becomeFirstResponder];
+	}
+	else if (textField == self.emailTextField)
+	{
+		[self submitButtonPressed:nil];
+	}
+	return YES;
 }
 
 @end

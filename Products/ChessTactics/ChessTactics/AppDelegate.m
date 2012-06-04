@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MainMenuViewController.h"
+#import <Crashlytics/Crashlytics.h>
 
 
 @interface AppDelegate() {
@@ -27,6 +28,8 @@
 	[__rootViewController release];
 	__rootViewController = nil;
 	[_window release];
+	_window = nil;
+	
     [super dealloc];
 }
 
@@ -44,6 +47,9 @@
 	
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+	
+	[Crashlytics startWithAPIKey:@"a2525f75879917ec4cffeeb16345f5aa9bbbeaeb"];
+	
     return YES;
 }
 

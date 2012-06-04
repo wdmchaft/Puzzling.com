@@ -168,7 +168,7 @@
 					<object class="IBUIButton" id="122494385">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{205, 299}, {89, 37}}</string>
+						<string key="NSFrame">{{200, 295}, {100, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="54013337"/>
@@ -183,13 +183,17 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleColor">
+						<object class="NSColor" key="IBUINormalTitleColor" id="696123635">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+							<bytes key="NSRGB">MC4zOTAyODYxOTI2IDAuMTY1MjcxMzU5NCAwAA</bytes>
 						</object>
 						<object class="NSColor" key="IBUINormalTitleShadowColor" id="502252745">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="1063157695">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">plainButtonMd.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="353689792">
 							<int key="type">2</int>
@@ -231,7 +235,7 @@
 					<object class="IBUIButton" id="393488064">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{205, 231}, {89, 37}}</string>
+						<string key="NSFrame">{{200, 228}, {100, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="319332777"/>
@@ -243,18 +247,16 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Download</string>
 						<reference key="IBUIHighlightedTitleColor" ref="23893911"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="696123635"/>
 						<reference key="IBUINormalTitleShadowColor" ref="502252745"/>
+						<reference key="IBUINormalBackgroundImage" ref="1063157695"/>
 						<reference key="IBUIFontDescription" ref="353689792"/>
 						<reference key="IBUIFont" ref="522601025"/>
 					</object>
 					<object class="IBUIButton" id="726817216">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{205, 368}, {89, 37}}</string>
+						<string key="NSFrame">{{200, 365}, {100, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -266,11 +268,9 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Download</string>
 						<reference key="IBUIHighlightedTitleColor" ref="23893911"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="696123635"/>
 						<reference key="IBUINormalTitleShadowColor" ref="502252745"/>
+						<reference key="IBUINormalBackgroundImage" ref="1063157695"/>
 						<reference key="IBUIFontDescription" ref="353689792"/>
 						<reference key="IBUIFont" ref="522601025"/>
 					</object>
@@ -289,11 +289,12 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Contact: chesstacticsapp@gmail.com</string>
 						<reference key="IBUIHighlightedTitleColor" ref="23893911"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="696123635"/>
 						<reference key="IBUINormalTitleShadowColor" ref="502252745"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">plainButtonWide.png</string>
+						</object>
 						<reference key="IBUIFontDescription" ref="353689792"/>
 						<reference key="IBUIFont" ref="522601025"/>
 					</object>
@@ -443,8 +444,8 @@
 							<reference ref="319332777"/>
 							<reference ref="127357434"/>
 							<reference ref="393488064"/>
-							<reference ref="122494385"/>
 							<reference ref="726817216"/>
+							<reference ref="122494385"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -578,6 +579,10 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="plainButtonMd.png">{120, 44}</string>
+			<string key="plainButtonWide.png">{240, 44}</string>
+		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>
 </archive>

@@ -47,8 +47,4 @@
     self.onCompletion(self.response, puzzle); 
 }
 
--(void) dealloc{
-    [super dealloc];
-}
-
 @end

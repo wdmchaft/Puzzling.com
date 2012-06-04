@@ -51,6 +51,14 @@ PuzzleCurrentUser * currentUser = nil;
 	return currentUser;
 }
 
+- (void)dealloc
+{
+	[puzzle_authToken release];
+	puzzle_authToken = nil;
+	
+	[super dealloc];
+}
+
 - (void)save {
 	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
 	[[NSUserDefaults standardUserDefaults] setObject:data forKey:PUZZLE_CURRENT_USER];

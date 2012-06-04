@@ -34,16 +34,23 @@
 	NSString *puzzleID = nil;
 	switch (self.puzzleNumber)
 	{
-		case 0:
-			puzzleID = @"4fb6985b873536f7fe000051";
+		case 3:
+			puzzleID = @"4fc4554737f1dd7a4500002a"; //NxD7
 			break;
-		case 1:
-			puzzleID = @"4fb28825ecac992fc2000036";
+		case 0:
+			puzzleID = @"4fc45724575cd5ce46000012"; //rook-pawn mate
 			break;
 		case 2:
-			puzzleID = @"4fc02384b25f091f110001d4";
+			puzzleID = @"4fc458be575cd5ce46000016"; //Pawn pinned. Mate 2
+			break;
+		case 4:
+			puzzleID = @"4fc45b8c575cd5ce4600002d"; //Queen fork
+			break;
+		case 1:
+			puzzleID = @"4fc45dbc575cd5ce4600005b"; //Rook pinned and taken
 			break;
 		default:
+			puzzleID = nil;
 			break;
 	}
 	
@@ -54,7 +61,7 @@
 
 - (void)presentNextTactic
 {
-	if (self.puzzleNumber >= 2)
+	if (self.puzzleNumber >= 4)
 	{
 		[[[[UIAlertView alloc] initWithTitle:@"That's all" message:@"Sorry, that's all we have for guests. Sign up for all our tactics, the ability to create your own, and get a tactics rating." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 		[self.navigationController popViewControllerAnimated:YES];

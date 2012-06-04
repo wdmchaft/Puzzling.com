@@ -22,7 +22,6 @@
 	UIActivityIndicatorView *__activityView;
 }
 
-@property (nonatomic, readwrite, retain) NSArray *tactics;
 @property (nonatomic, readwrite, retain) UIActivityIndicatorView *activityView;
 
 @end
@@ -35,7 +34,7 @@
 {
     [super viewDidLoad];
 	
-	self.title = @"My Puzzles";
+	self.title = @"My Tactics";
 	self.view.backgroundColor = BACKGROUND_COLOR;
 }
 
@@ -43,6 +42,11 @@
 {
 	[super viewWillAppear:animated];
 	
+	[self downloadPuzzles];
+}
+
+- (void)downloadPuzzles
+{
 	[[PuzzleSDK sharedInstance] getPuzzlesMadeByUser:[PuzzleCurrentUser currentUser].userID onCompletion:^(PuzzleAPIResponse response, NSArray *puzzles) {
 		if (response == PuzzleOperationSuccessful) {
 			if ([puzzles count] == 0) {

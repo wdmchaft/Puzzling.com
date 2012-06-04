@@ -39,6 +39,10 @@
 #pragma mark - Leaderboard
 - (void)getLeaderboardForUsersOnCompletion:(PuzzleOnCompletionBlock)onCompletion;
 
+- (void)getLeaderboardForPuzzlesRatingOnCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
+- (void)getLeaderboardForPuzzlesLikesOnCompletion:(PuzzleOnCompletionBlock)onCompletion;
+
 #pragma mark - Comments
 - (void)addComment:(NSString *)comment toPuzzle:(PuzzleID *)puzzleID onCompletion:(PuzzleOnCompletionBlock)onCompletion;
 

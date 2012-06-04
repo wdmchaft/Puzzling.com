@@ -34,6 +34,10 @@
 		return PuzzleErrorMalformedOperation;
 	} else if ([error isEqualToString:@"missing_info"]) {
 		return PuzzleErrorMalformedOperation;
+	} else if ([error isEqualToString:@"already_liked"]) {
+		return PuzzleErrorAlreadyLiked;
+	} else if ([error isEqualToString:@"already_disliked"]) {
+		return PuzzleErrorAlreadyDisliked;
 	} else {
 		return PuzzleErrorUnknown;
 	}
@@ -81,6 +85,12 @@
 		case PuzzleErrorInternetProblem:
 			return @"Sorry, we're having trouble connecting to the internet. Please check your internet connection and try again.";
 		
+		case PuzzleErrorAlreadyLiked:
+			return @"It looks like you've already liked this puzzle. You can only like a puzzle once.";
+			
+		case PuzzleErrorAlreadyDisliked:
+			return @"It looks like you've already disliked this puzzle. You can only dislike a puzzle once.";
+			
 		default:
 			return @"Unknown error. Sorry.";
 			break;
