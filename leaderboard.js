@@ -51,7 +51,7 @@ exports.filter = function (req, res) {
 
     console.log("[leaderboard] Filtering by " + filter);
     if(FILTERS.indexOf(filter) != -1) {
-        TargetModel.find({"apiKey" : apiKey}, fields).sort(filter, -1).limit(20).execFind(function(err, puzzles) {
+        TargetModel.find({}, fields).sort(filter, -1).limit(20).execFind(function(err, puzzles) {
             if(!err) {
 	            res.send(JSON.stringify(puzzles));
             } else _e.send_error(_e.DB_ERROR, res);
