@@ -29,7 +29,7 @@ function read(req, res) {
     console.log(params);
     console.log("[login] Trying to verify { user %s , password %s }", params.username, params.password);
 
-    userModule.findUserByName(params.username, req, res, function(foundUser, res) {
+    userModule.findUserByName(params.username, req, res, function(foundUser, req, res) {
         if(foundUser && userModule.generateHash(params.password, foundUser.salt) == foundUser.password) {
             // only give back auth token and
             // username; in the future, we may
