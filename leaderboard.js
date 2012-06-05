@@ -22,7 +22,8 @@ var pApp = db.pAppModel
 exports.get = function (req, res) {
 		var apiKey = req.apiKey;
     var fields = ['username', 'friends', 'rating', 'rd', 'user_data'];
-    User.find({"apiKey" : apiKey}, fields).sort("rating", -1).limit(20).execFind(function(err, users) {
+	var query = {"apiKey" : apiKey};
+    User.find(query, fields).sort("rating", -1).limit(20).execFind(function(err, users) {
         if(!err) { 
         	Array.prototype.forEach.call(users, function(el) {
         		delete el.authToken;
