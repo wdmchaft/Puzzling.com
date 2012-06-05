@@ -39,7 +39,7 @@ exports.postData = postData;
 // Handle GET
 
 function get(req, res) {
-    findUserByName(req.params.username, res, function(found, res) {
+    findUserByName(req.params.username, req, res, function(found, res) {
         if(!found) err.send_error(err.NO_USERNAME, res);
         else 
 				{
@@ -259,7 +259,7 @@ function getData(req, res) {
     var targetName = req.params["name"]
         , targetToken = req.query["authToken"];
 
-    findUserByName(targetName, res, function(foundUser, res) {
+    findUserByName(targetName, req, res, function(foundUser, res) {
         if(foundUser && foundUser.authToken === targetToken) {
             res.send(JSON.stringify(foundUser.user_data));
         } else err.send_error(err.NO_MATCHING_USER, res);
