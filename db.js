@@ -70,6 +70,7 @@ User = new Schema({
     ,   rating : Number				    /* Ability at puzzles */
     ,   rd : Number					    /* Rating deviation */
     ,   user_data : String              /* JSON data */
+		,   apiKey : String				/* Identifies which app the user belongs to. Just for leaderboards for now. */
     });
 
 User.methods.generate_password = function(input, salt) {

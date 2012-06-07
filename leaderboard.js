@@ -20,8 +20,10 @@ var pApp = db.pAppModel
     , User = db.UserModel;
 
 exports.get = function (req, res) {
+		var apiKey = req.apiKey;
     var fields = ['username', 'friends', 'rating', 'rd', 'user_data'];
-    User.find({}, fields).sort("rating", -1).limit(20).execFind(function(err, users) {
+	var query = {"apiKey" : apiKey};
+    User.find(query, fields).sort("rating", -1).limit(20).execFind(function(err, users) {
         if(!err) { 
         	Array.prototype.forEach.call(users, function(el) {
         		delete el.authToken;
@@ -49,7 +51,7 @@ exports.filter = function (req, res) {
 
     console.log("[leaderboard] Filtering by " + filter);
     if(FILTERS.indexOf(filter) != -1) {
-        TargetModel.find({}, fields).sort(filter, -1).execFind(function(err, puzzles) {
+        TargetModel.find({removed: false}, fields).sort(filter, -1).limit(20).execFind(function(err, puzzles) {
             if(!err) {
 	            res.send(JSON.stringify(puzzles));
             } else _e.send_error(_e.DB_ERROR, res);

@@ -29,7 +29,7 @@ function read(req, res) {
     console.log(params);
     console.log("[login] Trying to verify { user %s , password %s }", params.username, params.password);
 
-    userModule.findUserByName(params.username, res, function(foundUser, res) {
+    userModule.findUserByName(params.username, req, res, function(foundUser, req, res) {
         if(foundUser && userModule.generateHash(params.password, foundUser.salt) == foundUser.password) {
             // only give back auth token and
             // username; in the future, we may
@@ -50,21 +50,21 @@ function read(req, res) {
 //
 function create(req, res) {
 	console.log("got here");
-    userModule.handle("create", req.body, res);
+    userModule.handle("create", req.body, req, res);
 }
 
 //
 // Success response: { <username>, "success":true }
 //
 function _delete(req, res) {
-    userModule.handle("delete", req.body, res);
+    userModule.handle("delete", req.body, req, res);
 }
 
 //
 // Success response: { <username>, "success":true }
 //
 function update(req, res) {
-    userModule.handle("update", req.body, res);
+    userModule.handle("update", req.body, req, res);
 }
 
 

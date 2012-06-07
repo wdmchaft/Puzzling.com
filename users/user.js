@@ -39,7 +39,7 @@ exports.postData = postData;
 // Handle GET
 
 function get(req, res) {
-    findUserByName(req.params.username, res, function(found, res) {
+    findUserByName(req.params.username, req, res, function(found, res) {
         if(!found) err.send_error(err.NO_USERNAME, res);
         else 
 				{
@@ -82,13 +82,13 @@ var CRUD = {
     "delete"  : deleteCB
 };
 
-function handle(action, params, res){
+function handle(action, params, req, res){
     if(CRUD.hasOwnProperty(action)) {
         console.log("[user] : Handling " + action + " request");
         // save copy to be accessed by callbacks
         res.reqBody = params;
         // call the function callback
-        this.findUserByName(params.username, res, CRUD[action]);
+        this.findUserByName(params.username, req, res, CRUD[action]);
     } else {
         err.send_error(err.BAD_OPERATION, res);
     }
@@ -101,11 +101,11 @@ function handle(action, params, res){
 // fnCallback when done. We want to have the
 // res parameter visible to back to the callback.
  //
-function findUserByName(name, res, fnCallback) {
+function findUserByName(name, req, res, fnCallback) {
     var query = {'username': name };
     User.findOne(query, function(e, found) {
         if(!e) {
-            fnCallback(found, res);
+            fnCallback(found, req, res);
         } else {
 					err.send_error(err.DB_ERROR, res);
 				}
@@ -130,8 +130,9 @@ function generateHash(input, salt) {
 // user info. If successful, returns a dict of
 // {<username>, <authToken>}
 //
-function createCB(existingUser, res) {
+function createCB(existingUser, req, res) {
     console.log('[create] trying to create user ' + res.reqBody["username"]);
+		var apiKey = req.apiKey;
     if(!existingUser) {
         var params = res.reqBody;
         if(!params.hasOwnProperty("username")) {
@@ -152,6 +153,7 @@ function createCB(existingUser, res) {
                    , rating     : DEFAULTS.DEFAULT_RATING
                    , rd         : DEFAULTS.DEFAULT_DEVIATION
                    , user_data  : JSON.stringify(params.user_data) || "{}"
+									 , apiKey			: apiKey
             };
         var newUser = new User(specs);
 
@@ -177,7 +179,7 @@ function createCB(existingUser, res) {
 // We want to check here for auth token because
 // only a user should be able to delete him / herself
 //
-function deleteCB(found, res) {
+function deleteCB(found, req, res) {
     if(found) {
         var name = found.username;
         console.log("[DELETE] : Deleting user " + name);
@@ -196,7 +198,7 @@ function deleteCB(found, res) {
 // the user info
 //
 
-function updateCB(found, res) {
+function updateCB(found, req, res) {
     if(!found) {
         err.send_error(err.NO_MATCHING_USER, res);
         console.log("[UPDATE] : Tried to update user info for username '" + res.reqBody.username + "' but user not found");
@@ -257,7 +259,7 @@ function getData(req, res) {
     var targetName = req.params["name"]
         , targetToken = req.query["authToken"];
 
-    findUserByName(targetName, res, function(foundUser, res) {
+    findUserByName(targetName, req, res, function(foundUser, res) {
         if(foundUser && foundUser.authToken === targetToken) {
             res.send(JSON.stringify(foundUser.user_data));
         } else err.send_error(err.NO_MATCHING_USER, res);

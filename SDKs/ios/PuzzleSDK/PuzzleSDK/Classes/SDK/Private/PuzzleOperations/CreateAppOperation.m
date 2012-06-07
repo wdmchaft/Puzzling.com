@@ -15,15 +15,16 @@
 #define NAME @"name"
 
 @interface CreateAppOperation() {
-
+	NSString *p_name;
 }
+
 @property (nonatomic, retain, readwrite) NSString* name;
 
 @end
 
 @implementation CreateAppOperation
 
-@synthesize name;
+@synthesize name = p_name;
 
 
 -(id)initWithName:(NSString*)name onCompletionBlock:(PuzzleOnCompletionBlock)block{
@@ -51,6 +52,12 @@
     self.onCompletion(self.response, [self.data objectFromJSONData]);
 }
 
-
+- (void)dealloc
+{
+	[p_name release];
+	p_name = nil;
+	
+	[super dealloc];
+}
 
 @end

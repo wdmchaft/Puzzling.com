@@ -1,6 +1,12 @@
+---------------------
+| To Run the Server |
+---------------------
+
+> Activate nvm to upgrade to v0.6.14 (v running without nvm is 0.6.14)
 nvm:
 > . ~/.nvm/nvm.sh
 
+> Restart forever. First, forever stop.
 forever:
 installation:
 (using node v0.6.10)

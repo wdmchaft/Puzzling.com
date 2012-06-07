@@ -18,3 +18,4 @@ SDK/ios/PuzzlingSDK/PuzzlingSDK.xcodeproj/xcuserdata/*
 SDK/ios/PuzzlingSDK/PuzzlingSDK.xcodeproj/project.xcworkspace
 *.log
 mongodb-osx-x86_64-2.0.4/
+SDKs/ios/PuzzleSDK/PuzzleSDK/Classes/SDK/Public/PuzzleAPIKey.h
