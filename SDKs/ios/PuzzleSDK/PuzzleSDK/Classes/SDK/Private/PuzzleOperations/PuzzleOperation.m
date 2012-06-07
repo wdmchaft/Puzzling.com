@@ -96,10 +96,10 @@
 	[puzzle_data release];
 	puzzle_data = nil;
 	
-	if (self.onCompletion) {
-		[self.onCompletion release];
-		self.onCompletion = nil;
-	}
+//	if (self.onCompletion) {
+//		[self.onCompletion release];
+//		self.onCompletion = nil;
+//	}
 
     [super dealloc];
 }
