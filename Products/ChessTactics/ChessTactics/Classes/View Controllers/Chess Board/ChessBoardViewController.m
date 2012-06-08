@@ -12,6 +12,7 @@
 #import "Coordinate.h"
 #import "ChessModel.h"
 #import "TacticsDataConstants.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 #define SECONDS_PER_SQUARE .05
@@ -118,6 +119,8 @@
 }
 
 - (void)dealloc {
+	[self.view.layer removeAllAnimations];
+	[UIView setAnimationDelegate:nil];
 	[__selectedPiece release];
 	__selectedPiece = nil;
 	[__chessModel release];
@@ -408,7 +411,15 @@
 			if (CGRectContainsPoint(self.view.frame, [gr locationInView:self.view])) {
 				int x = [gr locationInView:self.view].x/self.squareSize;
 				int y = 8-[gr locationInView:self.view].y/self.squareSize;
-				[self movePiece:self.pannedPiece to:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
+				if (x<0 || x>7 || y<0 || y>7) //remove puzzle
+				{
+					[self.chessModel removePiece:self.pannedPiece];
+					[self.pannedPiece.view removeFromSuperview];
+				}
+				else
+				{
+					[self movePiece:self.pannedPiece to:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
+				}
 			} else { //remove piece
 				[self.chessModel removePiece:self.pannedPiece];
 				[self.pannedPiece.view removeFromSuperview];

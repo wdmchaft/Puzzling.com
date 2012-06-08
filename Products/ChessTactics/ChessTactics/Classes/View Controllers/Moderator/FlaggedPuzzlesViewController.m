@@ -34,7 +34,7 @@
 {
     [super viewDidLoad];
 	
-	self.title = @"My Puzzles";
+	self.title = @"Flagged Puzzles";
 	self.view.backgroundColor = BACKGROUND_COLOR;
 }
 

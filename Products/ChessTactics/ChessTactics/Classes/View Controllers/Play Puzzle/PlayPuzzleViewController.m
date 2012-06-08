@@ -215,7 +215,7 @@
 		[tempSolutionMoves addObject:chessMove];
 	}
 	self.solutionMoves = tempSolutionMoves;
-
+	
 	if ([self.solutionMoves count] == 0) //try getting info again
 	{
 		self.setupData = nil;
@@ -431,10 +431,21 @@
 }
 
 - (void)newTactic:(UIBarButtonItem *)button {
-	if ([button.title isEqualToString:NEXT_TACTIC]) {
+	if ([button.title isEqualToString:NEXT_TACTIC])
+	{
 		[self presentNextTactic];
-	} else if ([button.title isEqualToString:GIVE_UP]) {
-		[self endTactic:0];
+	}
+	else if ([button.title isEqualToString:GIVE_UP]) 
+	{
+		if (self.rated)
+		{
+			self.alertView = [[[UIAlertView alloc] initWithTitle:GIVE_UP message:@"Are you sure you want to give up?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+			[self.alertView show];
+		}
+		else
+		{
+			[self endTactic:0];
+		}
 	}
 }
 
@@ -465,17 +476,9 @@
 			puzzleID = self.puzzleModel.puzzleID;
 		}
 		
-		NSMutableSet *likedPuzzles = [[NSUserDefaults standardUserDefaults] objectForKey:SET_LIKED_PUZZLES];
-		if (likedPuzzles == nil)
-		{
-			[[NSUserDefaults standardUserDefaults] setObject:[NSMutableSet set] forKey:SET_LIKED_PUZZLES];
-			likedPuzzles = [[NSUserDefaults standardUserDefaults] objectForKey:SET_LIKED_PUZZLES];
-		}
-		if ([likedPuzzles containsObject:puzzleID])
-		{
-			[[[[UIAlertView alloc] initWithTitle:@"Can't Like" message:@"You've already liked/disliked this puzzle before." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
-		}
-		else if (!self.puzzleModel.creatorID)
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:SET_LIKED_PUZZLES]; //To clean up userdefaults. FIXME: probably remove at some point?
+		
+		if (!self.puzzleModel.creatorID)
 		{
 			self.alertView = [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Looks like this tactic hasn't been uploaded to the server yet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
 			[self.alertView show];
@@ -487,13 +490,10 @@
 		}
 		else
 		{
-			[likedPuzzles addObject:puzzleID];
-			[[NSUserDefaults standardUserDefaults] setObject:likedPuzzles forKey:SET_LIKED_PUZZLES];
-			[[NSUserDefaults standardUserDefaults] synchronize];
-			
 			[[PuzzleSDK sharedInstance] likePuzzle:puzzleID onCompletion:^(PuzzleAPIResponse response, id data) {
 				if (response == PuzzleOperationSuccessful) {
-					[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle was liked." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+					self.alertView = [[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle was liked." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+					[self.alertView show];
 				} else {
 					[PuzzleErrorHandler presentErrorForResponse:response];
 				}
@@ -525,7 +525,8 @@
 		{
 			[[PuzzleSDK sharedInstance] dislikePuzzle:puzzleID onCompletion:^(PuzzleAPIResponse response, id data) {
 				if (response == PuzzleOperationSuccessful) {
-					[[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle was disliked." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+					self.alertView = [[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle was disliked." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+					[self.alertView show];
 				} else {
 					[PuzzleErrorHandler presentErrorForResponse:response];
 				}
@@ -568,7 +569,8 @@
 			 {
 				 if (response == PuzzleOperationSuccessful)
 				 {
-					 [[[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle flagged for removal." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+					 self.alertView = [[[UIAlertView alloc] initWithTitle:@"Success" message:@"Puzzle flagged for removal." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+					 [self.alertView show];
 				 }
 				 else
 				 {
@@ -578,8 +580,13 @@
 		}
 		else
 		{
-			[[[[UIAlertView alloc] initWithTitle:@"Unable to flag this puzzle" message:@"Unable to flag this puzzle for removal. Perhaps it hasn't been uploaded to the server yet?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			self.alertView = [[[UIAlertView alloc] initWithTitle:@"Unable to flag this puzzle" message:@"Unable to flag this puzzle for removal. Perhaps it hasn't been uploaded to the server yet?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+			[self.alertView show];
 		}
+	}
+	else if ([alertView.title isEqualToString:GIVE_UP] && [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"])
+	{
+		[self endTactic:0];
 	}
 }
 

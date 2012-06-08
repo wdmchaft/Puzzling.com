@@ -21,6 +21,7 @@
 #define EXTRA_PIECE_Y 331
 #define IMPORT_FEN @"Import FEN"
 #define SUBMIT @"Submit"
+#define NOT_FIRST_PUZZLE @"not_first_puzzle"
 
 @interface CreatePuzzleViewController () <ChessBoardViewControllerDelegate, UIAlertViewDelegate> {
 	ChessBoardViewController *__chessBoardViewController;
@@ -69,7 +70,7 @@
 - (void)addPiecesToView;
 - (void)submitTactic;
 - (void)setHelpMessageForLastPlayerColor:(Color)color;
-- (NSDictionary *)importFen:(NSString *)fen;
+- (void)importFen:(NSString *)fen;
 - (void)fenButtonPressed:(id)sender;
 
 @end
@@ -102,11 +103,18 @@
 	
 	[self setupExtraPieces];
 	
-//	[self importFen:@"r7/3k4/1r6/4K3/8/4R3/8/7R w - - 0 1"]; //Fixme: remove
+//	[self importFen:@"3r3k/6pp/p3Qn2/P3N3/4q3/2P4P/5PP1/6K1 w - - 0 1"]; //Fixme: remove
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Import FEN" style:UIBarButtonItemStyleBordered target:self action:@selector(fenButtonPressed:)] autorelease];
+	
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:NOT_FIRST_PUZZLE])
+	{
+		[[[[UIAlertView alloc] initWithTitle:@"Instructions" message:@"Drag the pieces from the bottom left onto the board. You can move pieces around on the board by dragging them. Tap 'Color: Black' to change the piece's color. Tap 'Enter Moves' to enter the tactic's moves. Then tap 'Test and Submit', test the tactic and tap 'Submit'." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NOT_FIRST_PUZZLE];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
 }
 
-- (NSDictionary *)importFen:(NSString *)fen
+- (void)importFen:(NSString *)fen
 {
 	int x = 0;
 	int y = 7;
@@ -172,7 +180,7 @@
 				continue;
 				break;
 			case ' ':
-				return nil;
+				return;
 			default: //its a number
 			{
 				int num = (int)(c - '0');
@@ -187,10 +195,13 @@
 			x = 0;
 			continue;
 		}
+		if (y >=8)
+		{
+			return;
+		}
 		[self.chessBoardViewController addPiece:piece withColor:color toCoordinate:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
 		x++;
 	}
-	return nil;
 }
 
 - (void)dealloc {

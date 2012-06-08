@@ -88,6 +88,8 @@
 		362B8F58157C6927001A4C18 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 362B8F57157C6926001A4C18 /* Icon.png */; };
 		362B8F5A157C692C001A4C18 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 362B8F59157C692C001A4C18 /* Icon@2x.png */; };
 		362B8F65157DC705001A4C18 /* CreateAppOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 362B8F64157DC705001A4C18 /* CreateAppOperation.m */; };
+		362B8F771582C719001A4C18 /* WelcomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362B8F751582C718001A4C18 /* WelcomViewController.m */; };
+		362B8F781582C719001A4C18 /* WelcomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 362B8F761582C718001A4C18 /* WelcomViewController.xib */; };
 		362D61F11570A6CE0096EF40 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362D61EF1570A6CE0096EF40 /* InfoViewController.m */; };
 		362D61F21570A6CE0096EF40 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 362D61F01570A6CE0096EF40 /* InfoViewController.xib */; };
 		362D61F91570A72A0096EF40 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 362D61F71570A72A0096EF40 /* Default.png */; };
@@ -301,6 +303,9 @@
 		362B8F59157C692C001A4C18 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		362B8F63157DC705001A4C18 /* CreateAppOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAppOperation.h; sourceTree = "<group>"; };
 		362B8F64157DC705001A4C18 /* CreateAppOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAppOperation.m; sourceTree = "<group>"; };
+		362B8F741582C717001A4C18 /* WelcomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WelcomViewController.h; path = "Classes/View Controllers/Info/WelcomViewController.h"; sourceTree = "<group>"; };
+		362B8F751582C718001A4C18 /* WelcomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WelcomViewController.m; path = "Classes/View Controllers/Info/WelcomViewController.m"; sourceTree = "<group>"; };
+		362B8F761582C718001A4C18 /* WelcomViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WelcomViewController.xib; path = "Classes/View Controllers/Info/WelcomViewController.xib"; sourceTree = "<group>"; };
 		362D61EE1570A6CE0096EF40 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoViewController.h; path = "Classes/View Controllers/Info/InfoViewController.h"; sourceTree = "<group>"; };
 		362D61EF1570A6CE0096EF40 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoViewController.m; path = "Classes/View Controllers/Info/InfoViewController.m"; sourceTree = "<group>"; };
 		362D61F01570A6CE0096EF40 /* InfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InfoViewController.xib; path = "Classes/View Controllers/Info/InfoViewController.xib"; sourceTree = "<group>"; };
@@ -812,6 +817,9 @@
 				362D61EE1570A6CE0096EF40 /* InfoViewController.h */,
 				362D61EF1570A6CE0096EF40 /* InfoViewController.m */,
 				362D61F01570A6CE0096EF40 /* InfoViewController.xib */,
+				362B8F741582C717001A4C18 /* WelcomViewController.h */,
+				362B8F751582C718001A4C18 /* WelcomViewController.m */,
+				362B8F761582C718001A4C18 /* WelcomViewController.xib */,
 			);
 			name = Info;
 			sourceTree = "<group>";
@@ -1114,6 +1122,7 @@
 				364C31011576C82100FEDEB8 /* commentButton.png in Resources */,
 				362B8F58157C6927001A4C18 /* Icon.png in Resources */,
 				362B8F5A157C692C001A4C18 /* Icon@2x.png in Resources */,
+				362B8F781582C719001A4C18 /* WelcomViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1210,6 +1219,7 @@
 				362B8F52157C4A06001A4C18 /* PuzzlesRatingLeaderboardViewController.m in Sources */,
 				362B8F56157C4C02001A4C18 /* PuzzlesLikesLeaderboardViewController.m in Sources */,
 				362B8F65157DC705001A4C18 /* CreateAppOperation.m in Sources */,
+				362B8F771582C719001A4C18 /* WelcomViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1273,7 +1283,7 @@
 		36099957154B9B120006A5F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1291,7 +1301,7 @@
 		36099958154B9B120006A5F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

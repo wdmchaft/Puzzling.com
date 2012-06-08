@@ -196,6 +196,10 @@
 }
 
 - (void)movePiece:(ChessPiece *)piece toX:(int)x Y:(int)y withDelay:(NSTimeInterval)seconds {
+	if (x<0 || x>7 || y<0 || y>7)
+	{
+		return; //Crashes have happened here
+	}
 	if ([piece isKindOfClass:[Pawn class]]) {
 		if (((Pawn*)piece).enPassentEnabledLeft == YES && piece.x != x)
 		{
