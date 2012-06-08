@@ -3,7 +3,7 @@
 //  ChessTactics
 //
 //  Created by Peter Livesey on 4/30/12.
-//  Copyright (c) 2012 Stanford. All rights reserved.
+//  Copyright (c) 2012 Lockwood Productions. All rights reserved.
 //
 
 #import "PlayPuzzleViewController.h"
@@ -215,6 +215,17 @@
 		[tempSolutionMoves addObject:chessMove];
 	}
 	self.solutionMoves = tempSolutionMoves;
+
+	if ([self.solutionMoves count] == 0) //try getting info again
+	{
+		self.setupData = nil;
+		self.solutionData = nil;
+		[self.chessBoardViewController.view removeFromSuperview];
+		self.chessBoardViewController = nil;
+		[self viewDidLoad];
+		return;
+	}
+	
 	self.currentMove = 0;
 	
 	self.chessBoardViewController.interactionAllowed = NO;
@@ -523,7 +534,7 @@
 	}
 	else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:FLAG_FOR_REMOVAL])
 	{
-		self.alertView = [[[UIAlertView alloc] initWithTitle:FLAG_FOR_REMOVAL message:@"You should only flag a puzzle for removal if it violates a rule of chess or has problem which makes it unsolvable (more than one potential best move). Make sure you check the comments and explanation before you submit." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:FLAG_FOR_REMOVAL, nil] autorelease];
+		self.alertView = [[[UIAlertView alloc] initWithTitle:FLAG_FOR_REMOVAL message:@"You should only flag a puzzle for removal if it violates a rule of chess or has problem which makes it unsolvable (more than one potential best move). Please make sure to add a comment to this puzzle explaining why you think the puzzle should be removed." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:FLAG_FOR_REMOVAL, nil] autorelease];
 		[self.alertView show];
 	}
 }

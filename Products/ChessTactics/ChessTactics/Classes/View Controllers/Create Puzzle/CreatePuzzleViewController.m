@@ -3,7 +3,7 @@
 //  ChessTactics
 //
 //  Created by Peter Livesey on 4/28/12.
-//  Copyright (c) 2012 Stanford. All rights reserved.
+//  Copyright (c) 2012 Lockwood Productions. All rights reserved.
 //
 
 #import "CreatePuzzleViewController.h"
@@ -102,7 +102,7 @@
 	
 	[self setupExtraPieces];
 	
-//	[self importFen:@"5k2/5p2/2p2n1N/4q3/2Qp1r2/1r4PK/7P/1B1R4"]; //Fixme: remove
+//	[self importFen:@"r7/3k4/1r6/4K3/8/4R3/8/7R w - - 0 1"]; //Fixme: remove
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Import FEN" style:UIBarButtonItemStyleBordered target:self action:@selector(fenButtonPressed:)] autorelease];
 }
 
@@ -180,6 +180,12 @@
 				continue;
 				break;
 			}
+		}
+		if (x >= 8) //theres something with the FEN
+		{
+			y--;
+			x = 0;
+			continue;
 		}
 		[self.chessBoardViewController addPiece:piece withColor:color toCoordinate:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
 		x++;
@@ -423,7 +429,7 @@
 
 - (void)fenButtonPressed:(id)sender
 {
-	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:IMPORT_FEN message:@"Make sure that the board is blank before importing a FEN." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:SUBMIT, nil] autorelease];
+	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:IMPORT_FEN message:@"Make sure that the board is blank before importing a FEN. Note: Only the piece locations are processed." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:SUBMIT, nil] autorelease];
 	alert.alertViewStyle = UIAlertViewStylePlainTextInput;
 	[alert show];
 	

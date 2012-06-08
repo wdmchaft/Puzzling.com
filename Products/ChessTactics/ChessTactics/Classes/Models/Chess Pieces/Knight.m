@@ -3,7 +3,7 @@
 //  Frisky Chess
 //
 //  Created by Peter Livesey on 1/11/12.
-//  Copyright (c) 2012 Stanford. All rights reserved.
+//  Copyright (c) 2012 Lockwood Productions. All rights reserved.
 //
 
 #import "Knight.h"
