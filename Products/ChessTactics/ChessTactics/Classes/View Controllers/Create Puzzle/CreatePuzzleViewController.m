@@ -103,7 +103,7 @@
 	
 	[self setupExtraPieces];
 	
-//	[self importFen:@"3r3k/6pp/p3Qn2/P3N3/4q3/2P4P/5PP1/6K1 w - - 0 1"]; //Fixme: remove
+//	[self importFen:@"2r1n2k/1pNqnrb1/pP2b2p/P2pp1p1/2N2p2/B2PP1P1/4QPBP/1R3RK1 w - - 0 1"]; //Fixme: remove
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Import FEN" style:UIBarButtonItemStyleBordered target:self action:@selector(fenButtonPressed:)] autorelease];
 	
 	if (![[NSUserDefaults standardUserDefaults] boolForKey:NOT_FIRST_PUZZLE])

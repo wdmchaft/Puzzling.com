@@ -164,33 +164,33 @@
 	
 	//Castling - right now its disabled
 	/*if ([piece isKindOfClass:[King class]] && !piece.moved) {
-		ChessPiece * rook = [self getPieceAtX:0 Y:piece.y];
-		if (rook && !rook.moved) {
-			BOOL canCastle = YES;
-			for (int i = 1; i<piece.x; i++) {
-				if ([self getPieceAtX:i Y:piece.y]) {
-					canCastle = NO;
-					break;
-				}
-			}
-			if (canCastle) {
-				[temp addObject:[[[Coordinate alloc] initWithX:2 Y:piece.y] autorelease]];
-			}
-		}
-		rook = [self getPieceAtX:7 Y:piece.y];
-		if (rook && !rook.moved) {
-			BOOL canCastle = YES;
-			for (int i = piece.x+1; i<7; i++) {
-				if ([self getPieceAtX:i Y:piece.y]) {
-					canCastle = NO;
-					break;
-				}
-			}
-			if (canCastle) {
-				[temp addObject:[[[Coordinate alloc] initWithX:6 Y:piece.y] autorelease]];
-			}
-		}
-	}*/
+	 ChessPiece * rook = [self getPieceAtX:0 Y:piece.y];
+	 if (rook && !rook.moved) {
+	 BOOL canCastle = YES;
+	 for (int i = 1; i<piece.x; i++) {
+	 if ([self getPieceAtX:i Y:piece.y]) {
+	 canCastle = NO;
+	 break;
+	 }
+	 }
+	 if (canCastle) {
+	 [temp addObject:[[[Coordinate alloc] initWithX:2 Y:piece.y] autorelease]];
+	 }
+	 }
+	 rook = [self getPieceAtX:7 Y:piece.y];
+	 if (rook && !rook.moved) {
+	 BOOL canCastle = YES;
+	 for (int i = piece.x+1; i<7; i++) {
+	 if ([self getPieceAtX:i Y:piece.y]) {
+	 canCastle = NO;
+	 break;
+	 }
+	 }
+	 if (canCastle) {
+	 [temp addObject:[[[Coordinate alloc] initWithX:6 Y:piece.y] autorelease]];
+	 }
+	 }
+	 }*/
 	
 	return [NSArray arrayWithArray:temp];
 }
@@ -237,7 +237,10 @@
 		}
 	}
 	[[piece retain] autorelease]; //so it isn't released when its taken out of the model
-	[[self.board objectAtIndex:piece.x] replaceObjectAtIndex:piece.y withObject:[NSNull null]];
+	if (!(piece.x == x && piece.y == y) || piece == [self getPieceAtX:x Y:y]) //Fixed a bug where replacing a piece on the board with one off the board never removed the original piece's view
+	{
+		[[self.board objectAtIndex:piece.x] replaceObjectAtIndex:piece.y withObject:[NSNull null]];
+	}
 	piece.x = x;
 	piece.y = y;
 	piece.moved = YES;

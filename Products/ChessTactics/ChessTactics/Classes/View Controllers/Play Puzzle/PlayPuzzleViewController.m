@@ -53,6 +53,8 @@
 	PuzzleID *__puzzleID;
 	
 	UIAlertView *__alertView;
+	
+	BOOL __attemptedRetry;
 }
 
 @property (nonatomic, readwrite, retain) ChessBoardViewController *chessBoardViewController;
@@ -61,6 +63,7 @@
 @property (nonatomic, readwrite, assign) Color playerColor;
 @property (nonatomic, readwrite, assign) BOOL tacticStarted;
 @property (nonatomic, readwrite, assign) BOOL showingSolution;
+@property (nonatomic, readwrite, assign) BOOL attemptedRetry;
 @property (nonatomic, readwrite, assign) dispatch_queue_t dispatchQueue;
 @property (nonatomic, readwrite, retain) UIBarButtonItem *nextTacticButton;
 
@@ -83,7 +86,7 @@
 
 @implementation PlayPuzzleViewController
 
-@synthesize chessBoardViewController = __chessBoardViewController, solutionMoves = __solutionMoves, currentMove = __currentMove, playerColor = __playerColor, tacticStarted = __tacticStarted, dispatchQueue = __dispatchQueue, puzzleModel = __puzzleModel, showingSolution = __showingSolution, bottomLabel = __bottomLabel, nextTacticButton = __nextTacticButton, rated = __rated, setupData = __setupData, solutionData = __solutionData, hiddenButtonsView = __hiddenButtonsView, puzzleID = __puzzleID, alertView = __alertView;
+@synthesize chessBoardViewController = __chessBoardViewController, solutionMoves = __solutionMoves, currentMove = __currentMove, playerColor = __playerColor, tacticStarted = __tacticStarted, dispatchQueue = __dispatchQueue, puzzleModel = __puzzleModel, showingSolution = __showingSolution, bottomLabel = __bottomLabel, nextTacticButton = __nextTacticButton, rated = __rated, setupData = __setupData, solutionData = __solutionData, hiddenButtonsView = __hiddenButtonsView, puzzleID = __puzzleID, alertView = __alertView, attemptedRetry = __attemptedRetry;
 
 #pragma mark - View Life Cycle
 
@@ -222,7 +225,16 @@
 		self.solutionData = nil;
 		[self.chessBoardViewController.view removeFromSuperview];
 		self.chessBoardViewController = nil;
-		[self viewDidLoad];
+		if (self.attemptedRetry)
+		{
+			self.alertView = [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry something went wrong loading the puzzle." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+			[self.alertView show];
+		}
+		else
+		{
+			self.attemptedRetry = YES;
+			[self viewDidLoad];
+		}
 		return;
 	}
 	
@@ -248,7 +260,7 @@
 	{
 		[self setHelpMessageForLastPlayerColor:self.playerColor==kWhite?kBlack:kWhite];
 	}
-	if ([moveComputerFirst boolValue]) {
+	if ([moveComputerFirst boolValue] || self.showingSolution) {
 		ChessMove *move = [self.solutionMoves objectAtIndex:self.currentMove];
 		[self.chessBoardViewController movePieceFromX:move.start.x Y:move.start.y toX:move.finish.x Y:move.finish.y promotion:move.promotionType];
 		self.currentMove++;
