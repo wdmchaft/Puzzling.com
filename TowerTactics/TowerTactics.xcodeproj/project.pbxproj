@@ -336,6 +336,7 @@
 		70AF46BA11446DFA003B02D0 /* statusbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusbar.png; sourceTree = "<group>"; };
 		70AF46BC11446DFA003B02D0 /* upgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upgrade.png; sourceTree = "<group>"; };
 		70AFFC8C115041D70085DDAE /* failure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = failure.png; sourceTree = "<group>"; };
+		70B13E3915851F9500D12FEC /* PuzzleAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleAPIKey.h; sourceTree = SOURCE_ROOT; };
 		70B4DDE315573D6B00243E64 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		70B4DDE515573F5000243E64 /* Main_View.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Main_View.png; path = pathimages/Main_View.png; sourceTree = SOURCE_ROOT; };
 		70B4DDE715574ECD00243E64 /* Select_Path.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Select_Path.png; path = pathimages/Select_Path.png; sourceTree = SOURCE_ROOT; };
@@ -429,7 +430,6 @@
 		70F93ED615809E9E009DCC04 /* PuzzleUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleUser.m; sourceTree = "<group>"; };
 		70F93ED715809E9E009DCC04 /* TakePuzzleResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePuzzleResults.h; sourceTree = "<group>"; };
 		70F93ED815809E9E009DCC04 /* TakePuzzleResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePuzzleResults.m; sourceTree = "<group>"; };
-		70F93ED915809E9E009DCC04 /* PuzzleAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleAPIKey.h; sourceTree = "<group>"; };
 		70F93EDA15809E9E009DCC04 /* PuzzleErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleErrorHandler.h; sourceTree = "<group>"; };
 		70F93EDB15809E9E009DCC04 /* PuzzleErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleErrorHandler.m; sourceTree = "<group>"; };
 		70F93EDC15809E9E009DCC04 /* PuzzleSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleSDK.h; sourceTree = "<group>"; };
@@ -508,6 +508,7 @@
 		080E96DDFE201D6D7F000001 /* MainClasses */ = {
 			isa = PBXGroup;
 			children = (
+				70B13E3915851F9500D12FEC /* PuzzleAPIKey.h */,
 				70F93E9915809E9E009DCC04 /* SDK */,
 				70A4455B1573399100DF6C0A /* Login */,
 				70A29668157DF897001E0732 /* PuzzlePlaying */,
@@ -971,7 +972,6 @@
 			isa = PBXGroup;
 			children = (
 				70F93ECE15809E9E009DCC04 /* Puzzle Models */,
-				70F93ED915809E9E009DCC04 /* PuzzleAPIKey.h */,
 				70F93EDA15809E9E009DCC04 /* PuzzleErrorHandler.h */,
 				70F93EDB15809E9E009DCC04 /* PuzzleErrorHandler.m */,
 				70F93EDC15809E9E009DCC04 /* PuzzleSDK.h */,
