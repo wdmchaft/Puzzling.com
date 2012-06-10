@@ -1,0 +1,31 @@
+user:jtilley (Tilley, Jonathan)
+user:bobwei17 (Wei, Yizhong)
+
+Project Description:
+
+Our iPhone application is a Tower Defense game. The objective of the game is to place different types of towers in strategic positions that reduce the enemy's chances of successfully crossing the path to your kingdom. If your life count dwindles to zero, you lose. If you successfully defend against the 10th wave of enemies, you win!
+
+Running the application:
+
+Just run and play!
+
+Extra details:
+
+Tap the screen to exit the game once you've won/lost.
+
+Highlights of our code:
+
+The gameplay in our code features several intricate superclasses: TDTower, TDEnemy, TDPath, TDEnemyGenerator, and TDBullet. The first two have been subclassed to provide additional customization; for example, instances of TDJabbaEnemy move faster but have worse health, while instances of  TDIceTowers fire ice bullets that freeze our enemies, slowing them down, as well as dealing them damage. As you can see, our program adheres nicely to the MVC model of OOP; our TDRunLoop class controls the flow of the game, the our mainview class controls the view, and the data itself is stored within our towers, enemies, and bullets. With a total of 22 classes in our project, one can appreciate the sheer enormity of the code it took to create our tower defines game.
+
+We thought that a couple parts of our project are pretty cool:
+- Instances of TDPath are initialized with the name of property lists that contain the corners of the paths. Our program will construct a full path from the property list and feed that information into each enemy during initialization, which will tell the enemy where and when to turn. Also, towers cannot be placed on paths.
+- As you can guess, getting the bullets to hit a moving enemy spot-on took a fair amount of math to calculate the correct trajectories, which included calculating where the enemy was going to be when the bullet hit, as well as the speed and direction of the bullet.
+- Objective C is a cool language, but there were certain conveniences in C that could still come in handy. For us, we have a file called ConvenienceMethods.h that contains some #defined math functions such as gripSnap(int value), which takes a pixel number and returns the grid number. Using this is nice because #define directive simply substitutes identifiers for a token string, offering speed and simplicity.
+(Note: the errors that show up when building come from this C class, since each class that takes advantage of its methods cannot import it due to a double inclusion error)
+- To support the full gameplay experience, we have included commonly desired features: a difficulty level that will determine the path you play, victory and death screens that upon click can take you immediately back to the gameplay page, info about our game, and of course, instructions.
+- The flow of our game is ultimately controlled by an NSTimer, and the movement of graphics is simply the manipulation of the geometry and coordinates of a UIImageView. Even without profound knowledge of or experience with iPhone graphics, we were able to take simple tools offered by Objective C and turn them into an interactive, fully-playable, and even challenging game.
+
+
+
+
+

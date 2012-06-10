@@ -1,0 +1,25 @@
+diff --cc SDKs/ios/PuzzleSDK/PuzzleSDK/Classes/SDK/Private/PuzzleOperations/PuzzleOperationManager.m
+index c85fed0,d94ee92..0000000
+--- a/SDKs/ios/PuzzleSDK/PuzzleSDK/Classes/SDK/Private/PuzzleOperations/PuzzleOperationManager.m
++++ b/SDKs/ios/PuzzleSDK/PuzzleSDK/Classes/SDK/Private/PuzzleOperations/PuzzleOperationManager.m
+@@@ -46,11 -46,12 +47,20 @@@
+      return self;
+  }
+  
+++<<<<<<< HEAD
+ +#pragma mark - App
+ +-(void) createApp:(NSString *)name onCompletion:(PuzzleOnCompletionBlock)onCompletion{
+ +    CreateAppOperation * operation = [[CreateAppOperation alloc] initWithName:name onCompletionBlock:onCompletion];
+ +	[self.queue addOperation:operation];
+ +	[operation release];
+++=======
++ - (void)dealloc
++ {
++ 	[puzzle_queue release];
++ 	puzzle_queue = nil;
++ 	
++ 	[super dealloc];
+++>>>>>>> 9f8b5c62fc66b5e6dbc6c27c565b0df97aa10a2c
+  }
+  
+  #pragma mark - Puzzles
