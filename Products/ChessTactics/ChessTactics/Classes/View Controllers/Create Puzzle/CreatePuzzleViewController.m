@@ -3,7 +3,7 @@
 //  ChessTactics
 //
 //  Created by Peter Livesey on 4/28/12.
-//  Copyright (c) 2012 Stanford. All rights reserved.
+//  Copyright (c) 2012 Lockwood Productions. All rights reserved.
 //
 
 #import "CreatePuzzleViewController.h"
@@ -21,6 +21,7 @@
 #define EXTRA_PIECE_Y 331
 #define IMPORT_FEN @"Import FEN"
 #define SUBMIT @"Submit"
+#define NOT_FIRST_PUZZLE @"not_first_puzzle"
 
 @interface CreatePuzzleViewController () <ChessBoardViewControllerDelegate, UIAlertViewDelegate> {
 	ChessBoardViewController *__chessBoardViewController;
@@ -69,7 +70,7 @@
 - (void)addPiecesToView;
 - (void)submitTactic;
 - (void)setHelpMessageForLastPlayerColor:(Color)color;
-- (NSDictionary *)importFen:(NSString *)fen;
+- (void)importFen:(NSString *)fen;
 - (void)fenButtonPressed:(id)sender;
 
 @end
@@ -102,11 +103,18 @@
 	
 	[self setupExtraPieces];
 	
-//	[self importFen:@"5k2/5p2/2p2n1N/4q3/2Qp1r2/1r4PK/7P/1B1R4"]; //Fixme: remove
+//	[self importFen:@"2r1n2k/1pNqnrb1/pP2b2p/P2pp1p1/2N2p2/B2PP1P1/4QPBP/1R3RK1 w - - 0 1"]; //Fixme: remove
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Import FEN" style:UIBarButtonItemStyleBordered target:self action:@selector(fenButtonPressed:)] autorelease];
+	
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:NOT_FIRST_PUZZLE])
+	{
+		[[[[UIAlertView alloc] initWithTitle:@"Instructions" message:@"Drag the pieces from the bottom left onto the board. You can move pieces around on the board by dragging them. Tap 'Color: Black' to change the piece's color. Tap 'Enter Moves' to enter the tactic's moves. Then tap 'Test and Submit', test the tactic and tap 'Submit'." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NOT_FIRST_PUZZLE];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
 }
 
-- (NSDictionary *)importFen:(NSString *)fen
+- (void)importFen:(NSString *)fen
 {
 	int x = 0;
 	int y = 7;
@@ -172,7 +180,7 @@
 				continue;
 				break;
 			case ' ':
-				return nil;
+				return;
 			default: //its a number
 			{
 				int num = (int)(c - '0');
@@ -181,10 +189,19 @@
 				break;
 			}
 		}
+		if (x >= 8) //theres something with the FEN
+		{
+			y--;
+			x = 0;
+			continue;
+		}
+		if (y >=8)
+		{
+			return;
+		}
 		[self.chessBoardViewController addPiece:piece withColor:color toCoordinate:[[[Coordinate alloc] initWithX:x Y:y] autorelease]];
 		x++;
 	}
-	return nil;
 }
 
 - (void)dealloc {
@@ -423,7 +440,7 @@
 
 - (void)fenButtonPressed:(id)sender
 {
-	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:IMPORT_FEN message:@"Make sure that the board is blank before importing a FEN." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:SUBMIT, nil] autorelease];
+	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:IMPORT_FEN message:@"Make sure that the board is blank before importing a FEN. Note: Only the piece locations are processed." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:SUBMIT, nil] autorelease];
 	alert.alertViewStyle = UIAlertViewStylePlainTextInput;
 	[alert show];
 	

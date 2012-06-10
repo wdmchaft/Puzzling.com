@@ -3,7 +3,7 @@
 //  ChessTactics
 //
 //  Created by Peter Livesey on 4/28/12.
-//  Copyright (c) 2012 Stanford. All rights reserved.
+//  Copyright (c) 2012 Lockwood Productions. All rights reserved.
 //
 
 #import "MainMenuViewController.h"
@@ -18,10 +18,13 @@
 #import "InfoViewController.h"
 #import "FlaggedPuzzlesViewController.h"
 #import "TacticsDataConstants.h"
+#import "WelcomViewController.h"
 
 
 #define LOGOUT @"Logout"
 #define INFO @"Info"
+#define HOW_THIS_APP_WORKS @"How this App Works"
+#define NUMBER_OF_TIMES_PLAYED @"number_times_played"
 
 @interface MainMenuViewController() <UIActionSheetDelegate, UIAlertViewDelegate> {
 	IBOutlet UIButton *__tacticsButton;
@@ -39,6 +42,7 @@
 
 - (void)menuButtonPressed:(id)sender;
 - (void)showLoginViewController:(BOOL)animated;
+- (void)showWelcomeViewController;
 - (void)flaggedPressed:(id)sender;
 
 @end
@@ -56,7 +60,17 @@
 	{
 		[self showLoginViewController:NO];
 	}
-	
+	else
+	{
+		int num = [[NSUserDefaults standardUserDefaults] integerForKey:NUMBER_OF_TIMES_PLAYED];
+		if (num == 0) //1st time playing after closing the app
+		{
+			[self showWelcomeViewController];
+		}
+		num++;
+		[[NSUserDefaults standardUserDefaults] setInteger:num forKey:NUMBER_OF_TIMES_PLAYED];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
 //	[self.tacticsButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 //	[self.createButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
 //	[self.userButton setBackgroundImage:PLAIN_BUTTON_BACKGROUND_IMAGE forState:UIControlStateNormal];
@@ -122,9 +136,19 @@
 	[self presentModalViewController:navCon animated:animated];
 }
 
+- (void)showWelcomeViewController
+{
+	WelcomViewController *vc = [[[WelcomViewController alloc] init] autorelease];
+	UINavigationController *navCon = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
+	UIImage *navBarImage = [UIImage imageNamed: @"NavBar-Wood"];
+	[navCon.navigationBar setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
+	navCon.navigationBar.tintColor = [UIColor brownColor];
+	[self presentModalViewController:navCon animated:YES];
+}
+
 - (void)menuButtonPressed:(id)sender
 {
-	UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:@"Menu" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:LOGOUT otherButtonTitles:INFO, nil] autorelease];
+	UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:@"Menu" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:LOGOUT otherButtonTitles:INFO, HOW_THIS_APP_WORKS, nil] autorelease];
 	[sheet showInView:self.view];
 }
 
@@ -169,6 +193,10 @@
 		[navCon.navigationBar setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
 		navCon.navigationBar.tintColor = [UIColor brownColor];
 		[self presentModalViewController:navCon animated:YES];
+	}
+	else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:HOW_THIS_APP_WORKS])
+	{
+		[self showWelcomeViewController];
 	}
 }
 

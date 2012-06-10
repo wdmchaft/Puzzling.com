@@ -3,7 +3,7 @@
 //  PuzzleSDK
 //
 //  Created by Peter Livesey on 4/23/12.
-//  Copyright (c) 2012 Stanford. All rights reserved.
+//  Copyright (c) 2012 Lockwood Productions. All rights reserved.
 //
 
 #import "PuzzleUser.h"

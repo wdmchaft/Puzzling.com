@@ -3,7 +3,7 @@
 //  ChessTactics
 //
 //  Created by Peter Livesey on 5/26/12.
-//  Copyright (c) 2012 Stanford. All rights reserved.
+//  Copyright (c) 2012 Lockwood Productions. All rights reserved.
 //
 
 #import "FlaggedPuzzlesViewController.h"
@@ -34,7 +34,7 @@
 {
     [super viewDidLoad];
 	
-	self.title = @"My Puzzles";
+	self.title = @"Flagged Puzzles";
 	self.view.backgroundColor = BACKGROUND_COLOR;
 }
 
