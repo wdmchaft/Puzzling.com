@@ -26,6 +26,9 @@
 	NSString *difficultyString;
 }
 
+@property (nonatomic, retain) IBOutlet UILabel* ratingLabel;
+
+
 -(void)beginGame;
 -(IBAction)getInstructions;
 -(IBAction)getInfo;

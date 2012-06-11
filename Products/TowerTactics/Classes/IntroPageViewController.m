@@ -9,9 +9,10 @@
 #import "IntroPageViewController.h"
 #import "PuzzleSDK.h"
 #import "PuzzleModel.h"
+#import "PuzzleCurrentUser.h"
 
 @implementation IntroPageViewController
-
+@synthesize ratingLabel;
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -36,7 +37,12 @@
 	//titleLine.font = [UIFont fontWithName:@"Zapfino" size:22.0];
 }
 
-
+-(void) viewWillAppear:(BOOL)animated{
+    PuzzleCurrentUser* user = [PuzzleCurrentUser currentUser];
+    if(user){
+        ratingLabel.text = [NSString stringWithFormat:@"%@'s rating: %d", user.username, user.rating];
+    }
+}
 /*
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
